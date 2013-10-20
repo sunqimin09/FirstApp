@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+     <!-- 黑色 -->
+   <drawable name="back">#000000</drawable>
+   
+   	<!-- 白色 -->
+   <drawable name="white">#ffffff</drawable>
+</resources>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.appcolleageentrance"
+    android:versionCode="6"
+    android:versionName="1.5" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="17" />
+
+    <!--以下两个为新增必选权限！-->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    
+    
+    <!-- 必须申明的权限 -->
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <!-- SDK 2.1新增权限，建议使用 -->
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> 
+  <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+  <!-- SDK 3.0新增权限，建议使用(可选) -->
+  <uses-permission android:name="android.permission.RECORD_AUDIO" /> 
+	<uses-permission android:name="android.permission.VIBRATE" />
+	<uses-permission android:name="android.permission.CAMERA" />
+  <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS" /> 
+   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+   <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <!-- 您从百度移动联盟网站获取的APPSID -->
+		<meta-data android:name="BaiduMobAd_APP_ID" android:value="afa10242" /> 
+		<!-- 您从百度移动联盟网站获取的计费名 -->
+		<meta-data android:name="BaiduMobAd_APP_SEC" android:value="afa10242" />
+        <!-- 注册AppActivity -->
+		<activity android:name="com.baidu.mobads.AppActivity" android:configChanges="keyboard|keyboardHidden|orientation" />
+        <activity
+            android:name="com.example.appcolleageentrance.MainActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <receiver 
+            android:name=".DesktopApp"
+            android:label="@string/app_name" >
+            <intent-filter>
+                	<action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                	<action android:name="android.intent.action.BOOT_COMPLETED"/>
+                	<action android:name="android.intent.action.BATTERY_CHANGED"></action>
+            </intent-filter>
+             <meta-data android:name="android.appwidget.provider"
+                 android:resource="@xml/appwidget_provider"
+                 />   
+            </receiver>
+            <service 
+                android:name=".DateService"
+                ></service>
+            <receiver 
+                android:name=".DataReceiver"
+                >
+                <intent-filter>
+                	<action android:name="android.intent.action.BATTERY_CHANGED"></action>
+                	  
+            </intent-filter>
+            </receiver>
+        <activity android:name=".SimpleDeclaringLayout"></activity>
+        <!-- 有米广告  -->
+        <activity
+            android:name="net.youmi.android.AdBrowser"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+        </activity>
+
+        <service
+            android:name="net.youmi.android.AdService"
+            android:exported="false" >
+        </service>
+
+        <receiver android:name="net.youmi.android.AdReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <!-- 积分墙 -->
+         <receiver
+        	android:name="net.youmi.android.offers.OffersReceiver"
+        	android:exported="false" >
+    	</receiver>
+        <meta-data android:name="YOUMI_CHANNEL"
+                android:value="这里替换为渠道商的 非负整数的渠道号" >
+    	</meta-data>
+         
+    </application>
+
+</manifest>

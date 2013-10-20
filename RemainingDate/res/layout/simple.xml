@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	xmlns:baiduadsdk="http://schemas.android.com/apk/res/com.example.appcolleageentrance"
+	android:layout_height="fill_parent">
+	<!-- com.sarnath.text是AndroidMenifest.xml文件中包名 -->
+	<com.baidu.mobads.AdView 
+	    android:id="@+id/adView"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentLeft="true"  
+		baiduadsdk:adSize="1"
+		baiduadsdk:adId="debug_m0000001"
+		/>
+</RelativeLayout>

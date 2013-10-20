@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">倒计时</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+	<string name="show">首次使用，需要先添加桌面小工具，然后设置具体内容</string>
+	<string name="outofdate">目标过期了，您的目标实现了吗</string>
+	
+</resources>
