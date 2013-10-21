@@ -1,20 +1,16 @@
-package com.example.appcolleageentrance;
+package com.sun.app.timer;
 
 import java.util.Calendar;
 
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.app.Dialog;
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;

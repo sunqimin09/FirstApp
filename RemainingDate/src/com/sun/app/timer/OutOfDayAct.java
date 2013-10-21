@@ -1,4 +1,4 @@
-package com.example.appcolleageentrance;
+package com.sun.app.timer;
 
 import android.app.Activity;
 import android.os.Bundle;

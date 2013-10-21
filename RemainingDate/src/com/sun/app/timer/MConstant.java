@@ -1,4 +1,4 @@
-package com.example.appcolleageentrance;
+package com.sun.app.timer;
 
 /**
  * 静态常量

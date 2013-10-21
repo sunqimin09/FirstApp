@@ -1,6 +1,7 @@
-package com.example.appcolleageentrance;
+package com.sun.app.timer;
 
 import java.util.Calendar;
+
 
 import net.youmi.android.AdManager;
 import net.youmi.android.banner.AdSize;
@@ -145,7 +146,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 					/**
 					 * 把今天的日期保存到sp中
 					 * */
-					sp.setLong("day", System.currentTimeMillis());
+					sp.setLong("payday", System.currentTimeMillis());
 					Toast.makeText(MainActivity.this,str, Toast.LENGTH_SHORT).show();
 				}else{
 					str = "您的积分不足，请补充积分";
@@ -180,9 +181,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
                 Log.i("YoumiSample", "请求广告失败");
             }
         });
-        int days = (int) (System.currentTimeMillis()-(sp.get("day"))/1000/60/60/24);
-        if(days>0){
-        	adLayout.setVisibility(View.GONE);
+        int days = (int) ((System.currentTimeMillis()-(sp.get("payday")))/1000/60/60/24);
+        if(days<3){
+        	adLayout.setVisibility(View.INVISIBLE);
         }else{
         	adLayout.setVisibility(View.VISIBLE);
         }

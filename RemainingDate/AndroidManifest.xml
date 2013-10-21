@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.appcolleageentrance"
-    android:versionCode="6"
-    android:versionName="1.5" >
+    package="com.sun.app.timer"
+    android:versionCode="7"
+    android:versionName="1.6" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -11,7 +11,6 @@
     <!--以下两个为新增必选权限！-->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.GET_TASKS"/>
-    
     
     <!-- 必须申明的权限 -->
 	<uses-permission android:name="android.permission.INTERNET" />
@@ -42,7 +41,7 @@
         <!-- 注册AppActivity -->
 		<activity android:name="com.baidu.mobads.AppActivity" android:configChanges="keyboard|keyboardHidden|orientation" />
         <activity
-            android:name="com.example.appcolleageentrance.MainActivity"
+            android:name="com.sun.app.timer.MainActivity"
             android:screenOrientation="portrait"
             android:label="@string/app_name" >
             <intent-filter>
@@ -99,8 +98,8 @@
         	android:name="net.youmi.android.offers.OffersReceiver"
         	android:exported="false" >
     	</receiver>
-        <meta-data android:name="YOUMI_CHANNEL"
-                android:value="这里替换为渠道商的 非负整数的渠道号" >
+        <meta-data android:name="goapk"
+                android:value="10010" >
     	</meta-data>
          
     </application>

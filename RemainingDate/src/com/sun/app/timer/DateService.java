@@ -1,4 +1,4 @@
-package com.example.appcolleageentrance;
+package com.sun.app.timer;
 
 import java.util.Calendar;
 
@@ -10,9 +10,9 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.DialogInterface.OnClickListener;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.RemoteViews;

@@ -1,4 +1,4 @@
-package com.example.appcolleageentrance;
+package com.sun.app.timer;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

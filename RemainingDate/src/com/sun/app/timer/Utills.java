@@ -1,6 +1,7 @@
-package com.example.appcolleageentrance;
+package com.sun.app.timer;
 
 import java.util.Calendar;
+
 
 import android.app.PendingIntent;
 import android.content.Context;

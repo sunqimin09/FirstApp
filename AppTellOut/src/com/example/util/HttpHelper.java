@@ -46,6 +46,18 @@ public class HttpHelper {
 		return false;
 	}
 
+	/**
+	 * 网络请求说明 
+	 * 1.请求参数:请求的地址，参数map，请求标志id，请求类型
+	 * 2.返回参数:数据类型，
+	 * 3.
+	 * 4.
+	 * @param requestEntity 请求参数
+	 * @return
+	 */
+	
+	
+	
 	public static ResponseEntity request(
 			RequestEntity requestEntity) {
 		return requestGet( requestEntity);
@@ -68,7 +80,7 @@ public class HttpHelper {
 		}
 		String result = get(MConstant.HOME_URL + url);
 		Log.d("tag", "HttpHelper--result>" + result);
-		return new JsonHelper().JsonParse( requestEntity.getType(), result);
+		return new JsonHelper().JsonParse(requestEntity.getType(), result);
 	}
 	
 	private static String getUrl(int type){

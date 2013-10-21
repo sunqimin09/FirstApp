@@ -1,4 +1,4 @@
-package com.example.appcolleageentrance;
+package com.sun.app.timer;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -59,7 +59,7 @@ public class SharePre {
 	}
 	
 	public String getStr(String key){
-		return sp.getString(key, "距离高考只有");
+		return sp.getString(key, "");
 	}
 	
 	public void setLong(String key,long value){
@@ -69,7 +69,7 @@ public class SharePre {
 	}
 	
 	public long get(String key){
-		return sp.getLong(key, 0);
+		return sp.getLong(key,0);
 	}
 	
 	public int getInt(String key){
