@@ -98,8 +98,8 @@
         	android:name="net.youmi.android.offers.OffersReceiver"
         	android:exported="false" >
     	</receiver>
-        <meta-data android:name="goapk"
-                android:value="10010" >
+        <meta-data android:name="nduoa"
+                android:value="10060" >
     	</meta-data>
          
     </application>

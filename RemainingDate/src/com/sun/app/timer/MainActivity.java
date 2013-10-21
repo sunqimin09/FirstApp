@@ -187,7 +187,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
         }else{
         	adLayout.setVisibility(View.VISIBLE);
         }
-		
 	}
 
 	@Override
