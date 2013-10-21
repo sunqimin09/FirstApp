@@ -62,6 +62,16 @@ public class SharePre {
 		return sp.getString(key, "距离高考只有");
 	}
 	
+	public void setLong(String key,long value){
+		Editor ed = sp.edit();
+		ed.putLong(key, value);
+		ed.commit();
+	}
+	
+	public long get(String key){
+		return sp.getLong(key, 0);
+	}
+	
 	public int getInt(String key){
 		return sp.getInt(key, 0);
 	}

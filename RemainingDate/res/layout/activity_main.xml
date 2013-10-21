@@ -116,4 +116,12 @@
             android:src="@android:drawable/ic_delete" />
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/pint_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/youmi_adview_ll"
+        android:layout_alignLeft="@+id/youmi_adview_ll"
+        android:text="TextView" />
+
 </RelativeLayout>

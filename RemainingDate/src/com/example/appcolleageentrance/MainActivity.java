@@ -7,6 +7,8 @@ import net.youmi.android.banner.AdSize;
 import net.youmi.android.banner.AdView;
 import net.youmi.android.banner.AdViewLinstener;
 import net.youmi.android.offers.OffersManager;
+import net.youmi.android.offers.PointsChangeNotify;
+import net.youmi.android.offers.PointsManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -21,7 +23,6 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -36,12 +37,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 @SuppressLint("NewApi")
-public class MainActivity extends Activity implements OnClickListener, OnItemSelectedListener {
+public class MainActivity extends Activity implements OnClickListener, OnItemSelectedListener, PointsChangeNotify {
 
 	private EditText et;
 
 	private TextView time;
 
+	/**当前分数*/
+	private TextView tv_point;
+	
 	/** 字体颜色 */
 	private Spinner textColors;
 
@@ -54,6 +58,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 
 	private DesktopApp receiver;
 	
+	/**当前得分*/
+	private int currentPoint =0;
 	/**数字图片*/
 	private int[] pics = { R.drawable.num00, R.drawable.num01,
 			R.drawable.num02, R.drawable.num03, R.drawable.num04,
@@ -109,16 +115,21 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 
 	private void initYouMiAd() {
 		 AdManager.getInstance(this).init("e751ee68c5a074bf","f36c1150519d4fa6", false); 
-		 OffersManager.getInstance(this).onAppLaunch(); 
-		
-		  // 将广告条adView添加到需要展示的layout控件中
-		 RelativeLayout adLayout = (RelativeLayout) findViewById(R.id.youmi_adview_ll);
-        AdView adView = new AdView(this, AdSize.FIT_SCREEN);
-        ImageView imgClose = new ImageView(this);
-        imgClose.setImageResource(android.R.drawable.ic_delete);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
-        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+		 OffersManager.getInstance(this).onAppLaunch();
+		/** 获得当前得分 */
+		currentPoint = PointsManager.getInstance(this).queryPoints();
+		tv_point = (TextView) findViewById(R.id.pint_tv);
+		tv_point.setText("当前积分:"+currentPoint);
+		// 将广告条adView添加到需要展示的layout控件中
+		final RelativeLayout adLayout = (RelativeLayout) findViewById(R.id.youmi_adview_ll);
+		AdView adView = new AdView(this, AdSize.FIT_SCREEN);
+		ImageView imgClose = new ImageView(this);
+		imgClose.setImageResource(android.R.drawable.ic_delete);
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+				ViewGroup.LayoutParams.WRAP_CONTENT,
+				ViewGroup.LayoutParams.WRAP_CONTENT);
+		params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
+		params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
         imgClose.setLayoutParams(params);
         imgClose.setClickable(true);
         imgClose.setOnClickListener(new OnClickListener() {
@@ -126,11 +137,30 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			@Override
 			public void onClick(View v) {
 				Log.d("tag","click");
+				String str = "";
+				if(currentPoint>49){
+					PointsManager.getInstance(MainActivity.this).spendPoints(50);
+					str = "您花费了50积分,三天内将没广告啦，亲";
+					adLayout.setVisibility(View.GONE);
+					/**
+					 * 把今天的日期保存到sp中
+					 * */
+					sp.setLong("day", System.currentTimeMillis());
+					Toast.makeText(MainActivity.this,str, Toast.LENGTH_SHORT).show();
+				}else{
+					str = "您的积分不足，请补充积分";
+					Toast.makeText(MainActivity.this,str, Toast.LENGTH_SHORT).show();
+					OffersManager.getInstance(MainActivity.this).showOffersWall();
+					
+				}
 				
 			}
 		});
         adLayout.addView(adView);
         adLayout.addView(imgClose);
+        //分数监听器
+        
+        PointsManager.getInstance(this).registerNotify(this);
         // 监听广告条接口
         adView.setAdListener(new AdViewLinstener() {
             
@@ -150,7 +180,12 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
                 Log.i("YoumiSample", "请求广告失败");
             }
         });
-		
+        int days = (int) (System.currentTimeMillis()-(sp.get("day"))/1000/60/60/24);
+        if(days>0){
+        	adLayout.setVisibility(View.GONE);
+        }else{
+        	adLayout.setVisibility(View.VISIBLE);
+        }
 		
 	}
 
@@ -249,8 +284,15 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
-		// TODO Auto-generated method stub
 		
+		
+	}
+
+	@Override
+	public void onPointBalanceChange(int arg0) {		
+		Log.d("tag","Point--->"+arg0);
+		currentPoint = arg0;
+		tv_point.setText("当前积分:"+currentPoint);
 	}
 
 }
