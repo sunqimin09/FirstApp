@@ -1,14 +1,10 @@
 package com.example.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
 
-import com.example.entity.PeopleEntity;
 import com.example.entity.ResponseEntity;
 
 public class JsonHelper {
