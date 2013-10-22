@@ -1,9 +1,13 @@
 package com.example.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.entity.BaseEntity;
+import com.example.entity.UserEntity;
 import com.example.entity.TestLoginEntity;
 import com.example.entity.TestRegistEntity;
 
@@ -15,17 +19,24 @@ public class TestJsonParse {
 			baseEntity = ParseBase(responseStr);
 			switch (requestType) {
 			case GlobalRequestConfig.TYPE_LOGIN:
-				baseEntity = ParseLogin(baseEntity);
+				baseEntity = ParseLogin(baseEntity.getResultObject());
 				break;
 			case GlobalRequestConfig.TYPE_REGIST:
+				baseEntity = ParseRegist(baseEntity.getResultObject());
 				break;
-			case GlobalRequestConfig.TYPE_MY_RANK_INFOR:
+			case GlobalRequestConfig.TYPE_MY_RANK_INFOR://同下
+				ParsePeople(baseEntity.getResultObject());
 				break;
-			case GlobalRequestConfig.TYPE_MY_INPUTED_INFOR:
+			case GlobalRequestConfig.TYPE_MY_INPUTED_INFOR://我的曾经输入的信息
+				ParsePeople(baseEntity.getResultObject());
 				break;
-			case GlobalRequestConfig.TYPE_MY_INFOR_EDIT:
+			case GlobalRequestConfig.TYPE_MY_INFOR_EDIT://编辑
+				return baseEntity;
+			case GlobalRequestConfig.TYPE_WORLD_RANK://世界排名，可以限制某一地区，或者某一 行业
+				baseEntity.setList(ParseRank(baseEntity.getResultObject()));
 				break;
-			case GlobalRequestConfig.TYPE_WORLD_RANK:
+			case GlobalRequestConfig.TYPE_REGION_RANK://地区排名
+				
 				break;
 			case GlobalRequestConfig.TYPE_INDUSTRY_RANK:
 				break;
@@ -57,21 +68,30 @@ public class TestJsonParse {
 	 * @return
 	 * @throws JSONException
 	 */
-	private static BaseEntity ParseLogin(BaseEntity baseEntity)
+	private static BaseEntity ParseLogin(JSONObject object)
 			throws JSONException {
 		TestLoginEntity entity = new TestLoginEntity();
-//		entity.set
-//		JSONObject result = baseEntity.getResultObject();
-//		entity.setCodeString(result.getString("codeStr"));
 
 		return entity;
 
 	}
 	
-	private static BaseEntity ParseRegist(String str){
+	private static BaseEntity ParseRegist(JSONObject object){
 		TestRegistEntity entity = new TestRegistEntity();
 		
 		return entity;
+	}
+	
+	private static UserEntity ParsePeople(JSONObject object){
+		UserEntity entity = new UserEntity();
+		
+		return entity;
+	}
+	
+	private static List<UserEntity> ParseRank(JSONObject object){
+		List<UserEntity> list = new ArrayList<UserEntity>();
+		
+		return list;
 	}
 
 }

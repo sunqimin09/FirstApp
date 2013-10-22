@@ -4,7 +4,7 @@ package com.example.entity;
  * @author sunqm
  *
  */
-public class PeopleEntity {
+public class UserEntity extends BaseEntity{
 	
 	
 	public long getId() {
@@ -76,6 +76,7 @@ public class PeopleEntity {
 	public void setRequestCode(int requestCode) {
 		this.requestCode = requestCode;
 	}
+	
 	private int requestCode;
 	
 	private int code;
@@ -95,5 +96,8 @@ public class PeopleEntity {
 	
 	private String company_name = null;
 	
+	private int regionId = 0;
+	/**地区名称*/
+	private String region_name = null;
 	
 }

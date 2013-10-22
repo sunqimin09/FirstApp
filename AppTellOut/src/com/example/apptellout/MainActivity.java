@@ -1,8 +1,6 @@
 package com.example.apptellout;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -12,8 +10,6 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.widget.SlidingPaneLayout;
 import android.view.Menu;
 import android.view.View;
@@ -29,7 +25,6 @@ import android.widget.Toast;
 import com.example.adapter.CompanyRankAdapter;
 import com.example.adapter.IndustryRankAdapter;
 import com.example.adapter.WorldRankAdapter;
-import com.example.entity.MEntity;
 import com.example.entity.RequestEntity;
 import com.example.util.MConstant;
 

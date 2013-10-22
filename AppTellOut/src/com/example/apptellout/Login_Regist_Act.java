@@ -91,6 +91,8 @@ public class Login_Regist_Act extends BaseActivity implements OnClickListener,
 			if (isLogin) {// 登录
 				if(!checkLogin())//检查登录输入是否正确
 					return ;
+				startActivity(new Intent(Login_Regist_Act.this, MainActivity.class));
+				finish();
 				LoginRequest();
 			} else {// 注册
 				

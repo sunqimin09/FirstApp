@@ -65,13 +65,13 @@ public class BaseActivity extends Activity{
 
 			@Override
 			public void run() {
-					ResponseEntity entity = HttpHelper.request(
-							requestEntity);
-					Message msg = new Message();
-					msg.what =entity.getRequestCode();
-					msg.arg1 = entity.getCode();
-					msg.obj =entity.getResult();
-					handler.sendMessage(msg);
+//					ResponseEntity entity = HttpHelper.request(
+//							requestEntity);
+//					Message msg = new Message();
+//					msg.what =entity.getRequestCode();
+//					msg.arg1 = entity.getCode();
+//					msg.obj =entity.getResult();
+//					handler.sendMessage(msg);
 			}
 
 		}.start();

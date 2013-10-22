@@ -62,6 +62,7 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener {
 			if(edit){
 				request();
 				setEnable(false);
+				finish();
 			}
 			else
 				setEnable(!edit);

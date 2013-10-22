@@ -31,6 +31,8 @@ public class GlobalRequestConfig {
 	/**公司排名*/
 	public final static int TYPE_COMPANY_RANK=7;
 	
+	/**地区排名*/
+	public final static int TYPE_REGION_RANK = 8;
 	
 	//URL
 	/**服务器地址*/
