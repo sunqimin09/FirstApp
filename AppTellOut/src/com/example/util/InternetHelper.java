@@ -24,10 +24,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
-import com.example.entity.TestRequestEntity;
+import com.example.entity.RequestEntity;
 import com.example.entity.TestResponseResult;
 
-public class TestInternet {
+public class InternetHelper {
 	/**
 	 * 检测是否有网络连接
 	 * @param context
@@ -60,7 +60,7 @@ public class TestInternet {
 	 * @param requestEntity 请求参数
 	 * @return	 请求结果
 	 */
-	public static TestResponseResult request(TestRequestEntity requestEntity){
+	public static TestResponseResult request(RequestEntity requestEntity){
 		if(requestEntity.isPost())
 			return doPost(requestEntity);
 		else
@@ -73,7 +73,7 @@ public class TestInternet {
 	 * Get 请求参数方法
 	 * @param requestEntity
 	 */
-	private static TestResponseResult doGet(TestRequestEntity requestEntity) {
+	private static TestResponseResult doGet(RequestEntity requestEntity) {
 		//获得请求的全地址
 		String url =requestEntity.getUrl();
 		if(!requestEntity.getParams().isEmpty()){//如果存在参数
@@ -127,7 +127,7 @@ public class TestInternet {
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 			responseResult.setResultCode(-1);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			responseResult.setResultCode(-2);
 		} finally {
@@ -153,7 +153,7 @@ public class TestInternet {
 	 * @param requestEntity
 	 */
 	@SuppressWarnings("finally")
-	private static TestResponseResult doPost(TestRequestEntity requestEntity) {
+	private static TestResponseResult doPost(RequestEntity requestEntity) {
 		TestResponseResult  responseResult = new TestResponseResult();
 
 		Log.d("tag", "Internet-post-url>" + requestEntity.getUrl());

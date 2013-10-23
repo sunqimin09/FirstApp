@@ -17,19 +17,25 @@ public class MConstant {
 	public final static int SQL_EXCEPTION = -102;
 	
 	/** 登录 */
-	public final static int LOGIN_REQUEST_CODE = 0;
+	public final static int REQUEST_CODE_LOGIN_ = 0;
 	/** 注册 */
-	public final static int REGIST_REQUEST_CODE = 1;
+	public final static int REQUEST_CODE_REGIST = 1;
 	/** 我的信息 */
-	public final static int MYINFOR_REQUEST_CODE = 2;
+	public final static int REQUEST_CODE_MYINFOR = 2;
 	/** 世界排名 */
-	public final static int WORLD_RANK_REQUEST_CODE = 3;
+	public final static int REQUEST_CODE_WORLD_RANK = 3;
 	/** 公司排名 */
-	public final static int COMPANY_RANK_REQUEST_CODE = 4;
+	public final static int REQUEST_CODE_COMPANY_RANK = 4;
 	/** 行业排名 */
-	public final static int INDUSTRY_RANK_REQUEST_CODE = 5;
+	public final static int REQUEST_CODE_INDUSTRY_RANK = 5;
+	
+	public final static int REQUEST_CODE_REGION_RANK = 6;
 	/**编辑我的信息*/
-	public final static int EDIT_SELFINFOR_REQUEST_CODE = 6;
+	public final static int REQUEST_CODE_EDIT_SELFINFOR = 7;
+	
+	
+	
+	
 	
 	public final static String URL_LOGIN="";
 	

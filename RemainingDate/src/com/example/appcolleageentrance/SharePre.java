@@ -1,4 +1,4 @@
-package com.sun.app.timer;
+package com.example.appcolleageentrance;
 
 import android.content.Context;
 import android.content.SharedPreferences;

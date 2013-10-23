@@ -30,12 +30,17 @@
              
          </activity>
          
-        <activity android:name=".EditMyInforAct"></activity>
+        <activity android:name=".EditMyInforAct"
+            android:windowSoftInputMode="stateHidden"
+            ></activity>
         
         <activity android:name=".MyInforAct"></activity>
         <activity android:name=".WorldRankAct"></activity>
         <activity android:name=".IndustryRankAct"></activity>
         <activity android:name=".CompanyRankAct"></activity>
+        <activity android:name=".SelectType"
+            android:windowSoftInputMode="stateHidden"
+            ></activity>
         
     </application>
 

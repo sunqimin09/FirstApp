@@ -1,8 +1,7 @@
 package com.example.adapter;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,40 +11,36 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.apptellout.R;
-
+import com.example.entity.UserEntity;
+/**
+ * 排名 适配器
+ * @author sunqm
+ *
+ */
 public class WorldRankAdapter extends BaseAdapter{
-
-	
-	private Context context;
-	
-	private LayoutInflater inflate;
-	
-	private JSONArray array ;
 	
 	public WorldRankAdapter(Context mcontext){
 		context = mcontext;
-		inflate = (LayoutInflater) mcontext.getSystemService(mcontext.LAYOUT_INFLATER_SERVICE);
-		array = new JSONArray();
 	}
 	
-	public void setData(JSONArray array){
-		this.array = array;
-		this.notifyDataSetChanged();
+	public WorldRankAdapter(Context mcontext,List<UserEntity> list){
+		context = mcontext;
+		this.list = list;
+	}
+	
+	public void setData(List<UserEntity> list){
+		this.list = list;
+		notifyDataSetChanged();
 	}
 	
 	@Override
 	public int getCount() {
-		return array.length();
+		return list.size();
 	}
 
 	@Override
 	public Object getItem(int arg0) {
-		try {
-			return array.get(arg0);
-		} catch (JSONException e) {
-			e.printStackTrace();
-			return null;
-		}
+		return list.get(arg0);
 	}
 
 	@Override
@@ -77,20 +72,23 @@ public class WorldRankAdapter extends BaseAdapter{
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
+		
 		// result>{"code":0,"result":{"worldRank":[{"name":"test1","score":"200","industry":"1",
 		// "industry_name":"IT"},{"name":"test3","industry":"2","industry_name":"server"}],"name":"test1","score":"200","industry_id":"1","list_size":2}}
-
-		try {
-			JSONObject item = array.getJSONObject(arg0);
-			holder.tv_name.setText(item.getString("name"));
-			holder.tv_score.setText(item.getString("score") + "分");
-			holder.tv_other.setText("行业:" + item.getString("industry_name"));
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//展示数据
+		userEntity = list.get(arg0);
+		
+		holder.tv_name.setText(userEntity.getName());
+		holder.tv_score.setText(userEntity.getScore());
+		holder.tv_other.setText(userEntity.getCompany_name());
 
 		return convertView;
 	}
-
+	
+	private Context context;
+	
+	/**展示数据*/
+	private List<UserEntity> list = new ArrayList<UserEntity>();
+	
+	private static UserEntity userEntity = null;
 }

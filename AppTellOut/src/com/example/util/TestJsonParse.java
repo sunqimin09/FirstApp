@@ -8,8 +8,6 @@ import org.json.JSONObject;
 
 import com.example.entity.BaseEntity;
 import com.example.entity.UserEntity;
-import com.example.entity.TestLoginEntity;
-import com.example.entity.TestRegistEntity;
 
 public class TestJsonParse {
 	
@@ -18,29 +16,28 @@ public class TestJsonParse {
 		try {
 			baseEntity = ParseBase(responseStr);
 			switch (requestType) {
-			case GlobalRequestConfig.TYPE_LOGIN:
+			case MConstant.REQUEST_CODE_LOGIN_:
 				baseEntity = ParseLogin(baseEntity.getResultObject());
 				break;
-			case GlobalRequestConfig.TYPE_REGIST:
+			case MConstant.REQUEST_CODE_REGIST:
 				baseEntity = ParseRegist(baseEntity.getResultObject());
 				break;
-			case GlobalRequestConfig.TYPE_MY_RANK_INFOR://同下
+			case MConstant.REQUEST_CODE_MYINFOR://获得我的个人信息
 				ParsePeople(baseEntity.getResultObject());
 				break;
-			case GlobalRequestConfig.TYPE_MY_INPUTED_INFOR://我的曾经输入的信息
+			case MConstant.REQUEST_CODE_EDIT_SELFINFOR://我的曾经输入的信息
 				ParsePeople(baseEntity.getResultObject());
 				break;
-			case GlobalRequestConfig.TYPE_MY_INFOR_EDIT://编辑
-				return baseEntity;
-			case GlobalRequestConfig.TYPE_WORLD_RANK://世界排名，可以限制某一地区，或者某一 行业
+			
+			case MConstant.REQUEST_CODE_WORLD_RANK://世界排名，可以限制某一地区，或者某一 行业
 				baseEntity.setList(ParseRank(baseEntity.getResultObject()));
 				break;
-			case GlobalRequestConfig.TYPE_REGION_RANK://地区排名
+			case MConstant.REQUEST_CODE_REGION_RANK://地区排名
 				
 				break;
-			case GlobalRequestConfig.TYPE_INDUSTRY_RANK:
+			case MConstant.REQUEST_CODE_INDUSTRY_RANK://行业排名
 				break;
-			case GlobalRequestConfig.TYPE_COMPANY_RANK:
+			case MConstant.REQUEST_CODE_COMPANY_RANK://公司排名
 				break;
 			}
 		} catch (JSONException e) {
@@ -70,14 +67,14 @@ public class TestJsonParse {
 	 */
 	private static BaseEntity ParseLogin(JSONObject object)
 			throws JSONException {
-		TestLoginEntity entity = new TestLoginEntity();
+		BaseEntity entity = new BaseEntity();
 
 		return entity;
 
 	}
 	
 	private static BaseEntity ParseRegist(JSONObject object){
-		TestRegistEntity entity = new TestRegistEntity();
+		BaseEntity entity = new BaseEntity();
 		
 		return entity;
 	}

@@ -21,10 +21,11 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.entity.BaseEntity;
 import com.example.entity.RequestEntity;
-import com.example.entity.ResponseEntity;
-import com.example.util.HttpHelper;
+import com.example.util.InternetHelper;
 import com.example.util.MConstant;
+import com.sun.constant.DbConstant;
 
 public class Login_Regist_Act extends BaseActivity implements OnClickListener,
 		OnCheckedChangeListener {
@@ -84,7 +85,7 @@ public class Login_Regist_Act extends BaseActivity implements OnClickListener,
 
 			break;
 		case R.id.login_regist_right_btn:// 右侧
-			if (!HttpHelper.isInternetAvaliable(this)) {
+			if (!InternetHelper.isInternetAvaliable(this)) {
 				Toast("当前无网络");
 				return;
 			}
@@ -106,36 +107,21 @@ public class Login_Regist_Act extends BaseActivity implements OnClickListener,
 		}
 	}
 	
-	private void LoginRequest(){
-		String email = edit1.getText().toString();
-		String pwd = edit2.getText().toString();
-		RequestEntity requestEntity = new RequestEntity();
-		requestEntity.setType(MConstant.LOGIN_REQUEST_CODE);
-		requestEntity.setHasParams(true);
-		Map<String,String> map = new HashMap<String,String>();
-		map.put(MConstant.USER_EMAIL, email);
-		map.put(MConstant.USER_PWD, pwd);
-		requestEntity.setParams(map);
-		request(requestEntity);
-	}
 	
-	private void RegistRequest(){
-		String nickName = edit1.getText().toString();
-		String email = edit2.getText().toString();
-		String pwd = edit3.getText().toString();
-		
-		RequestEntity requestEntity = new RequestEntity();
-		requestEntity.setType(MConstant.REGIST_REQUEST_CODE);
-		requestEntity.setHasParams(true);
-		Map<String,String> map = new HashMap<String,String>();
-		map.put(MConstant.USER_NAME, nickName);
-		map.put(MConstant.USER_EMAIL, email);
-		map.put(MConstant.USER_PWD, pwd);
-		
-		requestEntity.setParams(map);
-		request(requestEntity);
-	}
 	
+	@Override
+	public void showResult(int type, BaseEntity baseEntity) {
+		super.showResult(type, baseEntity);
+//		if(type ==MConstant.REQUEST_CODE_LOGIN_){//
+//			
+//		}else if(type == MConstant.REQUEST_CODE_REGIST){
+//			
+//		}
+		MConstant.USER_ID_VALUE = baseEntity.getMap().get(DbConstant.DB_USER_ID);
+		startActivity(new Intent(Login_Regist_Act.this, MainActivity.class));
+		
+	}
+
 	@Override
 	public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
 		// TODO Auto-generated method stub
@@ -167,6 +153,37 @@ public class Login_Regist_Act extends BaseActivity implements OnClickListener,
 		return mc.matches();
 	}
 
+	private void LoginRequest(){
+		String email = edit1.getText().toString();
+		String pwd = edit2.getText().toString();
+		RequestEntity requestEntity = new RequestEntity();
+		requestEntity.setRequestType(MConstant.REQUEST_CODE_LOGIN_);
+		requestEntity.setPost(true);
+		Map<String,String> map = new HashMap<String,String>();
+		
+		map.put(MConstant.USER_EMAIL, email);
+		map.put(MConstant.USER_PWD, pwd);
+		requestEntity.setParams(map);
+		request(requestEntity);
+	}
+	
+	private void RegistRequest(){
+		String nickName = edit1.getText().toString();
+		String email = edit2.getText().toString();
+		String pwd = edit3.getText().toString();
+		
+		RequestEntity requestEntity = new RequestEntity();
+		requestEntity.setRequestType(MConstant.REQUEST_CODE_REGIST);
+		requestEntity.setPost(true);
+		Map<String,String> map = new HashMap<String,String>();
+		map.put(MConstant.USER_NAME, nickName);
+		map.put(MConstant.USER_EMAIL, email);
+		map.put(MConstant.USER_PWD, pwd);
+		
+		requestEntity.setParams(map);
+		request(requestEntity);
+	}
+	
 	private boolean checkRegist() {
 		String nickName = edit1.getText().toString();
 		String email = edit2.getText().toString();
@@ -209,18 +226,17 @@ public class Login_Regist_Act extends BaseActivity implements OnClickListener,
 
 	
 	
-	public void showResult(int type, Object object) {
-		JSONObject jsonObject = (JSONObject) object;
-		Log.d("tag", "Login--->showResult" + jsonObject);
-		try {
-			MConstant.USER_ID_VALUE = jsonObject.getString("id");
-			startActivity(new Intent(Login_Regist_Act.this, MainActivity.class));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		
-
-	}	
+//	public void showResult(int type, Object object) {
+//		JSONObject jsonObject = (JSONObject) object;
+//		Log.d("tag", "Login--->showResult" + jsonObject);
+//		try {
+//			
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		
+//
+//	}	
 
 }
