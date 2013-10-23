@@ -1,5 +1,10 @@
 package com.example.entity;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.json.JSONObject;
 
 /**
@@ -33,6 +38,23 @@ public class BaseEntity {
 		this.resultObject = resultObject;
 	}
 	
+	public List<? extends BaseEntity> getList() {
+		return list;
+	}
+
+	public void setList(List<? extends BaseEntity> list) {
+		this.list = list;
+	}
+
+	
+	public Map<String, String> getMap() {
+		return map;
+	}
+
+	public void setMap(Map<String, String> map) {
+		this.map = map;
+	}
+	
 	/**服务器返回的错误值*/
 	protected int code;
 	/**错误描述*/
@@ -40,7 +62,9 @@ public class BaseEntity {
 	/**解析得到*/
 	protected JSONObject resultObject;
 
-	
-	
+	protected List<? extends BaseEntity> list = new ArrayList<BaseEntity>();
+	/**其他参数*/
+	protected Map<String,String> map = new HashMap<String,String>();
+
 	
 }

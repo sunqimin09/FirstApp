@@ -1,11 +1,15 @@
 package com.example.adapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.adapter.WorldRankAdapter.ViewHolder;
 import com.example.apptellout.R;
+import com.example.entity.UserEntity;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,33 +20,31 @@ import android.widget.TextView;
 
 public class CompanyRankAdapter extends BaseAdapter{
 
-private Context context;
+	private Context context;
 	
-	private JSONArray array ;
 	
 	public CompanyRankAdapter(Context mcontext){
 		context = mcontext;
-		array = new JSONArray();
 	}
 	
-	public void setData(JSONArray array){
-		this.array = array;
+	public CompanyRankAdapter(Context mcontext,List<UserEntity> list){
+		context = mcontext;
+		this.list = list;
+	}
+	
+	public void setData(List<UserEntity> list){
+		this.list = list;
 		this.notifyDataSetChanged();
 	}
 	
 	@Override
 	public int getCount() {
-		return array.length();
+		return list.size();
 	}
 
 	@Override
 	public Object getItem(int arg0) {
-		try {
-			return array.get(arg0);
-		} catch (JSONException e) {
-			e.printStackTrace();
-			return null;
-		}
+		return list.get(arg0);
 	}
 
 	@Override
@@ -68,18 +70,17 @@ private Context context;
 			holder = (ViewHolder) convertView.getTag();
 		}
 		//{"code":0,"result":{"companys":[{"name":"test2","score":"100","company_name":"testa"},{"name":"test3","company_name":"testcc"}],"list_size":2}}
+		userEntity = list.get(arg0);
 
-
-		try {
-			JSONObject item = array.getJSONObject(arg0);
-			holder.tv_name.setText(item.getString("company_name"));
-			holder.tv_score.setText(item.getInt("score") + "分");
-//			holder.tv_other.setText("行业:" + item.getString("industry_name"));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+//		holder.tv_name.setText();
+//		holder.tv_score.setText(item.getInt("score") + "分");
+//		holder.tv_other.setText("行业:" + item.getString("industry_name"));
+		
 		return convertView;
 	}
 
+	private List<UserEntity> list = new ArrayList<UserEntity>();
+	
+	private static UserEntity userEntity = null;
 
 }
