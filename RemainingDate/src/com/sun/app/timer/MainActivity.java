@@ -2,7 +2,6 @@ package com.sun.app.timer;
 
 import java.util.Calendar;
 
-
 import net.youmi.android.AdManager;
 import net.youmi.android.banner.AdSize;
 import net.youmi.android.banner.AdView;
@@ -36,6 +35,8 @@ import android.widget.RemoteViews;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.appcolleageentrance.R;
 
 @SuppressLint("NewApi")
 public class MainActivity extends Activity implements OnClickListener, OnItemSelectedListener, PointsChangeNotify {

@@ -1,11 +1,9 @@
-package com.sun.app.timer;
+package com.example.appcolleageentrance;
 
 
 
 import android.app.Activity;
 import android.os.Bundle;
-
-import com.example.appcolleageentrance.R;
 
 public class SimpleDeclaringLayout extends Activity {
 	

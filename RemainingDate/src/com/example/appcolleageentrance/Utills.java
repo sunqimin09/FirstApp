@@ -1,14 +1,13 @@
-package com.sun.app.timer;
+package com.example.appcolleageentrance;
 
 import java.util.Calendar;
+
 
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.RemoteViews;
-
-import com.example.appcolleageentrance.R;
 
 public class Utills {
 	

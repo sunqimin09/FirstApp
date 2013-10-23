@@ -1,4 +1,4 @@
-package com.sun.app.timer;
+package com.example.appcolleageentrance;
 
 import java.util.Calendar;
 
@@ -16,8 +16,6 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
-
-import com.example.appcolleageentrance.R;
 
 public class DesktopApp extends AppWidgetProvider{
 	String TAG = "AppColleage";

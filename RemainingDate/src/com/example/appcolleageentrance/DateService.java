@@ -1,8 +1,6 @@
-package com.sun.app.timer;
+package com.example.appcolleageentrance;
 
 import java.util.Calendar;
-
-import com.example.appcolleageentrance.R;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
