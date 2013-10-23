@@ -2,6 +2,7 @@ package com.sun.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -12,21 +13,24 @@ import javax.servlet.http.HttpServletResponse;
 import atg.taglib.json.util.JSONException;
 import atg.taglib.json.util.JSONObject;
 
+import com.sun.db.DbConstant;
 import com.sun.db.DbManager;
 import com.sun.entity.RequestEntity;
 import com.sun.entity.ResponseEntity;
 import com.sun.utils.MConstant;
+
 /**
- * 获得我信息详情
+ * 我的排名
+ * 
  * @author sunqm
- *
+ * 
  */
-public class GetMyDetail extends HttpServlet {
+public class MyRankInforServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public GetMyDetail() {
+	public MyRankInforServlet() {
 		super();
 	}
 
@@ -40,29 +44,39 @@ public class GetMyDetail extends HttpServlet {
 
 	/**
 	 * The doGet method of the servlet. <br>
-	 *
+	 * 
 	 * This method is called when a form has its tag value method equals to get.
 	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
+	 * @param request
+	 *            the request send by the client to the server
+	 * @param response
+	 *            the response send by the server to the client
+	 * @throws ServletException
+	 *             if an error occurred
+	 * @throws IOException
+	 *             if an error occurred
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+		/*
+		 * 1.请求参数 userid 
+		 * 2.返回 我的昵称、我的得分、我的世界排名、我的地区排名、我所在行业排名
+		 */
+
+		RequestEntity requestEntity = new RequestEntity();
+		requestEntity.setTypeId(MConstant.GET_MY_RANK_INFOR);
+		requestEntity.setRequest(request);
+
 		ResponseEntity responseEntity = null;
-		if(null!=request.getParameter(MConstant.USER_ID)){
-			RequestEntity requestEntity = new RequestEntity();
-			requestEntity.setTypeId(MConstant.GET_MY_DETAIL);
-			requestEntity.setRequest(request);
+//		if (null != request.getParameter(DbConstant.DB_USER_ID)) {
 			// 查询的结果
 			responseEntity = new DbManager().doRequest(requestEntity);
-		}else{
-			responseEntity =new ResponseEntity();
-			responseEntity.setCode(MConstant.FAILED);
-		}
-		response.setCharacterEncoding("utf-8");
+//		} else {
+//			responseEntity = new ResponseEntity();
+//			responseEntity.setCode(MConstant.FAILED);
+//		}
+
+		// 返回我的信息，我的世界排名
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.print(change(responseEntity));
@@ -70,35 +84,38 @@ public class GetMyDetail extends HttpServlet {
 		out.close();
 	}
 
-	private JSONObject change(ResponseEntity responseEntity){
+	private JSONObject change(ResponseEntity responseEntity) {
 		JSONObject object = new JSONObject();
 		try {
 			object.put("code", responseEntity.getCode());
 			JSONObject result = new JSONObject();
 			object.put("result", result);
-			
 			Map<String, String> map = responseEntity.getParams();
-			for (Map.Entry<String,String> entry : map.entrySet()) {
-				String key = entry.getKey();
-				String value = entry.getValue();
-				result.put(key, value);
-			}
-			
+			result.put("worldRank", map.get("worldRank"));
+			result.put("regionRank", map.get("regionRank"));
+			result.put(DbConstant.DB_USER_NICK_NAME, map.get(DbConstant.DB_USER_NICK_NAME));
+			result.put(DbConstant.DB_USER_SCORE, map.get(DbConstant.DB_USER_SCORE));
+			result.put("industryRank", map.get("industryRank"));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		return object;
 	}
-	
+
 	/**
 	 * The doPost method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to post.
 	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
+	 * This method is called when a form has its tag value method equals to
+	 * post.
+	 * 
+	 * @param request
+	 *            the request send by the client to the server
+	 * @param response
+	 *            the response send by the server to the client
+	 * @throws ServletException
+	 *             if an error occurred
+	 * @throws IOException
+	 *             if an error occurred
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -120,8 +137,9 @@ public class GetMyDetail extends HttpServlet {
 
 	/**
 	 * Initialization of the servlet. <br>
-	 *
-	 * @throws ServletException if an error occurs
+	 * 
+	 * @throws ServletException
+	 *             if an error occurs
 	 */
 	public void init() throws ServletException {
 		// Put your code here

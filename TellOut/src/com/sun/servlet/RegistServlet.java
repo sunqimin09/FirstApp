@@ -20,6 +20,7 @@ import com.sun.db.DbManager;
 import com.sun.db.TestDbManager;
 import com.sun.entity.RequestEntity;
 import com.sun.entity.ResponseEntity;
+import com.sun.utils.JsonHelper;
 import com.sun.utils.MConstant;
 /**
  * 注册
@@ -60,24 +61,24 @@ public class RegistServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		//请求参数		
-		RequestEntity requestEntity = new RequestEntity();
-		requestEntity.setTypeId(MConstant.REGIST);
-		Map<String,String> map = new HashMap<String,String>();
-		map.put("name", request.getParameter(MConstant.USER_NAME));
-		map.put("pwd", request.getParameter(MConstant.USER_PWD));
-		map.put("email", request.getParameter(MConstant.USER_EMAIL));
-		ResponseEntity responseEntity =null;
-		if (null != request.getParameter(MConstant.USER_NAME)
-				|| null != request.getParameter(MConstant.USER_PWD)
-				|| null != request.getParameter(MConstant.USER_EMAIL)) {
-			requestEntity.setParams(map);
-			// 查询的结果
-			responseEntity =  new DbManager().doRequest(requestEntity);
-			System.out.println("regist--->"+responseEntity.getCode());
-		}else{
-			responseEntity =new ResponseEntity();
-			responseEntity.setCode(MConstant.FAILED);
-		}
+//		RequestEntity requestEntity = new RequestEntity();
+//		requestEntity.setTypeId(MConstant.REGIST);
+//		Map<String,String> map = new HashMap<String,String>();
+//		map.put(DbConstant.DB_USER_NICK_NAME, request.getParameter(DbConstant.DB_USER_NICK_NAME));
+//		map.put(DbConstant.DB_USER_PWD, request.getParameter(DbConstant.DB_USER_PWD));
+//		map.put(DbConstant.DB_USER_EMAIL, request.getParameter(DbConstant.DB_USER_EMAIL));
+//		ResponseEntity responseEntity =null;
+//		if (null != request.getParameter(DbConstant.USER_NAME)
+//				|| null != request.getParameter(DbConstant.USER_PWD)
+//				|| null != request.getParameter(DbConstant.USER_EMAIL)) {
+//			requestEntity.setParams(map);
+//			// 查询的结果
+//			responseEntity =  new DbManager().doRequest(requestEntity);
+//			System.out.println("regist--->"+responseEntity.getCode());
+//		}else{
+//			responseEntity =new ResponseEntity();
+//			responseEntity.setCode(MConstant.FAILED);
+//		}
 		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
@@ -95,18 +96,18 @@ public class RegistServlet extends HttpServlet {
 		out.close();
 	}
 
-	private JSONObject change(ResponseEntity responseEntity){
-		JSONObject object = new JSONObject();
-		try {
-			object.put("code", responseEntity.getCode());
-			JSONObject result = new JSONObject();
-			result.put("id", responseEntity.getParams().get("id"));
-			object.put("result", result);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return object;
-	}
+//	private JSONObject change(ResponseEntity responseEntity){
+//		JSONObject object = new JSONObject();
+//		try {
+//			object.put("code", responseEntity.getCode());
+//			JSONObject result = new JSONObject();
+//			result.put("id", responseEntity.getParams().get("id"));
+//			object.put("result", result);
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
+//		return object;
+//	}
 	
 	/**
 	 * The doPost method of the servlet. <br>
@@ -125,28 +126,17 @@ public class RegistServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		String name = request.getParameter(DbConstant.DB_USER_NICK_NAME);
-		String email = request.getParameter(DbConstant.DB_USER_EMAIL);
-		String pwd = request.getParameter(DbConstant.DB_USER_PWD);
-		
 		//请求参数		
 		RequestEntity requestEntity = new RequestEntity();
 		requestEntity.setTypeId(MConstant.REGIST);
-		Map<String,String> map = new HashMap<String,String>();
-		map.put(DbConstant.DB_USER_NICK_NAME, name);
-		map.put(DbConstant.DB_USER_PWD, pwd);
-		map.put(DbConstant.DB_USER_EMAIL, email);
-		ResponseEntity responseEntity =null;
-		
-		requestEntity.setParams(map);
+		requestEntity.setRequest(request);
 		// 查询的结果
-		responseEntity = new DbManager().doRequest(requestEntity);
+		ResponseEntity responseEntity = new DbManager().doRequest(requestEntity);
 		System.out.println("regist--->" + responseEntity.getCode());
 
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		
+		out.println(JsonHelper.encodeRegist(responseEntity));
 		
 //		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
 //		out.println("<HTML>");
@@ -172,30 +162,30 @@ public class RegistServlet extends HttpServlet {
 	}
 	private String codeStr = null;
 	
-	private String check(String name,String email,String pwd) throws SQLException{
-		ResponseEntity entity = new ResponseEntity();
-		
-		String sqlQuery = "select * from user where "+DbConstant.DB_USER_EMAIL +" = "+email;
-		//注册插入数据库
-		String sqlInsert = "insert into user ("+DbConstant.DB_USER_NICK_NAME + ","+DbConstant.DB_USER_PWD+","
-		+DbConstant.DB_USER_EMAIL+") values ('"+name+"','"+pwd+"','"+email+"') @@identity";
-		
-		TestDbManager dbManager = new TestDbManager();
-		ResultSet rs = dbManager.doQuery(sqlQuery);
-		if(rs.next()){
-			codeStr = "该邮箱已经存在";
-		}else{
-			boolean result = dbManager.doInsert(sqlInsert);
-			if(result){
-				ResultSet rs1 = dbManager.doQuery(sqlQuery);
-				int userId = rs1.getInt(DbConstant.DB_USER_ID);
-			}else{
-				
-			}
-			System.out.println("insert-->"+result);
-			codeStr = result+"";
-		}
-		return codeStr;
-	}
+//	private String check(String name,String email,String pwd) throws SQLException{
+//		ResponseEntity entity = new ResponseEntity();
+//		
+//		String sqlQuery = "select * from user where "+DbConstant.DB_USER_EMAIL +" = "+email;
+//		//注册插入数据库
+//		String sqlInsert = "insert into user ("+DbConstant.DB_USER_NICK_NAME + ","+DbConstant.DB_USER_PWD+","
+//		+DbConstant.DB_USER_EMAIL+") values ('"+name+"','"+pwd+"','"+email+"') @@identity";
+//		
+//		TestDbManager dbManager = new TestDbManager();
+//		ResultSet rs = dbManager.doQuery(sqlQuery);
+//		if(rs.next()){
+//			codeStr = "该邮箱已经存在";
+//		}else{
+//			boolean result = dbManager.doInsert(sqlInsert);
+//			if(result){
+//				ResultSet rs1 = dbManager.doQuery(sqlQuery);
+//				int userId = rs1.getInt(DbConstant.DB_USER_ID);
+//			}else{
+//				
+//			}
+//			System.out.println("insert-->"+result);
+//			codeStr = result+"";
+//		}
+//		return codeStr;
+//	}
 	
 }

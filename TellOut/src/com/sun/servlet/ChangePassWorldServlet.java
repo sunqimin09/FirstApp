@@ -55,15 +55,15 @@ public class ChangePassWorldServlet extends HttpServlet {
 		requestEntity.setRequest(request);
 
 		ResponseEntity responseEntity = null;
-		if (null != request.getParameter(MConstant.USER_ID)) {
+//		if (null != request.getParameter(MConstant.USER_ID)) {
 			// 查询的结果
 			responseEntity = new DbManager().doRequest(requestEntity);
-		} else {
-			System.out.println("change--passworld--else"
-					+ request.getParameter(MConstant.USER_ID));
-			responseEntity = new ResponseEntity();
-			responseEntity.setCode(MConstant.FAILED);
-		}
+//		} else {
+//			System.out.println("change--passworld--else"
+//					+ request.getParameter(MConstant.USER_ID));
+//			responseEntity = new ResponseEntity();
+//			responseEntity.setCode(MConstant.FAILED);
+//		}
 
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();

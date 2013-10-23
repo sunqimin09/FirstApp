@@ -14,9 +14,11 @@ import atg.taglib.json.util.JSONArray;
 import atg.taglib.json.util.JSONException;
 import atg.taglib.json.util.JSONObject;
 
+import com.sun.db.DbConstant;
 import com.sun.db.DbManager;
 import com.sun.entity.RequestEntity;
 import com.sun.entity.ResponseEntity;
+import com.sun.utils.JsonHelper;
 import com.sun.utils.MConstant;
 /**
  * 世界排名
@@ -58,52 +60,52 @@ public class WorldRankServlet extends HttpServlet {
 		requestEntity.setRequest(request);
 
 		ResponseEntity responseEntity = null;
-		if (null != request.getParameter(MConstant.USER_ID)) {
+//		if (null != request.getParameter(DbConstant.DB_USER_ID)) {
 			// 查询的结果
 			responseEntity = new DbManager().doRequest(requestEntity);
-		}else{
-			responseEntity =new ResponseEntity();
-			responseEntity.setCode(MConstant.FAILED);
-		}
+//		}else{
+//			responseEntity =new ResponseEntity();
+//			responseEntity.setCode(MConstant.FAILED);
+//		}
 		
 		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		out.print(change(responseEntity));
+		out.print(JsonHelper.encodeWorldRank(responseEntity));
 		out.flush();
 		out.close();
 	}
 
-	private JSONObject change(ResponseEntity responseEntity){
-		JSONObject object = new JSONObject();
-		try {
-			object.put("code", responseEntity.getCode());
-			JSONObject result = new JSONObject();
-			object.put("result", result);
-			JSONArray jsonArray = new JSONArray();
-			Map<String,String> map = responseEntity.getParams();
-			result.put("worldRank", jsonArray);
-			/**我的信息*/
-			result.put(MConstant.USER_NAME, map.get(MConstant.USER_NAME));
-			result.put(MConstant.SCORE, map.get(MConstant.SCORE));
-			result.put(MConstant.INDUSTRY_ID, map.get(MConstant.INDUSTRY_ID));
-			
-			List<Map<String,String>> list =responseEntity.getList();
-			result.put("list_size", list.size());
-			JSONObject item = null;
-			for(int i = 0;i<list.size();i++){
-				item = new JSONObject();
-				item.put("name", list.get(i).get("name"));
-				item.put("score", list.get(i).get("score"));
-				item.put("industry", list.get(i).get(MConstant.INDUSTRY_ID));
-				item.put("industry_name", list.get(i).get("industry_name"));
-				jsonArray.put(item);
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return object;
-	}
+//	private JSONObject change(ResponseEntity responseEntity){
+//		JSONObject object = new JSONObject();
+//		try {
+//			object.put("code", responseEntity.getCode());
+//			JSONObject result = new JSONObject();
+//			object.put("result", result);
+//			JSONArray jsonArray = new JSONArray();
+//			Map<String,String> map = responseEntity.getParams();
+//			result.put("worldRank", jsonArray);
+//			/**我的信息*/
+//			result.put(DbConstant.DB_USER_NICK_NAME, map.get(DbConstant.DB_USER_NICK_NAME));
+//			result.put(DbConstant.DB_USER_SCORE, map.get(DbConstant.DB_USER_SCORE));
+//			result.put(DbConstant.DB_USER_INDUSTRY_ID, map.get(DbConstant.DB_USER_INDUSTRY_ID));
+//			
+//			List<Map<String,String>> list =responseEntity.getList();
+//			result.put("list_size", list.size());
+//			JSONObject item = null;
+//			for(int i = 0;i<list.size();i++){
+//				item = new JSONObject();
+//				item.put("name", list.get(i).get("name"));
+//				item.put("score", list.get(i).get("score"));
+//				item.put("industry", list.get(i).get(DbConstant.DB_USER_INDUSTRY_ID));
+//				item.put("industry_name", list.get(i).get("industry_name"));
+//				jsonArray.put(item);
+//			}
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
+//		return object;
+//	}
 	
 	/**
 	 * The doPost method of the servlet. <br>

@@ -30,7 +30,9 @@ public class DbConstant {
 	public final static String DB_USER_INDUSTRY_ID = "industryId";
 	/**用户评价*/
 	public final static String DB_USER_COMMENT= "comment";
-	
+	/*************************************************************/
+		
+	/*************************************************************/
 	//地区表
 	/**地区id*/
 	public final static String DB_REGION_ID = DB_USER_REGION_ID;

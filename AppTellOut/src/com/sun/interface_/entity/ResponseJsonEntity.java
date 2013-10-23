@@ -3,7 +3,7 @@ package com.sun.interface_.entity;
 import com.sun.interface_.AbsResponse;
 import com.sun.interface_.InterfaceResponse;
 
-public class ResponseJsonEntity extends AbsResponse implements InterfaceResponse{
+public abstract class ResponseJsonEntity extends AbsResponse implements InterfaceResponse{
 	
 	@Override
 	public void setCode(int code) {

@@ -59,14 +59,14 @@ public class CompanyRankServlet extends HttpServlet {
 		requestEntity.setRequest(request);
 
 		ResponseEntity responseEntity = null;
-		if (null != request.getParameter(MConstant.USER_ID)) {
+//		if (null != request.getParameter(MConstant.USER_ID)) {
 			// 查询的结果
 			responseEntity = new DbManager().doRequest(requestEntity);
-		} else {
-			System.out.println("company--else->");
-			responseEntity = new ResponseEntity();
-			responseEntity.setCode(MConstant.FAILED);
-		}
+//		} else {
+//			System.out.println("company--else->");
+//			responseEntity = new ResponseEntity();
+//			responseEntity.setCode(MConstant.FAILED);
+//		}
 		
 		
 		//返回公司排名前20名

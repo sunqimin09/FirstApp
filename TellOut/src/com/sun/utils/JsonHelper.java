@@ -1,7 +1,9 @@
 package com.sun.utils;
 
+import java.util.List;
 import java.util.Map;
 
+import atg.taglib.json.util.JSONArray;
 import atg.taglib.json.util.JSONException;
 import atg.taglib.json.util.JSONObject;
 
@@ -112,6 +114,39 @@ public class JsonHelper {
 		return object;
 	}
 	
-	
+	/**
+	 * 编码 世界排名
+	 * @param responseEntity
+	 * @return
+	 */
+	public static JSONObject encodeWorldRank(ResponseEntity responseEntity){
+		JSONObject object = new JSONObject();
+		try {
+			object.put("code", responseEntity.getCode());
+			object.put("codeStr", responseEntity.getCode_str());
+			JSONObject result = new JSONObject();
+			object.put("result", result);
+			JSONArray jsonArray = new JSONArray();
+			JSONObject item = null;
+			List<Map<String,String>> list = responseEntity.getList();
+			Map<String, String> map = null;
+			int total = list.size();
+			for(int i =0;i<total ;i++){//列表
+				map = list.get(i);
+				item = new JSONObject();
+				for (Map.Entry<String,String> entry : map.entrySet()) {//每一项
+					String key = entry.getKey();
+					String value = entry.getValue();
+					item.put(key, value);
+				}
+				jsonArray.add(item);
+			}
+			object.put("list", jsonArray);
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return object;
+	}
 	
 }

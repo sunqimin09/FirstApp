@@ -48,7 +48,6 @@ public class DbManager {
 			System.out.println("----conne-->success");
 			return conn;
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -70,7 +69,6 @@ public class DbManager {
 //			ResultSet rst = stmt.executeQuery(sql);
 //			System.out.println("----conne-->result-->" + rst.getRow());
 //		} catch (ClassNotFoundException e) {
-//			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		} catch (SQLException e) {
 //			e.printStackTrace();
@@ -81,21 +79,21 @@ public class DbManager {
 	public ResponseEntity doRequest(RequestEntity request){
 		switch(request.getTypeId()){
 		case MConstant.REGIST://注册
-			return doRegist(request.getParams());
+			return doRegist(request.getRequest());
 		case MConstant.LOGIN://登录
-			return doLogin(request.getParams());
+			return doLogin(request.getRequest());
 		case MConstant.WORLD_RANK://世界排名
 			return doWorldRank(request.getRequest());
 		case MConstant.INDUSTRY_RANK://行业排名
 //			return doIndustryRank(request.getRequest());
 		case MConstant.COMPANY_RANK://企业排名
 //			return doCompany(request.getRequest());
-		case MConstant.MY_INFOR://个人信息
-			return doMyInfor(request.getRequest());
-		case MConstant.EDIT_MY_INFOR://编辑个人信息
-			return doEditInfor(request.getRequest());
-		case MConstant.GET_MY_DETAIL://获得个人信息
-			return doGetMyDetail(request.getRequest());
+		case MConstant.GET_MY_RANK_INFOR://个人排名
+			return doMyRankInfor(request.getRequest());
+		case MConstant.EDIT_SELF_INFOR://编辑个人信息
+			return doEditSelfInfor(request.getRequest());
+		case MConstant.GET_SELF_INOFR://获得个人信息
+			return doGetSelfInfor(request.getRequest());
 		case MConstant.NEW_INDUSTRY://新建行业
 			
 			break;
@@ -113,13 +111,60 @@ public class DbManager {
 	
 	
 
-	
+//	
+//
+//	@SuppressWarnings("finally")
+//	private ResponseEntity doRegist(Map<String, String> map) {
+//		ResponseEntity response = new ResponseEntity();
+//		String sql = "select * from user where "+DbConstant.DB_USER_NICK_NAME+" ='" + map.get(DbConstant.DB_USER_NICK_NAME) + "'";
+//		String sql1 = "select * from user where "+DbConstant.DB_USER_EMAIL+"='" + map.get(DbConstant.DB_USER_EMAIL) + "'";
+//		try {
+//			ResultSet rsName= doQuery(sql);
+//			ResultSet rsEmail = doQuery(sql1);
+//			if (rsName.next()) {
+//				response.setCode(MConstant.USER_EXIST);
+//				
+//				// return "用户名已存在";
+//			}else if(rsEmail.next()){
+//				response.setCode(MConstant.EMAIL_EXIST);
+//			}else {
+//				String sqlInsert = "insert into user ("+DbConstant.DB_USER_NICK_NAME+","+DbConstant.DB_USER_PWD+","+DbConstant.DB_USER_EMAIL+")values('"
+//						+ map.get(DbConstant.DB_USER_NICK_NAME) + "','" + map.get(DbConstant.DB_USER_PWD) + "','"
+//						+ map.get(DbConstant.DB_USER_EMAIL) + "');";
+//				boolean resultInsert = doInsert(sqlInsert);
+//				System.out.println("sql-regist->"+resultInsert);
+//				 if(resultInsert){
+//					 response.setCode(MConstant.FAILED);
+////					 response.setError_str("注册失败");
+//				 }else{
+//					 String sqlId = "select id from user where name ='" + map.get("name") + "'";
+//					 ResultSet rsId = doQuery(sqlId);
+//					 if(rsId.next()){
+//						 int id =rsId.getInt(DbConstant.DB_USER_ID);
+//						 System.out.println("注册--登录成功-->"+id);
+//						 Map<String,String> hashmap = new HashMap<String,String>();
+//						 hashmap.put(DbConstant.DB_USER_ID, id+"");
+//						 response.setParams(hashmap);
+//					 }
+//					 rsId.close();
+//					 response.setCode(MConstant.SUCCESS);
+//				 }
+//			}
+//			rsName.close();
+//			rsEmail.close();
+//		} catch (SQLException e) {
+//			response.setCode(MConstant.SQL_EXCEPTION);
+//			e.printStackTrace();
+//		}finally{
+//			return response;
+//		}
+//	}
 
 	@SuppressWarnings("finally")
-	private ResponseEntity doRegist(Map<String, String> map) {
+	private ResponseEntity doRegist(HttpServletRequest request){
 		ResponseEntity response = new ResponseEntity();
-		String sql = "select * from user where "+DbConstant.DB_USER_NICK_NAME+" ='" + map.get(DbConstant.DB_USER_NICK_NAME) + "'";
-		String sql1 = "select * from user where "+DbConstant.DB_USER_EMAIL+"='" + map.get(DbConstant.DB_USER_EMAIL) + "'";
+		String sql = "select * from user where "+DbConstant.DB_USER_NICK_NAME+" ='" + request.getParameter(DbConstant.DB_USER_NICK_NAME) + "'";
+		String sql1 = "select * from user where "+DbConstant.DB_USER_EMAIL+"='" + request.getParameter(DbConstant.DB_USER_EMAIL) + "'";
 		try {
 			ResultSet rsName= doQuery(sql);
 			ResultSet rsEmail = doQuery(sql1);
@@ -131,15 +176,15 @@ public class DbManager {
 				response.setCode(MConstant.EMAIL_EXIST);
 			}else {
 				String sqlInsert = "insert into user ("+DbConstant.DB_USER_NICK_NAME+","+DbConstant.DB_USER_PWD+","+DbConstant.DB_USER_EMAIL+")values('"
-						+ map.get(DbConstant.DB_USER_NICK_NAME) + "','" + map.get(DbConstant.DB_USER_PWD) + "','"
-						+ map.get(DbConstant.DB_USER_EMAIL) + "');";
+						+ request.getParameter(DbConstant.DB_USER_NICK_NAME) + "','" + request.getParameter(DbConstant.DB_USER_PWD) + "','"
+						+ request.getParameter(DbConstant.DB_USER_EMAIL) + "');";
 				boolean resultInsert = doInsert(sqlInsert);
 				System.out.println("sql-regist->"+resultInsert);
 				 if(resultInsert){
 					 response.setCode(MConstant.FAILED);
 //					 response.setError_str("注册失败");
 				 }else{
-					 String sqlId = "select id from user where name ='" + map.get("name") + "'";
+					 String sqlId = "select id from user where "+DbConstant.DB_USER_NICK_NAME+" ='" + request.getParameter(DbConstant.DB_USER_NICK_NAME) + "'";
 					 ResultSet rsId = doQuery(sqlId);
 					 if(rsId.next()){
 						 int id =rsId.getInt(DbConstant.DB_USER_ID);
@@ -161,13 +206,13 @@ public class DbManager {
 			return response;
 		}
 	}
-
 	
 	@SuppressWarnings("finally")
-	private ResponseEntity doLogin(Map<String, String> map){
+	private ResponseEntity doLogin(HttpServletRequest request){
 		ResponseEntity response = new ResponseEntity();
-		String sql = "select id from user where "+DbConstant.DB_USER_EMAIL+" = '"+map.get(DbConstant.DB_USER_EMAIL)
-		+"' and "+DbConstant.DB_USER_PWD+" = '"+map.get(DbConstant.DB_USER_PWD)+"'";
+		
+		String sql = "select id from user where "+DbConstant.DB_USER_EMAIL+" = '"+request.getParameter(DbConstant.DB_USER_EMAIL)
+		+"' and "+DbConstant.DB_USER_PWD+" = '"+request.getParameter(DbConstant.DB_USER_PWD)+"'";
 		try {
 			ResultSet rs = doQuery(sql);
 			if(rs.next()){
@@ -187,7 +232,6 @@ public class DbManager {
 		}finally{
 			return response;
 		}
-		
 	}
 	
 	private ResponseEntity doWorldRank(HttpServletRequest request){
@@ -200,18 +244,6 @@ public class DbManager {
 //		String sql1 = "select * from user where "+DbConstant.DB_USER_ID+" ='"+userId+"'";
 		try {
 			ResultSet rs = doQuery(sql);
-//			ResultSet rs1 =doQuery(sql1);
-//			if(rs1.next()){
-//				String userName = rs1.getString(MConstant.USER_NAME);
-//				String score = rs1.getString(MConstant.SCORE);
-//				String industry = rs1.getString(MConstant.INDUSTRY_ID);
-//			
-//				Map<String,String> map = new HashMap<String,String>();
-//				map.put(MConstant.USER_NAME, userName);
-//				map.put(MConstant.SCORE, score);
-//				map.put(MConstant.INDUSTRY_ID, industry);
-//				response.setParams(map);
-//			}
 			List<Map<String,String>> list = new ArrayList<Map<String,String>>();
 			Map<String,String> map = null;
 			while(rs.next()){
@@ -242,12 +274,12 @@ public class DbManager {
 	 * @return
 	 */
 	private ResponseEntity doIndustryRank(HttpServletRequest request){
-		String userId = request.getParameter(MConstant.USER_ID);
+		String userId = request.getParameter(DbConstant.DB_USER_ID);
 		ResponseEntity response = new ResponseEntity();
 //		String sql="select * from user,company where user.company_id=company.id group by user.company_id order by user.score desc limit 10";//" where "+MConstant.REGION_ID +" ='"+region_id+
 		
-		String sql = "select * from user,_industry where user.industry_id=_industry.id group by user."
-				+ MConstant.INDUSTRY_ID
+		String sql = "select * from user,_industry where user."+DbConstant.DB_USER_INDUSTRY_ID+"=_industry.id group by user."
+				+ DbConstant.DB_USER_INDUSTRY_ID
 				+ " order by user.score "
 				+ " desc limit 10";
 
@@ -315,7 +347,7 @@ public class DbManager {
 	 * 1.请求参数 userid 
 	 * 2.返回 我的昵称、我的得分、我的世界排名、我的地区排名、我所在行业排名
 	 */
-	private ResponseEntity doMyInfor(HttpServletRequest request){
+	private ResponseEntity doMyRankInfor(HttpServletRequest request){
 		/**
 		 * 1.查询 score 的排名 	sql = select count(*) from user where score>(select score from id where id = user_id)
 		 * 2.查询score 的排名  地区   	where region = region_id
@@ -323,7 +355,7 @@ public class DbManager {
 		 */
 		
 		ResponseEntity response = new ResponseEntity();
-		String userId = request.getParameter(MConstant.USER_ID);
+		String userId = request.getParameter(DbConstant.DB_USER_ID);
 		/**查询用户名，得分*/
 		String sqlUserInfor = "select * from user where "+DbConstant.DB_USER_ID+" = '"+
 		userId+ "'";
@@ -371,50 +403,52 @@ public class DbManager {
 	 * @param request
 	 * @return
 	 */
-	private ResponseEntity doEditInfor(HttpServletRequest request) {
+	private ResponseEntity doEditSelfInfor(HttpServletRequest request) {
 		ResponseEntity response = new ResponseEntity();
-		String salary = request.getParameter(MConstant.SALARY);
-		String salaryPer = request.getParameter(MConstant.SALARY_PER);
-		String environment = request.getParameter(MConstant.ENVIRONMENT);
-		String environmentPer = request.getParameter(MConstant.ENVIRONMENT_PER);
-		String future = request.getParameter(MConstant.FUTURE);
-		String futurePer = request.getParameter(MConstant.FUTURE_PER);
-		String other = request.getParameter(MConstant.OTHER);
-		String otherPer = request.getParameter(MConstant.OTHER_PER);
-		String regionId = request.getParameter(MConstant.REGION_ID);
-		String industryId = request.getParameter(MConstant.INDUSTRY_ID);
-		String companyId = request.getParameter(MConstant.COMPANY_ID);
+		String salary = request.getParameter(DbConstant.DB_USER_SALARY);
+		String salaryPer = request.getParameter(DbConstant.DB_USER_SALARY_PER);
+		String welfare = request.getParameter(DbConstant.DB_USER_WELFARE);
+		String welfarePer = request.getParameter(DbConstant.DB_USER_WELFARE_PER);
+//		String future = request.getParameter(DbConstant.FUTURE);
+//		String futurePer = request.getParameter(DbConstant.FUTURE_PER);
+//		String other = request.getParameter(DbConstant.OTHER);
+//		String otherPer = request.getParameter(DbConstant.OTHER_PER);
+		String regionId = request.getParameter(DbConstant.DB_USER_REGION_ID);
+		String industryId = request.getParameter(DbConstant.DB_USER_INDUSTRY_ID);
+//		String companyId = request.getParameter(DbConstant.COMPANY_ID);
 		
 		int salaryInt = Integer.parseInt(salary);
 		int salaryPerInt = Integer.parseInt(salaryPer);
-		int environmentInt = Integer.parseInt(environment);
-		int environmentPerInt = Integer.parseInt(environmentPer);
-		int futureInt = Integer.parseInt(future);
-		int futurePerInt = Integer.parseInt(futurePer);
-		int otherInt = Integer.parseInt(other);
-		int otherPerInt = Integer.parseInt(otherPer);
+		int welfareInt = Integer.parseInt(welfare);
+		int welfarePerInt = Integer.parseInt(welfarePer);
+//		int futureInt = Integer.parseInt(future);
+//		int futurePerInt = Integer.parseInt(futurePer);
+//		int otherInt = Integer.parseInt(other);
+//		int otherPerInt = Integer.parseInt(otherPer);
 
-		int score = salaryInt
-				+ 100
-				/ salaryPerInt
-				* (environmentInt * environmentPerInt + futureInt
-						* futurePerInt + otherInt * otherPerInt);
+//		int score = salaryInt
+//				+ 100
+//				/ salaryPerInt
+//				* (environmentInt * environmentPerInt + futureInt
+//						* futurePerInt + otherInt * otherPerInt);
 		
-		String sql = "update user SET " + MConstant.USER_NAME + "='"
-				+ request.getParameter(MConstant.USER_NAME) + "',"
-				+ MConstant.SALARY          + "='" + salary + "',"
-				+ MConstant.SALARY_PER      + "='" + salaryPer + "',"
-				+ MConstant.ENVIRONMENT     + "='" + environment + "',"
-				+ MConstant.ENVIRONMENT_PER + "='" + environmentPer + "',"
-				+ MConstant.FUTURE 			+ "='" + future + "',"
-				+ MConstant.FUTURE_PER 		+ "='" + futurePer + "',"
-				+ MConstant.OTHER 			+ "='" + other + "'," 
-				+ MConstant.OTHER_PER 		+ "='" + otherPer + "', " 
-				+ MConstant.REGION_ID 			+ "='" + regionId + "'," 
-				+ MConstant.INDUSTRY_ID 		+ "='" + industryId + "', " 
-				+ MConstant.COMPANY_ID 		+ "='" + companyId + "', " 
-				+ MConstant.SCORE 		+ "='" + score + "' " 
-				+ "where id ='" + request.getParameter(MConstant.USER_ID)+"'";
+		int score = 100*(salaryInt/salaryPerInt+welfareInt/welfarePerInt);
+		
+		String sql = "update user SET " + DbConstant.DB_USER_NICK_NAME + "='"
+				+ request.getParameter(DbConstant.DB_USER_NICK_NAME) + "',"
+				+ DbConstant.DB_USER_SALARY          + "='" + salary + "',"
+				+ DbConstant.DB_USER_SALARY_PER      + "='" + salaryPer + "',"
+				+ DbConstant.DB_USER_WELFARE     + "='" + welfare + "',"
+				+ DbConstant.DB_USER_WELFARE_PER + "='" + welfarePer + "',"
+//				+ DbConstant.FUTURE 			+ "='" + future + "',"
+//				+ DbConstant.FUTURE_PER 		+ "='" + futurePer + "',"
+//				+ DbConstant.OTHER 			+ "='" + other + "'," 
+//				+ DbConstant.OTHER_PER 		+ "='" + otherPer + "', " 
+				+ DbConstant.DB_USER_REGION_ID 			+ "='" + regionId + "'," 
+				+ DbConstant.DB_USER_INDUSTRY_ID 		+ "='" + industryId + "', " 
+//				+ DbConstant.COMPANY_ID 		+ "='" + companyId + "', " 
+				+ DbConstant.DB_USER_SCORE 		+ "='" + score + "' " 
+				+ "where "+DbConstant.DB_USER_ID+" ='" + request.getParameter(DbConstant.DB_USER_ID)+"'";
 			int result = doUpdate(sql);
 			if(result ==1)
 				response.setCode(MConstant.SUCCESS);
@@ -428,26 +462,26 @@ public class DbManager {
 	 * @param request
 	 * @return
 	 */
-	private ResponseEntity doGetMyDetail(HttpServletRequest request){
+	private ResponseEntity doGetSelfInfor(HttpServletRequest request){
 		ResponseEntity response = new ResponseEntity();
-		String sql ="select * from user where "+MConstant.USER_ID+" ='"+request.getParameter(MConstant.USER_ID)+"'";
+		String sql ="select * from user where "+DbConstant.DB_USER_ID+" ='"+request.getParameter(DbConstant.DB_USER_ID)+"'";
 		try {
 			ResultSet rs = doQuery(sql);
 //			response.setRs(rs);
 			if(rs.next()){
 				Map<String,String> map = new HashMap<String,String>();
-				map.put(MConstant.USER_NAME, rs.getString(MConstant.USER_NAME));
-				map.put(MConstant.SALARY, rs.getString(MConstant.SALARY));
-				map.put(MConstant.SALARY_PER, rs.getString(MConstant.SALARY_PER));
-				map.put(MConstant.ENVIRONMENT, rs.getString(MConstant.ENVIRONMENT));
-				map.put(MConstant.ENVIRONMENT_PER, rs.getString(MConstant.ENVIRONMENT_PER));
-				map.put(MConstant.FUTURE, rs.getString(MConstant.FUTURE));
-				map.put(MConstant.FUTURE_PER, rs.getString(MConstant.FUTURE_PER));
-				map.put(MConstant.OTHER, rs.getString(MConstant.OTHER));
-				map.put(MConstant.OTHER_PER, rs.getString(MConstant.OTHER_PER));
-				map.put(MConstant.INDUSTRY_ID, rs.getString(MConstant.INDUSTRY_ID));
-				map.put(MConstant.REGION_ID, rs.getString(MConstant.REGION_ID));
-				map.put(MConstant.COMPANY_ID, rs.getString(MConstant.COMPANY_ID));
+				map.put(DbConstant.DB_USER_NICK_NAME, rs.getString(DbConstant.DB_USER_NICK_NAME));
+				map.put(DbConstant.DB_USER_SALARY, rs.getString(DbConstant.DB_USER_SALARY));
+				map.put(DbConstant.DB_USER_SALARY_PER, rs.getString(DbConstant.DB_USER_SALARY_PER));
+				map.put(DbConstant.DB_USER_WELFARE, rs.getString(DbConstant.DB_USER_WELFARE));
+				map.put(DbConstant.DB_USER_WELFARE_PER, rs.getString(DbConstant.DB_USER_WELFARE_PER));
+//				map.put(DbConstant.FUTURE, rs.getString(DbConstant.FUTURE));
+//				map.put(DbConstant.FUTURE_PER, rs.getString(DbConstant.FUTURE_PER));
+//				map.put(DbConstant.OTHER, rs.getString(DbConstant.OTHER));
+//				map.put(DbConstant.OTHER_PER, rs.getString(DbConstant.OTHER_PER));
+				map.put(DbConstant.DB_USER_INDUSTRY_ID, rs.getString(DbConstant.DB_USER_INDUSTRY_ID));
+				map.put(DbConstant.DB_USER_REGION_ID, rs.getString(DbConstant.DB_USER_REGION_ID));
+//				map.put(DbConstant.COMPANY_ID, rs.getString(DbConstant.COMPANY_ID));
 				response.setParams(map);
 			}
 			
@@ -463,13 +497,13 @@ public class DbManager {
 		ResponseEntity response = new ResponseEntity();
 		String sql = null;
 		if(request.getParameter(MConstant.REQUEST_CODE)=="0"){//是否存在
-			String industryName = request.getParameter("industryName");
-			sql ="select * from user where "+MConstant.USER_ID+" ='"+industryName+"'";
+			String industryName = request.getParameter(DbConstant.DB_INDUSTRY_NAME);
+			sql ="select * from user where "+DbConstant.DB_USER_ID+" ='"+industryName+"'";
 		}else if(request.getParameter(MConstant.REQUEST_CODE)=="1"){//新建
 			String industryName = request.getParameter("industryName");
-			sql ="select * from user where "+MConstant.USER_ID+" ='"+request.getParameter(MConstant.USER_ID)+"'";
+			sql ="select * from user where "+DbConstant.DB_USER_ID+" ='"+request.getParameter(DbConstant.DB_USER_ID)+"'";
 		}
-//		String sql ="select * from user where "+MConstant.USER_ID+" ='"+request.getParameter(MConstant.USER_ID)+"'";
+//		String sql ="selectDbConstantser where "+MConstant.USER_ID+" ='"+request.getParameter(MConstant.USER_ID)+"'";
 		
 //		ResultSet rs = doQuery(sql);
 		
@@ -479,12 +513,12 @@ public class DbManager {
 	private ResponseEntity changePassWord(HttpServletRequest request) {
 		ResponseEntity response = new ResponseEntity();
 		String sql1 = "select * from user where id ='"
-				+ request.getParameter(MConstant.USER_ID) + "' and pwd ='"
-				+ request.getParameter(MConstant.USER_PWD) + "'";
+				+ request.getParameter(DbConstant.DB_USER_ID) + "' and pwd ='"
+				+ request.getParameter(DbConstant.DB_USER_PWD) + "'";
 		
 		String sql = "update user set pwd ='" + request.getParameter("newPwd")
-				+ "' where " + MConstant.USER_ID + "=' "
-				+ request.getParameter(MConstant.USER_ID) + "'";
+				+ "' where " + DbConstant.DB_USER_ID + "=' "
+				+ request.getParameter(DbConstant.DB_USER_ID) + "'";
 		
 		try {
 			ResultSet rs = doQuery(sql1);
@@ -499,7 +533,6 @@ public class DbManager {
 				response.setCode(MConstant.FAILED);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

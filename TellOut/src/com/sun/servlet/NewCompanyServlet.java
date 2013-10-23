@@ -127,7 +127,6 @@ public class NewCompanyServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return object;

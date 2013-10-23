@@ -56,30 +56,30 @@ public class EditSelfInforServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		RequestEntity requestEntity = new RequestEntity();
-		requestEntity.setTypeId(MConstant.EDIT_MY_INFOR);
+		requestEntity.setTypeId(MConstant.EDIT_SELF_INFOR);
 		requestEntity.setRequest(request);
 
 		ResponseEntity responseEntity = null;
-		if (null != request.getParameter(MConstant.USER_ID)
-				|| null != request.getParameter(MConstant.USER_NAME)
-				|| null != request.getParameter(MConstant.SALARY)
-				|| null != request.getParameter(MConstant.SALARY_PER)
-				|| null != request.getParameter(MConstant.ENVIRONMENT)
-				|| null != request.getParameter(MConstant.ENVIRONMENT_PER)
-				|| null != request.getParameter(MConstant.FUTURE)
-				|| null != request.getParameter(MConstant.FUTURE_PER)
-				|| null != request.getParameter(MConstant.OTHER)
-				|| null != request.getParameter(MConstant.OTHER_PER)
-				|| null != request.getParameter(MConstant.REGION_ID)
-				|| null != request.getParameter(MConstant.INDUSTRY_ID)
-				||null != request.getParameter(MConstant.COMPANY_ID)) {
+//		if (null != request.getParameter(MConstant.USER_ID)
+//				|| null != request.getParameter(MConstant.USER_NAME)
+//				|| null != request.getParameter(MConstant.SALARY)
+//				|| null != request.getParameter(MConstant.SALARY_PER)
+//				|| null != request.getParameter(MConstant.ENVIRONMENT)
+//				|| null != request.getParameter(MConstant.ENVIRONMENT_PER)
+//				|| null != request.getParameter(MConstant.FUTURE)
+//				|| null != request.getParameter(MConstant.FUTURE_PER)
+//				|| null != request.getParameter(MConstant.OTHER)
+//				|| null != request.getParameter(MConstant.OTHER_PER)
+//				|| null != request.getParameter(MConstant.REGION_ID)
+//				|| null != request.getParameter(MConstant.INDUSTRY_ID)
+//				||null != request.getParameter(MConstant.COMPANY_ID)) {
 			// 查询的结果
 			responseEntity = new DbManager().doRequest(requestEntity);
-		}else{
-			responseEntity =new ResponseEntity();
-			responseEntity.setCode(MConstant.FAILED);
-		}
-		
+//		}else{
+//			responseEntity =new ResponseEntity();
+//			responseEntity.setCode(MConstant.FAILED);
+//		}
+//		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.println(change(responseEntity));

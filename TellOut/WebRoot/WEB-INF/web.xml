@@ -32,8 +32,8 @@
   <servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
-    <servlet-name>MyInforServlet</servlet-name>
-    <servlet-class>com.sun.servlet.MyInforServlet</servlet-class>
+    <servlet-name>MyRankInforServlet</servlet-name>
+    <servlet-class>com.sun.servlet.MyRankInforServlet</servlet-class>
   </servlet>
   <servlet>
     <description>This is the description of my J2EE component</description>
@@ -44,8 +44,8 @@
   <servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
-    <servlet-name>GetMyDetail</servlet-name>
-    <servlet-class>com.sun.servlet.GetMyDetail</servlet-class>
+    <servlet-name>GetSelfInforSerlet</servlet-name>
+    <servlet-class>com.sun.servlet.GetSelfInforSerlet</servlet-class>
   </servlet>
   <servlet>
     <description>This is the description of my J2EE component</description>
@@ -99,16 +99,16 @@
     <url-pattern>/servlet/IndustryRankServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>MyInforServlet</servlet-name>
-    <url-pattern>/servlet/MyInforServlet</url-pattern>
+    <servlet-name>MyRankInforServlet</servlet-name>
+    <url-pattern>/servlet/MyRankInforServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>EditSelfInforServlet</servlet-name>
     <url-pattern>/servlet/EditSelfInforServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>GetMyDetail</servlet-name>
-    <url-pattern>/servlet/GetMyDetail</url-pattern>
+    <servlet-name>GetSelfInforSerlet</servlet-name>
+    <url-pattern>/servlet/GetSelfInforSerlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>NewIndustryServlet</servlet-name>

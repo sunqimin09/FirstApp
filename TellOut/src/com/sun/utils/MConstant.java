@@ -13,11 +13,11 @@ public class MConstant {
 	/** 行业排名 */
 	public final static int INDUSTRY_RANK = 4;
 
-	public final static int MY_INFOR = 5;
+	public final static int GET_MY_RANK_INFOR = 5;
 	
-	public final static int EDIT_MY_INFOR = 6;
+	public final static int EDIT_SELF_INFOR = 6;
 	
-	public final static int GET_MY_DETAIL = 7;
+	public final static int GET_SELF_INOFR = 7;
 	/**新建行业*/
 	public final static int NEW_INDUSTRY = 8;
 	/**新建公司*/
@@ -43,44 +43,5 @@ public class MConstant {
 	/**请求是否包含标志*/
 	public final static String REQUEST_CODE = "request_code";
 	
-	public final static String USER_ID = "id";
 	
-	public final static String USER_NAME = "name";
-
-	public final static String USER_PWD = "pwd";
-
-	public final static String USER_EMAIL = "email";
-
-//	public final static String USER_COMPANY_ID = "company_id";
-//
-//	public final static String USER_INDUSTRY_ID = "industry_id";
-//
-//	public final static String USER_REGION_ID = "region_id";
-
-	public final static String COMPANY_ID = "company_id";
-	
-	public final static String INDUSTRY_ID = "industry_id";
-	
-	public final static String REGION_ID = "region_id";
-	/**编辑个人信息*/
-	
-	public final static String SALARY = "pay";
-	
-	public final static String SALARY_PER = "pay_percentage";
-	
-	public final static String ENVIRONMENT = "environment";
-	
-	public final static String ENVIRONMENT_PER = "environment_percentage";
-	
-	public final static String FUTURE = "welfare";
-	
-	public final static String FUTURE_PER = "welfare_percentage";
-	/**其他*/
-	public final static String OTHER = "other";
-	
-	/**其他占的比例*/
-	public final static String OTHER_PER = "other_percentage";
-	
-	/**分数*/
-	public final static String SCORE = "score";
 }
