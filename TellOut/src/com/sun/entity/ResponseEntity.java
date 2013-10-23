@@ -17,18 +17,7 @@ public class ResponseEntity {
 	public void setCode(int code) {
 		this.code = code;
 	}
-	public int getError_code() {
-		return error_code;
-	}
-	public void setError_code(int error_code) {
-		this.error_code = error_code;
-	}
-	public String getError_str() {
-		return error_str;
-	}
-	public void setError_str(String error_str) {
-		this.error_str = error_str;
-	}
+
 	public Object getResult() {
 		return result;
 	}
@@ -49,16 +38,21 @@ public class ResponseEntity {
 		this.list = list;
 	}
 
+	public String getCode_str() {
+		return code_str;
+	}
+	public void setCode_str(String codeStr) {
+		code_str = codeStr;
+	}
 
 	
 	/**判断返回结果是否正确*/
 	private int code =0;
-	/**错误码*/
-	private int error_code =0;
 	
-	private String error_str ="";
+	private String code_str = null;
 	
-//	private ResultSet rs;
+
+	//	private ResultSet rs;
 	private List<Map<String,String>> list = new ArrayList<Map<String,String>>();
 
 

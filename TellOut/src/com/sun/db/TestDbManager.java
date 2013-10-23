@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Map;
+import java.util.Set;
 
 public class TestDbManager {
 
@@ -37,6 +39,25 @@ public class TestDbManager {
 		}
 		return null;
 	}
+	
+	public boolean doInsert(Map<String,String> map,String tableName) throws SQLException{
+		String dbStr = null;
+		String valueStr = null;
+		for(Map.Entry<String, String> entry:map.entrySet()){
+			dbStr +=entry.getKey()+",";
+			valueStr +="'"+entry.getValue()+"',";
+		}
+		System.out.println(""+dbStr+"\\"+valueStr);
+		String sql = "insert into "+tableName+" ("+dbStr+") values ("+valueStr+")";
+		System.out.println("inert--sql"+sql);
+		
+		return doInsert(sql);
+	}
+	
+	
+	
+	
+	
 
 	public ResultSet doQuery(String sql) throws SQLException {
 

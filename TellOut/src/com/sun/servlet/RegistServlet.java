@@ -2,6 +2,8 @@ package com.sun.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +17,7 @@ import atg.taglib.json.util.JSONObject;
 
 import com.sun.db.DbConstant;
 import com.sun.db.DbManager;
+import com.sun.db.TestDbManager;
 import com.sun.entity.RequestEntity;
 import com.sun.entity.ResponseEntity;
 import com.sun.utils.MConstant;
@@ -78,16 +81,16 @@ public class RegistServlet extends HttpServlet {
 		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		out.print(change(responseEntity));
-//		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-//		out.println("<HTML>");
-//		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-//		out.println("  <BODY>");
-//		out.print("    This is ");
-//		out.print(this.getClass());
-//		out.println(", using the GET method");
-//		out.println("  </BODY>");
-//		out.println("</HTML>");
+//		out.print(change(responseEntity));
+		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
+		out.println("<HTML>");
+		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
+		out.println("  <BODY>");
+		out.print("    This is ");
+		out.print(this.getClass());
+		out.println(", using the GET method");
+		out.println("  </BODY>");
+		out.println("</HTML>");
 		out.flush();
 		out.close();
 	}
@@ -127,17 +130,33 @@ public class RegistServlet extends HttpServlet {
 		String email = request.getParameter(DbConstant.DB_USER_EMAIL);
 		String pwd = request.getParameter(DbConstant.DB_USER_PWD);
 		
+		//请求参数		
+		RequestEntity requestEntity = new RequestEntity();
+		requestEntity.setTypeId(MConstant.REGIST);
+		Map<String,String> map = new HashMap<String,String>();
+		map.put(DbConstant.DB_USER_NICK_NAME, name);
+		map.put(DbConstant.DB_USER_PWD, pwd);
+		map.put(DbConstant.DB_USER_EMAIL, email);
+		ResponseEntity responseEntity =null;
+		
+		requestEntity.setParams(map);
+		// 查询的结果
+		responseEntity = new DbManager().doRequest(requestEntity);
+		System.out.println("regist--->" + responseEntity.getCode());
+
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-		out.println("  <BODY>");
-		out.print("    This is ");
-		out.print(this.getClass());
-		out.println(", using the POST method");
-		out.println("  </BODY>");
-		out.println("</HTML>");
+		
+		
+//		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
+//		out.println("<HTML>");
+//		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
+//		out.println("  <BODY>");
+//		out.print("    This is ");
+//		out.print(this.getClass());
+//		out.println(", using the POST method");
+//		out.println("  </BODY>");
+//		out.println("</HTML>");
 		out.flush();
 		out.close();
 	}
@@ -151,10 +170,32 @@ public class RegistServlet extends HttpServlet {
 	public void init() throws ServletException {
 		// Put your code here
 	}
-
-	private void check(String name,String email,String pwd){
-		String sql = "insert into user where "+DbConstant.DB_USER_NICK_NAME + "'"+name+"' "
-		 ;
+	private String codeStr = null;
+	
+	private String check(String name,String email,String pwd) throws SQLException{
+		ResponseEntity entity = new ResponseEntity();
+		
+		String sqlQuery = "select * from user where "+DbConstant.DB_USER_EMAIL +" = "+email;
+		//注册插入数据库
+		String sqlInsert = "insert into user ("+DbConstant.DB_USER_NICK_NAME + ","+DbConstant.DB_USER_PWD+","
+		+DbConstant.DB_USER_EMAIL+") values ('"+name+"','"+pwd+"','"+email+"') @@identity";
+		
+		TestDbManager dbManager = new TestDbManager();
+		ResultSet rs = dbManager.doQuery(sqlQuery);
+		if(rs.next()){
+			codeStr = "该邮箱已经存在";
+		}else{
+			boolean result = dbManager.doInsert(sqlInsert);
+			if(result){
+				ResultSet rs1 = dbManager.doQuery(sqlQuery);
+				int userId = rs1.getInt(DbConstant.DB_USER_ID);
+			}else{
+				
+			}
+			System.out.println("insert-->"+result);
+			codeStr = result+"";
+		}
+		return codeStr;
 	}
 	
 }
