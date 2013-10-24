@@ -124,7 +124,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
 		super.showResult(type, baseEntity);
 		JSONArray array = null;
 		switch (type) {
-		case MConstant.REQUEST_CODE_MYINFOR:// 个人信息
+		case MConstant.REQUEST_CODE_GET_MY_RANK:// 个人排名信息
 
 			break;
 		case MConstant.REQUEST_CODE_WORLD_RANK:// 世界排名
@@ -193,7 +193,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
 //		int type =-1;
 		RequestEntity requestEntity = new RequestEntity();
 		if(arg0.equals("tab1")){
-			requestEntity.setRequestType(MConstant.REQUEST_CODE_MYINFOR);
+			requestEntity.setRequestType(MConstant.REQUEST_CODE_GET_MY_RANK);
 //			type =0;
 		}else if(arg0.equals("tab2")){
 			requestEntity.setRequestType(MConstant.REQUEST_CODE_WORLD_RANK);

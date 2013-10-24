@@ -120,9 +120,9 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener {
 	@Override
 	public void showResult(int type, BaseEntity baseEntity) {
 		super.showResult(type, baseEntity);
-		if(type == MConstant.REQUEST_CODE_EDIT_SELFINFOR){//是否成功
+		if(type == MConstant.REQUEST_CODE_EDIT_SELF_INFOR){//是否成功
 			
-		}else if(type == MConstant.REQUEST_CODE_MYINFOR){//返回所有个人信息
+		}else if(type == MConstant.REQUEST_CODE_GET_SELF_INFOR){//返回所有个人信息
 			UserEntity userEntity = (UserEntity) baseEntity;
 			etNickName.setText(userEntity.getName());
 			tvCompany.setText(userEntity.getCompany_name());
@@ -152,7 +152,7 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener {
 		Map<String,String> map = new HashMap<String,String>();
 		map.put(DbConstant.DB_USER_ID, MConstant.USER_ID_VALUE);
 		requestEntity.setUrl(MConstant.URL_MYINFOR);
-		requestEntity.setRequestType(MConstant.REQUEST_CODE_MYINFOR);
+		requestEntity.setRequestType(MConstant.REQUEST_CODE_GET_SELF_INFOR);
 		request(requestEntity);
 	}
 	
@@ -183,7 +183,7 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener {
 			
 		
 		RequestEntity requestEntity = new RequestEntity();
-		requestEntity.setRequestType(MConstant.REQUEST_CODE_EDIT_SELFINFOR);
+		requestEntity.setRequestType(MConstant.REQUEST_CODE_EDIT_SELF_INFOR);
 		requestEntity.setPost(false);
 		Map<String,String> map = new HashMap<String,String>();
 		map.put(DbConstant.DB_USER_ID, MConstant.USER_ID_VALUE);

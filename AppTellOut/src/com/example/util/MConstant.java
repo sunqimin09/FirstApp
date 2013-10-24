@@ -21,7 +21,11 @@ public class MConstant {
 	/** 注册 */
 	public final static int REQUEST_CODE_REGIST = 1;
 	/** 我的信息 */
-	public final static int REQUEST_CODE_MYINFOR = 2;
+	public final static int REQUEST_CODE_GET_SELF_INFOR = 2;
+	/**编辑我的信息*/
+	public final static int REQUEST_CODE_EDIT_SELF_INFOR = 7;
+	/**获得我的排行信息*/
+	public final static int REQUEST_CODE_GET_MY_RANK = 8;
 	/** 世界排名 */
 	public final static int REQUEST_CODE_WORLD_RANK = 3;
 	/** 公司排名 */
@@ -30,8 +34,7 @@ public class MConstant {
 	public final static int REQUEST_CODE_INDUSTRY_RANK = 5;
 	
 	public final static int REQUEST_CODE_REGION_RANK = 6;
-	/**编辑我的信息*/
-	public final static int REQUEST_CODE_EDIT_SELFINFOR = 7;
+	
 	
 	
 	

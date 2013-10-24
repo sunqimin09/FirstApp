@@ -77,6 +77,30 @@ public class UserEntity extends BaseEntity{
 		this.requestCode = requestCode;
 	}
 	
+	public int getWorldRank() {
+		return worldRank;
+	}
+
+	public void setWorldRank(int worldRank) {
+		this.worldRank = worldRank;
+	}
+
+	public int getRegionRank() {
+		return regionRank;
+	}
+
+	public void setRegionRank(int regionRank) {
+		this.regionRank = regionRank;
+	}
+
+	public int getIndustryRank() {
+		return industryRank;
+	}
+
+	public void setIndustryRank(int industryRank) {
+		this.industryRank = industryRank;
+	}
+	
 	private int requestCode;
 	
 	private int code;
@@ -99,5 +123,14 @@ public class UserEntity extends BaseEntity{
 	private int regionId = 0;
 	/**地区名称*/
 	private String region_name = null;
+	/**世界内排名*/
+	private int worldRank = 0;
+	
+
+	/**地区内排名*/
+	private int regionRank = 0;
+	/**行业内排名*/
+	private int industryRank = 0;
+	
 	
 }
