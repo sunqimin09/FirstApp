@@ -68,7 +68,7 @@ public class CompanyRankServlet extends HttpServlet {
 //			responseEntity.setCode(MConstant.FAILED);
 //		}
 		
-		
+		response.setCharacterEncoding("utf8");
 		//返回公司排名前20名
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();

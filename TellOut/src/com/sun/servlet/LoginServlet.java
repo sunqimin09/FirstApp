@@ -135,9 +135,13 @@ public class LoginServlet extends HttpServlet {
 		RequestEntity requestEntity = new RequestEntity();
 		requestEntity.setTypeId(MConstant.LOGIN);
 		requestEntity.setRequest(request);
-			//查询的结果
+		System.out.println("Login-->"
+				+ request.getParameter(DbConstant.DB_USER_EMAIL) + "\\"
+				+ request.getParameter(DbConstant.DB_USER_PWD));
+		// 查询的结果
 		ResponseEntity responseEntity =  new DbManager().doRequest(requestEntity);
 		
+		response.setCharacterEncoding("utf8");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.println(JsonHelper.encodeLogin(responseEntity));

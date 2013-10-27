@@ -49,7 +49,7 @@
         android:id="@+id/tabhost"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ff333333"
+        android:background="@color/white"
          >
          <LinearLayout
         android:orientation="vertical"
@@ -76,10 +76,12 @@
                 <include android:id="@+id/tab2" 
                    layout="@layout/world_rank_act" />
                
-              <include android:id="@+id/tab3" 
+              <include android:id="@+id/tab3"
+                   android:visibility="gone" 
                    layout="@layout/industry_rank_act" />
 				
-                <include android:id="@+id/tab4" 
+                <include android:id="@+id/tab4"
+                    android:visibility="gone" 
                    layout="@layout/company_rank_act" />
             </FrameLayout>
 

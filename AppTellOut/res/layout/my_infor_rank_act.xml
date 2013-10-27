@@ -17,7 +17,7 @@
             android:src="@drawable/ic_launcher" />
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/my_infor_rank_nickname_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -43,13 +43,12 @@
             >
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/my_infor_rank_score_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
-                android:textColor="@color/white"
                 android:layout_centerHorizontal="true"
-                android:text="TextView" />
+                android:text="得分" />
 
         </RelativeLayout>
 
@@ -65,7 +64,10 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="10dp"
-                android:text="@string/see_detail" />
+                android:textColor="@color/white"
+                android:text="@string/see_detail"
+                android:background="@drawable/selector_btn_green"
+                 />
 
         </RelativeLayout>
 
@@ -78,13 +80,12 @@
             >
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/my_infor_rank_myrank_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:layout_centerHorizontal="true"
-                android:textColor="@color/white"
-                android:text="TextView" />
+                android:text="世界排名" />
 
         </RelativeLayout>
         <RelativeLayout
@@ -100,9 +101,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:textColor="@color/white"
                 android:layout_centerHorizontal="true"
-                android:text="TextView" />
+                android:text="行业内排名" />
 
         </RelativeLayout>
         <RelativeLayout
@@ -118,9 +118,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:textColor="@color/white"
                 android:layout_centerHorizontal="true"
-                android:text="TextView" />
+                android:text="所在地区内排名" />
 
         </RelativeLayout>
         <RelativeLayout
@@ -136,7 +135,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:textColor="@color/white"
                 android:layout_centerHorizontal="true"
                 android:text="TextView" />
 

@@ -6,6 +6,7 @@ import java.util.Map;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -121,16 +122,25 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener {
 	public void showResult(int type, BaseEntity baseEntity) {
 		super.showResult(type, baseEntity);
 		if(type == MConstant.REQUEST_CODE_EDIT_SELFINFOR){//是否成功
-			
+			Toast.makeText(EditMyInforAct.this, "修改成功", Toast.LENGTH_SHORT).show();
+			Log.d("tag","result-->"+baseEntity.getResultObject());
 		}else if(type == MConstant.REQUEST_CODE_MYINFOR){//返回所有个人信息
 			UserEntity userEntity = (UserEntity) baseEntity;
 			etNickName.setText(userEntity.getName());
-			tvCompany.setText(userEntity.getCompany_name());
-			tvIndustry.setText(userEntity.getIndustry_name());
-			
+			tvRegion.setText("地区:"+userEntity.getRegion_name());
+			tvCompany.setText("公司:"+userEntity.getCompany_name());
+			tvIndustry.setText("行业:"+userEntity.getIndustry_name());
+			etSalary.setText(userEntity.getSalary());
+			etSalaryPer.setText(userEntity.getSalaryPer());
+			etFuture.setText(userEntity.getWelfare());
+			etFuturePer.setText(userEntity.getWelfarePer());
 		}
 	}
 
+	/**
+	 * 设置是否可以编辑
+	 * @param flag
+	 */
 	private void setEnable(boolean flag){
 		etNickName.setEnabled(flag); 
 		etSalary.setEnabled(flag); 
@@ -144,15 +154,18 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener {
 		btnSave.setText(flag?"保存":"编辑");
 	}
 	/**
-	 * 请求获得
+	 * 请求获得个人信息
+	 * 进入页面时调用
 	 */
 	private void requestGet(){
 		RequestEntity requestEntity = new RequestEntity();
 		requestEntity.setPost(false);
 		Map<String,String> map = new HashMap<String,String>();
+		Log.d("tag","useId-->"+MConstant.USER_ID_VALUE);
 		map.put(DbConstant.DB_USER_ID, MConstant.USER_ID_VALUE);
-		requestEntity.setUrl(MConstant.URL_MYINFOR);
+		requestEntity.setUrl(MConstant.URL_GET_MY_INFOR);
 		requestEntity.setRequestType(MConstant.REQUEST_CODE_MYINFOR);
+		requestEntity.setParams(map);
 		request(requestEntity);
 	}
 	
@@ -169,13 +182,13 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener {
 		String futurePer = etFuturePer.getText().toString();
 		String other = etOther.getText().toString();
 		String otherPer = etOtherPer.getText().toString();
-		
-		if(null==nickName||null==salary||null == salaryPer||
-				environment==null||environmentPer==null||future==null||
-				futurePer==null||other==null||otherPer==null){
-			Toast.makeText(this,"输入不能为空", Toast.LENGTH_SHORT).show();
-			return;
-		}
+//		
+//		if(null==nickName||null==salary||null == salaryPer||
+//				environment==null||environmentPer==null||future==null||
+//				futurePer==null||other==null||otherPer==null){
+//			Toast.makeText(this,"输入不能为空", Toast.LENGTH_SHORT).show();
+//			return;
+//		}
 		if(nickName.length()>20){
 			Toast.makeText(this,"昵称长度不能超过20", Toast.LENGTH_SHORT).show();
 			return;
@@ -190,13 +203,15 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener {
 		map.put(DbConstant.DB_USER_NICK_NAME, nickName);
 		map.put(DbConstant.DB_USER_SALARY, salary);
 		map.put(DbConstant.DB_USER_SALARY_PER, salaryPer);
-		map.put(DbConstant.DB_USER_WELFARE, environment);
-		map.put(DbConstant.DB_USER_WELFARE_PER, environmentPer);
+		map.put(DbConstant.DB_USER_WELFARE, future);
+		map.put(DbConstant.DB_USER_WELFARE_PER, futurePer);
 //		map.put(DbConstant.FUTURE, future);
 //		map.put(DbConstant.FUTURE_PER, futurePer);
 //		map.put(DbConstant.OTHER, other);
 //		map.put(DbConstant.OTHER_PER, otherPer);
-		
+		requestEntity.setUrl(MConstant.URL_EDIT_MY_INFOR);
+		requestEntity.setPost(false);
+		requestEntity.setRequestType(MConstant.REQUEST_CODE_EDIT_SELFINFOR);
 		requestEntity.setParams(map);
 		request(requestEntity);
 	}

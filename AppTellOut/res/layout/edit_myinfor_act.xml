@@ -125,6 +125,32 @@
 	            android:src="@drawable/right_arrow" />
 	        
 	    </RelativeLayout>
+	    <RelativeLayout 
+	        android:id="@+id/edit_myinfor_company_rl"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="3dp"
+	        android:background="@color/grey"
+	        >
+	        <TextView 
+	            android:id="@+id/edit_myinfor_company_tv"
+	            android:layout_width="match_parent"
+	        	android:layout_height="wrap_content"
+	        	android:layout_centerVertical="true"
+	        	android:layout_marginLeft="5dp"
+	        	android:text="工龄"
+	            />
+
+	        <ImageView
+	            android:id="@+id/imageView1"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentRight="true"
+	            android:layout_centerVertical="true"
+	            android:layout_marginRight="10dp"
+	            android:src="@drawable/right_arrow" />
+	        
+	    </RelativeLayout>
 	</LinearLayout>
     
     <LinearLayout
@@ -166,6 +192,7 @@
                 android:layout_width="match_parent"
             	android:layout_height="0dp"
             	android:layout_weight="1"
+            	android:visibility="gone"
                 >
                 <TextView 
                     android:layout_width="wrap_content"
@@ -265,6 +292,7 @@
                 android:inputType="number"
                 android:gravity="center_horizontal"
                 android:text="25"
+                android:visibility="gone"
                 android:ems="2"
                  />
 

@@ -2,19 +2,19 @@ package com.example.util;
 
 public class MConstant {
 	
-	public final static String HOME_URL = "http://192.168.1.104:8080/TellOut/servlet/";
+	public final static String HOME_URL = "http://192.168.1.108:8080/TellOut/servlet/";
 
 	public static String USER_ID_VALUE = "";
 	
 	/**成功*/
-	public final static int SUCCESS =0;
+//	public final static int SUCCESS =0;
 	/**失败*/
-	public final static int FAILED = -1;
+//	public final static int FAILED = -1;
 	
 	/**用户已经存在*/
-	public final static int USER_EXIST =-101;
-	
-	public final static int SQL_EXCEPTION = -102;
+//	public final static int USER_EXIST =-101;
+//	
+//	public final static int SQL_EXCEPTION = -102;
 	
 	/** 登录 */
 	public final static int REQUEST_CODE_LOGIN_ = 0;
@@ -32,24 +32,28 @@ public class MConstant {
 	public final static int REQUEST_CODE_REGION_RANK = 6;
 	/**编辑我的信息*/
 	public final static int REQUEST_CODE_EDIT_SELFINFOR = 7;
+	/**我的排名*/
+	public final static int REQUEST_CODE_MY_RANK_INFOR = 8;
 	
 	
 	
+	public final static String URL_LOGIN=HOME_URL+"LoginServlet";
+	
+	public final static String URL_REGIST=HOME_URL+"RegistServlet";
+	
+	public final static String URL_GET_MY_INFOR=HOME_URL+"GetSelfInforSerlet?";
+	
+	public final static String URL_EDIT_MY_INFOR=HOME_URL+"EditSelfInforServlet?";
+	
+	public final static String URL_GET_MY_RANK =HOME_URL+"MyRankInforServlet?";
+	
+	public final static String URL_WORLD_RANK=HOME_URL+"WorldRankServlet";
+	
+	public final static String URL_INDUSTRY_RANK=HOME_URL+"IndustryRankServlet";
+	
+	public final static String URL_COMPANY_RANK=HOME_URL+"CompanyRankServlet";
 	
 	
-	public final static String URL_LOGIN="";
-	
-	public final static String URL_REGIST="";
-	
-	public final static String URL_MYINFOR="";
-	
-	public final static String URL_WORLD_RANK="";
-	
-	public final static String URL_INDUSTRY_RANK="";
-	
-	public final static String URL_COMPANY_RANK="";
-	
-	public final static String URL_EDIT_MYINFOR="";
 	
 	/** 请求参数 */
 

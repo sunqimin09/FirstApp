@@ -133,7 +133,7 @@ public class RegistServlet extends HttpServlet {
 		// 查询的结果
 		ResponseEntity responseEntity = new DbManager().doRequest(requestEntity);
 		System.out.println("regist--->" + responseEntity.getCode());
-
+		response.setCharacterEncoding("utf8");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.println(JsonHelper.encodeRegist(responseEntity));

@@ -16,10 +16,10 @@ public class JsonHelper {
 			JSONObject object = new JSONObject(result);
 			int code = object.getInt("code");
 			responseEntity.setCode(code);
-			if(code==MConstant.SUCCESS){
-				JSONObject resultJSON = object.getJSONObject("result");
-				responseEntity.setResult(resultJSON);
-			}
+//			if(code==MConstant.SUCCESS){
+//				JSONObject resultJSON = object.getJSONObject("result");
+//				responseEntity.setResult(resultJSON);
+//			}
 			Log.d("tag","parse--result->"+responseEntity.toString());
 			return responseEntity;
 		} catch (JSONException e) {

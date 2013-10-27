@@ -2,7 +2,6 @@ package com.example.appcolleageentrance;
 
 import java.util.Calendar;
 
-
 import net.youmi.android.AdManager;
 import net.youmi.android.banner.AdSize;
 import net.youmi.android.banner.AdView;
@@ -12,9 +11,13 @@ import net.youmi.android.offers.PointsChangeNotify;
 import net.youmi.android.offers.PointsManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.DatePickerDialog;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
@@ -22,7 +25,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -31,6 +33,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.RemoteViews;
 import android.widget.Spinner;
@@ -38,15 +41,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 @SuppressLint("NewApi")
-public class MainActivity extends Activity implements OnClickListener, OnItemSelectedListener, PointsChangeNotify {
+public class MainActivity extends Activity implements
+		android.view.View.OnClickListener, OnItemSelectedListener,
+		PointsChangeNotify {
 
 	private EditText et;
 
 	private TextView time;
 
-	/**当前分数*/
+	/** 当前分数 */
 	private TextView tv_point;
-	
+
 	/** 字体颜色 */
 	private Spinner textColors;
 
@@ -58,34 +63,35 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	private int currentDay;
 
 	private DesktopApp receiver;
-	
-	/**当前得分*/
-	private int currentPoint =0;
-	/**数字图片*/
+
+	/** 当前得分 */
+	private int currentPoint = 0;
+	/** 数字图片 */
 	private int[] pics = { R.drawable.num00, R.drawable.num01,
 			R.drawable.num02, R.drawable.num03, R.drawable.num04,
 			R.drawable.num05, R.drawable.num06, R.drawable.num07,
 			R.drawable.num08, R.drawable.num09 };
 
-	/**字体颜色*/
-	private Integer[] Colors = {Color.BLACK, Color.WHITE, Color.BLUE, Color.GREEN,
-			Color.RED, Color.YELLOW };
+	/** 字体颜色 */
+	private Integer[] Colors = { Color.BLACK, Color.WHITE, Color.BLUE,
+			Color.GREEN, Color.RED, Color.YELLOW };
 
 	private int[] imgViews = { R.id.imageView1, R.id.imageView2,
 			R.id.imageView3, R.id.imageView4 };
-	
-	private String[] ColorsStr={"黑色","白色","蓝色","绿色","红色","黄色"};
-	
+
+	private String[] ColorsStr = { "黑色", "白色", "蓝色", "绿色", "红色", "黄色" };
+
 	private SharePre sp;
 
 	private boolean setDate = false;
 
 	private int textColor = Color.BLACK;
 
+	AdView adView;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
-		
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		et = (EditText) findViewById(R.id.editText1);
@@ -115,15 +121,16 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	}
 
 	private void initYouMiAd() {
-		 AdManager.getInstance(this).init("e751ee68c5a074bf","f36c1150519d4fa6", false); 
-		 OffersManager.getInstance(this).onAppLaunch();
+		AdManager.getInstance(this).init("e751ee68c5a074bf",
+				"f36c1150519d4fa6", false);
+		OffersManager.getInstance(this).onAppLaunch();
 		/** 获得当前得分 */
 		currentPoint = PointsManager.getInstance(this).queryPoints();
 		tv_point = (TextView) findViewById(R.id.pint_tv);
-		tv_point.setText("当前积分:"+currentPoint);
+		tv_point.setText("当前积分:" + currentPoint);
 		// 将广告条adView添加到需要展示的layout控件中
-		final RelativeLayout adLayout = (RelativeLayout) findViewById(R.id.youmi_adview_ll);
-		AdView adView = new AdView(this, AdSize.FIT_SCREEN);
+		RelativeLayout adLayout = (RelativeLayout) findViewById(R.id.youmi_adview_ll);
+		adView = new AdView(this, AdSize.FIT_SCREEN);
 		ImageView imgClose = new ImageView(this);
 		imgClose.setImageResource(android.R.drawable.ic_delete);
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
@@ -131,62 +138,45 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 				ViewGroup.LayoutParams.WRAP_CONTENT);
 		params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
 		params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
-        imgClose.setLayoutParams(params);
-        imgClose.setClickable(true);
-        imgClose.setOnClickListener(new OnClickListener() {
-			
+		imgClose.setLayoutParams(params);
+		imgClose.setClickable(true);
+		imgClose.setOnClickListener(new android.view.View.OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
-				Log.d("tag","click");
-				String str = "";
-				if(currentPoint>49){
-					PointsManager.getInstance(MainActivity.this).spendPoints(50);
-					str = "您花费了50积分,三天内将没广告啦，亲";
-					adLayout.setVisibility(View.GONE);
-					/**
-					 * 把今天的日期保存到sp中
-					 * */
-					sp.setLong("payday", System.currentTimeMillis());
-					Toast.makeText(MainActivity.this,str, Toast.LENGTH_SHORT).show();
-				}else{
-					str = "您的积分不足，请补充积分";
-					Toast.makeText(MainActivity.this,str, Toast.LENGTH_SHORT).show();
-					OffersManager.getInstance(MainActivity.this).showOffersWall();
-					
-				}
-				
+				showAllertDialog();
 			}
 		});
-        adLayout.addView(adView);
-        adLayout.addView(imgClose);
-        //分数监听器
-        
-        PointsManager.getInstance(this).registerNotify(this);
-        // 监听广告条接口
-        adView.setAdListener(new AdViewLinstener() {
-            
-            @Override
-            public void onSwitchedAd(AdView arg0) {
-                Log.i("YoumiSample", "广告条切换");
-            }
-            
-            @Override
-            public void onReceivedAd(AdView arg0) {
-                Log.i("YoumiSample", "请求广告成功");
-                
-            }
-            
-            @Override
-            public void onFailedToReceivedAd(AdView arg0) {
-                Log.i("YoumiSample", "请求广告失败");
-            }
-        });
-        int days = (int) ((System.currentTimeMillis()-(sp.get("payday")))/1000/60/60/24);
-        if(days<3){
-        	adLayout.setVisibility(View.INVISIBLE);
-        }else{
-        	adLayout.setVisibility(View.VISIBLE);
-        }
+		adLayout.addView(adView);
+		adLayout.addView(imgClose);
+		// 分数监听器
+
+		PointsManager.getInstance(this).registerNotify(this);
+		// 监听广告条接口
+		adView.setAdListener(new AdViewLinstener() {
+
+			@Override
+			public void onSwitchedAd(AdView arg0) {
+				Log.i("YoumiSample", "广告条切换");
+			}
+
+			@Override
+			public void onReceivedAd(AdView arg0) {
+				Log.i("YoumiSample", "请求广告成功");
+
+			}
+
+			@Override
+			public void onFailedToReceivedAd(AdView arg0) {
+				Log.i("YoumiSample", "请求广告失败");
+			}
+		});
+		int days = (int) ((System.currentTimeMillis() - (sp.get("payday"))) / 1000 / 60 / 60 / 24);
+		if (days < 3) {
+			adView.setVisibility(View.INVISIBLE);
+		} else {
+			adView.setVisibility(View.VISIBLE);
+		}
 	}
 
 	@Override
@@ -213,7 +203,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 					R.layout.widget);
 			String etStr = et.getText().toString();
 			if (!etStr.equals("")) {
-				Log.d("tag","setColor");
+				Log.d("tag", "setColor");
 				rv.setTextViewText(R.id.tv_widget, etStr);
 				rv.setTextColor(R.id.tv_widget, textColor);
 				rv.setTextColor(R.id.textView1, textColor);
@@ -266,7 +256,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	@Override
 	protected void onDestroy() {
 		unregisterReceiver(receiver);
-		OffersManager.getInstance(this).onAppExit(); 
+		OffersManager.getInstance(this).onAppExit();
 		super.onDestroy();
 	}
 
@@ -279,20 +269,71 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	@Override
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 			long arg3) {
-		textColor=Colors[arg2];
+		textColor = Colors[arg2];
 	}
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
-		
-		
+
 	}
 
 	@Override
-	public void onPointBalanceChange(int arg0) {		
-		Log.d("tag","Point--->"+arg0);
+	public void onPointBalanceChange(int arg0) {
+		Log.d("tag", "Point--->" + arg0);
 		currentPoint = arg0;
-		tv_point.setText("当前积分:"+currentPoint);
+		tv_point.setText("当前积分:" + currentPoint);
 	}
 
+	/**
+	 * 是否下载
+	 */
+	private void showAllertDialog() {
+		String temp = "获取积分";
+		AlertDialog.Builder builder = new Builder(MainActivity.this);
+		builder.setTitle("是否关闭广告？");
+		builder.setMessage("关闭广告需要消耗50积分\n你的积分余额未:"+currentPoint+"\n下载应用可免费获取积分");
+		
+		builder.setPositiveButton(temp, new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+
+				OffersManager.getInstance(MainActivity.this)
+				.showOffersWall();
+			}
+
+		});
+		if(currentPoint >49){
+			temp = "积累积分";
+			builder.setNeutralButton("关闭广告", new OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					PointsManager.getInstance(MainActivity.this)
+							.spendPoints(50);
+					adView.setVisibility(View.GONE);
+					/**
+					 * 把今天的日期保存到sp中
+					 * */
+					sp.setLong("payday", System.currentTimeMillis());
+					dialog.dismiss();
+				}
+
+			});
+		}
+		builder.setNegativeButton("取消", new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+
+		});
+
+		builder.create().show();
+	}
+	
+
+	
 }

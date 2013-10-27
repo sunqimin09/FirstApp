@@ -82,7 +82,9 @@ public class InternetHelper {
 				String key = entry.getKey();
 				String value = entry.getValue();
 				url +=key+"="+value+"&";
+				
 			}
+			url = url.substring(0, url.length()-1);
 		}
 		//获得请求的地址
 		Log.d("tag","request--url"+url);
@@ -162,7 +164,7 @@ public class InternetHelper {
 			// 设置请求超时,20秒
 			httpPost.getParams().setParameter(
 					CoreConnectionPNames.CONNECTION_TIMEOUT,
-					20);
+					20*1000);
 				
 			HttpResponse httpResponse = null;
 			/**设置请求参数*/

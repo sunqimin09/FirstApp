@@ -14,6 +14,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -40,6 +41,7 @@ public class Login_Regist_Act extends BaseActivity implements OnClickListener,
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login_regist_act);
 		initView();
@@ -92,8 +94,6 @@ public class Login_Regist_Act extends BaseActivity implements OnClickListener,
 			if (isLogin) {// 登录
 				if(!checkLogin())//检查登录输入是否正确
 					return ;
-				startActivity(new Intent(Login_Regist_Act.this, MainActivity.class));
-				finish();
 				LoginRequest();
 			} else {// 注册
 				
@@ -117,9 +117,11 @@ public class Login_Regist_Act extends BaseActivity implements OnClickListener,
 //		}else if(type == MConstant.REQUEST_CODE_REGIST){
 //			
 //		}
-		MConstant.USER_ID_VALUE = baseEntity.getMap().get(DbConstant.DB_USER_ID);
+//		if(MConstant.USER_ID_VALUE.equals("")){
+//			MConstant.USER_ID_VALUE = baseEntity.getMap().get(DbConstant.DB_USER_ID);
+//		}
 		startActivity(new Intent(Login_Regist_Act.this, MainActivity.class));
-		
+		finish();
 	}
 
 	@Override
@@ -159,6 +161,7 @@ public class Login_Regist_Act extends BaseActivity implements OnClickListener,
 		RequestEntity requestEntity = new RequestEntity();
 		requestEntity.setRequestType(MConstant.REQUEST_CODE_LOGIN_);
 		requestEntity.setPost(true);
+		requestEntity.setUrl(MConstant.URL_LOGIN);
 		Map<String,String> map = new HashMap<String,String>();
 		
 		map.put(MConstant.USER_EMAIL, email);

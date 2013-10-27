@@ -5,22 +5,21 @@ import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SlidingPaneLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.adapter.CompanyRankAdapter;
@@ -30,6 +29,7 @@ import com.example.entity.BaseEntity;
 import com.example.entity.RequestEntity;
 import com.example.entity.UserEntity;
 import com.example.util.MConstant;
+import com.sun.constant.DbConstant;
 
 
 @SuppressLint("HandlerLeak")
@@ -46,6 +46,12 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
 	private ListView listViewCompanyRank;
 	
 	private Button btnEditMyInfor;
+	/**我的得分*/
+	private TextView tvMyInforScore;
+	/**我的世界排名*/
+	private TextView tvMyInforWorldRank;
+	
+	private TextView tvMyInforNickName;
 	
 //	private LinearLayout llMyInfor;
 	
@@ -65,6 +71,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
 		initWorldRank();
 		initIndustryRank();
 		initCompanyRank();
+		Log.d("tag","useId-main->"+MConstant.USER_ID_VALUE);
 	}
 
 	private void initView(Bundle savedInstanceState) {
@@ -93,9 +100,13 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
 	
 	private void initMyInfor(){
 		View viewMyInfor = findViewById(R.id.tab1);
+		tvMyInforNickName = (TextView) viewMyInfor.findViewById(R.id.my_infor_rank_nickname_tv);
+		tvMyInforScore = (TextView) viewMyInfor.findViewById(R.id.my_infor_rank_score_tv);
+		tvMyInforWorldRank = (TextView) viewMyInfor.findViewById(R.id.my_infor_rank_myrank_tv);
 		btnEditMyInfor = (Button) viewMyInfor.findViewById(R.id.my_infor_detail_btn);
 //		llMyInfor = (LinearLayout) viewMyInfor.findViewById(R.id.my_infor_ll);
 		btnEditMyInfor.setOnClickListener(this);
+		request(MConstant.REQUEST_CODE_MY_RANK_INFOR);
 	}
 	
 	private void initWorldRank(){
@@ -103,6 +114,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
 		listViewWroldRank = (ListView)temp.findViewById(R.id.world_rank_listview);
 		WorldAdapter = new WorldRankAdapter(this);
 		listViewWroldRank.setAdapter(WorldAdapter);
+		
 	}
 	
 	private void initIndustryRank(){
@@ -119,15 +131,22 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
 		listViewCompanyRank.setAdapter(companyAdapter);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void showResult(int type, BaseEntity baseEntity) {
 		super.showResult(type, baseEntity);
-		JSONArray array = null;
+		
 		switch (type) {
-		case MConstant.REQUEST_CODE_MYINFOR:// 个人信息
-
+		case MConstant.REQUEST_CODE_MY_RANK_INFOR:// 个人信息
+			UserEntity entity = (UserEntity) baseEntity;
+			//{"code":200,"result":{"worldRank":"2","regionRank":"2",
+//			"nickName":"test1","score":"4900","industryRank":"2"}}
+			tvMyInforScore.setText(entity.getScore()+"");
+			tvMyInforWorldRank.setText(entity.getWorldRank());	
+			tvMyInforNickName.setText(entity.getName());
 			break;
 		case MConstant.REQUEST_CODE_WORLD_RANK:// 世界排名
+			Log.d("tag","世界排名");
 			WorldAdapter.setData((List<UserEntity>) baseEntity.getList());
 			break;
 		case MConstant.REQUEST_CODE_COMPANY_RANK:// 公司排名
@@ -190,12 +209,17 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
 
 	@Override
 	public void onTabChanged(String arg0) {
-//		int type =-1;
 		RequestEntity requestEntity = new RequestEntity();
+		Map<String,String> map = new HashMap<String,String>();
+		map.put(DbConstant.DB_USER_ID, MConstant.USER_ID_VALUE);
 		if(arg0.equals("tab1")){
-			requestEntity.setRequestType(MConstant.REQUEST_CODE_MYINFOR);
+			Log.d("tag","userID-->"+MConstant.USER_ID_VALUE);
+			requestEntity.setRequestType(MConstant.REQUEST_CODE_MY_RANK_INFOR);
+			
 //			type =0;
 		}else if(arg0.equals("tab2")){
+			request(MConstant.REQUEST_CODE_WORLD_RANK);
+			WorldAdapter.notifyDataSetChanged();
 			requestEntity.setRequestType(MConstant.REQUEST_CODE_WORLD_RANK);
 //			type = 1;
 		}else if(arg0.equals("tab3")){
@@ -206,10 +230,8 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
 //			type = 3;
 		}
 		requestEntity.setPost(false);
-		Map<String,String> map = new HashMap<String,String>();
-		map.put(MConstant.USER_ID, MConstant.USER_ID_VALUE);
 		requestEntity.setParams(map);
-		request(requestEntity);
+//		request(requestEntity);
 		
 	}
 
@@ -223,5 +245,25 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
 		}
 		
 	}
+	
+	private void request(int requestCode){
+		RequestEntity requestEntity = new RequestEntity();
+		
+		Map<String,String> map = new HashMap<String,String>();
+		switch(requestCode){
+		case MConstant.REQUEST_CODE_MY_RANK_INFOR:
+			map.put(DbConstant.DB_USER_ID, MConstant.USER_ID_VALUE);
+			requestEntity.setUrl(MConstant.URL_GET_MY_RANK);
+			break;
+		case MConstant.REQUEST_CODE_WORLD_RANK:
+			requestEntity.setUrl(MConstant.URL_WORLD_RANK);
+			break;
+		}
+		requestEntity.setRequestType(requestCode);
+		requestEntity.setPost(false);
+		requestEntity.setParams(map);
+		request(requestEntity);
+	}
+	
 
 }

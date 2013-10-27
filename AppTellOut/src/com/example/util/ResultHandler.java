@@ -2,6 +2,7 @@ package com.example.util;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.apptellout.BaseActivity;
@@ -22,30 +23,31 @@ public class ResultHandler extends Handler{
 	
 	@Override
 	public void handleMessage(Message msg) {
-		String temp = null;
+		Log.d("tag","Result--handler->"+msg.what);
+		String temp = "成功";
 		switch(msg.what){
-		case ErrorCodeConstant.NAME_EXIT:
+		case ErrorCodeConstant.CODE_NAME_EXIT:
 			temp = "昵称已经存在";
 			break;
-		case ErrorCodeConstant.EMAIL_EXIT:
+		case ErrorCodeConstant.CODE_EMAIL_EXIT:
 			temp = "邮箱已被注册";
 			break;
-		case ErrorCodeConstant.NAME_PWD_ERROR:
+		case ErrorCodeConstant.CODE_NAME_PWD_ERROR:
 			temp = "用户名或密码错误";
 			break;
-		case ErrorCodeConstant.SUCCESS://数据正确
+		case ErrorCodeConstant.CODE_SUCCESS://数据正确
 			activity.showResult(msg.arg1,(BaseEntity) msg.obj);
 			return;
-		case ErrorCodeConstant.TIME_OUT:
+		case ErrorCodeConstant.CODE_TIME_OUT:
 			temp = "请求超时，请检查网络";
 			break;
-		case ErrorCodeConstant.JSON_EXCEPTION:
+		case ErrorCodeConstant.CODE_JSON_EXCEPTION:
 			temp = "数据已经损坏";
 			break;
-		case ErrorCodeConstant.OTHER:
+		case ErrorCodeConstant.CODE_FAILED:
 			temp = "未知异常";
 			break;
-		case ErrorCodeConstant.SQL_EXCEPTION:
+		case ErrorCodeConstant.CODE_SQL_EXCEPTION:
 			temp = "数据库异常";
 			break;
 		default:

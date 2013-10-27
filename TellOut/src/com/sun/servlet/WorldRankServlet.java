@@ -62,7 +62,7 @@ public class WorldRankServlet extends HttpServlet {
 		ResponseEntity responseEntity = null;
 //		if (null != request.getParameter(DbConstant.DB_USER_ID)) {
 			// 查询的结果
-			responseEntity = new DbManager().doRequest(requestEntity);
+		responseEntity = new DbManager().doRequest(requestEntity);
 //		}else{
 //			responseEntity =new ResponseEntity();
 //			responseEntity.setCode(MConstant.FAILED);
@@ -70,6 +70,7 @@ public class WorldRankServlet extends HttpServlet {
 		
 		
 		response.setContentType("text/html");
+		response.setCharacterEncoding("utf8");
 		PrintWriter out = response.getWriter();
 		out.print(JsonHelper.encodeWorldRank(responseEntity));
 		out.flush();

@@ -8,14 +8,16 @@
         android:id="@+id/relativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#cccccc" >
+        android:background="@drawable/top_title_bg" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
             android:padding="10dp"
-            android:text="吐槽" />
+			android:textAppearance="?android:attr/textAppearanceLarge" 
+			android:text="吐槽" />
 
     </RelativeLayout>
 
@@ -102,14 +104,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/regist" />
+                android:textColor="@color/white"
+                android:text="@string/regist"
+                android:background="@drawable/selector_regist"
+                 />
              <Button
                 android:id="@+id/login_regist_right_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/login" />
+                android:textColor="@color/white"
+                android:text="@string/login"
+                android:background="@drawable/selector_btn_green"
+                 />
         </LinearLayout>
     </LinearLayout>
+
+    
 
 </RelativeLayout>

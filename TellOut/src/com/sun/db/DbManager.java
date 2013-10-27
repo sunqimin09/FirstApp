@@ -169,11 +169,11 @@ public class DbManager {
 			ResultSet rsName= doQuery(sql);
 			ResultSet rsEmail = doQuery(sql1);
 			if (rsName.next()) {
-				response.setCode(MConstant.USER_EXIST);
+				response.setCode(MConstant.CODE_NAME_EXIT);
 				
 				// return "用户名已存在";
 			}else if(rsEmail.next()){
-				response.setCode(MConstant.EMAIL_EXIST);
+				response.setCode(MConstant.CODE_EMAIL_EXIT);
 			}else {
 				String sqlInsert = "insert into user ("+DbConstant.DB_USER_NICK_NAME+","+DbConstant.DB_USER_PWD+","+DbConstant.DB_USER_EMAIL+")values('"
 						+ request.getParameter(DbConstant.DB_USER_NICK_NAME) + "','" + request.getParameter(DbConstant.DB_USER_PWD) + "','"
@@ -181,7 +181,7 @@ public class DbManager {
 				boolean resultInsert = doInsert(sqlInsert);
 				System.out.println("sql-regist->"+resultInsert);
 				 if(resultInsert){
-					 response.setCode(MConstant.FAILED);
+					 response.setCode(MConstant.CODE_FAILED);
 //					 response.setError_str("注册失败");
 				 }else{
 					 String sqlId = "select id from user where "+DbConstant.DB_USER_NICK_NAME+" ='" + request.getParameter(DbConstant.DB_USER_NICK_NAME) + "'";
@@ -194,13 +194,13 @@ public class DbManager {
 						 response.setParams(hashmap);
 					 }
 					 rsId.close();
-					 response.setCode(MConstant.SUCCESS);
+					 response.setCode(MConstant.CODE_SUCCESS);
 				 }
 			}
 			rsName.close();
 			rsEmail.close();
 		} catch (SQLException e) {
-			response.setCode(MConstant.SQL_EXCEPTION);
+			response.setCode(MConstant.CODE_SQL_EXCEPTION);
 			e.printStackTrace();
 		}finally{
 			return response;
@@ -211,23 +211,23 @@ public class DbManager {
 	private ResponseEntity doLogin(HttpServletRequest request){
 		ResponseEntity response = new ResponseEntity();
 		
-		String sql = "select id from user where "+DbConstant.DB_USER_EMAIL+" = '"+request.getParameter(DbConstant.DB_USER_EMAIL)
+		String sql = "select "+DbConstant.DB_USER_ID+" from user where "+DbConstant.DB_USER_EMAIL+" = '"+request.getParameter(DbConstant.DB_USER_EMAIL)
 		+"' and "+DbConstant.DB_USER_PWD+" = '"+request.getParameter(DbConstant.DB_USER_PWD)+"'";
 		try {
 			ResultSet rs = doQuery(sql);
 			if(rs.next()){
-				response.setCode(MConstant.SUCCESS);
+				response.setCode(MConstant.CODE_SUCCESS);
 				int id =rs.getInt(DbConstant.DB_USER_ID);
 				System.out.println("登录成功-->");
 				Map<String,String> hashmap = new HashMap<String,String>();
 				hashmap.put(DbConstant.DB_USER_ID, id+"");
 				response.setParams(hashmap);
 			}else{
-				response.setCode(MConstant.FAILED);
+				response.setCode(MConstant.CODE_FAILED);
 //				response.setError_str("");
 			}
 		} catch (SQLException e) {
-			response.setCode(MConstant.SQL_EXCEPTION);
+			response.setCode(MConstant.CODE_SQL_EXCEPTION);
 			e.printStackTrace();
 		}finally{
 			return response;
@@ -259,9 +259,9 @@ public class DbManager {
 			rs.close();
 //			rs1.close();
 			response.setList(list);
-			response.setCode(MConstant.SUCCESS);
+			response.setCode(MConstant.CODE_SUCCESS);
 		} catch (SQLException e) {
-			response.setCode(MConstant.SQL_EXCEPTION);
+			response.setCode(MConstant.CODE_SQL_EXCEPTION);
 			e.printStackTrace();
 		}
 		
@@ -295,9 +295,9 @@ public class DbManager {
 				list.add(map);
 			}
 			response.setList(list);
-			response.setCode(MConstant.SUCCESS);
+			response.setCode(MConstant.CODE_SUCCESS);
 		} catch (SQLException e) {
-			response.setCode(MConstant.SQL_EXCEPTION);
+			response.setCode(MConstant.CODE_SQL_EXCEPTION);
 			e.printStackTrace();
 		}
 		return response;
@@ -327,9 +327,9 @@ public class DbManager {
 				list.add(map);
 			}
 			response.setList(list);
-			response.setCode(MConstant.SUCCESS);
+			response.setCode(MConstant.CODE_SUCCESS);
 		} catch (SQLException e) {
-			response.setCode(MConstant.SQL_EXCEPTION);
+			response.setCode(MConstant.CODE_SQL_EXCEPTION);
 			e.printStackTrace();
 		}
 		return response;
@@ -390,9 +390,9 @@ public class DbManager {
 			rs1.close();
 			rs2.close();
 			rs3.close();
-			response.setCode(MConstant.SUCCESS);
+			response.setCode(MConstant.CODE_SUCCESS);
 		}catch(SQLException e){
-			response.setCode(MConstant.SQL_EXCEPTION);
+			response.setCode(MConstant.CODE_SQL_EXCEPTION);
 			e.printStackTrace();
 		}
 		return response;
@@ -415,12 +415,26 @@ public class DbManager {
 //		String otherPer = request.getParameter(DbConstant.OTHER_PER);
 		String regionId = request.getParameter(DbConstant.DB_USER_REGION_ID);
 		String industryId = request.getParameter(DbConstant.DB_USER_INDUSTRY_ID);
+		salary = (salary==null)? "0":salary;
+		salaryPer = (salaryPer==null)? "0":salaryPer;
+		welfare = (welfare==null)? "0":welfare;
+		welfarePer = (welfarePer==null)? "0":welfarePer;
+		regionId = (regionId==null)? "0":regionId;
+		industryId = (industryId==null)? "0":industryId;
 //		String companyId = request.getParameter(DbConstant.COMPANY_ID);
+		int salaryInt = 0;
+		int salaryPerInt = 50;
+		int welfareInt = 0;
+		int welfarePerInt = 50;
+		try{
+			salaryInt = Integer.parseInt(salary);
+			salaryPerInt = Integer.parseInt(salaryPer);
+			welfareInt = Integer.parseInt(welfare);
+			welfarePerInt = Integer.parseInt(welfarePer);
+		}catch(java.lang.NumberFormatException e){
+			e.printStackTrace();
+		}
 		
-		int salaryInt = Integer.parseInt(salary);
-		int salaryPerInt = Integer.parseInt(salaryPer);
-		int welfareInt = Integer.parseInt(welfare);
-		int welfarePerInt = Integer.parseInt(welfarePer);
 //		int futureInt = Integer.parseInt(future);
 //		int futurePerInt = Integer.parseInt(futurePer);
 //		int otherInt = Integer.parseInt(other);
@@ -451,9 +465,9 @@ public class DbManager {
 				+ "where "+DbConstant.DB_USER_ID+" ='" + request.getParameter(DbConstant.DB_USER_ID)+"'";
 			int result = doUpdate(sql);
 			if(result ==1)
-				response.setCode(MConstant.SUCCESS);
+				response.setCode(MConstant.CODE_SUCCESS);
 			else 
-				response.setCode(MConstant.FAILED);
+				response.setCode(MConstant.CODE_FAILED);
 		return response;
 	}
 	
@@ -485,9 +499,9 @@ public class DbManager {
 				response.setParams(map);
 			}
 			
-			response.setCode(MConstant.SUCCESS);
+			response.setCode(MConstant.CODE_SUCCESS);
 		} catch (SQLException e) {
-			response.setCode(MConstant.SQL_EXCEPTION);
+			response.setCode(MConstant.CODE_SQL_EXCEPTION);
 			e.printStackTrace();
 		}
 		return response;
@@ -525,12 +539,12 @@ public class DbManager {
 			if(rs.next()){
 				int result = doUpdate(sql);
 				if(result==1){
-					response.setCode(MConstant.SUCCESS);
+					response.setCode(MConstant.CODE_SUCCESS);
 				}else{
-					response.setCode(MConstant.FAILED);
+					response.setCode(MConstant.CODE_FAILED);
 				}
 			}else{
-				response.setCode(MConstant.FAILED);
+				response.setCode(MConstant.CODE_FAILED);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

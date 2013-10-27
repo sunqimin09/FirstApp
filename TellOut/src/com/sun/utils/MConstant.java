@@ -25,19 +25,22 @@ public class MConstant {
 	
 	public final static int CHANGE_PASSWORLD = 10;
 	
+		
 	/** 成功 */
-	public final static int SUCCESS = 0;
+	public final static int CODE_SUCCESS = 200;
+	
+	public final static int CODE_SQL_EXCEPTION = -101;
+	
+	public final static int CODE_JSON_EXCEPTION = -103;
 	/** 失败 */
-	public final static int FAILED = -1;
-
+	public final static int CODE_FAILED = -104;
 	/** 用户已经存在 */
-	public final static int USER_EXIST = -101;
+	public final static int CODE_NAME_EXIT = -105;
+	/**邮箱已经存在*/
+	public final static int CODE_EMAIL_EXIT = -106;
+	/**用户名或密码错误*/
+	public final static int CODE_NAME_PWD_ERROR = -107;
 	
-	public final static int EMAIL_EXIST = -104;
-
-	public final static int SQL_EXCEPTION = -102;
-	
-	public final static int JSON_EXCEAPTION = -103;
 
 	/** 请求参数 */
 	/**请求是否包含标志*/

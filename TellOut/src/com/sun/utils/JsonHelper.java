@@ -23,7 +23,7 @@ public class JsonHelper {
 			object.put("code", responseEntity.getCode());
 			object.put("codeStr", responseEntity.getCode_str());
 			JSONObject result = new JSONObject();
-			result.put("id", responseEntity.getParams().get(DbConstant.DB_USER_ID));
+			result.put(DbConstant.DB_USER_ID, responseEntity.getParams().get(DbConstant.DB_USER_ID));
 			object.put("result", result);
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -42,7 +42,7 @@ public class JsonHelper {
 			object.put("code", responseEntity.getCode());
 			object.put("codeStr", responseEntity.getCode_str());
 			JSONObject result = new JSONObject();
-			result.put("id", responseEntity.getParams().get(DbConstant.DB_USER_ID));
+			result.put(DbConstant.DB_USER_ID, responseEntity.getParams().get(DbConstant.DB_USER_ID));
 			object.put("result", result);
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -141,7 +141,7 @@ public class JsonHelper {
 				}
 				jsonArray.add(item);
 			}
-			object.put("list", jsonArray);
+			result.put("list", jsonArray);
 			
 		} catch (JSONException e) {
 			e.printStackTrace();

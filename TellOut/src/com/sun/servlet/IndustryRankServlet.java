@@ -70,7 +70,7 @@ public class IndustryRankServlet extends HttpServlet {
 			responseEntity = new DbManager().doRequest(requestEntity);
 		}else{
 			responseEntity =new ResponseEntity();
-			responseEntity.setCode(MConstant.FAILED);
+			responseEntity.setCode(MConstant.CODE_FAILED);
 		}
 		
 		//返回行业排行列表，20条数据

@@ -64,7 +64,7 @@ public class ChangePassWorldServlet extends HttpServlet {
 //			responseEntity = new ResponseEntity();
 //			responseEntity.setCode(MConstant.FAILED);
 //		}
-
+		response.setCharacterEncoding("utf8");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.print(change(responseEntity));

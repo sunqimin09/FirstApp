@@ -79,7 +79,7 @@ public class EditSelfInforServlet extends HttpServlet {
 //			responseEntity =new ResponseEntity();
 //			responseEntity.setCode(MConstant.FAILED);
 //		}
-//		
+		response.setCharacterEncoding("utf8");	
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.println(change(responseEntity));

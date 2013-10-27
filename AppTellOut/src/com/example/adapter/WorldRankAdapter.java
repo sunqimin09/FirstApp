@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,9 @@ public class WorldRankAdapter extends BaseAdapter{
 	}
 	
 	public void setData(List<UserEntity> list){
+		for(int i = 0;i<list.size();i++){
+			Log.d("tag","worldAdapter-->"+list.get(i).getIndustry_name());
+		}
 		this.list = list;
 		notifyDataSetChanged();
 	}
@@ -76,12 +80,12 @@ public class WorldRankAdapter extends BaseAdapter{
 		// result>{"code":0,"result":{"worldRank":[{"name":"test1","score":"200","industry":"1",
 		// "industry_name":"IT"},{"name":"test3","industry":"2","industry_name":"server"}],"name":"test1","score":"200","industry_id":"1","list_size":2}}
 		//展示数据
-		userEntity = list.get(arg0);
+		UserEntity userEntity = list.get(arg0);
 		
 		holder.tv_name.setText(userEntity.getName());
-		holder.tv_score.setText(userEntity.getScore());
-		holder.tv_other.setText(userEntity.getCompany_name());
-
+		holder.tv_score.setText(userEntity.getScore()+"");
+		holder.tv_other.setText(list.get(arg0).getCompany_name());
+		Log.d("tag","World-rank"+userEntity.getCompany_name());
 		return convertView;
 	}
 	
@@ -90,5 +94,4 @@ public class WorldRankAdapter extends BaseAdapter{
 	/**展示数据*/
 	private List<UserEntity> list = new ArrayList<UserEntity>();
 	
-	private static UserEntity userEntity = null;
 }

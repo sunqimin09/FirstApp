@@ -41,7 +41,11 @@ public class DbConstant {
 	public final static String DB_REGION_ID = DB_USER_REGION_ID;
 	/**地区名称*/
 	public final static String DB_REGION_NAME = "regionName";
-	
+	//地区表
+	//行业表
+	public final static String DB_INDUSTRY_ID = DB_USER_INDUSTRY_ID;
+		
+	public final static String DB_INDUSTRY_NAME = "industryName";
 	
 	
 }
