@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:baiduadsdk="http://schemas.android.com/apk/res/com.sun.appxiaolinyuan"
+    tools:context=".MainActivity" >
+
+    <WebView
+        android:id="@+id/webView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:clickable="true"
+        android:visibility="gone"
+        android:text="当前无网络，请检查网络连接"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+    <com.baidu.mobads.AdView android:id="@+id/adView"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentLeft="true"  
+		baiduadsdk:adSize="0"
+		baiduadsdk:adId = ""  >
+
+      
+
+    </com.baidu.mobads.AdView>
+	  	<!--注： baiduadsdk:adId可以指定为"",表示默认广告位-->
+
+      <ImageView
+          android:id="@+id/imgClose"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentBottom="true"
+          android:layout_alignParentRight="true"
+          android:layout_alignTop="@+id/adView"
+          android:src="@android:drawable/ic_delete" />
+
+</RelativeLayout>
