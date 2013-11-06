@@ -8,7 +8,7 @@ package com.example.entity;
  * @author sunqm
  *
  */
-public class TypeEntity {
+public class TypeEntity extends BaseEntity{
 
 	
 	

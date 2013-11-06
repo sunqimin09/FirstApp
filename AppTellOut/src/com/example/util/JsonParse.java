@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.entity.BaseEntity;
+import com.example.entity.TypeEntity;
 import com.example.entity.UserEntity;
 import com.sun.constant.DbConstant;
 
@@ -32,10 +34,10 @@ public class JsonParse {
 //				ParseEditSelfInfor(baseEntity.getResultObject());
 				break;
 			case MConstant.REQUEST_CODE_GET_MY_RANK://我的个人排名信息
-				ParseGetSelfRankInfor(baseEntity.getResultObject());
+				ParseGetSelfRankInfor(baseEntity);
 				break;
 			case MConstant.REQUEST_CODE_WORLD_RANK://世界排名，可以限制某一地区，或者某一 行业
-				baseEntity.setList(ParseRank(baseEntity.getResultObject()));
+				ParseWorldRank(baseEntity);
 				break;
 			case MConstant.REQUEST_CODE_REGION_RANK://地区排名
 				
@@ -44,6 +46,15 @@ public class JsonParse {
 				break;
 			case MConstant.REQUEST_CODE_COMPANY_RANK://公司排名
 				break;
+				
+			case MConstant.REQUEST_CODE_REGIONS:
+				baseEntity = PaseTypes(baseEntity);
+				break;
+			case MConstant.REQUEST_CODE_INDUSTRYS:
+				break;
+			case MConstant.REQUEST_CODE_COMPANYS:
+				break;
+				
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -99,8 +110,9 @@ public class JsonParse {
 	 * @return
 	 * @throws JSONException 
 	 */
-	private static UserEntity ParseGetSelfRankInfor(JSONObject object) throws JSONException{
+	private static UserEntity ParseGetSelfRankInfor(BaseEntity baseEntity) throws JSONException{
 		UserEntity entity = new UserEntity();
+		JSONObject object = baseEntity.getResultObject();
 		entity.setWorldRank(object.getInt("worldRank"));
 		entity.setRegionRank(object.getInt("regionRank"));
 		entity.setIndustryRank(object.getInt("industryRank"));
@@ -115,17 +127,52 @@ public class JsonParse {
 	 * @param object
 	 * @return  是否成功编辑
 	 */
-	private static UserEntity ParseEditSelfInfor(JSONObject object){
+	private static UserEntity ParseEditSelfInfor(BaseEntity baseEntity){
 		UserEntity entity = new UserEntity();
 		
 		return entity;
 	}
 	
-	
-	private static List<UserEntity> ParseRank(JSONObject object){
+	/**
+	 * 世界排行
+	 * @param baseEntity
+	 * @return
+	 * @throws JSONException
+	 */
+	private static BaseEntity ParseWorldRank(BaseEntity baseEntity) throws JSONException{
 		List<UserEntity> list = new ArrayList<UserEntity>();
-		
-		return list;
+		JSONArray array = baseEntity.getResultObject().getJSONArray("list");
+		JSONObject object = null;
+		UserEntity userEntity = null;
+		for(int i = 0;i<array.length();i++){
+			object = array.getJSONObject(i);
+			userEntity = new UserEntity();
+			userEntity.setName(object.getString(DbConstant.DB_USER_NICK_NAME));
+			userEntity.setScore(object.getInt(DbConstant.DB_USER_SCORE));
+			userEntity.setSalary(object.getInt(DbConstant.DB_USER_SALARY));
+			userEntity.setIndustry_name(object.getString(DbConstant.DB_INDUSTRY_NAME));
+			list.add(userEntity);
+		}
+		baseEntity.setList(list);
+		return baseEntity;
+	}
+	
+	/**
+	 * 地区，行业，公司列表
+	 */
+	private static BaseEntity PaseTypes(BaseEntity baseEntity) throws JSONException{
+		List<TypeEntity> list  = new ArrayList<TypeEntity>();
+		TypeEntity entity =null;
+		JSONArray array =baseEntity.getResultObject().getJSONArray("list");
+		JSONObject object = null;
+		for(int i = 0;i<array.length();i++){
+			entity = new TypeEntity();
+			object =array.getJSONObject(i);
+			entity.setName(object.getString("name"));
+			list.add(entity);
+		}
+		baseEntity.setList(list);
+		return baseEntity;
 	}
 
 }

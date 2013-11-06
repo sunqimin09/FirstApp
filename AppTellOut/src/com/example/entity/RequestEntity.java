@@ -9,6 +9,8 @@ import java.util.Map;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.example.util.MConstant;
+
 /**
  * 网络请求实体类，包含了一切请求的数据
  * @author sunqm
@@ -29,6 +31,7 @@ public class RequestEntity {
 	}
 
 	public void setRequestType(int requestType) {
+		setUrl(requestType);
 		this.requestType = requestType;
 	}
 
@@ -63,6 +66,20 @@ public class RequestEntity {
 			post_params.add(param);
 		}
 		return post_params;
+	}
+	
+	private void setUrl(int requestCode){
+		switch(requestCode){
+		case MConstant.REQUEST_CODE_REGIONS:
+			this.url = MConstant.URL_REGIONS;
+			break;
+		case MConstant.REQUEST_CODE_INDUSTRYS:
+			this.url = MConstant.URL_INDUSTRYS;
+			break;
+		case MConstant.REQUEST_CODE_COMPANYS:
+			this.url = MConstant.URL_COMPANYS;
+			break;
+		}
 	}
 	
 	

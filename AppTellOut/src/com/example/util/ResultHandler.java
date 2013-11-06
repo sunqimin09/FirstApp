@@ -24,6 +24,9 @@ public class ResultHandler extends Handler{
 	public void handleMessage(Message msg) {
 		String temp = null;
 		switch(msg.what){
+		case ErrorCodeConstant.NO_INTERNET:
+			temp = "当前无网络连接";
+			break;
 		case ErrorCodeConstant.NAME_EXIT:
 			temp = "昵称已经存在";
 			break;

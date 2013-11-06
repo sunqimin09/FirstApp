@@ -24,6 +24,11 @@ public class TypeAdapter extends BaseAdapter{
 		this.list = list;
 	}
 	
+	public void setData(List<TypeEntity> list){
+		this.list = list;
+		notifyDataSetChanged();
+	}
+	
 	@Override
 	public int getCount() {
 		return list.size();

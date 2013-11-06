@@ -90,13 +90,13 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener {
 	public void onClick(View arg0) {
 		switch(arg0.getId()){
 		case R.id.edit_myinfor_region_rl://选择地区
-			startActivityForResult(new Intent(EditMyInforAct.this,SelectType.class).putExtra("requestCode", "0"), 0);
+			startActivityForResult(new Intent(EditMyInforAct.this,SelectType.class).putExtra("flag", MConstant.REQUEST_CODE_REGIONS), 0);
 			break;
 		case R.id.edit_myinfor_industry_rl://选择行业
-			startActivityForResult(new Intent(EditMyInforAct.this,SelectType.class).putExtra("requestCode", "1"), 1);
+			startActivityForResult(new Intent(EditMyInforAct.this,SelectType.class).putExtra("flag", MConstant.REQUEST_CODE_INDUSTRYS), 1);
 			break;
 		case R.id.edit_myinfor_company_rl://选择公司
-			startActivityForResult(new Intent(EditMyInforAct.this,SelectType.class).putExtra("requestCode", "2"), 2);
+			startActivityForResult(new Intent(EditMyInforAct.this,SelectType.class).putExtra("flag", MConstant.REQUEST_CODE_COMPANYS), 2);
 			break;
 		case R.id.edit_myinfor_cancel:
 			finish();
@@ -129,6 +129,24 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener {
 			tvIndustry.setText(userEntity.getIndustry_name());
 			
 		}
+	}
+
+	
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch(requestCode){
+		case 0://地区
+			tvRegion.setText("地区:"+data.getStringExtra("name"));
+			break;
+		case 1://行业
+			tvIndustry.setText("行业:"+data.getStringExtra("name"));
+			break;
+		case 2://公司
+			tvCompany.setText("公司:"+data.getStringExtra("name"));
+			break;
+		}
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	private void setEnable(boolean flag){

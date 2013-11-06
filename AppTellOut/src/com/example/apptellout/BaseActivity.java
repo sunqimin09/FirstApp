@@ -15,6 +15,7 @@ import com.example.util.InternetHelper;
 import com.example.util.MConstant;
 import com.example.util.ResultHandler;
 import com.example.util.JsonParse;
+import com.sun.constant.ErrorCodeConstant;
 
 public class BaseActivity extends Activity{
 	
@@ -25,6 +26,10 @@ public class BaseActivity extends Activity{
 
 			@Override
 			public void run() {
+					if(!InternetHelper.isInternetAvaliable(BaseActivity.this)){
+						handler.sendEmptyMessage(ErrorCodeConstant.NO_INTERNET);
+						return ;
+					}
 					TestResponseResult entity = InternetHelper.request(
 							requestEntity);
 					if(entity.getResultCode()==HttpStatus.SC_OK){//成功，解析数据

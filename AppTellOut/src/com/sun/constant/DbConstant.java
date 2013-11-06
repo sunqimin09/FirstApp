@@ -33,6 +33,8 @@ public class DbConstant {
 	public final static String DB_USER_REGION_ID = "regionId";
 	/**行业编号*/
 	public final static String DB_USER_INDUSTRY_ID = "industryId";
+	
+	public final static String DB_USER_COMPANY_ID = "companyId";
 	/**用户评价*/
 	public final static String DB_USER_COMMENT= "comment";
 	
@@ -42,6 +44,15 @@ public class DbConstant {
 	/**地区名称*/
 	public final static String DB_REGION_NAME = "regionName";
 	
+	/**行业id*/
+	public final static String DB_INDUSTRY_ID = DB_USER_INDUSTRY_ID;
+	/**行业名称*/
+	public final static String DB_INDUSTRY_NAME = "industryName";
+	
+	/**公司id*/
+	public final static String DB_COMPANY_ID = DB_USER_COMPANY_ID;
+	/**公司名称*/
+	public final static String DB_COMPANY_NAME = "companyName";
 	
 	
 }

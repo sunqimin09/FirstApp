@@ -100,6 +100,14 @@ public class UserEntity extends BaseEntity{
 	public void setIndustryRank(int industryRank) {
 		this.industryRank = industryRank;
 	}
+
+	public int getSalary() {
+		return salary;
+	}
+
+	public void setSalary(int salary) {
+		this.salary = salary;
+	}
 	
 	private int requestCode;
 	
@@ -125,6 +133,9 @@ public class UserEntity extends BaseEntity{
 	private String region_name = null;
 	/**世界内排名*/
 	private int worldRank = 0;
+	
+	private int salary = 0;
+	
 	
 
 	/**地区内排名*/

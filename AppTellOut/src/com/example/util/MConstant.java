@@ -35,6 +35,13 @@ public class MConstant {
 	
 	public final static int REQUEST_CODE_REGION_RANK = 6;
 	
+	/**地区列表*/
+	public final static int REQUEST_CODE_REGIONS = 9;
+	/**行业列表*/
+	public final static int REQUEST_CODE_INDUSTRYS = 10;
+	/**公司列表*/
+	public final static int REQUEST_CODE_COMPANYS = 11;
+	
 	
 	
 	
@@ -53,6 +60,12 @@ public class MConstant {
 	public final static String URL_COMPANY_RANK="";
 	
 	public final static String URL_EDIT_MYINFOR="";
+	
+	public final static String URL_REGIONS = "";
+	
+	public final static String URL_INDUSTRYS = "";
+	
+	public final static String URL_COMPANYS = "";
 	
 	/** 请求参数 */
 

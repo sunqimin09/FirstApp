@@ -23,6 +23,7 @@ public class ErrorCodeConstant {
 	/**用户名或密码错误*/
 	public final static int NAME_PWD_ERROR = -107;
 	
+	public final static int NO_INTERNET = -10001;
 	/**
 	 * 其余错误码大于100，均属于服务器异常
 	 */
