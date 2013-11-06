@@ -3,43 +3,35 @@ package com.example.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.interface_.InterfaceListEntity;
-
 /**
  * 排名实体类
  * @author sunqm
  *
  */
-public class RankListEntity extends BaseEntity implements InterfaceListEntity{
+public class RankListEntity extends BaseEntity {
 	
 
-	@Override
 	public void setSize(int size) {
 		totalCount = size;
 	}
 
-	@Override
 	public int getSize() {
 		return totalCount;
 	}
 
 	@SuppressWarnings({"unchecked"})
-	@Override
 	public void setEntitys(ArrayList<? extends BaseEntity> list) {
 		users = (List<UserEntity>) list;
 	}
 
-	@Override
 	public List<? extends BaseEntity> getEntitys() {
 		return users;
 	}
 
-	@Override
 	public int getCurrentMaxIndex() {
 		return currentIndex;
 	}
 
-	@Override
 	public void setCurrentMaxIndex(int indext) {
 		currentIndex = indext;
 	}

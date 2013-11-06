@@ -12,7 +12,7 @@ import com.example.entity.BaseEntity;
 import com.example.entity.UserEntity;
 import com.sun.constant.DbConstant;
 
-public class TestJsonParse {
+public class JsonParse {
 	
 	public static BaseEntity JsonParse(int requestType, String responseStr) {
 		BaseEntity baseEntity = null;
@@ -20,13 +20,13 @@ public class TestJsonParse {
 			baseEntity = ParseBase(responseStr);
 			switch (requestType) {
 			case MConstant.REQUEST_CODE_LOGIN_:
-				baseEntity = ParseLogin_Regist(baseEntity.getResultObject());
+				baseEntity = ParseLogin_Regist(baseEntity);
 				break;
 			case MConstant.REQUEST_CODE_REGIST:
-				baseEntity = ParseLogin_Regist(baseEntity.getResultObject());
+				baseEntity = ParseLogin_Regist(baseEntity);
 				break;
 			case MConstant.REQUEST_CODE_GET_SELF_INFOR://获得我的个人信息
-				ParseGetSelfInfor(baseEntity.getResultObject());
+				baseEntity = ParseGetSelfInfor(baseEntity);
 				break;
 			case MConstant.REQUEST_CODE_EDIT_SELF_INFOR://编辑的信息,返回是否成功
 //				ParseEditSelfInfor(baseEntity.getResultObject());
@@ -69,31 +69,32 @@ public class TestJsonParse {
 	 * @return
 	 * @throws JSONException
 	 */
-	private static BaseEntity ParseLogin_Regist(JSONObject object)
+	private static BaseEntity ParseLogin_Regist(BaseEntity baseEntity)
 			throws JSONException {
-		BaseEntity entity = new BaseEntity();
 		Map<String,String> map = new HashMap<String,String>();
-		map.put(DbConstant.DB_USER_ID, object.getString(DbConstant.DB_USER_ID));
-		entity.setMap(map);
-		return entity;
+		map.put(DbConstant.DB_USER_ID, baseEntity.getResultObject().getString(DbConstant.DB_USER_ID));
+		baseEntity.setMap(map);
+		return baseEntity;
 
 	}
 	
 	/**
-	 * 解析我的个呢信息
+	 * 解析我的个人信息
 	 * @param object
 	 * @return  所有的个人信息
 	 */
-	private static UserEntity ParseGetSelfInfor(JSONObject object){
-		UserEntity entity = new UserEntity();
-		
-		
-		return entity;
+	private static BaseEntity ParseGetSelfInfor(BaseEntity baseEntity){
+		UserEntity userEntity = new UserEntity();
+		userEntity.setCode(baseEntity.getCode());
+		JSONObject object = baseEntity.getResultObject();
+//		userEntity.setName(object.getString(DbConstant.DB_USER_NICK_NAME));
+//		userEntity.setCompany_name(object.getString(DbConstant.))
+		return baseEntity;
 		
 	}
 	
 	/**
-	 * 获得
+	 * 获得个人排名信息
 	 * @param object
 	 * @return
 	 * @throws JSONException 
@@ -119,6 +120,7 @@ public class TestJsonParse {
 		
 		return entity;
 	}
+	
 	
 	private static List<UserEntity> ParseRank(JSONObject object){
 		List<UserEntity> list = new ArrayList<UserEntity>();

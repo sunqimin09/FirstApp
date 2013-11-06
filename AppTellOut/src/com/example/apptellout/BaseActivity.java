@@ -14,7 +14,7 @@ import com.example.entity.TestResponseResult;
 import com.example.util.InternetHelper;
 import com.example.util.MConstant;
 import com.example.util.ResultHandler;
-import com.example.util.TestJsonParse;
+import com.example.util.JsonParse;
 
 public class BaseActivity extends Activity{
 	
@@ -28,7 +28,7 @@ public class BaseActivity extends Activity{
 					TestResponseResult entity = InternetHelper.request(
 							requestEntity);
 					if(entity.getResultCode()==HttpStatus.SC_OK){//成功，解析数据
-						BaseEntity baseEntity = TestJsonParse.JsonParse(requestEntity.getRequestType(), entity.getResultStr());
+						BaseEntity baseEntity = JsonParse.JsonParse(requestEntity.getRequestType(), entity.getResultStr());
 						Message msg = new Message();
 						/**异常码*/
 						msg.what =baseEntity.getCode();
