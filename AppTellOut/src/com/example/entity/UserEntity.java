@@ -109,6 +109,14 @@ public class UserEntity extends BaseEntity{
 		this.salary = salary;
 	}
 	
+	public String getRegion_name() {
+		return region_name;
+	}
+
+	public void setRegion_name(String region_name) {
+		this.region_name = region_name;
+	}
+	
 	private int requestCode;
 	
 	private int code;
@@ -131,13 +139,16 @@ public class UserEntity extends BaseEntity{
 	private int regionId = 0;
 	/**地区名称*/
 	private String region_name = null;
+	
+
 	/**世界内排名*/
 	private int worldRank = 0;
 	
 	private int salary = 0;
 	
+	private int salaryPer = 0;
 	
-
+	
 	/**地区内排名*/
 	private int regionRank = 0;
 	/**行业内排名*/

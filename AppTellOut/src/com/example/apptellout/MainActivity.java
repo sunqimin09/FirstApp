@@ -50,10 +50,12 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
 	private ListView listViewCompanyRank;
 	/**编辑个人信息*/
 	private Button btnEditMyInfor;
+	
+	private TextView tvMyRankNickName;
 	/**当前积分*/
-	private TextView tvScore;
+	private TextView tvMyRankScore;
 	/**世界排名*/
-	private TextView tvWorldRank;
+	private TextView tvMyRankWorldRank;
 	
 //	private LinearLayout llMyInfor;
 	
@@ -108,7 +110,11 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
 	private void initMyInfor(){
 		View viewMyInfor = findViewById(R.id.tab1);
 		btnEditMyInfor = (Button) viewMyInfor.findViewById(R.id.my_infor_detail_btn);
+		tvMyRankNickName = (TextView) viewMyInfor.findViewById(R.id.my_infor_rank_nickName);
+		tvMyRankScore = (TextView) viewMyInfor.findViewById(R.id.my_infor_rank_score);
+		tvMyRankWorldRank = (TextView) viewMyInfor.findViewById(R.id.my_infor_rank_worldrank);
 //		llMyInfor = (LinearLayout) viewMyInfor.findViewById(R.id.my_infor_ll);
+		
 		btnEditMyInfor.setOnClickListener(this);
 	}
 	
@@ -160,9 +166,12 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
 	@Override
 	public void showResult(int type, BaseEntity baseEntity) {
 		super.showResult(type, baseEntity);
-		JSONArray array = null;
 		switch (type) {
 		case MConstant.REQUEST_CODE_GET_MY_RANK:// 个人排名信息
+			UserEntity userEntity = (UserEntity) baseEntity;
+			tvMyRankNickName.setText(userEntity.getName());
+			tvMyRankScore.setText(userEntity.getScore()+"");
+			tvMyRankWorldRank.setText(userEntity.getWorldRank());
 			
 			break;
 		case MConstant.REQUEST_CODE_WORLD_RANK:// 世界排名

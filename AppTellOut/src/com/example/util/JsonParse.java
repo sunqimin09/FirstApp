@@ -101,14 +101,19 @@ public class JsonParse {
 	 * 解析我的个人信息
 	 * @param object
 	 * @return  所有的个人信息
+	 * @throws JSONException 
 	 */
-	private static BaseEntity ParseGetSelfInfor(BaseEntity baseEntity){
+	private static BaseEntity ParseGetSelfInfor(BaseEntity baseEntity) throws JSONException{
 		UserEntity userEntity = new UserEntity();
 		userEntity.setCode(baseEntity.getCode());
 		JSONObject object = baseEntity.getResultObject();
-//		userEntity.setName(object.getString(DbConstant.DB_USER_NICK_NAME));
-//		userEntity.setCompany_name(object.getString(DbConstant.))
-		return baseEntity;
+		userEntity.setName(object.getString(DbConstant.DB_USER_NICK_NAME));
+		userEntity.setCompany_name(object.getString(DbConstant.DB_COMPANY_NAME));
+		userEntity.setRegion_name(object.getString(DbConstant.DB_REGION_NAME));
+		userEntity.setIndustry_name(object.getString(DbConstant.DB_INDUSTRY_NAME));
+		userEntity.setSalary(object.getInt(DbConstant.DB_USER_SALARY));
+		
+		return userEntity;
 		
 	}
 	
