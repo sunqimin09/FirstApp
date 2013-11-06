@@ -12,10 +12,10 @@ import com.example.entity.BaseEntity;
 import com.example.entity.RequestEntity;
 import com.example.entity.TestResponseResult;
 import com.example.util.InternetHelper;
-import com.example.util.MConstant;
 import com.example.util.ResultHandler;
 import com.example.util.JsonParse;
 import com.sun.constant.ErrorCodeConstant;
+import com.sun.constant.MConstant;
 
 public class BaseActivity extends Activity{
 	

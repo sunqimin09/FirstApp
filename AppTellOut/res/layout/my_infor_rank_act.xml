@@ -24,7 +24,7 @@
             android:layout_toRightOf="@+id/imageView1"
             android:layout_marginLeft="10dp"
             android:text="我的昵称"
-            android:textColor="#ccc999" />
+            />
     </RelativeLayout>
     <LinearLayout
         android:id="@+id/my_infor_ll"
@@ -47,7 +47,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
-                android:textColor="@color/white"
                 android:layout_centerHorizontal="true"
                 android:text="TextView" />
 
@@ -83,7 +82,6 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:layout_centerHorizontal="true"
-                android:textColor="@color/white"
                 android:text="TextView" />
 
         </RelativeLayout>
@@ -100,7 +98,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:textColor="@color/white"
                 android:layout_centerHorizontal="true"
                 android:text="TextView" />
 
@@ -118,7 +115,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:textColor="@color/white"
                 android:layout_centerHorizontal="true"
                 android:text="TextView" />
 
@@ -136,7 +132,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:textColor="@color/white"
                 android:layout_centerHorizontal="true"
                 android:text="TextView" />
 

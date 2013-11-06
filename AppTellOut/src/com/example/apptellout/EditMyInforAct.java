@@ -18,8 +18,8 @@ import android.widget.Toast;
 import com.example.entity.BaseEntity;
 import com.example.entity.RequestEntity;
 import com.example.entity.UserEntity;
-import com.example.util.MConstant;
 import com.sun.constant.DbConstant;
+import com.sun.constant.MConstant;
 
 public class EditMyInforAct extends BaseActivity implements OnClickListener {
 
@@ -135,17 +135,20 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener {
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		switch(requestCode){
-		case 0://地区
-			tvRegion.setText("地区:"+data.getStringExtra("name"));
-			break;
-		case 1://行业
-			tvIndustry.setText("行业:"+data.getStringExtra("name"));
-			break;
-		case 2://公司
-			tvCompany.setText("公司:"+data.getStringExtra("name"));
-			break;
+		if(resultCode == -101){
+			switch(requestCode){
+			case 0://地区
+				tvRegion.setText("地区:"+data.getStringExtra("name"));
+				break;
+			case 1://行业
+				tvIndustry.setText("行业:"+data.getStringExtra("name"));
+				break;
+			case 2://公司
+				tvCompany.setText("公司:"+data.getStringExtra("name"));
+				break;
+			}
 		}
+		
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 

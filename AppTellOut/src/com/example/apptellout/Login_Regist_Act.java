@@ -24,8 +24,8 @@ import android.widget.Toast;
 import com.example.entity.BaseEntity;
 import com.example.entity.RequestEntity;
 import com.example.util.InternetHelper;
-import com.example.util.MConstant;
 import com.sun.constant.DbConstant;
+import com.sun.constant.MConstant;
 
 public class Login_Regist_Act extends BaseActivity implements OnClickListener,
 		OnCheckedChangeListener {
@@ -85,6 +85,7 @@ public class Login_Regist_Act extends BaseActivity implements OnClickListener,
 
 			break;
 		case R.id.login_regist_right_btn:// 右侧
+			showResult(0, null);
 			if (!InternetHelper.isInternetAvaliable(this)) {
 				Toast("当前无网络");
 				return;
@@ -111,13 +112,13 @@ public class Login_Regist_Act extends BaseActivity implements OnClickListener,
 	
 	@Override
 	public void showResult(int type, BaseEntity baseEntity) {
-		super.showResult(type, baseEntity);
+//		super.showResult(type, baseEntity);
 //		if(type ==MConstant.REQUEST_CODE_LOGIN_){//
 //			
 //		}else if(type == MConstant.REQUEST_CODE_REGIST){
 //			
 //		}
-		MConstant.USER_ID_VALUE = baseEntity.getMap().get(DbConstant.DB_USER_ID);
+//		MConstant.USER_ID_VALUE = baseEntity.getMap().get(DbConstant.DB_USER_ID);
 		startActivity(new Intent(Login_Regist_Act.this, MainActivity.class));
 		
 	}
@@ -161,8 +162,8 @@ public class Login_Regist_Act extends BaseActivity implements OnClickListener,
 		requestEntity.setPost(true);
 		Map<String,String> map = new HashMap<String,String>();
 		
-		map.put(MConstant.USER_EMAIL, email);
-		map.put(MConstant.USER_PWD, pwd);
+		map.put(DbConstant.DB_USER_EMAIL, email);
+		map.put(DbConstant.DB_USER_PWD, pwd);
 		requestEntity.setParams(map);
 		request(requestEntity);
 	}
@@ -176,9 +177,9 @@ public class Login_Regist_Act extends BaseActivity implements OnClickListener,
 		requestEntity.setRequestType(MConstant.REQUEST_CODE_REGIST);
 		requestEntity.setPost(true);
 		Map<String,String> map = new HashMap<String,String>();
-		map.put(MConstant.USER_NAME, nickName);
-		map.put(MConstant.USER_EMAIL, email);
-		map.put(MConstant.USER_PWD, pwd);
+		map.put(DbConstant.DB_USER_NICK_NAME, nickName);
+		map.put(DbConstant.DB_USER_EMAIL, email);
+		map.put(DbConstant.DB_USER_PWD, pwd);
 		
 		requestEntity.setParams(map);
 		request(requestEntity);

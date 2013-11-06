@@ -10,9 +10,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.entity.BaseEntity;
+import com.example.entity.CommentEntity;
+import com.example.entity.TellOutEntity;
 import com.example.entity.TypeEntity;
 import com.example.entity.UserEntity;
 import com.sun.constant.DbConstant;
+import com.sun.constant.MConstant;
 
 public class JsonParse {
 	
@@ -47,12 +50,17 @@ public class JsonParse {
 			case MConstant.REQUEST_CODE_COMPANY_RANK://公司排名
 				break;
 				
-			case MConstant.REQUEST_CODE_REGIONS:
+			case MConstant.REQUEST_CODE_REGIONS://地区列表
 				baseEntity = PaseTypes(baseEntity);
 				break;
-			case MConstant.REQUEST_CODE_INDUSTRYS:
+			case MConstant.REQUEST_CODE_INDUSTRYS://行业列表
 				break;
-			case MConstant.REQUEST_CODE_COMPANYS:
+			case MConstant.REQUEST_CODE_COMPANYS://公司列表
+				
+				break;
+			case MConstant.REQUEST_CODE_TELLOUTS://吐槽列表
+				break;
+			case MConstant.REQUEST_CODE_COMMENTS://评论列表
 				break;
 				
 			}
@@ -172,6 +180,70 @@ public class JsonParse {
 			list.add(entity);
 		}
 		baseEntity.setList(list);
+		return baseEntity;
+	}
+	
+	/**
+	 * 吐槽列表
+	 * @param baseEntity
+	 * @return
+	 * @throws JSONException 
+	 */
+	private static BaseEntity ParseTellOuts(BaseEntity baseEntity) throws JSONException{
+		List<TellOutEntity> list = new ArrayList<TellOutEntity>();
+		JSONArray array = baseEntity.getResultObject().getJSONArray("list");
+		JSONObject object = null;
+		TellOutEntity entity = null;
+		for(int i = 0;i<array.length();i++){
+			object = array.getJSONObject(i);
+			entity =new TellOutEntity();
+			entity.setAuthorName(object.getString(DbConstant.DB_TELLOUT_AUTHOR));
+			entity.setContent(object.getString(DbConstant.DB_TELLOUT_CONTENT));
+			entity.setOkNum(object.getInt(DbConstant.DB_TELLOUT_OK));
+			entity.setNoNum(object.getInt(DbConstant.DB_TELLOUT_NO));
+			entity.setCommentNum(object.getInt(DbConstant.COMMENT_NUM));
+			entity.setTellOutId(object.getInt(DbConstant.DB_TELLOUT_ID));
+			list.add(entity);
+		}
+		baseEntity.setList(list);
+		Map<String,String> map = new HashMap<String,String>();
+		/**总数*/
+		map.put("listSize", baseEntity.getResultObject().getString("listSize"));
+		/**当前页码*/
+		map.put("pageIndex", baseEntity.getResultObject().getString("pageIndex"));
+		
+		baseEntity.setMap(map);
+		return baseEntity;
+	}
+	
+	/**
+	 * 评论列表
+	 * @param baseEntity
+	 * @return
+	 * @throws JSONException
+	 */
+	private static BaseEntity ParseComments(BaseEntity baseEntity) throws JSONException{
+		List<CommentEntity> list = new ArrayList<CommentEntity>();
+		JSONArray array = baseEntity.getResultObject().getJSONArray("list");
+		JSONObject object = null;
+		CommentEntity entity = null;
+		for(int i = 0;i<array.length();i++){
+			object = array.getJSONObject(i);
+			entity =new CommentEntity();
+			entity.setTellOutId(object.getInt(DbConstant.DB_COMMENT_TELLOUT_ID));
+			entity.setContent(object.getString(DbConstant.DB_COMMENT_CONTENT));
+			entity.setAuthor(object.getString(DbConstant.DB_COMMENT_AUTHOR));
+			list.add(entity);
+		}
+		baseEntity.setList(list);
+		Map<String,String> map = new HashMap<String,String>();
+		/**总数*/
+		map.put("listSize", baseEntity.getResultObject().getString("listSize"));
+		/**当前页码*/
+		map.put("pageIndex", baseEntity.getResultObject().getString("pageIndex"));
+		
+		baseEntity.setMap(map);
+		
 		return baseEntity;
 	}
 

@@ -9,7 +9,7 @@ import java.util.Map;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.example.util.MConstant;
+import com.sun.constant.MConstant;
 
 /**
  * 网络请求实体类，包含了一切请求的数据

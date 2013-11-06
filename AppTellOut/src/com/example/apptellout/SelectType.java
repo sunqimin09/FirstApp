@@ -60,7 +60,7 @@ public class SelectType extends BaseActivity implements OnClickListener{
 					long arg3) {//返回前以页面
 				Intent data = new Intent(SelectType.this,EditMyInforAct.class);
 				data.putExtra("name", list.get(arg2).getName());
-				setResult(0, data);
+				setResult(-101, data);
 				finish();
 			}
 			

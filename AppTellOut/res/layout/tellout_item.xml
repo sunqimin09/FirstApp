@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+     >
+
+    <TextView
+        android:id="@+id/tellout_item_author_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="昵称" />
+
+    <TextView
+        android:id="@+id/tellout_item_content_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tellout_item_author_tv"
+        android:maxLines="6"
+        android:text="TextView" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/tellout_item_content_tv" >
+
+        <LinearLayout
+            android:id="@+id/ll1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_vote"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ok" />
+
+            <TextView
+                android:id="@+id/tellout_item_ok_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:gravity="center"
+                android:text="3" />
+        </LinearLayout>
+		
+        <LinearLayout
+            android:id="@+id/ll2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/ll1"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/selector_vote"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/no" />
+
+            <TextView
+                android:id="@+id/tellout_item_no_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:gravity="center"
+                android:text="3" />
+        </LinearLayout>
+		
+		
+		<TextView 
+		    android:id="@+id/tellout_item_comment_tv"
+		     android:layout_width="wrap_content"
+        	 android:layout_height="wrap_content"
+        	 android:layout_alignParentRight="true"
+        	 android:layout_centerVertical="true"
+        	 android:gravity="center"
+        	 android:text="3"
+        	 android:background="@drawable/comment"
+		    />
+    </RelativeLayout>
+
+</RelativeLayout>
