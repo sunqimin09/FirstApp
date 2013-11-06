@@ -62,7 +62,8 @@ public class JsonParse {
 				break;
 			case MConstant.REQUEST_CODE_COMMENTS://评论列表
 				break;
-				
+			case MConstant.REQUEST_CODE_NEW_TELLOUT://新建吐槽
+				break;
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();

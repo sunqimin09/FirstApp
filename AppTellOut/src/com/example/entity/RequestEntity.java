@@ -70,14 +70,17 @@ public class RequestEntity {
 	
 	private void setUrl(int requestCode){
 		switch(requestCode){
-		case MConstant.REQUEST_CODE_REGIONS:
+		case MConstant.REQUEST_CODE_REGIONS://地区列表
 			this.url = MConstant.URL_REGIONS;
 			break;
-		case MConstant.REQUEST_CODE_INDUSTRYS:
+		case MConstant.REQUEST_CODE_INDUSTRYS://行业列表
 			this.url = MConstant.URL_INDUSTRYS;
 			break;
-		case MConstant.REQUEST_CODE_COMPANYS:
+		case MConstant.REQUEST_CODE_COMPANYS://公司列表
 			this.url = MConstant.URL_COMPANYS;
+			break;
+		case MConstant.REQUEST_CODE_NEW_TELLOUT://新建吐槽
+			this.url = MConstant.URL_NEW_TELLOUT;
 			break;
 		}
 	}

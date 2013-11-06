@@ -35,6 +35,11 @@ public class MConstant {
 	public final static int REQUEST_CODE_TELLOUTS = 12;
 	/**评论列表*/
 	public final static int REQUEST_CODE_COMMENTS = 13;
+	/**新建吐槽*/
+	public final static int REQUEST_CODE_NEW_TELLOUT = 14;
+	/**新建评论*/
+	public final static int REQUEST_CODE_NEW_COMMENT = 15;
+	
 	
 	
 	public final static String URL_LOGIN="";
@@ -58,8 +63,12 @@ public class MConstant {
 	public final static String URL_COMPANYS = "";
 	/**吐槽列表*/
 	public final static String URL_TELLOUTS = "";
-	/**评论俩表*/
+	/**评论列表*/
 	public final static String URL_COMMENTS = "";
+	/**新建吐槽*/
+	public final static String URL_NEW_TELLOUT = "";
+	/**新建评论*/
+	public final static String URL_NEW_COMMENT = "";
 	
 	/** 请求参数 */
 	public final static String OTHER_PAGE_INDEXT = "pageIndext";

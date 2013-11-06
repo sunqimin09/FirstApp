@@ -75,7 +75,7 @@ public class DbConstant {
 	/**评论内容*/
 	public final static String DB_COMMENT_CONTENT = "commentContent";
 	/**作者*/
-	public final static String DB_COMMENT_AUTHOR = "commentAuthor";
+	public final static String DB_COMMENT_AUTHOR_ID = DB_USER_ID;
 	/**评论时间*/
 	public final static String DB_COMMENT_CREATE_TIME = "commentCreateTime";
 	

@@ -16,5 +16,6 @@
     <string name="pwd">密码</string>
     <string name="ensure_pwd">确认密码</string>
     <string name="nick_name">昵称</string>
-	
+	<string name="new_tellout_input_hint">吐槽我的钱包瘦身史\n\n您的吐槽会即刻发表，禁止包含政治、色情内容.否则将会被管理员即刻删除</string>
+    
 </resources>
