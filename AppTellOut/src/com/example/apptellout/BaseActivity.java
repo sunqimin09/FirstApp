@@ -60,6 +60,10 @@ public class BaseActivity extends Activity{
 //		Log.d("tag","base--showResult-->"+object);
 //	}
 	
+	public void Toast(String str){
+		Toast.makeText(this,str,Toast.LENGTH_SHORT).show();
+	}
+	
 	private ResultHandler handler = new ResultHandler (this);
 	
 }

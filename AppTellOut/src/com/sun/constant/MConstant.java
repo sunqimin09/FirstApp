@@ -72,4 +72,6 @@ public class MConstant {
 	
 	/** 请求参数 */
 	public final static String OTHER_PAGE_INDEXT = "pageIndext";
+	/**总数*/
+	public final static String OTHER_TOTAL_SIZE = "totalSize";
 }

@@ -238,7 +238,7 @@ public class JsonParse {
 			entity =new CommentEntity();
 			entity.setTellOutId(object.getInt(DbConstant.DB_COMMENT_TELLOUT_ID));
 			entity.setContent(object.getString(DbConstant.DB_COMMENT_CONTENT));
-			entity.setAuthor(object.getString(DbConstant.DB_COMMENT_AUTHOR));
+			entity.setAuthor(object.getString(DbConstant.DB_USER_NICK_NAME));
 			list.add(entity);
 		}
 		baseEntity.setList(list);

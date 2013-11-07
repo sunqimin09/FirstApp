@@ -10,22 +10,31 @@
         android:id="@+id/relativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#cccccc" >
+        android:background="@drawable/title_normal" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:textSize="20dp"
             android:padding="10dp"
             android:text="吐槽" />
 
     </RelativeLayout>
-
+	<ImageView 
+	    android:id="@+id/imageView1"
+	    android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/relativeLayout1"
+        android:layout_marginTop="-2dp"
+        android:background="@drawable/bg_dplus"
+        
+	    />
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/login_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/relativeLayout1"
+        android:layout_below="@+id/imageView1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:src="@drawable/ic_launcher" />
@@ -34,7 +43,7 @@
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView1"
+        android:layout_below="@+id/login_icon"
         android:layout_marginTop="20dp"
         android:orientation="vertical"
         android:paddingLeft="10dp"
@@ -91,26 +100,35 @@
             android:id="@+id/login_regist_checkBox1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="自动登录" />
 
         <LinearLayout
             android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal" >
 
             <Button
                 android:id="@+id/login_regist_left_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:text="@string/regist" />
+                android:text="@string/regist"
+                android:background="@drawable/selector_white_btn"
+                 />
              <Button
                 android:id="@+id/login_regist_right_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="1"
-                android:text="@string/login" />
+                android:textColor="@color/white"
+                android:text="@string/login" 
+                android:background="@drawable/selector_yellow_btn"
+                />
         </LinearLayout>
     </LinearLayout>
 

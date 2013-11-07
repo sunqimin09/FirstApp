@@ -64,7 +64,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="10dp"
-                android:text="@string/see_detail" />
+                android:text="@string/see_detail"
+                android:background="@drawable/selector_white_btn"
+                 />
 
         </RelativeLayout>
 

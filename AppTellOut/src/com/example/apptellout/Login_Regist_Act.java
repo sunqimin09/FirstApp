@@ -14,6 +14,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -40,6 +41,7 @@ public class Login_Regist_Act extends BaseActivity implements OnClickListener,
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login_regist_act);
 		initView();
@@ -93,7 +95,7 @@ public class Login_Regist_Act extends BaseActivity implements OnClickListener,
 			if (isLogin) {// 登录
 				if(!checkLogin())//检查登录输入是否正确
 					return ;
-				startActivity(new Intent(Login_Regist_Act.this, MainActivity.class));
+				startActivity(new Intent(Login_Regist_Act.this, TellOutAct.class));
 				finish();
 				LoginRequest();
 			} else {// 注册
@@ -119,7 +121,7 @@ public class Login_Regist_Act extends BaseActivity implements OnClickListener,
 //			
 //		}
 //		MConstant.USER_ID_VALUE = baseEntity.getMap().get(DbConstant.DB_USER_ID);
-		startActivity(new Intent(Login_Regist_Act.this, MainActivity.class));
+		startActivity(new Intent(Login_Regist_Act.this, TellOutAct.class));
 		
 	}
 
@@ -219,10 +221,6 @@ public class Login_Regist_Act extends BaseActivity implements OnClickListener,
 			return false;
 		}
 		return true;
-	}
-
-	private void Toast(String str) {
-		Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
 	}
 
 	

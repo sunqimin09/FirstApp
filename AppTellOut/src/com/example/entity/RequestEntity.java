@@ -79,6 +79,9 @@ public class RequestEntity {
 		case MConstant.REQUEST_CODE_COMPANYS://公司列表
 			this.url = MConstant.URL_COMPANYS;
 			break;
+		case MConstant.REQUEST_CODE_TELLOUTS:
+			this.url = MConstant.URL_TELLOUTS;
+			break;
 		case MConstant.REQUEST_CODE_NEW_TELLOUT://新建吐槽
 			this.url = MConstant.URL_NEW_TELLOUT;
 			break;
