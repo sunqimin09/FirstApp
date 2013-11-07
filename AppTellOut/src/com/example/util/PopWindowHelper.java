@@ -14,7 +14,7 @@ public class PopWindowHelper {
 	
 	public PopWindowHelper(Context context){
 		this.context = context;
-		pop = new PopupWindow(context);
+		
 	}
 	
 	public void closeWindow(){
@@ -27,6 +27,7 @@ public class PopWindowHelper {
 	}
 	
 	private void showWindow(View parentView,View view){
+		pop = new PopupWindow(view,200,200);
 		pop.setContentView(view);
 		pop.showAsDropDown(parentView);
 		
