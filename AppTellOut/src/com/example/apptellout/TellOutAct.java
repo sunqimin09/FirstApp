@@ -5,9 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SlidingPaneLayout;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -147,7 +151,7 @@ public class TellOutAct extends BaseActivity implements OnClickListener,
 			}
 			
 			break;
-		case R.id.left_panel_about:
+		case R.id.left_panel_about://
 			windowHelper.showAbout();
 			break;
 		case R.id.left_panel_login_btn:// 登录
@@ -166,6 +170,20 @@ public class TellOutAct extends BaseActivity implements OnClickListener,
 		b.putSerializable("tellout", list.get(arg2));
 		i.putExtras(b);
 		startActivity(i);
+	}
+
+	
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode==KeyEvent.KEYCODE_BACK){
+			if(slidePane.isOpen()){
+				slidePane.closePane();
+			}else{
+				showExitDialog();
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -237,6 +255,36 @@ public class TellOutAct extends BaseActivity implements OnClickListener,
 		btnNext.setText("加载更多");
 		listview.addFooterView(btnNext);
 
+	}
+	
+	private void showExitDialog() {
+		Dialog alertDialog = new AlertDialog.Builder(this)
+				.setTitle("对话框的标题")
+				.setMessage("对话框的内容")
+				.setIcon(R.drawable.ic_launcher)
+				.setPositiveButton("exit",
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								// TODO Auto-generated method stub
+								finish();
+								dialog.dismiss();
+							}
+						})
+				.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								dialog.dismiss();
+
+							}
+						})		
+				.create();
+
+		alertDialog.show();
 	}
 
 }
