@@ -34,12 +34,15 @@
          <!-- 吐槽列表页面 -->
         <activity android:name=".TellOutAct"></activity> 
         <!-- 新建吐槽 -->
-        <activity android:name=".NewTellOutAct"></activity>
+        <activity android:name=".NewTellOutAct"
+             android:windowSoftInputMode="stateVisible"
+            ></activity>
         <!-- 编辑我的个人信息 -->
         <activity android:name=".EditMyInforAct"
             android:windowSoftInputMode="stateHidden"
             ></activity>
-        
+        <!-- 排名页面 -->
+        <activity android:name=".RanksAct"></activity>
         <activity android:name=".MyInforAct"></activity>
         <activity android:name=".WorldRankAct"></activity>
         <activity android:name=".IndustryRankAct"></activity>

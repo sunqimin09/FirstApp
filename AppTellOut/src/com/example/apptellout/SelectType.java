@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
@@ -39,6 +40,7 @@ public class SelectType extends BaseActivity implements OnClickListener{
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.select_type_act);
 		initView();
@@ -46,6 +48,7 @@ public class SelectType extends BaseActivity implements OnClickListener{
 
 	private void initView() {
 		requestCode = getIntent().getIntExtra("flag", -1);
+		findViewById(R.id.back).setOnClickListener(this);
 		etInput = (EditText) findViewById(R.id.select_type_input);
 		imgSearch = (ImageView) findViewById(R.id.select_type_search);
 		listView = (ListView) findViewById(R.id.select_type_listview);
@@ -93,6 +96,9 @@ public class SelectType extends BaseActivity implements OnClickListener{
 		switch(arg0.getId()){
 		case R.id.select_type_search://查询相似
 			
+			break;
+		case R.id.back:
+			finish();
 			break;
 		}
 		

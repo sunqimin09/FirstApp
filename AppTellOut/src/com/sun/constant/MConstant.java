@@ -74,4 +74,6 @@ public class MConstant {
 	public final static String OTHER_PAGE_INDEXT = "pageIndext";
 	/**总数*/
 	public final static String OTHER_TOTAL_SIZE = "totalSize";
+	/**当前应用的下载地址*/
+	public static String DOWNLOAD_URL = "";
 }

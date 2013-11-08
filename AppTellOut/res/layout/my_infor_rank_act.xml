@@ -2,11 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey"
     android:orientation="vertical" >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content" 
+        android:visibility="gone"
+        >
 
         <ImageView
             android:id="@+id/imageView1"
@@ -48,34 +51,20 @@
                 android:layout_height="wrap_content"
                 android:padding="20dp"
                 android:layout_centerHorizontal="true"
-                android:text="TextView" />
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceLarge" 
+                android:text="12345" />
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-
-            <Button
-                android:id="@+id/my_infor_detail_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="10dp"
-                android:text="@string/see_detail"
-                android:background="@drawable/selector_white_btn"
-                 />
-
-        </RelativeLayout>
+        
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp"
             >
 
             <TextView
@@ -138,7 +127,24 @@
                 android:text="TextView" />
 
         </RelativeLayout>
-
+		<RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+             >
+            <Button
+                android:id="@+id/my_infor_detail_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="10dp"
+                android:text="@string/share_score"
+                android:textColor="@color/white"
+                android:background="@drawable/selector_green_btn"
+                 />
+        </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>

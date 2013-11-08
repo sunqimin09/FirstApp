@@ -69,7 +69,11 @@
                         android:layout_centerVertical="true"
                         android:src="@drawable/arrow" />
                 </RelativeLayout>
-
+				<ImageView 
+				    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/grey_point"
+				    />
                 <RelativeLayout
                     android:id="@+id/left_panel_myrank"
                     android:layout_width="match_parent"
@@ -135,7 +139,11 @@
                         android:layout_centerVertical="true"
                         android:src="@drawable/arrow" />
                 </RelativeLayout>
-
+				<ImageView 
+				    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/grey_point"
+				    />
                 <RelativeLayout
                     android:id="@+id/left_panel_regionrank"
                     android:layout_width="match_parent"
@@ -164,7 +172,11 @@
                         android:layout_centerVertical="true"
                         android:src="@drawable/arrow" />
                 </RelativeLayout>
-
+				<ImageView 
+				    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/grey_point"
+				    />
                 <RelativeLayout
                     android:id="@+id/left_panel_industryrank"
                     android:layout_width="match_parent"
@@ -193,7 +205,11 @@
                         android:layout_centerVertical="true"
                         android:src="@drawable/arrow" />
                 </RelativeLayout>
-
+				<ImageView 
+				    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/grey_point"
+				    />
                 <RelativeLayout
                     android:id="@+id/left_panel_companyrank"
                     android:layout_width="match_parent"
@@ -259,9 +275,13 @@
                         android:layout_centerVertical="true"
                         android:src="@drawable/arrow" />
                 </RelativeLayout>
-
+				<ImageView 
+				    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/grey_point"
+				    />
                 <RelativeLayout
-                    android:id="@+id/left_panel_setting"
+                    android:id="@+id/left_panel_suggestionback"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -277,7 +297,7 @@
                         android:layout_centerVertical="true"
                         android:paddingBottom="5dp"
                         android:paddingTop="5dp"
-                        android:text="设置"
+                        android:text="意见反馈"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <ImageView
@@ -288,7 +308,11 @@
                         android:layout_centerVertical="true"
                         android:src="@drawable/arrow" />
                 </RelativeLayout>
-
+				<ImageView 
+				    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/grey_point"
+				    />		
                 <RelativeLayout
                     android:id="@+id/left_panel_about"
                     android:layout_width="match_parent"
@@ -322,7 +346,7 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/left_panel_login_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

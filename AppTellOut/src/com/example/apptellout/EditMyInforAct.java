@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -48,6 +49,7 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_myinfor_act);
 		setTitle("我的信息");
@@ -76,6 +78,7 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener {
 		etOtherPer= (EditText) findViewById(R.id.edit_myinfor_other_percentage);
 		btnCancel = (Button) findViewById(R.id.edit_myinfor_cancel);
 		btnSave = (Button) findViewById(R.id.edit_myinfor_save);
+		findViewById(R.id.back).setOnClickListener(this);
 		rlRegion.setOnClickListener(this);
 		rlIndustry.setOnClickListener(this);
 		rlCompany.setOnClickListener(this);
@@ -89,6 +92,9 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener {
 	@Override
 	public void onClick(View arg0) {
 		switch(arg0.getId()){
+		case R.id.back:
+			finish();
+			break;
 		case R.id.edit_myinfor_region_rl://选择地区
 			startActivityForResult(new Intent(EditMyInforAct.this,SelectType.class).putExtra("flag", MConstant.REQUEST_CODE_REGIONS), 0);
 			break;
@@ -105,7 +111,7 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener {
 			if(edit){
 				requestSend();
 				setEnable(false);
-				finish();
+//				finish();
 			}
 			else
 				setEnable(!edit);

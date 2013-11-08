@@ -5,7 +5,32 @@
     android:orientation="vertical"
      >
 
-   
+   <RelativeLayout 
+	    android:id="@+id/rl1"
+	    android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/title_normal"
+	    >
+	    
+	    
+	    <TextView 
+	        android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+	        android:text="选择"
+	        />
+
+	    <ImageView
+	        android:id="@+id/back"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_centerVertical="true"
+	        android:layout_marginLeft="5dp"
+	        android:clickable="true"
+	        android:src="@drawable/selector_back" />
+	    
+	</RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -27,7 +52,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="5dp"
             android:src="@android:drawable/ic_search_category_default" />
 
     </RelativeLayout>

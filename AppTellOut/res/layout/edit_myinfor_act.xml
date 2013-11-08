@@ -20,7 +20,7 @@
 	        />
 
 	    <ImageView
-	        android:id="@+id/img_back"
+	        android:id="@+id/back"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentLeft="true"
@@ -72,13 +72,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                android:background="@drawable/selector_menu_shap"
+                 >
 
                 <RelativeLayout
                     android:id="@+id/edit_myinfor_region_rl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/grey" >
+                    android:background="@drawable/selector_menu_pressed" >
 
                     <TextView
                         android:id="@+id/edit_myinfor_region_tv"
@@ -86,6 +88,9 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium" 
                         android:text="地区" />
 
                     <ImageView
@@ -95,15 +100,19 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/right_arrow" />
+                        android:src="@drawable/arrow" />
                 </RelativeLayout>
-
+				<ImageView 
+				    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/grey_point"
+				    />
                 <RelativeLayout
                     android:id="@+id/edit_myinfor_industry_rl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:background="@color/grey" >
+                    android:paddingTop="3dp"
+                    android:background="@drawable/selector_menu_pressed" >
 
                     <TextView
                         android:id="@+id/edit_myinfor_industry_tv"
@@ -111,24 +120,30 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium" 
                         android:text="行业" />
 
                     <ImageView
-                        android:id="@+id/imageView1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/right_arrow" />
+                        android:src="@drawable/arrow" />
                 </RelativeLayout>
-
+				<ImageView 
+				    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/grey_point"
+				    />
                 <RelativeLayout
                     android:id="@+id/edit_myinfor_company_rl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:background="@color/grey" >
+                    android:paddingTop="3dp"
+                    android:background="@drawable/selector_menu_pressed" >
 
                     <TextView
                         android:id="@+id/edit_myinfor_company_tv"
@@ -136,16 +151,18 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium" 
                         android:text="公司" />
 
                     <ImageView
-                        android:id="@+id/imageView1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/right_arrow" />
+                        android:src="@drawable/arrow" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -153,7 +170,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="#666199" >
+                android:background="@drawable/selector_menu_shap" >
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -179,7 +196,9 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:hint="1999(元)"
                             android:ems="10"
+                            android:nextFocusDown="@+id/edit_myinfor_environment"
                             android:inputType="number" />
                     </LinearLayout>
 

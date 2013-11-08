@@ -4,12 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
+   <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#ccc999"
-        android:text="company" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="功能尚未开通" />
 
     <ListView
         android:id="@+id/company_rank_listview"

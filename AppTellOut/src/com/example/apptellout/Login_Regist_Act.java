@@ -122,7 +122,7 @@ public class Login_Regist_Act extends BaseActivity implements OnClickListener,
 //		}
 //		MConstant.USER_ID_VALUE = baseEntity.getMap().get(DbConstant.DB_USER_ID);
 		startActivity(new Intent(Login_Regist_Act.this, TellOutAct.class));
-		
+		finish();
 	}
 
 	@Override

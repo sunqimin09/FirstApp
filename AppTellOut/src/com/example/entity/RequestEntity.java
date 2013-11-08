@@ -70,6 +70,9 @@ public class RequestEntity {
 	
 	private void setUrl(int requestCode){
 		switch(requestCode){
+		case MConstant.REQUEST_CODE_WORLD_RANK:
+			this.url = MConstant.URL_WORLD_RANK;
+			break;
 		case MConstant.REQUEST_CODE_REGIONS://地区列表
 			this.url = MConstant.URL_REGIONS;
 			break;
