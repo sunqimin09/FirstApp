@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.tellout.adapter.TellOutAdapter;
+import com.tellout.constant.DbConstant;
 import com.tellout.constant.MConstant;
 import com.tellout.entity.BaseEntity;
 import com.tellout.entity.RequestEntity;
@@ -107,7 +108,7 @@ public class TellOutAct extends BaseActivity implements OnClickListener,
 			startActivity(new Intent(TellOutAct.this, NewTellOutAct.class));
 			break;
 		case 1000:// 加载更多
-			request(pageIndext);
+			request(MConstant.REQUEST_CODE_TELLOUTS);
 			break;
 		case R.id.left_panel_myinfor:
 			startActivity(new Intent(TellOutAct.this, EditMyInforAct.class));
@@ -186,16 +187,26 @@ public class TellOutAct extends BaseActivity implements OnClickListener,
 		return false;
 	}
 
+	
 	/**
 	 * 网络请求
-	 * */
-	private void request(String pageIndext) {
+	 * @param requestCode 请求参数
+	 */
+	private void request(int requestCode){
 		RequestEntity entity = new RequestEntity();
 		entity.setPost(false);
-		entity.setRequestType(MConstant.REQUEST_CODE_TELLOUTS);
+		entity.setRequestType(requestCode);
 		Map<String, String> map = new HashMap<String, String>();
-		map.put(MConstant.OTHER_PAGE_INDEXT, pageIndext);
+		switch(requestCode){
+		case MConstant.REQUEST_CODE_TELLOUTS://吐槽列表
+			map.put(MConstant.OTHER_PAGE_INDEXT, pageIndext);
+			break;
+		case MConstant.REQUEST_CODE_GET_MY_RANK://我的排名
+			map.put(DbConstant.DB_USER_ID, MConstant.USER_ID_VALUE);
+			break;
+		}
 		entity.setParams(map);
+		//调用父类方法
 		request(entity);
 	}
 
@@ -256,6 +267,7 @@ public class TellOutAct extends BaseActivity implements OnClickListener,
 		listview.addFooterView(btnNext);
 
 	}
+	
 	
 	private void showExitDialog() {
 		Dialog alertDialog = new AlertDialog.Builder(this)

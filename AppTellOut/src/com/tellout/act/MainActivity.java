@@ -36,7 +36,11 @@ import com.tellout.entity.RequestEntity;
 import com.tellout.entity.TellOutEntity;
 import com.tellout.entity.UserEntity;
 
-
+/**
+ * 暂不使用
+ * @author sunqm
+ * @time 2013-11-8 下午5:12:08
+ */
 @SuppressLint("HandlerLeak")
 public class MainActivity extends BaseActivity implements OnTabChangeListener, OnClickListener {
 
