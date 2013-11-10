@@ -72,7 +72,7 @@ public class NewCompanyServlet extends HttpServlet {
 //			responseEntity = new DbManager().doRequest(requestEntity);
 //		} else {
 //			responseEntity = new ResponseEntity();
-//			responseEntity.setCode(MConstant.FAILED);
+//			responseEntity.setCode(MConstant.ERROR_OTHER);
 //		}
 
 		response.setContentType("text/html");
@@ -106,7 +106,7 @@ public class NewCompanyServlet extends HttpServlet {
 						companys.put(item);
 					}
 					result.put("list_size", rs.getFetchSize());
-					object.put("code", MConstant.SUCCESS);
+					object.put("code", MConstant.ERROR_SUCCESS);
 					object.put("result", result);
 				} else if (null!=request&&requestCode.equals("2")) {// 创建新的
 					sql = "insert into company (name) values ('" + companyName
@@ -114,16 +114,16 @@ public class NewCompanyServlet extends HttpServlet {
 					boolean resultBool = new DbManager().doInsert(sql);
 					JSONObject result = new JSONObject();
 					if (resultBool) {
-						object.put("code", MConstant.FAILED);
+						object.put("code", MConstant.ERROR_OTHER);
 					} else {
-						object.put("code", MConstant.SUCCESS);
+						object.put("code", MConstant.ERROR_SUCCESS);
 					}
 
 					object.put("result", result);
 
 				}
 			} catch (SQLException e) {
-				object.put("code", MConstant.SQL_EXCEPTION);
+				object.put("code", MConstant.ERROR_SQL_EXCEPTION);
 				e.printStackTrace();
 			}
 		} catch (JSONException e) {

@@ -9,6 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.tellout.constant.DbConstant;
 import com.tellout.constant.MConstant;
 import com.tellout.entity.BaseEntity;
@@ -59,18 +61,20 @@ public class JsonParse {
 				
 				break;
 			case MConstant.REQUEST_CODE_TELLOUTS://吐槽列表
-				break;
+				return ParseTellOuts(baseEntity);
 			case MConstant.REQUEST_CODE_COMMENTS://评论列表
-				break;
+				return ParseComments(baseEntity);
 			case MConstant.REQUEST_CODE_NEW_TELLOUT://新建吐槽
 				break;
 			}
 		} catch (JSONException e) {
+			Log.e("tag","json-->"+e);
 			e.printStackTrace();
 		}
 		
 		return baseEntity;
 	}
+	
 
 	private static BaseEntity ParseBase(String str) throws JSONException{
 		BaseEntity entity = new BaseEntity();
@@ -189,6 +193,9 @@ public class JsonParse {
 		return baseEntity;
 	}
 	
+	//-->{"code":0,"result":{"totalSize":3,"list":[
+//	{"telloutContent":"test01","nickName":"test1","telloutOk":"1"},{"telloutContent":"test02","nickName":"test2","telloutOk":"2"},{"telloutContent":"null","nickName":"test1","telloutOk":"0"}]}}
+
 	/**
 	 * 吐槽列表
 	 * @param baseEntity
@@ -203,20 +210,20 @@ public class JsonParse {
 		for(int i = 0;i<array.length();i++){
 			object = array.getJSONObject(i);
 			entity =new TellOutEntity();
-			entity.setAuthorName(object.getString(DbConstant.DB_TELLOUT_AUTHOR));
+			entity.setAuthorName(object.getString(DbConstant.DB_USER_NICK_NAME));
 			entity.setContent(object.getString(DbConstant.DB_TELLOUT_CONTENT));
 			entity.setOkNum(object.getInt(DbConstant.DB_TELLOUT_OK));
-			entity.setNoNum(object.getInt(DbConstant.DB_TELLOUT_NO));
-			entity.setCommentNum(object.getInt(DbConstant.COMMENT_NUM));
+//			entity.setNoNum(object.getInt(DbConstant.DB_TELLOUT_NO));
+//			entity.setCommentNum(object.getInt(DbConstant.COMMENT_NUM));
 			entity.setTellOutId(object.getInt(DbConstant.DB_TELLOUT_ID));
 			list.add(entity);
 		}
 		baseEntity.setList(list);
 		Map<String,String> map = new HashMap<String,String>();
 		/**总数*/
-		map.put("listSize", baseEntity.getResultObject().getString("listSize"));
+		map.put(MConstant.OTHER_TOTAL_SIZE, baseEntity.getResultObject().getString(MConstant.OTHER_TOTAL_SIZE));
 		/**当前页码*/
-		map.put("pageIndex", baseEntity.getResultObject().getString("pageIndex"));
+//		map.put("pageIndex", baseEntity.getResultObject().getString(MConstant.OTHER_TOTAL_SIZE));
 		
 		baseEntity.setMap(map);
 		return baseEntity;
@@ -236,7 +243,7 @@ public class JsonParse {
 		for(int i = 0;i<array.length();i++){
 			object = array.getJSONObject(i);
 			entity =new CommentEntity();
-			entity.setTellOutId(object.getInt(DbConstant.DB_COMMENT_TELLOUT_ID));
+//			entity.setTellOutId(object.getInt(DbConstant.DB_COMMENT_TELLOUT_ID));
 			entity.setContent(object.getString(DbConstant.DB_COMMENT_CONTENT));
 			entity.setAuthor(object.getString(DbConstant.DB_USER_NICK_NAME));
 			list.add(entity);
@@ -244,9 +251,9 @@ public class JsonParse {
 		baseEntity.setList(list);
 		Map<String,String> map = new HashMap<String,String>();
 		/**总数*/
-		map.put("listSize", baseEntity.getResultObject().getString("listSize"));
+		map.put(MConstant.OTHER_TOTAL_SIZE, baseEntity.getResultObject().getString(MConstant.OTHER_TOTAL_SIZE));
 		/**当前页码*/
-		map.put("pageIndex", baseEntity.getResultObject().getString("pageIndex"));
+//		map.put("pageIndex", baseEntity.getResultObject().getString("pageIndex"));
 		
 		baseEntity.setMap(map);
 		

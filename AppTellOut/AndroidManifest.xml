@@ -24,23 +24,31 @@
          <activity android:name=".Login_Regist_Act"
              
              >
-              <intent-filter>
+              
+             
+         </activity>
+         <!-- 吐槽列表页面 -->
+        <activity android:name=".TellOutAct">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-             
-         </activity>
-         <!-- 吐槽列表页面 -->
-        <activity android:name=".TellOutAct"></activity> 
+        </activity> 
         <!-- 新建吐槽 -->
         <activity android:name=".NewTellOutAct"
              android:windowSoftInputMode="stateVisible"
             ></activity>
+        <!-- 吐槽详细页面 -->
+        <activity android:name=".TelloutDetailAct"></activity>
+        
+        <!-- 添加评论 -->
+        <activity android:name=".NewCommentAct"></activity>
         <!-- 编辑我的个人信息 -->
         <activity android:name=".EditMyInforAct"
             android:windowSoftInputMode="stateHidden"
             ></activity>
+        
         <!-- 排名页面 -->
         <activity android:name=".RanksAct"></activity>
         <activity android:name=".MyInforAct"></activity>

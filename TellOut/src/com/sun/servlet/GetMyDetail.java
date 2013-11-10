@@ -51,17 +51,14 @@ public class GetMyDetail extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		ResponseEntity responseEntity = null;
-		if(null!=request.getParameter(MConstant.USER_ID)){
-			RequestEntity requestEntity = new RequestEntity();
-			requestEntity.setTypeId(MConstant.GET_MY_DETAIL);
-			requestEntity.setRequest(request);
-			// 查询的结果
-			responseEntity = new DbManager().doRequest(requestEntity);
-		}else{
-			responseEntity =new ResponseEntity();
-			responseEntity.setCode(MConstant.FAILED);
-		}
+		RequestEntity requestEntity = new RequestEntity();
+		requestEntity.setTypeId(MConstant.GET_MY_DETAIL);
+		requestEntity.setRequest(request);
+		// 查询的结果
+		ResponseEntity responseEntity = new DbManager().doRequest(requestEntity);
+		
+		
+		
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();

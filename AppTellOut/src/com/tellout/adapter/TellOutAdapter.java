@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tellout.act.R;
@@ -56,8 +59,8 @@ public class TellOutAdapter extends BaseAdapter{
 	}
 
 	@Override
-	public View getView(int arg0, View convertView, ViewGroup arg2) {
-		ViewHolder holder;
+	public View getView(final int arg0, View convertView, ViewGroup arg2) {
+		final ViewHolder holder;
 		if (convertView == null) {
 			convertView = LayoutInflater.from(context).inflate(
 					R.layout.tellout_item, null);
@@ -67,7 +70,7 @@ public class TellOutAdapter extends BaseAdapter{
 			holder.tvOk = (TextView) convertView.findViewById(R.id.tellout_item_ok_tv);
 			holder.tvNo = (TextView) convertView.findViewById(R.id.tellout_item_no_tv);
 			holder.tvComment = (TextView) convertView.findViewById(R.id.tellout_item_comment_tv);
-			
+			holder.okLayout = (LinearLayout) convertView.findViewById(R.id.ll1);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -75,10 +78,43 @@ public class TellOutAdapter extends BaseAdapter{
 		
 		holder.tvName.setText(list.get(arg0).getAuthorName());
 		holder.tvContent.setText(list.get(arg0).getContent());
-		holder.tvOk.setText(list.get(arg0).getOkNum());
-		holder.tvNo.setText(list.get(arg0).getNoNum());
-		holder.tvComment.setText(list.get(arg0).getCommentNum());
+		holder.tvOk.setText(list.get(arg0).getOkNum()+"");
+//		holder.tvNo.setText(list.get(arg0).getNoNum());
+//		holder.tvComment.setText(list.get(arg0).getCommentNum());
+		switch(list.get(arg0).getIsOK()){
+		case 0://默认状态
+			holder.okLayout.setSelected(false);
+			break;
+		case 1://选中状态
+			holder.okLayout.setSelected(true);
+			break;
+		}
 		
+		holder.okLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Log.d("tag",arg0+"isok-->"+list.get(arg0).getIsOK());
+				switch(list.get(arg0).getIsOK()){
+				case 0://默认状态
+					holder.okLayout.setSelected(true);
+					list.get(arg0).setIsOK(1);
+					holder.tvOk.setText(""+(Integer.parseInt(holder.tvOk.getText().toString())+1));
+					break;
+				case 1://选中状态
+					holder.okLayout.setSelected(false);
+					list.get(arg0).setIsOK(0);
+					holder.tvOk.setText(""+(Integer.parseInt(holder.tvOk.getText().toString())-1));
+					
+					break;
+				}
+				synchronized(TellOutAdapter.this) {
+					TellOutAdapter.this.notifyAll();
+	            }
+				
+				
+			}
+		});
 		return convertView;
 	}
 
@@ -88,6 +124,7 @@ public class TellOutAdapter extends BaseAdapter{
 		TextView tvOk;
 		TextView tvNo;
 		TextView tvComment;
+		LinearLayout okLayout;
 	}
 	
 }

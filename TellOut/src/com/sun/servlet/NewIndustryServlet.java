@@ -56,7 +56,7 @@ public class NewIndustryServlet extends HttpServlet {
 			responseEntity = new DbManager().doRequest(requestEntity);
 		}else{
 			responseEntity =new ResponseEntity();
-			responseEntity.setCode(MConstant.FAILED);
+			responseEntity.setCode(MConstant.ERROR_OTHER);
 		}
 		
 		response.setContentType("text/html");

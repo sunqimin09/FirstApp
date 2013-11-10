@@ -2,7 +2,7 @@ package com.tellout.constant;
 
 public class MConstant {
 	
-	public final static String HOME_URL = "http://192.168.1.104:8080/TellOut/servlet/";
+	public final static String HOME_URL = "http://192.168.1.107:8080/TellOut/servlet/";
 
 	public static String USER_ID_VALUE = "";
 	
@@ -42,33 +42,33 @@ public class MConstant {
 	
 	
 	
-	public final static String URL_LOGIN="";
+	public final static String URL_LOGIN=HOME_URL+"LoginServlet";
 	
-	public final static String URL_REGIST="";
+	public final static String URL_REGIST=HOME_URL+"RegistServlet";
 	
-	public final static String URL_MYINFOR="";
+	public final static String URL_MYINFOR=HOME_URL+"MyInforServlet";
 	
-	public final static String URL_WORLD_RANK="";
+	public final static String URL_WORLD_RANK=HOME_URL+"WorldRankServlet";
 	
-	public final static String URL_INDUSTRY_RANK="";
+	public final static String URL_INDUSTRY_RANK=HOME_URL+"";
 	
-	public final static String URL_COMPANY_RANK="";
+	public final static String URL_COMPANY_RANK=HOME_URL+"";
 	
-	public final static String URL_EDIT_MYINFOR="";
+	public final static String URL_EDIT_MYINFOR=HOME_URL+"EditSelfInforServlet";
 	
-	public final static String URL_REGIONS = "";
+	public final static String URL_REGIONS = HOME_URL+"";
 	
-	public final static String URL_INDUSTRYS = "";
+	public final static String URL_INDUSTRYS = HOME_URL+"";
 	/**公司列表*/
-	public final static String URL_COMPANYS = "";
+	public final static String URL_COMPANYS = HOME_URL+"";
 	/**吐槽列表*/
-	public final static String URL_TELLOUTS = "";
+	public final static String URL_TELLOUTS = HOME_URL+"TelloutsServlet?";
 	/**评论列表*/
-	public final static String URL_COMMENTS = "";
+	public final static String URL_COMMENTS = HOME_URL+"CommentServlet?";
 	/**新建吐槽*/
-	public final static String URL_NEW_TELLOUT = "";
+	public final static String URL_NEW_TELLOUT = HOME_URL+"NewTelloutServlet";
 	/**新建评论*/
-	public final static String URL_NEW_COMMENT = "";
+	public final static String URL_NEW_COMMENT = HOME_URL+"NewCommentServlet";
 	
 	/** 请求参数 */
 	public final static String OTHER_PAGE_INDEXT = "pageIndext";

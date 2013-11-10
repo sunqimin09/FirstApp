@@ -2,7 +2,6 @@ package com.example.appcolleageentrance;
 
 import java.util.Calendar;
 
-
 import net.youmi.android.AdManager;
 import net.youmi.android.banner.AdSize;
 import net.youmi.android.banner.AdView;
@@ -12,9 +11,13 @@ import net.youmi.android.offers.PointsChangeNotify;
 import net.youmi.android.offers.PointsManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
@@ -82,6 +85,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 
 	private int textColor = Color.BLACK;
 
+	private RelativeLayout adLayout;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
@@ -122,7 +127,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		tv_point = (TextView) findViewById(R.id.pint_tv);
 		tv_point.setText("当前积分:"+currentPoint);
 		// 将广告条adView添加到需要展示的layout控件中
-		final RelativeLayout adLayout = (RelativeLayout) findViewById(R.id.youmi_adview_ll);
+		adLayout = (RelativeLayout) findViewById(R.id.youmi_adview_ll);
 		AdView adView = new AdView(this, AdSize.FIT_SCREEN);
 		ImageView imgClose = new ImageView(this);
 		imgClose.setImageResource(android.R.drawable.ic_delete);
@@ -138,22 +143,24 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			@Override
 			public void onClick(View v) {
 				Log.d("tag","click");
-				String str = "";
-				if(currentPoint>49){
-					PointsManager.getInstance(MainActivity.this).spendPoints(50);
-					str = "您花费了50积分,三天内将没广告啦，亲";
-					adLayout.setVisibility(View.GONE);
-					/**
-					 * 把今天的日期保存到sp中
-					 * */
-					sp.setLong("payday", System.currentTimeMillis());
-					Toast.makeText(MainActivity.this,str, Toast.LENGTH_SHORT).show();
-				}else{
-					str = "您的积分不足，请补充积分";
-					Toast.makeText(MainActivity.this,str, Toast.LENGTH_SHORT).show();
-					OffersManager.getInstance(MainActivity.this).showOffersWall();
-					
-				}
+				mshowDialog();
+//				String str = "";
+//				if(currentPoint>49){
+//					PointsManager.getInstance(MainActivity.this).spendPoints(50);
+//					str = "您花费了50积分,永久去除广告";
+//					adLayout.setVisibility(View.GONE);
+//					/**
+//					 * 把今天的日期保存到sp中
+//					 * */
+//					sp.setLong("payday", System.currentTimeMillis());
+//					sp.setAd(false);
+//					Toast.makeText(MainActivity.this,str, Toast.LENGTH_SHORT).show();
+//				}else{
+//					str = "您的积分不足，请补充积分";
+//					Toast.makeText(MainActivity.this,str, Toast.LENGTH_SHORT).show();
+//					OffersManager.getInstance(MainActivity.this).showOffersWall();
+//					
+//				}
 				
 			}
 		});
@@ -181,11 +188,12 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
                 Log.i("YoumiSample", "请求广告失败");
             }
         });
-        int days = (int) ((System.currentTimeMillis()-(sp.get("payday")))/1000/60/60/24);
-        if(days<3){
-        	adLayout.setVisibility(View.INVISIBLE);
-        }else{
+//        int days = (int) ((System.currentTimeMillis()-(sp.get("payday")))/1000/60/60/24);
+        
+        if(sp.hasAd()){
         	adLayout.setVisibility(View.VISIBLE);
+        }else{
+        	adLayout.setVisibility(View.INVISIBLE);
         }
 	}
 
@@ -293,6 +301,58 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		Log.d("tag","Point--->"+arg0);
 		currentPoint = arg0;
 		tv_point.setText("当前积分:"+currentPoint);
+	}
+	
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if(sp.hasAd()){
+        	mshowDialog();
+        }
+	}
+
+	private void mshowDialog() {
+		Dialog alertDialog ;
+		Builder b= new AlertDialog.Builder(this)
+				.setTitle("是否永久关闭广告")
+				.setMessage("永久关闭广告需要50积分\n您的积分余额为:"+currentPoint+"\n下载应用可以免费获取积分")
+				.setIcon(R.drawable.ic_launcher)
+				.setPositiveButton("获取积分",
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								// TODO Auto-generated method stub
+								OffersManager.getInstance(MainActivity.this).showOffersWall();
+								dialog.dismiss();
+							}
+						})
+				.setNegativeButton("取消",
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								dialog.dismiss();
+
+							}
+						});
+		if(currentPoint>49){
+			b.setNeutralButton("关闭广告", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog,
+						int which) {
+					dialog.dismiss();
+					adLayout.setVisibility(View.INVISIBLE);
+					sp.setAd(false);
+				}
+			});
+		}
+		alertDialog = b.create();
+		alertDialog.show();
 	}
 
 }

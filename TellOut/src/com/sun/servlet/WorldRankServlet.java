@@ -14,6 +14,7 @@ import atg.taglib.json.util.JSONArray;
 import atg.taglib.json.util.JSONException;
 import atg.taglib.json.util.JSONObject;
 
+import com.sun.db.DbConstant;
 import com.sun.db.DbManager;
 import com.sun.entity.RequestEntity;
 import com.sun.entity.ResponseEntity;
@@ -58,12 +59,12 @@ public class WorldRankServlet extends HttpServlet {
 		requestEntity.setRequest(request);
 
 		ResponseEntity responseEntity = null;
-		if (null != request.getParameter(MConstant.USER_ID)) {
+		if (null != request.getParameter(DbConstant.DB_USER_ID)) {
 			// 查询的结果
 			responseEntity = new DbManager().doRequest(requestEntity);
 		}else{
 			responseEntity =new ResponseEntity();
-			responseEntity.setCode(MConstant.FAILED);
+			responseEntity.setCode(MConstant.ERROR_OTHER);
 		}
 		
 		
@@ -84,7 +85,7 @@ public class WorldRankServlet extends HttpServlet {
 			Map<String,String> map = responseEntity.getParams();
 			result.put("worldRank", jsonArray);
 			/**我的信息*/
-			result.put(MConstant.USER_NAME, map.get(MConstant.USER_NAME));
+			result.put(DbConstant.DB_USER_NICK_NAME, map.get(DbConstant.DB_USER_NICK_NAME));
 			result.put(MConstant.SCORE, map.get(MConstant.SCORE));
 			result.put(MConstant.INDUSTRY_ID, map.get(MConstant.INDUSTRY_ID));
 			

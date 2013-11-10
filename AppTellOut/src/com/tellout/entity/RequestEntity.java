@@ -70,6 +70,12 @@ public class RequestEntity {
 	
 	private void setUrl(int requestCode){
 		switch(requestCode){
+		case MConstant.REQUEST_CODE_LOGIN_://登录
+			this.url = MConstant.URL_LOGIN;
+			break;
+		case MConstant.REQUEST_CODE_REGIST:
+			this.url = MConstant.URL_REGIST;
+			break;
 		case MConstant.REQUEST_CODE_WORLD_RANK:
 			this.url = MConstant.URL_WORLD_RANK;
 			break;
@@ -82,8 +88,11 @@ public class RequestEntity {
 		case MConstant.REQUEST_CODE_COMPANYS://公司列表
 			this.url = MConstant.URL_COMPANYS;
 			break;
-		case MConstant.REQUEST_CODE_TELLOUTS:
+		case MConstant.REQUEST_CODE_TELLOUTS://吐槽列表
 			this.url = MConstant.URL_TELLOUTS;
+			break;
+		case MConstant.REQUEST_CODE_COMMENTS://评论列表
+			this.url = MConstant.URL_COMMENTS;
 			break;
 		case MConstant.REQUEST_CODE_NEW_TELLOUT://新建吐槽
 			this.url = MConstant.URL_NEW_TELLOUT;

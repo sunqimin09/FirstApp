@@ -2,7 +2,6 @@ package com.sun.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -13,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import atg.taglib.json.util.JSONException;
 import atg.taglib.json.util.JSONObject;
 
+import com.sun.db.DbConstant;
 import com.sun.db.DbManager;
 import com.sun.entity.RequestEntity;
 import com.sun.entity.ResponseEntity;
@@ -67,12 +67,12 @@ public class MyInforServlet extends HttpServlet {
 		requestEntity.setRequest(request);
 
 		ResponseEntity responseEntity = null;
-		if (null != request.getParameter(MConstant.USER_ID)) {
+		if (null != request.getParameter(DbConstant.DB_USER_ID)) {
 			// 查询的结果
 			responseEntity = new DbManager().doRequest(requestEntity);
 		} else {
 			responseEntity = new ResponseEntity();
-			responseEntity.setCode(MConstant.FAILED);
+			responseEntity.setCode(MConstant.ERROR_OTHER);
 		}
 
 		// 返回我的信息，我的世界排名
@@ -92,7 +92,7 @@ public class MyInforServlet extends HttpServlet {
 			Map<String, String> map = responseEntity.getParams();
 			result.put("worldRank", map.get("worldRank"));
 			result.put("regionRank", map.get("regionRank"));
-			result.put(MConstant.USER_NAME, map.get(MConstant.USER_NAME));
+			result.put(DbConstant.DB_USER_NICK_NAME, map.get(DbConstant.DB_USER_NICK_NAME));
 			result.put(MConstant.SCORE, map.get(MConstant.SCORE));
 			result.put("industryRank", map.get("industryRank"));
 		} catch (JSONException e) {

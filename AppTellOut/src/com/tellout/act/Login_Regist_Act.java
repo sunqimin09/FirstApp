@@ -87,7 +87,7 @@ public class Login_Regist_Act extends BaseActivity implements OnClickListener,
 
 			break;
 		case R.id.login_regist_right_btn:// 右侧
-			showResult(0, null);
+//			showResult(0, null);
 			if (!InternetHelper.isInternetAvaliable(this)) {
 				Toast("当前无网络");
 				return;
@@ -95,8 +95,8 @@ public class Login_Regist_Act extends BaseActivity implements OnClickListener,
 			if (isLogin) {// 登录
 				if(!checkLogin())//检查登录输入是否正确
 					return ;
-				startActivity(new Intent(Login_Regist_Act.this, TellOutAct.class));
-				finish();
+//				startActivity(new Intent(Login_Regist_Act.this, TellOutAct.class));
+//				finish();
 				LoginRequest();
 			} else {// 注册
 				

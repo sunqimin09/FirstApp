@@ -61,7 +61,7 @@ public class DbConstant {
 	/**创建时间*/
 	public final static String DB_TELLOUT_CREATE_TIME = "telloutCreateTime";
 	/**作者*/
-	public final static String DB_TELLOUT_AUTHOR = "telloutAuthor";
+	public final static String DB_TELLOUT_USER_ID = DB_USER_ID;
 	/**赞的人数*/
 	public final static String DB_TELLOUT_OK = "telloutOk";
 	/**吐的人数*/

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import atg.taglib.json.util.JSONException;
 import atg.taglib.json.util.JSONObject;
 
+import com.sun.db.DbConstant;
 import com.sun.db.DbManager;
 import com.sun.entity.RequestEntity;
 import com.sun.entity.ResponseEntity;
@@ -55,14 +56,14 @@ public class ChangePassWorldServlet extends HttpServlet {
 		requestEntity.setRequest(request);
 
 		ResponseEntity responseEntity = null;
-		if (null != request.getParameter(MConstant.USER_ID)) {
+		if (null != request.getParameter(DbConstant.DB_USER_ID)) {
 			// 查询的结果
 			responseEntity = new DbManager().doRequest(requestEntity);
 		} else {
 			System.out.println("change--passworld--else"
-					+ request.getParameter(MConstant.USER_ID));
+					+ request.getParameter(DbConstant.DB_USER_ID));
 			responseEntity = new ResponseEntity();
-			responseEntity.setCode(MConstant.FAILED);
+			responseEntity.setCode(MConstant.ERROR_OTHER);
 		}
 
 		response.setContentType("text/html");

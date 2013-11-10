@@ -74,6 +74,7 @@ public class TellOutAct extends BaseActivity implements OnClickListener,
 		setContentView(R.layout.test_main_tellout_act);
 		initView();
 		initLeftPanel();
+		request(MConstant.REQUEST_CODE_TELLOUTS);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -83,8 +84,10 @@ public class TellOutAct extends BaseActivity implements OnClickListener,
 		list = (List<TellOutEntity>) baseEntity.getList();
 		adapter.addData(list);
 		Map<String, String> map = baseEntity.getMap();
-		pageIndext = map.get(MConstant.OTHER_PAGE_INDEXT);
-		totalSize = map.get(MConstant.OTHER_TOTAL_SIZE);
+		pageIndext = map.get(MConstant.OTHER_PAGE_INDEXT) == null ? "1" : map
+				.get(MConstant.OTHER_PAGE_INDEXT);
+		totalSize = map.get(MConstant.OTHER_TOTAL_SIZE) == null ? "1" : map
+				.get(MConstant.OTHER_TOTAL_SIZE);
 
 		int totalInt = Integer.parseInt(totalSize);
 		int indext = Integer.parseInt(pageIndext);
@@ -93,7 +96,7 @@ public class TellOutAct extends BaseActivity implements OnClickListener,
 		if (last > 0) {
 			addFootView();
 		} else {
-			listview.removeAllViews();
+//			listview.removeAllViews();
 		}
 
 	}

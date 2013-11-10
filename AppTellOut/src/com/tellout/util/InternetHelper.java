@@ -85,9 +85,9 @@ public class InternetHelper {
 			}
 		}
 		//获得请求的地址
-		Log.d("tag","request--url"+url);
-		TestResponseResult responseResult = get(url);
-		Log.d("tag","request--result"+responseResult.toString());
+		Log.d("tag","request--url"+url.substring(0,url.length()-1));
+		TestResponseResult responseResult = get(url.substring(0,url.length()-1));
+		Log.d("tag","request--result||>"+responseResult.toString());
 		return responseResult;
 	}
 
@@ -129,6 +129,8 @@ public class InternetHelper {
 			responseResult.setResultCode(-1);
 		} catch (Exception e) {
 			e.printStackTrace();
+			Log.e("tag", "HttpHelper-get-result-exception->"
+					+ e);
 			responseResult.setResultCode(-2);
 		} finally {
 			try {
@@ -162,7 +164,7 @@ public class InternetHelper {
 			// 设置请求超时,20秒
 			httpPost.getParams().setParameter(
 					CoreConnectionPNames.CONNECTION_TIMEOUT,
-					20);
+					20*1000);
 				
 			HttpResponse httpResponse = null;
 			/**设置请求参数*/

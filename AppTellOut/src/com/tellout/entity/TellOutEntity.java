@@ -58,6 +58,13 @@ public class TellOutEntity extends BaseEntity implements Serializable{
 		this.noNum = noNum;
 	}
 	
+	public int getIsOK() {
+		return isOK;
+	}
+	public void setIsOK(int isOK) {
+		this.isOK = isOK;
+	}
+	
 	
 	/**作者名*/
 	private String authorName = null;
@@ -79,5 +86,7 @@ public class TellOutEntity extends BaseEntity implements Serializable{
 	private int okNum;
 	/**吐的数量*/
 	private int noNum;
+	/**0:未点击1:选择了赞*/
+	private int isOK = 0;
 	
 }

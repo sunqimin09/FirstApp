@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
         android:text="昵称" />
 
     <TextView
@@ -21,6 +22,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/tellout_item_author_tv"
+        android:layout_marginLeft="5dp"
         android:maxLines="6"
         android:text="TextView" />
 
@@ -30,7 +32,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="5dp"
-        android:paddingBottom="10dp"
+        android:paddingBottom="3dp"
+        android:layout_marginLeft="5dp"
         android:layout_below="@+id/tellout_item_content_tv" >
 
         <LinearLayout
@@ -44,13 +47,15 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="2dp"
                 android:src="@drawable/ok" />
 
             <TextView
                 android:id="@+id/tellout_item_ok_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="5dp"
                 android:gravity="center"
                 android:text="3" />
         </LinearLayout>
@@ -61,6 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/ll1"
             android:layout_marginLeft="10dp"
+            android:visibility="invisible"
             android:background="@drawable/selector_vote"
             android:gravity="center_vertical"
             android:orientation="horizontal" >
@@ -87,6 +93,8 @@
         	 android:layout_alignParentRight="true"
         	 android:layout_centerVertical="true"
         	 android:gravity="center"
+        	 android:paddingBottom="4dp"
+        	 android:layout_marginRight="5dp"
         	 android:text="3"
         	 android:background="@drawable/comment"
 		    />

@@ -52,7 +52,7 @@ public class BaseActivity extends Activity{
 	}
 	
 	public void showResult(int type,BaseEntity baseEntity){
-		Log.d("tag","base--showResult-->"+baseEntity);
+		Log.d("tag","base--showResult-->"+baseEntity.getList());
 		
 	}
 	

@@ -5,9 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.content.Intent;
+import android.graphics.drawable.PaintDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -22,6 +26,7 @@ import com.tellout.entity.BaseEntity;
 import com.tellout.entity.CommentEntity;
 import com.tellout.entity.RequestEntity;
 import com.tellout.entity.TellOutEntity;
+import com.tellout.util.PopWindowHelper;
 
 /**
  * 吐槽详细
@@ -44,15 +49,22 @@ public class TelloutDetailAct extends BaseActivity implements OnClickListener{
 	
 	private EditText etComment;
 	
+	private PopWindowHelper popHelper ;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tellout_detail_act);
 		initView();
+		request();
 	}
 
+	
+	
 	private void initView() {
 		TellOutEntity entity = (TellOutEntity) getIntent().getSerializableExtra("tellout");
+		findViewById(R.id.back).setOnClickListener(this);
 		listView = (ListView) findViewById(R.id.tellout_detail_listview);
 		View headView = View.inflate(this, R.layout.tellout_item, null);
 		TextView tvAuthor = (TextView) headView.findViewById(R.id.tellout_item_author_tv);
@@ -63,12 +75,14 @@ public class TelloutDetailAct extends BaseActivity implements OnClickListener{
 		listView.addHeaderView(headView);
 		listView.addFooterView(footView());
 		adapter = new CommentAdapter(this, list);
+		listView.setAdapter(adapter);
 		TellOutId = entity.getTellOutId();
 		tvAuthor.setText(entity.getAuthorName());
 		tvContent.setText(entity.getContent());
 		tvOk.setText(entity.getOkNum()+"");
 		tvNo.setText(entity.getNoNum()+"");
 		tvComment.setText(entity.getCommentNum()+"");
+		popHelper = new PopWindowHelper(this);
 	}
 	
 	private View footView(){
@@ -78,7 +92,11 @@ public class TelloutDetailAct extends BaseActivity implements OnClickListener{
 			
 			@Override
 			public void onClick(View v) {
-				showCommentPop(v);
+				Toast("评论");
+				startActivity(new Intent(TelloutDetailAct.this,
+						NewCommentAct.class).putExtra(DbConstant.DB_TELLOUT_ID,
+								TellOutId));
+				// showCommentPop(v);
 			}
 		});
 		return btn;
@@ -127,14 +145,27 @@ public class TelloutDetailAct extends BaseActivity implements OnClickListener{
 		view.findViewById(R.id.new_tell_out_back).setOnClickListener(this);
 		view.findViewById(R.id.new_tell_out_save).setOnClickListener(this);
 		etComment = (EditText) view.findViewById(R.id.new_tell_out_input_et);
-		pop = new PopupWindow(view);
+//		popHelper.showWindow(view);
+		
+		
+		pop = new PopupWindow(view,LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+		pop.setContentView(view);
+		pop.setFocusable(true);
+//		pop.setOutsideTouchable(true); 
+		pop.setBackgroundDrawable(new PaintDrawable());
 		pop.showAsDropDown(parentView);
+		
+//		pop = new PopupWindow(view);
+//		pop.showAsDropDown(parentView);
 	}
 
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch(v.getId()){
+		case R.id.back:
+			finish();
+			break;
 		case R.id.new_tell_out_back:
 			pop.dismiss();
 			break;

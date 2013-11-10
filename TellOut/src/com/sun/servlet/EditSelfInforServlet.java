@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import atg.taglib.json.util.JSONException;
 import atg.taglib.json.util.JSONObject;
 
+import com.sun.db.DbConstant;
 import com.sun.db.DbManager;
 import com.sun.entity.RequestEntity;
 import com.sun.entity.ResponseEntity;
@@ -59,26 +60,8 @@ public class EditSelfInforServlet extends HttpServlet {
 		requestEntity.setTypeId(MConstant.EDIT_MY_INFOR);
 		requestEntity.setRequest(request);
 
-		ResponseEntity responseEntity = null;
-		if (null != request.getParameter(MConstant.USER_ID)
-				|| null != request.getParameter(MConstant.USER_NAME)
-				|| null != request.getParameter(MConstant.SALARY)
-				|| null != request.getParameter(MConstant.SALARY_PER)
-				|| null != request.getParameter(MConstant.ENVIRONMENT)
-				|| null != request.getParameter(MConstant.ENVIRONMENT_PER)
-				|| null != request.getParameter(MConstant.FUTURE)
-				|| null != request.getParameter(MConstant.FUTURE_PER)
-				|| null != request.getParameter(MConstant.OTHER)
-				|| null != request.getParameter(MConstant.OTHER_PER)
-				|| null != request.getParameter(MConstant.REGION_ID)
-				|| null != request.getParameter(MConstant.INDUSTRY_ID)
-				||null != request.getParameter(MConstant.COMPANY_ID)) {
-			// 查询的结果
-			responseEntity = new DbManager().doRequest(requestEntity);
-		}else{
-			responseEntity =new ResponseEntity();
-			responseEntity.setCode(MConstant.FAILED);
-		}
+		ResponseEntity responseEntity = new DbManager().doRequest(requestEntity);
+		
 		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();

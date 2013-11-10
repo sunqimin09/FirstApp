@@ -46,6 +46,17 @@ public class SharePre {
 		
 	}
 	
+	
+	public void setAd(boolean ad){
+		Editor ed = sp.edit();
+		ed.putBoolean("ad", ad);
+		ed.commit();
+	}
+	
+	public boolean hasAd(){
+		return sp.getBoolean("ad", true);
+	}
+	
 	public void writeStr(String key,String value){
 		Editor ed = sp.edit();
 		ed.putString(key, value);
@@ -119,5 +130,7 @@ public class SharePre {
 	public void setDAYS(String dAYS) {
 		DAYS = dAYS;
 	}
+	
+	
 	
 }

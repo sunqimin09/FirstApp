@@ -58,7 +58,7 @@ public class NewTellOutAct extends BaseActivity implements OnClickListener{
 			if(tempStr!=null&&tempStr.length()>5){
 				Map<String,String> map = new HashMap<String,String>();
 				map.put(DbConstant.DB_TELLOUT_CONTENT, tempStr);
-				map.put(DbConstant.DB_TELLOUT_AUTHOR, MConstant.USER_ID_VALUE);
+				map.put(DbConstant.DB_TELLOUT_USER_ID, MConstant.USER_ID_VALUE);
 				RequestEntity requestEntity = new RequestEntity();
 				requestEntity.setParams(map);
 				requestEntity.setPost(false);

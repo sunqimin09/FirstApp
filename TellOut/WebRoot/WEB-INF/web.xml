@@ -71,6 +71,38 @@
     <servlet-name>WorldRankServlet</servlet-name>
     <servlet-class>com.sun.servlet.WorldRankServlet</servlet-class>
   </servlet>
+  <servlet>
+  <servlet-name>TelloutsServlet</servlet-name>
+  <servlet-class>com.sun.servlet.TelloutsServlet</servlet-class>
+  
+  </servlet>
+  
+  <servlet>
+  <servlet-name>NewTelloutServlet</servlet-name>
+  <servlet-class>com.sun.servlet.NewTelloutServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+  	<servlet-name>CommentServlet</servlet-name>
+  	<servlet-class>com.sun.servlet.CommentServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>NewCommentServlet</servlet-name>
+    <servlet-class>com.sun.servlet.NewCommentServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>OkServelt</servlet-name>
+    <servlet-class>com.sun.servlet.OkServelt</servlet-class>
+  </servlet>
+
+  
+  
+  
+
+
+ 
+
 
 
 
@@ -125,6 +157,26 @@
   <servlet-mapping>
     <servlet-name>WorldRankServlet</servlet-name>
     <url-pattern>/servlet/WorldRankServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TelloutsServlet</servlet-name>
+    <url-pattern>/servlet/TelloutsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>NewTelloutServlet</servlet-name>
+    <url-pattern>/servlet/NewTelloutServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CommentServlet</servlet-name>
+    <url-pattern>/servlet/CommentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>NewCommentServlet</servlet-name>
+    <url-pattern>/servlet/NewCommentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>OkServelt</servlet-name>
+    <url-pattern>/servlet/OkServelt</url-pattern>
   </servlet-mapping>	
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>

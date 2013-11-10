@@ -58,27 +58,27 @@ public class RegistServlet extends HttpServlet {
 			throws ServletException, IOException {
 		//请求参数		
 		RequestEntity requestEntity = new RequestEntity();
-		requestEntity.setTypeId(MConstant.REGIST);
+		requestEntity.setTypeId(MConstant.REQUEST_REGIST);
 		Map<String,String> map = new HashMap<String,String>();
-		map.put("name", request.getParameter(MConstant.USER_NAME));
-		map.put("pwd", request.getParameter(MConstant.USER_PWD));
-		map.put("email", request.getParameter(MConstant.USER_EMAIL));
+		map.put("name", request.getParameter(DbConstant.DB_USER_NICK_NAME));
+		map.put("pwd", request.getParameter(DbConstant.DB_USER_PWD));
+		map.put("email", request.getParameter(DbConstant.DB_USER_EMAIL));
 		ResponseEntity responseEntity =null;
-		if (null != request.getParameter(MConstant.USER_NAME)
-				|| null != request.getParameter(MConstant.USER_PWD)
-				|| null != request.getParameter(MConstant.USER_EMAIL)) {
+		if (null != request.getParameter(DbConstant.DB_USER_NICK_NAME)
+				|| null != request.getParameter(DbConstant.DB_USER_PWD)
+				|| null != request.getParameter(DbConstant.DB_USER_EMAIL)) {
 			requestEntity.setParams(map);
 			// 查询的结果
 			responseEntity =  new DbManager().doRequest(requestEntity);
 			System.out.println("regist--->"+responseEntity.getCode());
 		}else{
 			responseEntity =new ResponseEntity();
-			responseEntity.setCode(MConstant.FAILED);
+			responseEntity.setCode(MConstant.ERROR_OTHER);
 		}
 		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		out.print(change(responseEntity));
+		out.println(change(responseEntity));
 //		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
 //		out.println("<HTML>");
 //		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
@@ -97,11 +97,12 @@ public class RegistServlet extends HttpServlet {
 		try {
 			object.put("code", responseEntity.getCode());
 			JSONObject result = new JSONObject();
-			result.put("id", responseEntity.getParams().get("id"));
+			result.put(DbConstant.DB_USER_ID, responseEntity.getParams().get(DbConstant.DB_USER_ID));
 			object.put("result", result);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		System.out.println("Regist_result->"+object);
 		return object;
 	}
 	
@@ -123,21 +124,28 @@ public class RegistServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String name = request.getParameter(DbConstant.DB_USER_NICK_NAME);
-		String email = request.getParameter(DbConstant.DB_USER_EMAIL);
-		String pwd = request.getParameter(DbConstant.DB_USER_PWD);
+//		String name = request.getParameter(DbConstant.DB_USER_NICK_NAME);
+//		String email = request.getParameter(DbConstant.DB_USER_EMAIL);
+//		String pwd = request.getParameter(DbConstant.DB_USER_PWD);
+		
+		RequestEntity requestEntity = new RequestEntity();
+		requestEntity.setTypeId(MConstant.REQUEST_REGIST);
+		requestEntity.setRequest(request);
+		// 查询的结果
+		ResponseEntity responseEntity = new DbManager().doRequest(requestEntity);
 		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-		out.println("  <BODY>");
-		out.print("    This is ");
-		out.print(this.getClass());
-		out.println(", using the POST method");
-		out.println("  </BODY>");
-		out.println("</HTML>");
+		out.print(change(responseEntity));
+//		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
+//		out.println("<HTML>");
+//		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
+//		out.println("  <BODY>");
+//		out.print("    This is ");
+//		out.print(this.getClass());
+//		out.println(", using the POST method");
+//		out.println("  </BODY>");
+//		out.println("</HTML>");
 		out.flush();
 		out.close();
 	}

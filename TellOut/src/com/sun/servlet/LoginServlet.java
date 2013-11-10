@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import atg.taglib.json.util.JSONException;
 import atg.taglib.json.util.JSONObject;
 
+import com.sun.db.DbConstant;
 import com.sun.db.DbManager;
 import com.sun.entity.RequestEntity;
 import com.sun.entity.ResponseEntity;
@@ -63,20 +64,20 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		//请求参数		
 		RequestEntity requestEntity = new RequestEntity();
-		requestEntity.setTypeId(MConstant.LOGIN);
+		requestEntity.setTypeId(MConstant.REQUEST_LOGIN);
 		Map<String,String> map = new HashMap<String,String>();
-		map.put("email", request.getParameter(MConstant.USER_EMAIL));
-		map.put("pwd", request.getParameter(MConstant.USER_PWD));
+		map.put("email", request.getParameter(DbConstant.DB_USER_EMAIL));
+		map.put("pwd", request.getParameter(DbConstant.DB_USER_PWD));
 		ResponseEntity responseEntity =null;
-		if(null!=request.getParameter(MConstant.USER_EMAIL)&&null!=request.getParameter(MConstant.USER_PWD)){
-			System.out.println("Login--response==pwd->"+request.getParameter(MConstant.USER_PWD));
+//		if(null!=request.getParameter(DbConstant.DB_USER_EMAIL)&&null!=request.getParameter(DbConstant.DB_USER_PWD)){
+			System.out.println("Login--response==pwd->"+request.getParameter(DbConstant.DB_USER_PWD));
 			requestEntity.setParams(map);
 			//查询的结果
 			responseEntity =  new DbManager().doRequest(requestEntity);
-		}else{
-			responseEntity =new ResponseEntity();
-			responseEntity.setCode(MConstant.FAILED);
-		}
+//		}else{
+//			responseEntity =new ResponseEntity();
+//			responseEntity.setCode(MConstant.ERROR_OTHER);
+//		}
 		
 		System.out.println("Login--response->"+responseEntity.getCode());
 		
@@ -102,10 +103,7 @@ public class LoginServlet extends HttpServlet {
 		try {
 			object.put("code", responseEntity.getCode());
 			JSONObject result = new JSONObject();
-//			if(responseEntity.getCode()==MConstant.SUCCESS){
-				result.put("id", responseEntity.getParams().get("id"));
-				System.out.println("id-->");
-//			}
+			result.put(DbConstant.DB_USER_ID, responseEntity.getParams().get(DbConstant.DB_USER_ID));
 			object.put("result", result);
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -130,18 +128,33 @@ public class LoginServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		//请求参数		
+		RequestEntity requestEntity = new RequestEntity();
+		requestEntity.setTypeId(MConstant.REQUEST_LOGIN);
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("email", request.getParameter(DbConstant.DB_USER_EMAIL));
+		map.put("pwd", request.getParameter(DbConstant.DB_USER_PWD));
+		ResponseEntity responseEntity =null;
+		System.out.println("Login--response==pwd->"+request.getParameter(DbConstant.DB_USER_PWD));
+		requestEntity.setParams(map);
+			//查询的结果
+		responseEntity =  new DbManager().doRequest(requestEntity);
+		
+		System.out.println("Login--response->"+responseEntity.getCode());
+		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-		out.println("  <BODY>");
-		out.print("    This is ");
-		out.print(this.getClass());
-		out.println(", using the POST method");
-		out.println("  </BODY>");
-		out.println("</HTML>");
+		out.print(change(responseEntity));
+		
+//		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
+//		out.println("<HTML>");
+//		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
+//		out.println("  <BODY>");
+//		out.print("    This is ");
+//		out.print(this.getClass());
+//		out.println(", using the POST method");
+//		out.println("  </BODY>");
+//		out.println("</HTML>");
 		out.flush();
 		out.close();
 	}
