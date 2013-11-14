@@ -11,8 +11,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="13dp"
-        android:src="@drawable/ic_launcher" />
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/user_no_image" />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -21,12 +22,14 @@
         android:layout_alignBottom="@+id/imageView1"
         android:layout_alignTop="@+id/imageView1"
         android:layout_toRightOf="@+id/imageView1"
+        android:layout_marginLeft="5dp"
         android:orientation="vertical" >
 
         <TextView
             android:id="@+id/rank_list_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_weight="1"
             android:text="TextView1" />
 
@@ -42,9 +45,10 @@
         android:id="@+id/rank_list_item_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/linearLayout1"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:layout_marginRight="25dp"
         android:text="TextView" />
+
 
 </RelativeLayout>

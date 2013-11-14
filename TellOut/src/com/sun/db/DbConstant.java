@@ -27,7 +27,7 @@ public class DbConstant {
 	/**得分*/
 	public final static String DB_USER_SCORE = "score";
 	/**工龄*/
-	public final static String DB_USER_WORK_AGE = "workAge";
+	public final static String DB_USER_START_WORK_TIME = "startWorkTime";
 	/**注册时间*/
 	public final static String DB_USER_CREATE_TIME = "createTime";
 	/**地区id*/

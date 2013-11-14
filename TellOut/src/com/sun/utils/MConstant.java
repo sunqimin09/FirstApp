@@ -88,11 +88,11 @@ public class MConstant {
 //
 //	public final static String USER_REGION_ID = "region_id";
 
-	public final static String COMPANY_ID = "company_id";
-	
-	public final static String INDUSTRY_ID = "industry_id";
-	
-	public final static String REGION_ID = "region_id";
+//	public final static String COMPANY_ID = "company_id";
+//	
+//	public final static String INDUSTRY_ID = "industry_id";
+//	
+//	public final static String REGION_ID = "region_id";
 	/**编辑个人信息*/
 	
 //	public final static String SALARY = "pay";

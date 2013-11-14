@@ -115,7 +115,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
 	
 	private void initMyInfor(){
 		View viewMyInfor = findViewById(R.id.tab1);
-		btnEditMyInfor = (Button) viewMyInfor.findViewById(R.id.my_infor_detail_btn);
+		btnEditMyInfor = (Button) viewMyInfor.findViewById(R.id.my_infor_share_btn);
 		tvMyRankNickName = (TextView) viewMyInfor.findViewById(R.id.my_infor_rank_nickName);
 		tvMyRankScore = (TextView) viewMyInfor.findViewById(R.id.my_infor_rank_score);
 		tvMyRankWorldRank = (TextView) viewMyInfor.findViewById(R.id.my_infor_rank_worldrank);
@@ -278,7 +278,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
 	@Override
 	public void onClick(View arg0) {
 		switch(arg0.getId()){
-		case R.id.my_infor_detail_btn:
+		case R.id.my_infor_share_btn:
 			startActivity(new Intent(MainActivity.this,EditMyInforAct.class));
 			Toast.makeText(this, "btn", Toast.LENGTH_SHORT).show();
 			break;

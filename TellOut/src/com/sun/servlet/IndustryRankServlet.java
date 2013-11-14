@@ -74,6 +74,7 @@ public class IndustryRankServlet extends HttpServlet {
 		}
 		
 		//返回行业排行列表，20条数据
+		response.setCharacterEncoding("utf8");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.print(change(responseEntity));

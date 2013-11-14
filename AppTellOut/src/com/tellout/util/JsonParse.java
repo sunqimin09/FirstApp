@@ -33,17 +33,14 @@ public class JsonParse {
 				baseEntity = ParseLogin_Regist(baseEntity);
 				break;
 			case MConstant.REQUEST_CODE_GET_SELF_INFOR://获得我的个人信息
-				baseEntity = ParseGetSelfInfor(baseEntity);
-				break;
+				return ParseGetSelfInfor(baseEntity);
 			case MConstant.REQUEST_CODE_EDIT_SELF_INFOR://编辑的信息,返回是否成功
 //				ParseEditSelfInfor(baseEntity.getResultObject());
 				break;
 			case MConstant.REQUEST_CODE_GET_MY_RANK://我的个人排名信息
-				ParseGetSelfRankInfor(baseEntity);
-				break;
+				return ParseGetSelfRankInfor(baseEntity);
 			case MConstant.REQUEST_CODE_WORLD_RANK://世界排名，可以限制某一地区，或者某一 行业
-				ParseWorldRank(baseEntity);
-				break;
+				return ParseWorldRank(baseEntity);
 			case MConstant.REQUEST_CODE_REGION_RANK://地区排名
 				
 				break;
@@ -102,22 +99,32 @@ public class JsonParse {
 
 	}
 	
+	//>{"code":200,"result":{"welfarePer":"50","nickName":"test1",
+//	"welfare":"0","salaryPer":"25","salary":"1234","industryId":"0",
+//	"regionId":"0"}}
+
+	
 	/**
 	 * 解析我的个人信息
 	 * @param object
 	 * @return  所有的个人信息
 	 * @throws JSONException 
 	 */
-	private static BaseEntity ParseGetSelfInfor(BaseEntity baseEntity) throws JSONException{
+	private static UserEntity ParseGetSelfInfor(BaseEntity baseEntity) throws JSONException{
 		UserEntity userEntity = new UserEntity();
 		userEntity.setCode(baseEntity.getCode());
 		JSONObject object = baseEntity.getResultObject();
 		userEntity.setName(object.getString(DbConstant.DB_USER_NICK_NAME));
-		userEntity.setCompany_name(object.getString(DbConstant.DB_COMPANY_NAME));
-		userEntity.setRegion_name(object.getString(DbConstant.DB_REGION_NAME));
-		userEntity.setIndustry_name(object.getString(DbConstant.DB_INDUSTRY_NAME));
+//		userEntity.setCompany_name(object.getString(DbConstant.DB_COMPANY_NAME));
+//		userEntity.setRegion_name(object.getString(DbConstant.DB_REGION_NAME));
+//		userEntity.setIndustry_name(""+object.getString(DbConstant.DB_INDUSTRY_ID));
+		userEntity.setRegionId(object.getInt(DbConstant.DB_USER_REGION_ID));
+		userEntity.setIndustryId(object.getInt(DbConstant.DB_USER_INDUSTRY_ID));
+//		userEntity.setCompanyId(object.getInt(DbConstant.DB_USER_COMPANY_ID));
 		userEntity.setSalary(object.getInt(DbConstant.DB_USER_SALARY));
-		
+		userEntity.setSalaryPer(object.getInt(DbConstant.DB_USER_SALARY_PER));
+		userEntity.setWelfare(object.getInt(DbConstant.DB_USER_WELFARE));
+		userEntity.setWelfarePer(object.getInt(DbConstant.DB_USER_WELFARE_PER));
 		return userEntity;
 		
 	}
@@ -130,12 +137,13 @@ public class JsonParse {
 	 */
 	private static UserEntity ParseGetSelfRankInfor(BaseEntity baseEntity) throws JSONException{
 		UserEntity entity = new UserEntity();
+		entity.setCode(baseEntity.getCode());
 		JSONObject object = baseEntity.getResultObject();
 		entity.setWorldRank(object.getInt("worldRank"));
 		entity.setRegionRank(object.getInt("regionRank"));
 		entity.setIndustryRank(object.getInt("industryRank"));
-		entity.setName(object.getString(DbConstant.DB_USER_NICK_NAME));
-		entity.setScore(object.getInt(DbConstant.DB_USER_SCORE));
+//		entity.setName(object.getString(DbConstant.DB_USER_NICK_NAME));
+//		entity.setScore(object.getInt(DbConstant.DB_USER_SCORE));
 		return entity;
 	}
 	
@@ -159,8 +167,8 @@ public class JsonParse {
 	 */
 	private static BaseEntity ParseWorldRank(BaseEntity baseEntity) throws JSONException{
 		List<UserEntity> list = new ArrayList<UserEntity>();
-		JSONArray array = baseEntity.getResultObject().getJSONArray("list");
-		JSONObject object = null;
+		JSONArray array = baseEntity.getResultObject().getJSONArray("worldRank");
+		JSONObject object = new JSONObject();
 		UserEntity userEntity = null;
 		for(int i = 0;i<array.length();i++){
 			object = array.getJSONObject(i);

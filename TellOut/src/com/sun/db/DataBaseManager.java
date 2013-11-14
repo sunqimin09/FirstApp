@@ -16,7 +16,7 @@ public class DataBaseManager {
 			+ DbConstant.DB_USER_WELFARE + " int(3) default 0,"
 			+ DbConstant.DB_USER_WELFARE_PER + " int(3) default 50, "
 			+ DbConstant.DB_USER_SCORE + " int(10) default 0,"
-			+ DbConstant.DB_USER_WORK_AGE + " int(2) default 0,"
+			+ DbConstant.DB_USER_START_WORK_TIME + " int(2) default 0,"
 			+ DbConstant.DB_USER_CREATE_TIME + " Date not null,"
 			+ DbConstant.DB_USER_REGION_ID + " int(6) default 0,"
 			+ DbConstant.DB_USER_INDUSTRY_ID + " int(6) default 0,"

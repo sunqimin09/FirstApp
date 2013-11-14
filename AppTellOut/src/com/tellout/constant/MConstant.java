@@ -2,7 +2,7 @@ package com.tellout.constant;
 
 public class MConstant {
 	
-	public final static String HOME_URL = "http://192.168.1.107:8080/TellOut/servlet/";
+	public final static String HOME_URL = "http://192.168.1.102:8080/TellOut/servlet/";
 
 	public static String USER_ID_VALUE = "";
 	
@@ -46,15 +46,18 @@ public class MConstant {
 	
 	public final static String URL_REGIST=HOME_URL+"RegistServlet";
 	
-	public final static String URL_MYINFOR=HOME_URL+"MyInforServlet";
+	/**我的排名*/
+	public final static String URL_MYINFOR=HOME_URL+"MyInforServlet?";
+	/**获得个人信息*/
+	public final static String URL_GET_SELF_INFOR = HOME_URL +"GetMyDetail?";
 	
-	public final static String URL_WORLD_RANK=HOME_URL+"WorldRankServlet";
+	public final static String URL_WORLD_RANK=HOME_URL+"WorldRankServlet?";
 	
 	public final static String URL_INDUSTRY_RANK=HOME_URL+"";
 	
 	public final static String URL_COMPANY_RANK=HOME_URL+"";
-	
-	public final static String URL_EDIT_MYINFOR=HOME_URL+"EditSelfInforServlet";
+	/**编辑我的个人信息*/
+	public final static String URL_EDIT_MYINFOR=HOME_URL+"EditSelfInforServlet?";
 	
 	public final static String URL_REGIONS = HOME_URL+"";
 	

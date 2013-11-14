@@ -49,6 +49,8 @@ public class RanksAct extends BaseActivity implements OnTabChangeListener, OnCli
 		setContentView(R.layout.ranks_act);
 		initTab();
 		initView();
+		initWorldRank();
+		request();
 	}
 	
 	
@@ -102,7 +104,7 @@ public class RanksAct extends BaseActivity implements OnTabChangeListener, OnCli
 
 	
 	private void initWorldRank(){
-		View temp = (View) findViewById(R.id.tab2);
+		View temp = (View) findViewById(R.id.world_rank);
 		listViewWroldRank = (ListView)temp.findViewById(R.id.world_rank_listview);
 		AdapterWorldRank = new WorldRankAdapter(this);
 		listViewWroldRank.setAdapter(AdapterWorldRank);

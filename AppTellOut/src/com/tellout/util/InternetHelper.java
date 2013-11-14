@@ -83,10 +83,11 @@ public class InternetHelper {
 				String value = entry.getValue();
 				url +=key+"="+value+"&";
 			}
+			url = url.substring(0,url.length()-1);
 		}
 		//获得请求的地址
-		Log.d("tag","request--url"+url.substring(0,url.length()-1));
-		TestResponseResult responseResult = get(url.substring(0,url.length()-1));
+		Log.d("tag","request--url"+url);
+		TestResponseResult responseResult = get(url);
 		Log.d("tag","request--result||>"+responseResult.toString());
 		return responseResult;
 	}

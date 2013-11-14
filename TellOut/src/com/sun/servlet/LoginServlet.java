@@ -141,7 +141,7 @@ public class LoginServlet extends HttpServlet {
 		responseEntity =  new DbManager().doRequest(requestEntity);
 		
 		System.out.println("Login--response->"+responseEntity.getCode());
-		
+		response.setCharacterEncoding("utf8");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.print(change(responseEntity));

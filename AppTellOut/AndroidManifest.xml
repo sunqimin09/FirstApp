@@ -24,8 +24,6 @@
          <activity android:name=".Login_Regist_Act"
              
              >
-              
-             
          </activity>
          <!-- 吐槽列表页面 -->
         <activity android:name=".TellOutAct">
@@ -48,7 +46,8 @@
         <activity android:name=".EditMyInforAct"
             android:windowSoftInputMode="stateHidden"
             ></activity>
-        
+        <!-- 行业列表-选择 -->
+        <activity android:name=".IndustryAct"></activity>
         <!-- 排名页面 -->
         <activity android:name=".RanksAct"></activity>
         <activity android:name=".MyInforAct"></activity>

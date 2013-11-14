@@ -1,6 +1,7 @@
 package com.example.appcolleageentrance;
 
 import java.util.Calendar;
+import java.util.Timer;
 
 import net.youmi.android.AdManager;
 import net.youmi.android.banner.AdSize;
@@ -31,9 +32,13 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.RemoteViews;
 import android.widget.Spinner;
@@ -117,6 +122,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 		textColors.setAdapter(aa);
 		textColors.setOnItemSelectedListener(this);
 		initYouMiAd();
+		
 	}
 
 	private void initYouMiAd() {
@@ -255,6 +261,18 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 			startActivity(new Intent(MainActivity.this,
 					SimpleDeclaringLayout.class));
 			break;
+		case R.id.cancel_btn://popwindow  取消按钮
+			closePop();
+			break;
+		case R.id.close_btn://关闭广告
+			adLayout.setVisibility(View.INVISIBLE);
+			sp.setAd(false);
+			closePop();
+			break;
+		case R.id.get_btn://获取积分
+			OffersManager.getInstance(MainActivity.this).showOffersWall();
+			closePop();
+			break;
 		}
 
 	}
@@ -308,10 +326,53 @@ public class MainActivity extends Activity implements OnClickListener, OnItemSel
 	protected void onResume() {
 		super.onResume();
 		if(sp.hasAd()){
-        	mshowDialog();
+//        	mshowDialog();
+			showPop();
         }
 	}
 
+	PopupWindow pop;
+	
+	private void showPop(){
+		View view = View.inflate(this, R.layout.showdialog, null);
+		pop = new PopupWindow(view);
+		TextView tvContent = (TextView) view.findViewById(R.id.content_tv);
+		tvContent.setText("永久关闭广告需要50积分\n您的积分余额为:"+currentPoint+"\n下载应用可以免费获取积分");
+		Button btnCancel = (Button) view.findViewById(R.id.cancel_btn);
+		Button btnClose = (Button) view.findViewById(R.id.close_btn);
+		Button btnGet = (Button) view.findViewById(R.id.get_btn);
+		CheckBox check = (CheckBox) view.findViewById(R.id.checkBox1);
+		check.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+				sp.setAd(!arg1);
+//				if(arg1){
+//					sp.setAd(false);
+//				}else{
+//					
+//				}
+				
+			}
+		});
+		btnCancel.setOnClickListener(this);
+		btnClose.setOnClickListener(this);
+		btnGet.setOnClickListener(this);
+		if(currentPoint>49){
+			btnClose.setVisibility(View.VISIBLE);
+		}else{
+			btnClose.setVisibility(View.GONE);
+		}
+		Timer time = new Timer();
+		
+		pop.showAsDropDown(tv_point);
+		
+	}
+	
+	private void closePop(){
+		pop.dismiss();
+	}
+	
 	private void mshowDialog() {
 		Dialog alertDialog ;
 		Builder b= new AlertDialog.Builder(this)

@@ -62,7 +62,7 @@ public class EditSelfInforServlet extends HttpServlet {
 
 		ResponseEntity responseEntity = new DbManager().doRequest(requestEntity);
 		
-		
+		response.setCharacterEncoding("utf8");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.println(change(responseEntity));

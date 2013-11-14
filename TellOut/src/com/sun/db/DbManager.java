@@ -393,8 +393,8 @@ public class DbManager {
 
 	private ResponseEntity doWorldRank(HttpServletRequest request) {
 		ResponseEntity response = new ResponseEntity();
-		String sql = "select * from user,_industry where user.industry_id=_industry.id order by score desc limit 10";
-		String sql1 = "select * from user where id ='"
+		String sql = "select * from user,industry where user.industryId=industry.industryId order by score desc limit 10";
+		String sql1 = "select * from user where "+DbConstant.DB_USER_ID+" ='"
 				+ request.getParameter(DbConstant.DB_USER_ID) + "'";
 		try {
 			ResultSet rs = doQuery(sql);
@@ -402,12 +402,12 @@ public class DbManager {
 			if (rs1.next()) {
 				String userName = rs1.getString(DbConstant.DB_USER_NICK_NAME);
 				String score = rs1.getString(MConstant.SCORE);
-				String industry = rs1.getString(MConstant.INDUSTRY_ID);
+				String industry = rs1.getString(DbConstant.DB_INDUSTRY_ID);
 
 				Map<String, String> map = new HashMap<String, String>();
 				map.put(DbConstant.DB_USER_NICK_NAME, userName);
 				map.put(MConstant.SCORE, score);
-				map.put(MConstant.INDUSTRY_ID, industry);
+				map.put(DbConstant.DB_INDUSTRY_ID, industry);
 				response.setParams(map);
 			}
 			List<Map<String, String>> list = new ArrayList<Map<String, String>>();
@@ -415,11 +415,12 @@ public class DbManager {
 			while (rs.next()) {
 				System.out.println("while--company>");
 				map = new HashMap<String, String>();
-				map.put("name", rs.getString("name"));
-				map.put(MConstant.INDUSTRY_ID, rs
-						.getString(MConstant.INDUSTRY_ID));
+				map.put(DbConstant.DB_USER_NICK_NAME, rs.getString(DbConstant.DB_USER_NICK_NAME));
+				map.put(DbConstant.DB_INDUSTRY_ID, rs
+						.getString(DbConstant.DB_INDUSTRY_ID));
 				map.put("score", rs.getString("score"));
-				map.put("industry_name", rs.getString("_industry.name"));
+				map.put(DbConstant.DB_USER_SALARY, ""+rs.getInt(DbConstant.DB_USER_SALARY));
+				map.put(DbConstant.DB_INDUSTRY_NAME, rs.getString(DbConstant.DB_INDUSTRY_NAME));
 				list.add(map);
 			}
 			System.out.print("list-size-->" + list.size());
@@ -445,11 +446,11 @@ public class DbManager {
 		String userId = request.getParameter(DbConstant.DB_USER_ID);
 		ResponseEntity response = new ResponseEntity();
 		// String
-		// sql="select * from user,company where user.company_id=company.id group by user.company_id order by user.score desc limit 10";//" where "+MConstant.REGION_ID
+		// sql="select * from user,company where user.company_id=company.id group by user.company_id order by user.score desc limit 10";//" where "+DbConstant.DB_REGION_ID
 		// +" ='"+region_id+
 
 		String sql = "select * from user,_industry where user.industry_id=_industry.id group by user."
-				+ MConstant.INDUSTRY_ID
+				+ DbConstant.DB_INDUSTRY_ID
 				+ " order by user.score "
 				+ " desc limit 10";
 
@@ -474,16 +475,16 @@ public class DbManager {
 	}
 
 	private ResponseEntity doCompany(HttpServletRequest request) {
-		// map.put("industry_id", request.getParameter(MConstant.INDUSTRY_ID));
-		// map.put("region_id", request.getParameter(MConstant.REGION_ID));
+		// map.put("industry_id", request.getParameter(DbConstant.DB_INDUSTRY_ID));
+		// map.put("region_id", request.getParameter(DbConstant.DB_REGION_ID));
 		// map.put("top_bottom", request.getParameter(MConstant.));
-		// map.put("company_id", request.getParameter(MConstant.COMPANY_ID));
+		// map.put("company_id", request.getParameter(DbConstant.DB_COMPANY_ID));
 		String region_id = request.getParameter("region_id") == null ? "0"
 				: request.getParameter("region_id");
 		// String company_id = request.getParameter("company_id");
 		ResponseEntity response = new ResponseEntity();
 		// where user.industry_id=_industry.id order by score desc limit 10";
-		String sql = "select * from user,company where user.company_id=company.id group by user.company_id order by user.score desc limit 10";// " where "+MConstant.REGION_ID
+		String sql = "select * from user,company where user.company_id=company.id group by user.company_id order by user.score desc limit 10";// " where "+DbConstant.DB_REGION_ID
 																																				// +" ='"+region_id+
 		String sql1 = "select * from ";
 		try {
@@ -510,7 +511,7 @@ public class DbManager {
 
 	// private ResponseEntity doIndustryRank(Map<String, String> params){
 	// ResponseEntity response = new ResponseEntity();
-	// String sql="select top 10 * from user group by "+MConstant.INDUSTRY_ID;
+	// String sql="select top 10 * from user group by "+DbConstant.DB_INDUSTRY_ID;
 	// return response;
 	// }
 
@@ -526,16 +527,16 @@ public class DbManager {
 
 		ResponseEntity response = new ResponseEntity();
 		/** 查询用户名，得分 */
-		String sql = "select * from user where id = '"
+		String sql = "select * from user where "+DbConstant.DB_USER_ID+" = '"
 				+ request.getParameter(DbConstant.DB_USER_ID) + "'";
 		// 世界排名
-		String sql1 = "select count(*) from user where score > (select score from user where id = '"
+		String sql1 = "select count(*) from user where score > (select score from user where "+DbConstant.DB_USER_ID+" = '"
 				+ request.getParameter(DbConstant.DB_USER_ID) + "')";
-		String sql2 = sql1 + " and " + MConstant.REGION_ID + "=" + "(select "
-				+ MConstant.REGION_ID + " from user where id = '"
+		String sql2 = sql1 + " and " + DbConstant.DB_REGION_ID + "=" + "(select "
+				+ DbConstant.DB_USER_REGION_ID + " from user where "+DbConstant.DB_USER_ID+" = '"
 				+ request.getParameter(DbConstant.DB_USER_ID) + "')";
-		String sql3 = sql1 + " and " + MConstant.INDUSTRY_ID + "=" + "(select "
-				+ MConstant.INDUSTRY_ID + " from user where id = '"
+		String sql3 = sql1 + " and " + DbConstant.DB_INDUSTRY_ID + "=" + "(select "
+				+ DbConstant.DB_USER_INDUSTRY_ID + " from user where "+DbConstant.DB_USER_ID+" = '"
 				+ request.getParameter(DbConstant.DB_USER_ID) + "')";
 		try {
 			ResultSet rs = doQuery(sql);
@@ -578,46 +579,51 @@ public class DbManager {
 	 */
 	private ResponseEntity doEditInfor(HttpServletRequest request) {
 		ResponseEntity response = new ResponseEntity();
-		String salary = request.getParameter(MConstant.SALARY);
-		String salaryPer = request.getParameter(MConstant.SALARY_PER);
-		String environment = request.getParameter(MConstant.ENVIRONMENT);
-		String environmentPer = request.getParameter(MConstant.ENVIRONMENT_PER);
-		String future = request.getParameter(MConstant.FUTURE);
-		String futurePer = request.getParameter(MConstant.FUTURE_PER);
-		String other = request.getParameter(MConstant.OTHER);
-		String otherPer = request.getParameter(MConstant.OTHER_PER);
-		String regionId = request.getParameter(MConstant.REGION_ID);
-		String industryId = request.getParameter(MConstant.INDUSTRY_ID);
-		String companyId = request.getParameter(MConstant.COMPANY_ID);
-
+		String salary = request.getParameter(DbConstant.DB_USER_SALARY);
+		String salaryPer = request.getParameter(DbConstant.DB_USER_SALARY_PER);
+		String welfare = request.getParameter(DbConstant.DB_USER_WELFARE);
+		String welfarePer = request.getParameter(DbConstant.DB_USER_WELFARE_PER);
+//		String future = request.getParameter(MConstant.FUTURE);
+//		String futurePer = request.getParameter(MConstant.FUTURE_PER);
+//		String other = request.getParameter(MConstant.OTHER);
+//		String otherPer = request.getParameter(MConstant.OTHER_PER);
+		String regionId = request.getParameter(DbConstant.DB_REGION_ID);
+		String industryId = request.getParameter(DbConstant.DB_INDUSTRY_ID);
+		String companyId = request.getParameter(DbConstant.DB_COMPANY_ID);
+		String comment = request.getParameter(DbConstant.DB_USER_COMMENT);
+		/**开始工作时间*/
+		String workTime = request.getParameter(DbConstant.DB_USER_START_WORK_TIME);
+		
 		int salaryInt = Integer.parseInt(salary);
 		int salaryPerInt = Integer.parseInt(salaryPer);
-		int environmentInt = Integer.parseInt(environment);
-		int environmentPerInt = Integer.parseInt(environmentPer);
-		int futureInt = Integer.parseInt(future);
-		int futurePerInt = Integer.parseInt(futurePer);
-		int otherInt = Integer.parseInt(other);
-		int otherPerInt = Integer.parseInt(otherPer);
+		int welfareInt = Integer.parseInt(welfare);
+		int welfarePerInt = Integer.parseInt(welfarePer);
+//		int futureInt = Integer.parseInt(future);
+//		int futurePerInt = Integer.parseInt(futurePer);
+//		int otherInt = Integer.parseInt(other);
+//		int otherPerInt = Integer.parseInt(otherPer);
 
 		int score = salaryInt
 				+ 100
 				/ salaryPerInt
-				* (environmentInt * environmentPerInt + futureInt
-						* futurePerInt + otherInt * otherPerInt);
+				* (welfareInt * welfarePerInt);
 
 		String sql = "update user SET " + DbConstant.DB_USER_NICK_NAME + "='"
 				+ request.getParameter(DbConstant.DB_USER_NICK_NAME) + "',"
-				+ MConstant.SALARY + "='" + salary + "',"
-				+ MConstant.SALARY_PER + "='" + salaryPer + "',"
-				+ MConstant.ENVIRONMENT + "='" + environment + "',"
-				+ MConstant.ENVIRONMENT_PER + "='" + environmentPer + "',"
-				+ MConstant.FUTURE + "='" + future + "',"
-				+ MConstant.FUTURE_PER + "='" + futurePer + "',"
-				+ MConstant.OTHER + "='" + other + "'," + MConstant.OTHER_PER
-				+ "='" + otherPer + "', " + MConstant.REGION_ID + "='"
-				+ regionId + "'," + MConstant.INDUSTRY_ID + "='" + industryId
-				+ "', " + MConstant.COMPANY_ID + "='" + companyId + "', "
-				+ MConstant.SCORE + "='" + score + "' " + "where id ='"
+				+ DbConstant.DB_USER_SALARY + "='" + salary + "',"
+				+ DbConstant.DB_USER_SALARY_PER + "='" + salaryPer + "',"
+				+ DbConstant.DB_USER_WELFARE + "='" + welfare + "',"
+				+ DbConstant.DB_USER_WELFARE_PER + "='" + welfarePer + "',"
+//				+ MConstant.FUTURE + "='" + future + "',"
+//				+ MConstant.FUTURE_PER + "='" + futurePer + "',"
+//				+ MConstant.OTHER + "='" + other + "'," 
+//				+ MConstant.OTHER_PER+ "='" + otherPer + "', " 
+				+ DbConstant.DB_REGION_ID + "='"+ regionId + "'," 
+				+ DbConstant.DB_INDUSTRY_ID + "='" + industryId + "', " 
+				+ DbConstant.DB_COMPANY_ID + "='" + companyId + "', "
+				+ DbConstant.DB_USER_START_WORK_TIME + "='" + workTime + "', "
+				+ DbConstant.DB_USER_COMMENT +"='"+comment+ "',"
+				+ MConstant.SCORE + "='" + score + "' " + "where "+DbConstant.DB_USER_ID+" ='"
 				+ request.getParameter(DbConstant.DB_USER_ID) + "'";
 		int result = doUpdate(sql);
 		if (result == 1)
@@ -627,6 +633,11 @@ public class DbManager {
 		return response;
 	}
 
+	private void insertUserInfor(HttpServletRequest request){
+		ResponseEntity response = new ResponseEntity();
+		String sql = "";
+	}
+	
 	/**
 	 * 获取我的详细信息
 	 * 
@@ -646,20 +657,20 @@ public class DbManager {
 				map.put(DbConstant.DB_USER_SALARY, rs.getString(DbConstant.DB_USER_SALARY));
 				map.put(DbConstant.DB_USER_SALARY_PER, rs
 						.getString(DbConstant.DB_USER_SALARY_PER));
-//				map.put(MConstant.ENVIRONMENT, rs
-//						.getString(MConstant.ENVIRONMENT));
-//				map.put(MConstant.ENVIRONMENT_PER, rs
-//						.getString(MConstant.ENVIRONMENT_PER));
-				map.put(MConstant.FUTURE, rs.getString(MConstant.FUTURE));
-				map.put(MConstant.FUTURE_PER, rs
-						.getString(MConstant.FUTURE_PER));
-				map.put(MConstant.OTHER, rs.getString(MConstant.OTHER));
-				map.put(MConstant.OTHER_PER, rs.getString(MConstant.OTHER_PER));
-				map.put(MConstant.INDUSTRY_ID, rs
-						.getString(MConstant.INDUSTRY_ID));
-				map.put(MConstant.REGION_ID, rs.getString(MConstant.REGION_ID));
-				map.put(MConstant.COMPANY_ID, rs
-						.getString(MConstant.COMPANY_ID));
+				map.put(DbConstant.DB_USER_WELFARE, rs
+						.getString(DbConstant.DB_USER_WELFARE));
+				map.put(DbConstant.DB_USER_WELFARE_PER, rs
+						.getString(DbConstant.DB_USER_WELFARE_PER));
+//				map.put(MConstant.FUTURE, rs.getString(MConstant.FUTURE));
+//				map.put(MConstant.FUTURE_PER, rs
+//						.getString(MConstant.FUTURE_PER));
+//				map.put(MConstant.OTHER, rs.getString(MConstant.OTHER));
+//				map.put(MConstant.OTHER_PER, rs.getString(MConstant.OTHER_PER));
+				map.put(DbConstant.DB_USER_INDUSTRY_ID, rs
+						.getString(DbConstant.DB_USER_INDUSTRY_ID));
+				map.put(DbConstant.DB_USER_REGION_ID, rs.getString(DbConstant.DB_USER_REGION_ID));
+//				map.put(DbConstant.DB_COMPANY_ID, rs
+//						.getString(DbConstant.DB_COMPANY_ID));
 				response.setParams(map);
 			}
 

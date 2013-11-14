@@ -76,6 +76,15 @@ public class RequestEntity {
 		case MConstant.REQUEST_CODE_REGIST:
 			this.url = MConstant.URL_REGIST;
 			break;
+		case MConstant.REQUEST_CODE_GET_MY_RANK:
+			this.url = MConstant.URL_MYINFOR;
+			break;
+		case MConstant.REQUEST_CODE_GET_SELF_INFOR://获得个人信息
+			this.url = MConstant.URL_GET_SELF_INFOR;
+			break;
+		case MConstant.REQUEST_CODE_EDIT_SELF_INFOR:
+			this.url = MConstant.URL_EDIT_MYINFOR;
+			break;
 		case MConstant.REQUEST_CODE_WORLD_RANK:
 			this.url = MConstant.URL_WORLD_RANK;
 			break;

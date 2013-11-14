@@ -59,15 +59,15 @@ public class WorldRankServlet extends HttpServlet {
 		requestEntity.setRequest(request);
 
 		ResponseEntity responseEntity = null;
-		if (null != request.getParameter(DbConstant.DB_USER_ID)) {
+//		if (null != request.getParameter(DbConstant.DB_USER_ID)) {
 			// 查询的结果
 			responseEntity = new DbManager().doRequest(requestEntity);
-		}else{
-			responseEntity =new ResponseEntity();
-			responseEntity.setCode(MConstant.ERROR_OTHER);
-		}
+//		}else{
+//			responseEntity =new ResponseEntity();
+//			responseEntity.setCode(MConstant.ERROR_OTHER);
+//		}
 		
-		
+		response.setCharacterEncoding("utf8");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.print(change(responseEntity));
@@ -87,17 +87,18 @@ public class WorldRankServlet extends HttpServlet {
 			/**我的信息*/
 			result.put(DbConstant.DB_USER_NICK_NAME, map.get(DbConstant.DB_USER_NICK_NAME));
 			result.put(MConstant.SCORE, map.get(MConstant.SCORE));
-			result.put(MConstant.INDUSTRY_ID, map.get(MConstant.INDUSTRY_ID));
+			result.put(DbConstant.DB_INDUSTRY_ID, map.get(DbConstant.DB_INDUSTRY_ID));
 			
 			List<Map<String,String>> list =responseEntity.getList();
-			result.put("list_size", list.size());
+			result.put(DbConstant.OTHER_TOTAL_SIZE, list.size());
 			JSONObject item = null;
 			for(int i = 0;i<list.size();i++){
 				item = new JSONObject();
-				item.put("name", list.get(i).get("name"));
+				item.put(DbConstant.DB_USER_NICK_NAME, list.get(i).get(DbConstant.DB_USER_NICK_NAME));
 				item.put("score", list.get(i).get("score"));
-				item.put("industry", list.get(i).get(MConstant.INDUSTRY_ID));
-				item.put("industry_name", list.get(i).get("industry_name"));
+				item.put(DbConstant.DB_USER_SALARY, list.get(i).get(DbConstant.DB_USER_SALARY));
+				item.put(DbConstant.DB_INDUSTRY_ID, list.get(i).get(DbConstant.DB_INDUSTRY_ID));
+				item.put(DbConstant.DB_INDUSTRY_NAME, list.get(i).get(DbConstant.DB_INDUSTRY_NAME));
 				jsonArray.put(item);
 			}
 		} catch (JSONException e) {

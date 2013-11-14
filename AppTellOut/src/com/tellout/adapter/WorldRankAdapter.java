@@ -79,7 +79,7 @@ public class WorldRankAdapter extends BaseAdapter{
 		userEntity = list.get(arg0);
 		
 		holder.tv_name.setText(userEntity.getName());
-		holder.tv_score.setText(userEntity.getScore());
+		holder.tv_score.setText(userEntity.getScore()+"");
 		holder.tv_other.setText(userEntity.getCompany_name());
 
 		return convertView;

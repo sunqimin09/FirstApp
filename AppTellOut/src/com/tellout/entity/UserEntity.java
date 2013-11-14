@@ -117,6 +117,40 @@ public class UserEntity extends BaseEntity{
 		this.region_name = region_name;
 	}
 	
+	public int getRegionId() {
+		return regionId;
+	}
+
+	public void setRegionId(int regionId) {
+		this.regionId = regionId;
+	}
+
+	public int getSalaryPer() {
+		return salaryPer;
+	}
+
+	public void setSalaryPer(int salaryPer) {
+		this.salaryPer = salaryPer;
+	}
+
+	public int getWelfare() {
+		return welfare;
+	}
+
+	public void setWelfare(int welfare) {
+		this.welfare = welfare;
+	}
+
+	public int getWelfarePer() {
+		return welfarePer;
+	}
+
+	public void setWelfarePer(int welfarePer) {
+		this.welfarePer = welfarePer;
+	}
+
+	
+	
 	private int requestCode;
 	
 	private int code;
@@ -147,6 +181,11 @@ public class UserEntity extends BaseEntity{
 	private int salary = 0;
 	
 	private int salaryPer = 0;
+	
+	
+	private int welfare = 0;
+	
+	private int welfarePer = 0;
 	
 	
 	/**地区内排名*/

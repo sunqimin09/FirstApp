@@ -59,7 +59,7 @@ public class GetMyDetail extends HttpServlet {
 		
 		
 		
-		response.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf8");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.print(change(responseEntity));

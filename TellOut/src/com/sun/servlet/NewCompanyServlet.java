@@ -74,7 +74,7 @@ public class NewCompanyServlet extends HttpServlet {
 //			responseEntity = new ResponseEntity();
 //			responseEntity.setCode(MConstant.ERROR_OTHER);
 //		}
-
+		response.setCharacterEncoding("utf8");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.print(request(request));

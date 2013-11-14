@@ -67,15 +67,16 @@ public class MyInforServlet extends HttpServlet {
 		requestEntity.setRequest(request);
 
 		ResponseEntity responseEntity = null;
-		if (null != request.getParameter(DbConstant.DB_USER_ID)) {
+//		if (null != request.getParameter(DbConstant.DB_USER_ID)) {
 			// 查询的结果
-			responseEntity = new DbManager().doRequest(requestEntity);
-		} else {
-			responseEntity = new ResponseEntity();
-			responseEntity.setCode(MConstant.ERROR_OTHER);
-		}
+		responseEntity = new DbManager().doRequest(requestEntity);
+//		} else {
+//			responseEntity = new ResponseEntity();
+//			responseEntity.setCode(MConstant.ERROR_OTHER);
+//		}
 
 		// 返回我的信息，我的世界排名
+		response.setCharacterEncoding("utf8");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.print(change(responseEntity));

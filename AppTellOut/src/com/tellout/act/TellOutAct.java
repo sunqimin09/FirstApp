@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SlidingPaneLayout;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.tellout.adapter.TellOutAdapter;
 import com.tellout.constant.DbConstant;
@@ -28,6 +30,7 @@ import com.tellout.constant.MConstant;
 import com.tellout.entity.BaseEntity;
 import com.tellout.entity.RequestEntity;
 import com.tellout.entity.TellOutEntity;
+import com.tellout.entity.UserEntity;
 import com.tellout.util.PopWindowHelper;
 
 /**
@@ -67,6 +70,18 @@ public class TellOutAct extends BaseActivity implements OnClickListener,
 	
 	private EditText etLeftFeedBackContact = null;
 	
+	private View myRankView = null;
+	
+	private TextView myRankViewTvScore = null;
+	
+	private TextView myRankViewTvWorldRank = null;
+	
+	private TextView myRankViewTvRegionRank = null;
+	/**我所在行业排名*/
+	private TextView myRankViewTvIndustryRank = null;
+	/**分享给小伙伴*/
+	private Button myRankViewBtnShare = null;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -75,12 +90,36 @@ public class TellOutAct extends BaseActivity implements OnClickListener,
 		initView();
 		initLeftPanel();
 		request(MConstant.REQUEST_CODE_TELLOUTS);
+		Log.d("tag","userid-tell-》"+MConstant.USER_ID_VALUE);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void showResult(int type, BaseEntity baseEntity) {
 		super.showResult(type, baseEntity);
+		switch(type){
+		case MConstant.REQUEST_CODE_TELLOUTS:
+			showTellouts(baseEntity);
+			break;
+		case MConstant.REQUEST_CODE_GET_MY_RANK:
+			showMyRank(baseEntity);
+			break;
+		}
+
+	}
+	
+	/**
+	 * 显示我的个人排名信息
+	 * @param baseEntity
+	 */
+	private void showMyRank(BaseEntity baseEntity) {
+		Toast("myRank");
+		UserEntity userEntity = (UserEntity) baseEntity;
+		myRankViewTvWorldRank.setText(userEntity.getWorldRank()+"");
+		myRankViewTvRegionRank.setText(userEntity.getRegionRank()+"");
+		myRankViewTvIndustryRank.setText(userEntity.getIndustryRank()+"");
+	}
+
+	private void showTellouts(BaseEntity baseEntity){
 		list = (List<TellOutEntity>) baseEntity.getList();
 		adapter.addData(list);
 		Map<String, String> map = baseEntity.getMap();
@@ -98,9 +137,9 @@ public class TellOutAct extends BaseActivity implements OnClickListener,
 		} else {
 //			listview.removeAllViews();
 		}
-
 	}
-
+	
+	
 	@Override
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
@@ -117,7 +156,8 @@ public class TellOutAct extends BaseActivity implements OnClickListener,
 			startActivity(new Intent(TellOutAct.this, EditMyInforAct.class));
 			break;
 		case R.id.left_panel_myrank:// 我的排名
-			windowHelper.showMyRank();
+			request(MConstant.REQUEST_CODE_GET_MY_RANK);
+			new PopWindowHelper(this).showWindow(myRankView);
 			break;
 		case R.id.left_panel_worldrank:
 			startActivity(new Intent(TellOutAct.this, RanksAct.class).putExtra(
@@ -240,12 +280,23 @@ public class TellOutAct extends BaseActivity implements OnClickListener,
 				.setOnClickListener(this);
 		view.findViewById(R.id.left_panel_share).setOnClickListener(this);
 		view.findViewById(R.id.left_panel_suggestionback).setOnClickListener(this);
-		initFeedBack();
+		
 		View leftAboutView = view.findViewById(R.id.left_panel_about);
 		btnLogin = (Button) view.findViewById(R.id.left_panel_login_btn);
 		btnLogin.setOnClickListener(this);
 		leftAboutView.setOnClickListener(this);
-
+		initMyRank();
+		initFeedBack();
+	}
+	/**
+	 * 初始化我的排名
+	 */
+	private void initMyRank() {
+		myRankView = View.inflate(this, R.layout.my_infor_rank_act, null);
+		myRankViewTvWorldRank = (TextView) myRankView.findViewById(R.id.my_infor_rank_worldrank);
+		myRankViewTvRegionRank = (TextView) myRankView.findViewById(R.id.my_infor_rank_regionrank);
+		myRankViewTvIndustryRank = (TextView) myRankView.findViewById(R.id.my_infor_rank_industryrank);
+		myRankViewBtnShare = (Button) myRankView.findViewById(R.id.my_infor_share_btn);
 	}
 
 	private void initFeedBack(){

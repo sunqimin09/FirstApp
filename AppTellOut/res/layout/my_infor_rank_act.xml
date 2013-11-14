@@ -85,12 +85,12 @@
             >
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/my_infor_rank_regionrank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:layout_centerHorizontal="true"
-                android:text="TextView" />
+                android:text="regionRank" />
 
         </RelativeLayout>
         <RelativeLayout
@@ -102,12 +102,12 @@
             >
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/my_infor_rank_industryrank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:layout_centerHorizontal="true"
-                android:text="TextView" />
+                android:text="industryrank" />
 
         </RelativeLayout>
         <RelativeLayout
@@ -119,12 +119,12 @@
             >
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/my_infor_rank_percentage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:layout_centerHorizontal="true"
-                android:text="TextView" />
+                android:text="成功击败50%" />
 
         </RelativeLayout>
 		<RelativeLayout
@@ -134,7 +134,7 @@
             android:layout_marginBottom="10dp"
              >
             <Button
-                android:id="@+id/my_infor_detail_btn"
+                android:id="@+id/my_infor_share_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
