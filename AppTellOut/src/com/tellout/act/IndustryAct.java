@@ -44,7 +44,7 @@ public class IndustryAct extends BaseActivity {
 				data.putExtra("industryId", selectedId);
 				data.putExtra("industryName", industry[selectedId]);
 				data.putExtra("detail", etInput.getText().toString());
-				setResult(0, data);
+				setResult(-101, data);
 				finish();
 			}
 			
@@ -78,12 +78,12 @@ alertDialog.show();
 	private void initView() {
 		listview = (ListView) findViewById(R.id.listView1);
 		etInput = (EditText) findViewById(R.id.industry_input);
-		listview.setItemsCanFocus(false);
-		listview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, industry);
+				android.R.layout.simple_list_item_single_choice, industry);
 		listview.setAdapter(adapter);
+		listview.setItemsCanFocus(false);
+		listview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 	}
 
 	private String[] industry = { "计算机/互联网/通信", "生产/工艺/制造", "商业/服务业/个体经营",

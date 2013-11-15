@@ -1,8 +1,14 @@
 package com.tellout.act;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.app.DatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +17,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -37,7 +44,9 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener, OnR
 	
 	private RelativeLayout rlIndustry = null;
 	
-	private RelativeLayout rlCompany = null;
+//	private RelativeLayout rlCompany = null;
+	
+	private RelativeLayout rlstartTime = null;
 	
 	private TextView tvRegion = null;
 	
@@ -45,21 +54,39 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener, OnR
 	
 	private TextView tvCompany = null;
 	
+	private EditText etCompany = null;
+	
+	private TextView tvStartTime = null;
 	
 	private Button btnCancel,btnSave;
 	
 	private ImageView imgIcon;
 
+	private EditText etMyComment;
+	
 	/**编辑*/
 	private boolean edit = false;
+	
+	/**地区id*/
+	private int regionId = 0;
+	
+	/**行业id*/
+	private int industryId = 0; 
+	
+	/**行业具体描述信息*/
+	private String industryStr = null;	
+	
+	/**行业详细信息*/
+	private String industryDetail = null;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_myinfor_act);
-		setTitle("我的信息");
-		setTitleColor(Color.WHITE);
+//		setTitle("我的信息");
+//		setTitleColor(Color.WHITE);
 		initView();
 		Log.d("tag","userid-edit-》"+MConstant.USER_ID_VALUE);
 	}
@@ -69,27 +96,24 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener, OnR
 		/**地区，行业，公司*/
 		rlRegion = (RelativeLayout) findViewById(R.id.edit_myinfor_region_rl);
 		rlIndustry = (RelativeLayout) findViewById(R.id.edit_myinfor_industry_rl);
-		rlCompany = (RelativeLayout) findViewById(R.id.edit_myinfor_company_rl);
+//		rlCompany = (RelativeLayout) findViewById(R.id.edit_myinfor_company_rl);
+		rlstartTime = (RelativeLayout) findViewById(R.id.edit_myinfor_startTime_rl);
 		tvRegion =(TextView) findViewById(R.id.edit_myinfor_region_tv);
 		tvIndustry =(TextView) findViewById(R.id.edit_myinfor_industry_tv);
 		tvCompany =(TextView) findViewById(R.id.edit_myinfor_company_tv);
+		tvStartTime = (TextView) findViewById(R.id.edit_myinfor_starttime_tv);
 		
-		
+		etCompany = (EditText) findViewById(R.id.edit_myinfor_company_et);
 		etSalary= (EditText) findViewById(R.id.edit_myinfor_salary);
 		ratingBar = (RatingBar) findViewById(R.id.ratingBar_other);
-//		etEnvironment= (EditText) findViewById(R.id.edit_myinfor_environment);
-//		etFuture= (EditText) findViewById(R.id.edit_myinfor_future);
-//		etOther= (EditText) findViewById(R.id.edit_myinfor_other);
-//		etSalaryPer= (EditText) findViewById(R.id.edit_myinfor_salary_percentage);
-//		etEnvironmentPer= (EditText) findViewById(R.id.edit_myinfor_environment_percentage);
-//		etFuturePer= (EditText) findViewById(R.id.edit_myinfor_future_percentage);
-//		etOtherPer= (EditText) findViewById(R.id.edit_myinfor_other_percentage);
+		etMyComment = (EditText) findViewById(R.id.edit_myinfor_comment);
 		btnCancel = (Button) findViewById(R.id.edit_myinfor_cancel);
 		btnSave = (Button) findViewById(R.id.edit_myinfor_save);
 		findViewById(R.id.back).setOnClickListener(this);
 		rlRegion.setOnClickListener(this);
 		rlIndustry.setOnClickListener(this);
-		rlCompany.setOnClickListener(this);
+//		rlCompany.setOnClickListener(this);
+		rlstartTime.setOnClickListener(this);
 		btnCancel.setOnClickListener(this);
 		btnSave.setOnClickListener(this);
 		ratingBar.setOnRatingBarChangeListener(this);
@@ -110,8 +134,11 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener, OnR
 		case R.id.edit_myinfor_industry_rl://选择行业
 			startActivityForResult(new Intent(EditMyInforAct.this,IndustryAct.class).putExtra("flag", MConstant.REQUEST_CODE_INDUSTRYS), 1);
 			break;
-		case R.id.edit_myinfor_company_rl://选择公司
-			startActivityForResult(new Intent(EditMyInforAct.this,SelectType.class).putExtra("flag", MConstant.REQUEST_CODE_COMPANYS), 2);
+//		case R.id.edit_myinfor_company_rl://选择公司
+//			startActivityForResult(new Intent(EditMyInforAct.this,SelectType.class).putExtra("flag", MConstant.REQUEST_CODE_COMPANYS), 2);
+//			break;
+		case R.id.edit_myinfor_startTime_rl://选择日期
+			ShowDataPicker();
 			break;
 		case R.id.edit_myinfor_cancel:
 			finish();
@@ -164,7 +191,7 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener, OnR
 				tvRegion.setText("地区:"+data.getStringExtra("name"));
 				break;
 			case 1://行业
-				tvIndustry.setText("行业:"+data.getStringExtra("industryName")+data.getStringExtra("detail"));
+				tvIndustry.setText("行业:"+data.getStringExtra("industryName")+"--"+data.getStringExtra("detail"));
 				break;
 			case 2://公司
 				tvCompany.setText("公司:"+data.getStringExtra("name"));
@@ -178,13 +205,12 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener, OnR
 	private void setEnable(boolean flag){
 		etNickName.setEnabled(flag); 
 		etSalary.setEnabled(flag); 
-//		etEnvironment.setEnabled(flag); 
-//		etFuture.setEnabled(flag); 
-//		etOther.setEnabled(flag);
-//		etSalaryPer.setEnabled(flag);
-//		etEnvironmentPer.setEnabled(flag);
-//		etFuturePer.setEnabled(flag);
-//		etOtherPer.setEnabled(flag);
+		etCompany.setEnabled(flag);
+		rlRegion.setEnabled(flag);
+		rlIndustry.setEnabled(flag);
+		rlstartTime.setEnabled(flag);
+		ratingBar.setEnabled(flag);
+		etMyComment.setEnabled(flag);
 		btnSave.setText(flag?"保存":"编辑");
 	}
 	/**
@@ -206,15 +232,13 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener, OnR
 	 */
 	private void requestSend(){
 		String nickName = etNickName.getText().toString();
-		String salary = etSalary.getText().toString();
-//		String salaryPer = etSalaryPer.getText().toString();
-//		String environment = etEnvironment.getText().toString();
-//		String environmentPer = etEnvironmentPer.getText().toString();
-//		String future= etFuture.getText().toString();
-//		String futurePer = etFuturePer.getText().toString();
-//		String other = etOther.getText().toString();
-//		String otherPer = etOtherPer.getText().toString();
+		/**地区，行业,公司*/
 		
+		String companyName = etCompany.getText().toString();
+		String salary = etSalary.getText().toString();
+		String startTime = tvStartTime.getText().toString();
+		String comment = etMyComment.getText().toString();
+		float rating = ratingBar.getRating();
 		if(null==nickName||null==salary){
 			Toast.makeText(this,"输入不能为空", Toast.LENGTH_SHORT).show();
 			return;
@@ -253,6 +277,34 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener, OnR
 		
 	}
 	
+	/**
+	 * 显示日期选择对话框
+	 */
+	private void ShowDataPicker(){
+		
+		Calendar calendar = Calendar.getInstance();
+		String temp = tvStartTime.getText().toString();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Date d =dateFormat.parse(temp);
+			calendar.setTime(d);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DatePickerDialog dateDialog = new DatePickerDialog(this,
+				new OnDateSetListener() {
+
+					@Override
+					public void onDateSet(DatePicker arg0, int arg1, int arg2,
+							int arg3) {
+						tvStartTime.setText(arg1+"-"+arg2+"-"+arg3);
+
+					}
+				}, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+				calendar.get(Calendar.DAY_OF_MONTH));
+		dateDialog.show();
+	}
 	
 	
 }

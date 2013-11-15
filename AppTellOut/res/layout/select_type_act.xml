@@ -34,7 +34,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+         >
 
         <EditText
             android:id="@+id/select_type_input"
@@ -57,10 +59,27 @@
 
     </RelativeLayout>
 
-     <ListView
-        android:id="@+id/select_type_listview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-         >
-    </ListView>
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"
+	     >
+
+	    <ListView
+	        android:id="@+id/select_type_listview_province"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="2" >
+	    </ListView>
+
+	    <ListView
+	        android:id="@+id/select_type_listview_city"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" 
+	         >
+	    </ListView>
+	   
+</LinearLayout>
+
 </LinearLayout>

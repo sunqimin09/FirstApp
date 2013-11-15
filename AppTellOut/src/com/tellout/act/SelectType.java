@@ -16,6 +16,7 @@ import android.widget.ListView;
 
 import com.tellout.adapter.TypeAdapter;
 import com.tellout.entity.BaseEntity;
+import com.tellout.entity.CityEntity;
 import com.tellout.entity.RequestEntity;
 import com.tellout.entity.TypeEntity;
 
@@ -30,7 +31,7 @@ public class SelectType extends BaseActivity implements OnClickListener{
 	
 	private ImageView imgSearch;
 	
-	private ListView listView;
+	private ListView listViewProvice;
 	
 	private TypeAdapter adapter =null;
 	
@@ -51,12 +52,12 @@ public class SelectType extends BaseActivity implements OnClickListener{
 		findViewById(R.id.back).setOnClickListener(this);
 		etInput = (EditText) findViewById(R.id.select_type_input);
 		imgSearch = (ImageView) findViewById(R.id.select_type_search);
-		listView = (ListView) findViewById(R.id.select_type_listview);
+		listViewProvice = (ListView) findViewById(R.id.select_type_listview_province);
 		imgSearch.setOnClickListener(this);
 		
 		adapter = new TypeAdapter(this);
-		listView.setAdapter(adapter);
-		listView.setOnItemClickListener(new OnItemClickListener() {
+		listViewProvice.setAdapter(adapter);
+		listViewProvice.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
@@ -102,6 +103,31 @@ public class SelectType extends BaseActivity implements OnClickListener{
 			break;
 		}
 		
+	}
+	String[] provinces = {"安徽", "重庆", "福建", "甘肃", "广西", "贵州", "海南",
+			"河北", "河南", "黑龙江", "湖北", "湖南", "吉林", "江西", "辽宁", "内蒙古", "宁夏", "青海",
+			"山东", "山西", "陕西", "四川", "西藏", "新疆", "云南" };
+	
+	String[] citys = {};
+	
+	/**
+	 * 省列表
+	 * @return
+	 */
+	private List<CityEntity> getProvince(){
+		List<CityEntity> citys = new ArrayList<CityEntity>();
+		return citys;
+	}
+	
+	/**
+	 * 根据省份获得城市列表
+	 * @param ProvinceId
+	 * @return
+	 */
+	private List<CityEntity> getCitys(int ProvinceId){
+		List<CityEntity> citys = new ArrayList<CityEntity>();
+		
+		return citys;
 	}
 	
 }
