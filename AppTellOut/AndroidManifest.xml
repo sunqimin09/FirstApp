@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tellout.act"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="17" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+        </activity> 	
+        <!-- 登录注册 -->
+         <activity android:name=".Login_Regist_Act"
+             
+             >
+         </activity>
+         <!-- 吐槽列表页面 -->
+        <activity android:name=".TellOutAct">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> 
+        <!-- 新建吐槽 -->
+        <activity android:name=".NewTellOutAct"
+             android:windowSoftInputMode="stateVisible"
+            ></activity>
+        <!-- 吐槽详细页面 -->
+        <activity android:name=".TelloutDetailAct"></activity>
+        
+        <!-- 添加评论 -->
+        <activity android:name=".NewCommentAct"></activity>
+        <!-- 编辑我的个人信息 -->
+        <activity android:name=".EditMyInforAct"
+            android:windowSoftInputMode="stateHidden"
+            ></activity>
+        <!-- 行业列表-选择 -->
+        <activity android:name=".IndustryAct"></activity>
+        <!-- 排名页面 -->
+        <activity android:name=".RanksAct"></activity>
+        <activity android:name=".MyInforAct"></activity>
+        <activity android:name=".WorldRankAct"></activity>
+        <activity android:name=".IndustryRankAct"></activity>
+        <activity android:name=".CompanyRankAct"></activity>
+        <activity android:name=".SelectType"
+            android:windowSoftInputMode="stateHidden"
+            ></activity>
+        
+    </application>
+
+</manifest>

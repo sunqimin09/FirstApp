@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/grey"
+     >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/title_normal"
+         >
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:visibility="gone"
+            android:src="@drawable/selector_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="意见反馈" />
+
+        
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp"
+         >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="您的想法和建议:" />
+
+        <EditText
+            android:id="@+id/suggestion_back_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="4"
+            android:ems="10"
+            android:gravity="top"
+            android:inputType="textMultiLine" >
+
+        </EditText>
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="联系方式(QQ或者邮箱):(可选)" />
+
+        <EditText
+            android:id="@+id/suggestion_back_contact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:ems="10"
+            android:inputType="textMultiLine" >
+
+        </EditText>
+
+        <Button
+            android:id="@+id/suggestion_back_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="发送反馈" />
+        
+    </LinearLayout>
+    
+</LinearLayout>
