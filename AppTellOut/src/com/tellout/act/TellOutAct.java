@@ -163,12 +163,12 @@ public class TellOutAct extends BaseActivity implements OnClickListener,
 			request(MConstant.REQUEST_CODE_TELLOUTS);
 			break;
 		case R.id.left_panel_myinfor:
-			if(MConstant.USER_ID_VALUE.equals("")){
-				btnLogin.startAnimation(shake);
-			}else{
+//			if(MConstant.USER_ID_VALUE.equals("")){
+//				btnLogin.startAnimation(shake);
+//			}else{
 				startActivity(new Intent(TellOutAct.this, EditMyInforAct.class));
 				
-			}
+//			}
 			break;
 		case R.id.left_panel_myrank:// 我的排名
 			if(MConstant.USER_ID_VALUE.equals("")){

@@ -20,6 +20,6 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/imageView1"
         android:layout_marginLeft="21dp"
-        android:text="职场吐槽" />
+        android:text="@string/about" />
 
 </RelativeLayout>

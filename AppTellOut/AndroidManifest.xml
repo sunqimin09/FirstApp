@@ -46,6 +46,7 @@
         <activity android:name=".EditMyInforAct"
             android:windowSoftInputMode="stateHidden"
             ></activity>
+        <activity android:name=".CityAct"></activity>
         <!-- 行业列表-选择 -->
         <activity android:name=".IndustryAct"></activity>
         <!-- 排名页面 -->

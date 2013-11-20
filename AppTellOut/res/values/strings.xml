@@ -18,4 +18,6 @@
     <string name="nick_name">昵称</string>
 	<string name="new_tellout_input_hint">吐槽我的钱包瘦身史\n\n您的吐槽会即刻发表，禁止包含政治、色情内容.否则将会被管理员即刻删除</string>
     <string name="share_score">分享给小伙伴</string>
+    <string name= "about">\n特色功能：\n\n1.各种吐槽\n2.薪资排行榜\n3.公司薪资排行（尚未开放）\n4.行业薪资排行（尚未开放）\n\n注:用户禁止使用本软件做一些违法乱纪的事情，一经发现，我公司将有权利终止该用户的使用。\n\n
+    </string>
 </resources>

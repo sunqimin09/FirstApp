@@ -129,7 +129,7 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener, OnR
 			finish();
 			break;
 		case R.id.edit_myinfor_region_rl://选择地区
-			startActivityForResult(new Intent(EditMyInforAct.this,SelectType.class).putExtra("flag", MConstant.REQUEST_CODE_REGIONS), 0);
+			startActivityForResult(new Intent(EditMyInforAct.this,CityAct.class).putExtra("flag", MConstant.REQUEST_CODE_REGIONS), 0);
 			break;
 		case R.id.edit_myinfor_industry_rl://选择行业
 			Intent i = new Intent(EditMyInforAct.this,IndustryAct.class);
