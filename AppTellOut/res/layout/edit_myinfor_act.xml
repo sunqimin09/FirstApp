@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/yellow"
+    android:orientation="vertical" >
+	<RelativeLayout 
+	    android:id="@+id/rl1"
+	    android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/title_normal"
+	    >
+	    
+	    
+	    <TextView 
+	        android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+	        android:textAppearance="?android:attr/textAppearanceMedium" 
+	        android:text="@string/individual_center"
+	        />
+
+	    <android.widget.ImageView
+	        android:id="@+id/back"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_centerVertical="true"
+	        android:layout_marginLeft="5dp"
+	        android:clickable="true"
+	        android:src="@drawable/selector_back" />
+	    
+	</RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl1"
+         >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp" >
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" >
+
+                <android.widget.ImageView
+                    android:id="@+id/edit_myinfor_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/user_no_image" />
+
+                <EditText
+                    android:id="@+id/edit_myinfor_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/edit_myinfor_icon"
+                    android:ems="10"
+                    android:hint="昵称"
+                    android:singleLine="true" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:background="@drawable/selector_menu_shap"
+                 >
+
+                <RelativeLayout
+                    android:id="@+id/edit_myinfor_region_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_menu_pressed" >
+
+                    <TextView
+                        android:id="@+id/edit_myinfor_region_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium" 
+                        android:text="地区:" />
+
+                    <android.widget.ImageView
+                        android:id="@+id/ImageView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/arrow" />
+                </RelativeLayout>
+				<android.widget.ImageView 
+				    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/grey_point"
+				    />
+                <RelativeLayout
+                    android:id="@+id/edit_myinfor_industry_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="5dp"
+                    android:background="@drawable/selector_menu_pressed" >
+
+                    <TextView
+                        android:id="@+id/edit_myinfor_industry_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:singleLine="true"
+                        android:textAppearance="?android:attr/textAppearanceMedium" 
+                        android:text="行业:" />
+					<TextView 
+					    android:id="@+id/edit_myinfor_industry_detail"
+					    android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_below="@+id/edit_myinfor_industry_tv"
+                        android:visibility="gone"
+                        android:text="行业某"
+					    />
+					<TextView 
+					    android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/right_arraw"
+                        android:layout_marginLeft="5dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium" 
+                        android:visibility="gone"
+                        android:text="hangye "
+					    />
+                    <android.widget.ImageView
+                        android:id="@+id/right_arraw"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/arrow" />
+                </RelativeLayout>
+				<android.widget.ImageView 
+				    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/grey_point"
+				    />
+                <RelativeLayout
+                    android:id="@+id/edit_myinfor_company_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="5dp"
+                    android:background="@drawable/selector_menu_pressed" >
+
+                    <TextView
+                        android:id="@+id/edit_myinfor_company_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:visibility="gone"
+                        android:textAppearance="?android:attr/textAppearanceMedium" 
+                        android:text="公司" />
+					<EditText 
+					    android:id="@+id/edit_myinfor_company_et"
+					    android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_below="@+id/edit_myinfor_company_tv"
+                        android:textAppearance="?android:attr/textAppearanceMedium" 
+                        android:singleLine="true"
+                        android:hint="公司" 
+					    />
+                    <android.widget.ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:visibility="gone"
+                        android:src="@drawable/arrow" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/selector_menu_shap" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                     >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                         >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="我的薪资:" />
+
+                        <EditText
+                            android:id="@+id/edit_myinfor_salary"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="1999(元)"
+                            android:ems="10"
+                            android:inputType="number" />
+                    </LinearLayout>
+					
+                    <RelativeLayout
+                        android:id="@+id/edit_myinfor_startTime_rl"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:clickable="true"
+                        android:layout_weight="1" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="开始工作日期:" />
+
+                        <TextView
+                            android:id="@+id/edit_myinfor_starttime_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:text="1990-04-17" />
+                        
+                    </RelativeLayout>
+                    
+                    <android.widget.ImageView 
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@drawable/grey_point"
+                        />
+                    
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center_vertical"
+                         >
+
+                        <TextView
+                            android:id="@+id/textView1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="环境压力:" />
+
+                      	<RatingBar 
+                      	    android:id="@+id/ratingBar_other"
+                      	    android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/textView1"
+                            android:numStars="5"
+                            android:rating="5" 
+                      	    />
+                    </RelativeLayout>
+						
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:visibility="gone"
+                        android:layout_weight="1" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="福利前景:" />
+
+                        <EditText
+                            android:id="@+id/edit_myinfor_future"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ems="1"
+                            android:hint="0~9之间"
+                            android:inputType="number"
+                            android:maxLength="1" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:visibility="gone"
+                        android:layout_weight="1" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="其 		他:" />
+
+                        <EditText
+                            android:id="@+id/edit_myinfor_other"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ems="1"
+                            android:hint="0~9之间"
+                            android:inputType="number"
+                            android:maxLength="1" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:paddingTop="20dp" >
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="3dp"
+                        android:ems="2"
+                        android:gravity="center_horizontal"
+                        android:text="比重" />
+
+                    <EditText
+                        android:id="@+id/edit_myinfor_salary_percentage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="2"
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:text="35" />
+
+                    <EditText
+                        android:id="@+id/edit_myinfor_environment_percentage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="2"
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:visibility="gone"
+                        android:text="25" />
+
+                    <EditText
+                        android:id="@+id/edit_myinfor_future_percentage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="2"
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:text="25" />
+
+                    <EditText
+                        android:id="@+id/edit_myinfor_other_percentage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="2"
+                        android:gravity="center_horizontal"
+                        android:inputType="number"
+                        android:text="15" />
+                </LinearLayout>
+            </LinearLayout>
+			
+            <LinearLayout 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:clickable="true"
+                android:background="@drawable/selector_menu_shap" 
+                android:orientation="vertical"
+                >
+                <TextView 
+                    android:layout_width="wrap_content"
+                	android:layout_height="wrap_content"
+                	android:layout_marginLeft="10dp"
+                	android:text="个人说明"
+                    />
+                <EditText 
+                    android:id="@+id/edit_myinfor_comment"
+                    android:layout_width="match_parent"
+                	android:layout_height="wrap_content"
+                	android:layout_marginTop="5dp"
+                    />
+                
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" >
+
+                <Button
+                    android:id="@+id/edit_myinfor_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_white_btn"
+                    android:layout_marginRight="5dp"
+                    android:text="取消" />
+
+                <Button
+                    android:id="@+id/edit_myinfor_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:background="@drawable/selector_yellow_btn"
+                    android:layout_marginLeft="5dp"
+                    android:text="编辑" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
