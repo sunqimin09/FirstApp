@@ -2,7 +2,7 @@ package com.tellout.constant;
 
 public class MConstant {
 //	115.28.131.129    192.168.1.102
-	public final static String HOME_URL = "http://192.168.1.107:8080/TellOut/servlet/";
+	public final static String HOME_URL = "http://115.28.131.129:8080/TellOut/servlet/";
 
 	public static String USER_ID_VALUE = "";
 	
@@ -82,6 +82,8 @@ public class MConstant {
 	
 	public final static String URL_MY_HISTORY_INFOR = HOME_URL + "MyHistoryInforServlet?";
 	
+	/**头像上传*/
+	public final static String URL_IMAGE_ICON = HOME_URL + "TestImageServlet";
 	
 	/** 请求参数 */
 	public final static String OTHER_PAGE_INDEXT = "pageIndext";

@@ -7,12 +7,17 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -38,6 +43,7 @@ import com.tellout.constant.MConstant;
 import com.tellout.entity.BaseEntity;
 import com.tellout.entity.RequestEntity;
 import com.tellout.entity.UserEntity;
+import com.tellout.util.ImageUpload;
 
 public class EditMyInforAct extends BaseActivity implements OnClickListener,
 		OnRatingBarChangeListener, OnTouchListener {
@@ -87,6 +93,8 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener,
 	/** 行业详细信息 */
 	private String industryDetail = null;
 
+	private EditMyInforUtils editMyInforUtils = null;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -95,6 +103,7 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener,
 		// setTitle("我的信息");
 		// setTitleColor(Color.WHITE);
 		initView();
+		editMyInforUtils = new EditMyInforUtils(this);
 		Log.d("tag", "userid-edit-》" + MConstant.USER_ID_VALUE);
 	}
 
@@ -144,6 +153,9 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener,
 		case R.id.back:
 			finish();
 			break;
+		case R.id.edit_myinfor_icon://我的头像
+			showSelectIconDialog();
+			break;
 		case R.id.edit_myinfor_region_rl:// 选择地区
 			if (!edit) {
 				Shake();
@@ -175,15 +187,26 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener,
 			}
 			ShowDataPicker();
 			break;
-		case R.id.edit_myinfor_cancel:
+		case R.id.edit_myinfor_cancel://取消
 			finish();
 			break;
-		case R.id.edit_myinfor_save:
+		case R.id.edit_myinfor_save://保存
 			if (edit) {
 				requestSend();
 			}
 			btnSave.setText(edit ? "编辑" : "保存");
 			edit = !edit;
+			break;
+		case R.id.icondialog_album://从相册选择图片
+			d.dismiss();
+			editMyInforUtils.openAlbum();
+			break;
+		case R.id.icondialog_takephoto://照相
+			d.dismiss();
+			editMyInforUtils.tokePhoto();
+			break;
+		case R.id.icondialog_cancel:
+			d.dismiss();
 			break;
 		default:
 			if (!edit) {
@@ -255,10 +278,29 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener,
 				break;
 			}
 		}
+		if(resultCode==Activity.RESULT_OK){
+			if(requestCode==1){//拍照
+				Log.d("tag","拍照->"+requestCode);
+			}else if(requestCode==2){//相册
+				Log.d("tag","相册->"+requestCode);
+			}
+			Bitmap bitmap = data.getExtras().getParcelable("data");
+			editMyInforUtils.uploadImage(bitmap, handler);
+		}
 
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
+	Handler handler = new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			String result = msg.what==0?"上传失败":"上传成功";
+			Toast.makeText(EditMyInforAct.this, result, Toast.LENGTH_SHORT).show();
+		}
+		
+	};
+	
 	private void setEnable(boolean flag) {
 		etNickName.setEnabled(flag);
 		etSalary.setEnabled(flag);
@@ -271,6 +313,28 @@ public class EditMyInforAct extends BaseActivity implements OnClickListener,
 		btnSave.setText(flag ? "保存" : "编辑");
 	}
 
+	
+	private static Dialog d = null;
+	
+	private void showSelectIconDialog(){
+		d = new Dialog(this);
+		View view = View.inflate(this, R.layout.icondialog, null);
+		view.findViewById(R.id.icondialog_album).setOnClickListener(this);
+		view.findViewById(R.id.icondialog_takephoto).setOnClickListener(this);
+		view.findViewById(R.id.icondialog_cancel).setOnClickListener(this);
+		
+		d.setContentView(view);
+		d.setTitle("更改头像");
+		d.show();
+	}
+	 
+	public void dismissIconDialog(){
+		if(d!=null&&d.isShowing()){
+			d.dismiss();
+		}
+	}
+	
+	
 	/**
 	 * 请求获得
 	 */

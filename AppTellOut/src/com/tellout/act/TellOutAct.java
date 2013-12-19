@@ -44,7 +44,9 @@ import com.tellout.entity.BaseEntity;
 import com.tellout.entity.RequestEntity;
 import com.tellout.entity.TellOutEntity;
 import com.tellout.entity.UserEntity;
+import com.tellout.interface_.RequestCallBack;
 import com.tellout.util.PopWindowHelper;
+import com.tellout.util.RequestUtils;
 import com.tellout.util.Utils;
 
 /**
@@ -66,6 +68,8 @@ public class TellOutAct extends BaseActivity implements OnClickListener, OnScrol
 
 	private ListView listview;
 	
+	private boolean hasFootView = false;
+	
 	private TextView top;
 	
 	private TextView bottom;
@@ -81,7 +85,7 @@ public class TellOutAct extends BaseActivity implements OnClickListener, OnScrol
 	/** 显示的数据 */
 	private List<TellOutEntity> list = new ArrayList<TellOutEntity>();
 	/** 当前的页标 */
-	private int pageIndext = 0;
+	private int pageIndext = 1;
 
 	private int firstItem = 0;
 	
@@ -112,6 +116,9 @@ public class TellOutAct extends BaseActivity implements OnClickListener, OnScrol
 	/**分享给小伙伴*/
 	private Button myRankViewBtnShare = null;
 	
+	/**加载更多按扭*/
+	LinearLayout llBottom;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -119,7 +126,8 @@ public class TellOutAct extends BaseActivity implements OnClickListener, OnScrol
 		setContentView(R.layout.test_main_tellout_act);
 		initView();
 		initLeftPanel();
-		request(MConstant.REQUEST_CODE_TELLOUTS);
+		requestRefreshTellout();
+//		request(MConstant.REQUEST_CODE_TELLOUTS,0);
 		Log.d("tag","userid-tell-》"+MConstant.USER_ID_VALUE);
 	}
 
@@ -144,11 +152,14 @@ public class TellOutAct extends BaseActivity implements OnClickListener, OnScrol
 				top.setText("更新完成");
 				top.setVisibility(View.GONE);
 				headVisiable = !headVisiable;
+				list.clear();
+			}else{
+				pageIndext++;
 			}
-			if(footVisiable){
-				bottom.setVisibility(View.GONE);
-				footVisiable = ! footVisiable;
-			}
+//			if(footVisiable){
+//				bottom.setVisibility(View.GONE);
+//				footVisiable = ! footVisiable;
+//			}
 			showTellouts(baseEntity);
 			break;
 		case MConstant.REQUEST_CODE_GET_MY_RANK:
@@ -177,22 +188,26 @@ public class TellOutAct extends BaseActivity implements OnClickListener, OnScrol
 	}
 
 	private void showTellouts(BaseEntity baseEntity){
-		list = (List<TellOutEntity>) baseEntity.getList();
-		adapter.addData(list);
+		list .addAll((List<TellOutEntity>) baseEntity.getList());
+		adapter.setData(list);
 		Map<String, String> map = baseEntity.getMap();
-		String pageIndextStr = map.get(MConstant.OTHER_PAGE_INDEXT) == null ? "1" : map
-				.get(MConstant.OTHER_PAGE_INDEXT);
+//		String pageIndextStr = map.get(MConstant.OTHER_PAGE_INDEXT) == null ? "1" : map
+//				.get(MConstant.OTHER_PAGE_INDEXT);
 		totalSize = map.get(MConstant.OTHER_TOTAL_SIZE) == null ? "1" : map
 				.get(MConstant.OTHER_TOTAL_SIZE);
 
 		int totalInt = Integer.parseInt(totalSize);
-		pageIndext = Integer.parseInt(pageIndextStr);
+//		pageIndext = Integer.parseInt(pageIndextStr);
 		// 剩余的数量
 		int last = totalInt - pageIndext * 20;
+		Log.d("tag","last--->"+last);
 		if (last > 0) {
-			addFootView();
+//			addFootView();
+			bottom.setVisibility(View.VISIBLE);
+			footVisiable = true;
 		} else {
-//			listview.removeAllViews();
+			bottom.setVisibility(View.GONE);
+			footVisiable = false;
 		}
 	}
 	
@@ -215,8 +230,8 @@ public class TellOutAct extends BaseActivity implements OnClickListener, OnScrol
 			}
 			break;
 		case 1000:// 加载更多
-			
-			request(MConstant.REQUEST_CODE_TELLOUTS);
+			requestMoreTellout();
+//			request(MConstant.REQUEST_CODE_TELLOUTS,1);
 			break;
 		case R.id.left_panel_myinfor:
 			if(MConstant.USER_ID_VALUE.equals("")){
@@ -230,7 +245,7 @@ public class TellOutAct extends BaseActivity implements OnClickListener, OnScrol
 			if(MConstant.USER_ID_VALUE.equals("")){
 				btnLogin.startAnimation(shake);
 			}else{
-				request(MConstant.REQUEST_CODE_GET_MY_RANK);
+				request(MConstant.REQUEST_CODE_GET_MY_RANK,0);
 				new PopWindowHelper(this).showWindow(myRankView);
 			}
 			break;
@@ -296,7 +311,7 @@ public class TellOutAct extends BaseActivity implements OnClickListener, OnScrol
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		list.get(arg2);
+		list.get((int)arg3);
 		Intent i = new Intent(TellOutAct.this, TelloutDetailAct.class);
 		Bundle b = new Bundle();
 		b.putSerializable("tellout", list.get((int) arg3));
@@ -331,14 +346,15 @@ public class TellOutAct extends BaseActivity implements OnClickListener, OnScrol
 	 * 网络请求
 	 * @param requestCode 请求参数
 	 */
-	private void request(int requestCode){
+	private void request(int requestCode,int requestIndext){
+		Log.d("tag","request--->"+requestIndext);
 		RequestEntity entity = new RequestEntity();
 		entity.setPost(false);
 		entity.setRequestType(requestCode);
 		Map<String, String> map = new HashMap<String, String>();
 		switch(requestCode){
 		case MConstant.REQUEST_CODE_TELLOUTS://吐槽列表
-			map.put(MConstant.OTHER_PAGE_INDEXT, pageIndext+"");
+			map.put(MConstant.OTHER_PAGE_INDEXT, (pageIndext+requestIndext)+"");
 			break;
 		case MConstant.REQUEST_CODE_GET_MY_RANK://我的排名
 			map.put(DbConstant.DB_USER_ID, MConstant.USER_ID_VALUE);
@@ -348,8 +364,87 @@ public class TellOutAct extends BaseActivity implements OnClickListener, OnScrol
 		//调用父类方法
 		request(entity);
 	}
+	
+	
+	private RequestUtils requestUtils = null;
+	/**
+	 * 刷新吐槽列表
+	 */
+	private void requestRefreshTellout(){
+		pageIndext =1;//只刷新第一页数据
+		RequestEntity entity = new RequestEntity();
+		entity.setPost(false);
+		entity.setRequestType(MConstant.REQUEST_CODE_TELLOUTS);
+		entity.setUrl(MConstant.URL_TELLOUTS);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put(MConstant.OTHER_PAGE_INDEXT, pageIndext+"");
+		entity.setParams(map);
+		//调用父类方法
+		requestUtils.request(entity, new RefreshTellout());
+	}
+	
+	private class RefreshTellout implements RequestCallBack{
 
+		@Override
+		public void showResult(BaseEntity baseEntity) {
+			list = (List<TellOutEntity>) baseEntity.getList();
+			adapter.setData(list);
+			addFootView(baseEntity);
+			if(headVisiable){
+				top.setText("更新完成");
+				top.setVisibility(View.GONE);
+				headVisiable = !headVisiable;
+			}
+		}
+		
+	}
+
+	
+	private void requestMoreTellout(){
+		RequestEntity entity = new RequestEntity();
+		entity.setPost(false);
+		entity.setRequestType(MConstant.REQUEST_CODE_TELLOUTS);
+		entity.setUrl(MConstant.URL_TELLOUTS);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put(MConstant.OTHER_PAGE_INDEXT, (pageIndext+1)+"");
+		entity.setParams(map);
+		//调用父类方法
+		requestUtils.request(entity, new MoreTellout());
+	}
+	
+	private class MoreTellout implements RequestCallBack{
+
+		@Override
+		public void showResult(BaseEntity baseEntity) {
+			list.addAll((List<TellOutEntity>) baseEntity.getList());
+			adapter.setData(list);
+			pageIndext++;
+			addFootView(baseEntity);
+			
+		}
+		
+	}
+	
+	private void addFootView(BaseEntity baseEntity){
+		Map<String, String> map = baseEntity.getMap();
+		totalSize = map.get(MConstant.OTHER_TOTAL_SIZE) == null ? "1" : map
+				.get(MConstant.OTHER_TOTAL_SIZE);
+
+		int totalInt = Integer.parseInt(totalSize);
+		// 剩余的数量
+		int last = totalInt - pageIndext * 20;
+		Log.d("tag","last--->"+pageIndext+"[]"+last);
+		if (last > 0) {
+			bottom.setVisibility(View.VISIBLE);
+			footVisiable = true;
+		} else {
+			bottom.setVisibility(View.GONE);
+			footVisiable = false;
+		}
+	}
+	
 	private void initView() {
+		requestUtils = new RequestUtils(this);
 		slidePane = (SlidingPaneLayout) findViewById(R.id.sliding_pane_layout_tellout);
 		View view = findViewById(R.id.tellout_act);
 		imgBack = (ImageView) view.findViewById(R.id.back);
@@ -370,9 +465,10 @@ public class TellOutAct extends BaseActivity implements OnClickListener, OnScrol
 		headVisiable = false;
 		/**上拉加载更多*/
 		bottom = new TextView(this);
-		bottom.setText("松开立即刷新");
-		LinearLayout llBottom = new LinearLayout(this);
+		bottom.setText("加载更多");
+		llBottom = new LinearLayout(this);
 		llBottom.setGravity(Gravity.CENTER);
+		llBottom.setId(1000);
 		bottom.setPadding(10, 10, 10, 10);
 		llBottom.addView(bottom);
 		listview.addFooterView(llBottom);
@@ -381,6 +477,7 @@ public class TellOutAct extends BaseActivity implements OnClickListener, OnScrol
 		
 		adapter = new TellOutAdapter(this, list);
 		listview.setAdapter(adapter);
+		llBottom.setOnClickListener(this);
 		listview.setOnItemClickListener(this);
 		listview.setOnScrollListener(this);
 		listview.setOnTouchListener(this);
@@ -437,23 +534,10 @@ public class TellOutAct extends BaseActivity implements OnClickListener, OnScrol
 //		Toast("test123initFeedBack");
 	}
 	
-	/**
-	 * 添加更多按钮
-	 */
-	private void addFootView() {
-		listview.removeAllViews();
-		Button btnNext = new Button(this);
-		btnNext.setOnClickListener(this);
-		btnNext.setId(1000);
-		//
-		btnNext.setText("加载更多");
-		listview.addFooterView(btnNext);
-
-	}
 	
 	@Override
 	public void onScroll(AbsListView arg0, int arg1, int arg2, int arg3) {
-		Log.d("tag","onscroll->"+arg1+"->"+arg2+"->"+arg3);
+//		Log.d("tag","onscroll->"+arg1+"->"+arg2+"->"+arg3);
 		firstItem = arg1;
 		if(arg1+arg2==arg3){//当前的位置+ 本页显示的数量 = 总的数量
 			firstItem = arg3;
@@ -462,7 +546,7 @@ public class TellOutAct extends BaseActivity implements OnClickListener, OnScrol
 
 	@Override
 	public void onScrollStateChanged(AbsListView arg0, int arg1) {
-		Log.d("tag","state-changed->"+arg1);
+//		Log.d("tag","state-changed->"+arg1);
 		if(arg1==SCROLL_STATE_TOUCH_SCROLL&&firstItem ==0){//开始下拉
 			Log.d("tag","top->");
 			listview.setSelection(1);	
@@ -470,18 +554,19 @@ public class TellOutAct extends BaseActivity implements OnClickListener, OnScrol
 			headVisiable = true;
 			top.setText("下拉刷新");
 		}else if(arg1 == SCROLL_STATE_TOUCH_SCROLL&&firstItem == list.size()){//上拉加载更多
-			bottom.setVisibility(View.VISIBLE);
-			bottom.setText("加载更多...");
-			footVisiable =true;
-			request(MConstant.REQUEST_CODE_TELLOUTS);
+//			bottom.setVisibility(View.VISIBLE);
+//			bottom.setText("加载更多...");
+//			footVisiable =true;
+//			headVisiable = true;
+//			request(MConstant.REQUEST_CODE_TELLOUTS,0);
 		}else if(firstItem>0&&headVisiable){
-			top.setVisibility(View.GONE);
-			headVisiable = false;
+//			top.setVisibility(View.GONE);
+//			headVisiable = false;
 		}else if(footVisiable &&firstItem == list.size()){
-			bottom.setVisibility(View.GONE);
+//			bottom.setVisibility(View.GONE);
 //			if(la)
-			pageIndext ++;
-			request(MConstant.REQUEST_CODE_TELLOUTS);
+//			pageIndext ++;
+//			request(MConstant.REQUEST_CODE_TELLOUTS,1);
 			
 		}
 		
@@ -511,7 +596,6 @@ public class TellOutAct extends BaseActivity implements OnClickListener, OnScrol
 				break;
 			}
 			
-			
 			break;
 		case MotionEvent.ACTION_UP:
 			downY = 0;
@@ -533,8 +617,10 @@ public class TellOutAct extends BaseActivity implements OnClickListener, OnScrol
 				break;
 			case 2:
 				top.setText("正在刷新...");
-				if(headVisiable)
-					request(MConstant.REQUEST_CODE_TELLOUTS);
+				if(headVisiable){
+//					request(MConstant.REQUEST_CODE_TELLOUTS,0);
+					requestRefreshTellout();
+				}
 				break;
 			}
 			

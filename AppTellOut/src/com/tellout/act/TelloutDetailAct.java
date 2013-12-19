@@ -76,6 +76,7 @@ public class TelloutDetailAct extends BaseActivity implements OnClickListener{
 		findViewById(R.id.tellout_detail_share).setOnClickListener(this);
 		listView = (ListView) findViewById(R.id.tellout_detail_listview);
 		View headView = View.inflate(this, R.layout.tellout_item, null);
+		TextView tvTitle = (TextView) findViewById(R.id.tellout_detail_title_tv);
 		TextView tvAuthor = (TextView) headView.findViewById(R.id.tellout_item_author_tv);
 		TextView tvContent = (TextView) headView.findViewById(R.id.tellout_item_content_tv);
 		TextView tvOk = (TextView) headView.findViewById(R.id.tellout_item_ok_tv);
@@ -87,6 +88,7 @@ public class TelloutDetailAct extends BaseActivity implements OnClickListener{
 		listView.setAdapter(adapter);
 		TellOutId = entity.getTellOutId();
 		content = entity.getContent();
+		tvTitle.setText("#吐槽#"+TellOutId);
 		tvAuthor.setText(entity.getAuthorName());
 		tvContent.setText(content);
 		tvOk.setText(entity.getOkNum()+"");

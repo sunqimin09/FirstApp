@@ -1,7 +1,9 @@
 package com.tellout.adapter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.SimpleFormatter;
 
 import android.content.Context;
 import android.util.Log;
@@ -63,12 +65,18 @@ public class MyHistoryInforAdapter extends BaseAdapter{
 		}
 		holder.tvName.setText(list.get(arg0).getSalary()+"");
 		holder.tvContent.setText(list.get(arg0).getComment());
-		holder.tvIndex.setText(list.get(arg0).getOther());
+		holder.tvIndex.setText(dataFormat(list.get(arg0).getOther()));
 		Log.d("tag","getview->"+list.get(arg0).getOther());
 		return convertView;
 	}
 
-
+	private String dataFormat(String str){
+		if(str!=null){
+			return str.substring(0, str.length()-5);
+		}
+		return null;
+	}
+	
 	static class ViewHolder{
 		TextView tvContent;
 		TextView tvName;

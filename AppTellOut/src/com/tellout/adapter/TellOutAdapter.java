@@ -43,11 +43,11 @@ public class TellOutAdapter extends BaseAdapter{
 		notifyDataSetChanged();
 	}
 	
-	public void addData(List<TellOutEntity> list){
-//		this.list.addAll(list);
-		this.list = list ;
-		notifyDataSetChanged();
-	}
+//	public void addData(List<TellOutEntity> list){
+////		this.list.addAll(list);
+//		this.list = list ;
+//		notifyDataSetChanged();
+//	}
 	
 	
 	@Override

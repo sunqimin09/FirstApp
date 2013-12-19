@@ -192,7 +192,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
 			break;
 		case MConstant.REQUEST_CODE_TELLOUTS:
 			TellOuts = (List<TellOutEntity>) baseEntity.getList();
-			tellOutAdapter.addData(TellOuts);
+//			tellOutAdapter.addData(TellOuts);
 			Map<String,String> map = baseEntity.getMap();
 			tellOutPageIndext = map.get(MConstant.OTHER_PAGE_INDEXT);
 			break;

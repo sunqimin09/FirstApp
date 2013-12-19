@@ -1,33 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/my_history_infor_item_salary"
+    <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/my_history_infor_item_comment"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="17dp"
-        android:layout_marginLeft="18dp"
-        android:text="999" />
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/my_history_infor_item_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/my_history_infor_item_salary"
-        android:layout_centerVertical="true"
-        android:text="2013" />
+        <TextView
+            android:id="@+id/my_history_infor_item_salary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="17dp"
+            android:text="999"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#F8931D" />
+
+        <TextView
+            android:id="@+id/my_history_infor_item_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2013" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/my_history_infor_item_comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/my_history_infor_item_time"
         android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/linearLayout1"
+        android:layout_marginTop="19dp"
+        android:layout_marginRight="5dp"
+        android:ems="10"
+        android:gravity="right"
+        android:maxLines="2"
         android:text="Comment" />
 
 </RelativeLayout>

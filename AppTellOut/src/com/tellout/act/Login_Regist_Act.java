@@ -125,20 +125,21 @@ public class Login_Regist_Act extends BaseActivity implements OnClickListener,
 //			
 //		}
 		
-		String email = null;
+		String name = null;
 		String pwd = null;
 		if(isLogin){
-			email = edit1.getText().toString();
+			name = edit1.getText().toString();
 			pwd = edit2.getText().toString();
 		}else{
-			email = edit2.getText().toString();
+			name = edit2.getText().toString();
 			pwd = edit3.getText().toString();
 		}
 		SpHelper spHelper = new SpHelper(this);
 		spHelper.putBool("autoLogin", autoLogin);
-		spHelper.putStr("email", email);
+		spHelper.putStr("name", name);
 		spHelper.putStr("pwd", pwd);
 		MConstant.USER_ID_VALUE = baseEntity.getMap().get(DbConstant.DB_USER_ID);
+		spHelper.putStr("userId", MConstant.USER_ID_VALUE);
 //		startActivity(new Intent(Login_Regist_Act.this, TellOutAct.class));
 		Log.d("tag","userid--》"+MConstant.USER_ID_VALUE);
 		finish();

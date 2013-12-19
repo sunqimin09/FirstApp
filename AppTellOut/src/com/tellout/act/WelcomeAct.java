@@ -38,6 +38,7 @@ public class WelcomeAct extends BaseActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.welcome_act);
 		initView();
+		autoLogin();
 	}
 
 	private void initView() {
@@ -60,9 +61,13 @@ public class WelcomeAct extends BaseActivity{
 	private void autoLogin(){
 		SpHelper spHelper = new SpHelper(this);
 		if(spHelper.getBool("autoLogin")){
-			String email = spHelper.getStr("email");
+			String name = spHelper.getStr("name");
 			String pwd = spHelper.getStr("pwd");
-			requestLogin(email,pwd);
+			MConstant.USER_ID_VALUE = spHelper.getStr("userId");
+			android.widget.Toast.makeText(this,
+					"自动登录" + MConstant.USER_ID_VALUE,
+					android.widget.Toast.LENGTH_SHORT).show();
+			// requestLogin(name,pwd);
 		}
 	}
 	

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
 import android.widget.ListView;
 
 import com.tellout.adapter.MyHistoryInforAdapter;
@@ -24,7 +26,7 @@ public class MyHistoryInforAct extends BaseActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_infor_history_act);
 		initView();
@@ -38,6 +40,10 @@ public class MyHistoryInforAct extends BaseActivity {
 		listview.setAdapter(adapter);
 	}
 
+	public void onClick(View view){
+		finish();
+	}
+	
 	@Override
 	public void request(RequestEntity requestEntity) {
 		requestEntity.setPost(false);
@@ -53,7 +59,7 @@ public class MyHistoryInforAct extends BaseActivity {
 	public void showResult(int type, BaseEntity baseEntity) {
 		super.showResult(type, baseEntity);
 		list = (List<UserEntity>) baseEntity.getList();
-		adapter.notifyDataSetChanged();
+//		adapter.notifyDataSetChanged();
 		adapter.setaData(list);
 	}
 	
