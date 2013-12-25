@@ -1,8 +1,8 @@
 package com.tellout.constant;
 
 public class MConstant {
-//	115.28.131.129    192.168.1.102
-	public final static String HOME_URL = "http://115.28.131.129:8080/TellOut/servlet/";
+//	115.28.131.129    192.168.1.102  115.29.45.6
+	public final static String HOME_URL = "http://115.29.45.6:8080/TellOut/servlet/";
 
 	public static String USER_ID_VALUE = "";
 	
