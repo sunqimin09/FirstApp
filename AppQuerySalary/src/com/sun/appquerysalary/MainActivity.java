@@ -66,9 +66,10 @@ public class MainActivity extends Activity implements OnCheckedChangeListener, I
 	@Override
 	public void requestSuccess(ShowResult showResult) {
 		switch(showResult.requestCode){
-		case 0:
+		case 0://公司
 			break;
-		case 1:
+		case 1://岗位
+			
 			break;
 		}
 		

@@ -3,10 +3,15 @@ package com.sun.appquerysalary;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ListView;
-
-public class CompanyAct extends Activity{
+/**
+ * 查询结果
+ * 
+ */
+public class QueryResultAct extends Activity{
 
 	private ListView listview;
+	/**查询种类:公司0，岗位1*/
+	private int queryType = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +25,6 @@ public class CompanyAct extends Activity{
 		
 		
 	}
+	
 	
 }

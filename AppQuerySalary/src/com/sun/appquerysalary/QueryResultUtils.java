@@ -1,5 +1,5 @@
 package com.sun.appquerysalary;
 
-public class CompanyUtils {
+public class QueryResultUtils {
 
 }
