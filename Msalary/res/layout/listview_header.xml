@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:id="@+id/hot_company_header"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     
+     >
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="热门公司"
+        android:layout_alignParentLeft="true"
+        android:background="#FFF8DC"/>
+</RelativeLayout>
