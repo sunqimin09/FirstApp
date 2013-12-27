@@ -31,6 +31,11 @@ public class SelectCompanyAdapter extends BaseAdapter{
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 	
+	public void setData(ShowResult result){
+		this.list = (ArrayList<CompanyEntity>) result.list;
+		this.notifyDataSetChanged();
+	}
+	
 	@Override
 	public int getCount() {
 		return list.size();
