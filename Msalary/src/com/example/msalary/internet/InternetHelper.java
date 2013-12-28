@@ -100,7 +100,7 @@ public class InternetHelper {
     private static ResponseResult doGet(RequestEntity requestEntity) {
             //获得请求的全地址
             
-            String url = getUrl(requestEntity.url,requestEntity.params);
+            String url = getUrl(requestEntity.getUrl(),requestEntity.params);
             //获得请求的地址
             Log.d("tag","request--url"+url+"urlend");
             ResponseResult responseResult = get(url);

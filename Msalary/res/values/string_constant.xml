@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="url_home">http://115.29.45.6:8080/Web/servlet/</string>
+    <string name="url_select_company">QueryCompanyServlet?</string>
+    
+    
+</resources>

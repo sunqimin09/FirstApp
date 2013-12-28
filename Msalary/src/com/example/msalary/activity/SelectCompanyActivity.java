@@ -17,7 +17,7 @@ import com.example.msalary.internet.InternetHelper;
 import com.example.msalary.json.JsonSelectConpany;
 import com.example.msalary.util.MConstant;
 
-public class SelectCompanyActivity extends Activity implements IRequestCallBack{
+public class SelectCompanyActivity extends BaseActivity {
 
 	private ListView listView;
 	
@@ -34,14 +34,19 @@ public class SelectCompanyActivity extends Activity implements IRequestCallBack{
 		
 	}
 
-	private void initView() {
+	protected void initView() {
 		listView = (ListView) findViewById(R.id.position_list_lv);
 		showResult = new  ShowResult();
 		adapter = new SelectCompanyAdapter(this, showResult);
 	}
 	
+	/**
+	 * ·¢ÆðÍøÂçÇëÇó
+	 * @param requestStr
+	 */
 	private void request(String requestStr){
-		RequestEntity requestEntity =new RequestEntity(MConstant.URL_SELECT_COMPANY);
+		getString(R.string.url_home);
+		RequestEntity requestEntity =new RequestEntity(this,MConstant.URL_SELECT_COMPANY);
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		map.put("key", requestStr+"a");
 		requestEntity.params = map;
@@ -55,9 +60,5 @@ public class SelectCompanyActivity extends Activity implements IRequestCallBack{
 		adapter.setData(showResult);
 	}
 
-	@Override
-	public void requestFailedStr(String str) {
-		Log.i("sun","Failed-->");
-	}
 	
 }

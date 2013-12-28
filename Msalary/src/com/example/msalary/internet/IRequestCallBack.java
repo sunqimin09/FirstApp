@@ -4,7 +4,15 @@ import com.example.msalary.entity.ResponseResult;
 
 public interface IRequestCallBack {
 
+	/**
+	 * 网络请求成功
+	 * @param responseResult
+	 */
 	 public void requestSuccess(ResponseResult responseResult);
      
+	 /**
+	  * 网络请求失败
+	  * @param str
+	  */
      public void requestFailedStr(String str);
 }

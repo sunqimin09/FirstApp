@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ShowResult {
+public class ShowResult implements Cloneable{
 
 	 public int requestCode;
      /**服务器返回的错误值*/
