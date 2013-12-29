@@ -18,11 +18,12 @@ import org.apache.http.params.CoreConnectionPNames;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 import com.example.msalary.entity.RequestEntity;
 import com.example.msalary.entity.ResponseResult;
-import com.example.msalary.entity.ShowResult;
 import com.example.msalary.util.ErrorCodeUtils;
 
 public class InternetHelper {
@@ -53,28 +54,57 @@ public class InternetHelper {
             return false;
     }
     
+    Handler handler = new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			switch(msg.what){
+			case 1:
+				requestCallBack.requestSuccess((ResponseResult) msg.obj);
+				break;
+			case -1:
+				requestCallBack.requestFailedStr(ErrorCodeUtils.changeCodeToStr(((ResponseResult) msg.obj).resultCode));
+				break;
+			}
+		}
+    	
+    };
+    
+    private IRequestCallBack requestCallBack= null;
+    
     /**
      * 开启网络请求
      * @param requestEntity
      * @param requestCallBack
      */
-    public static void requestThread(final RequestEntity requestEntity,final IRequestCallBack requestCallBack){
+    public void requestThread(final RequestEntity requestEntity,final IRequestCallBack requestCallBack){
+    	this.requestCallBack = requestCallBack;
             new Thread(){
 
                     @Override
                     public void run() {
                             ResponseResult responseResult = InternetHelper.request(requestEntity);
                             if(responseResult.resultCode==HttpStatus.SC_OK){//成功
-                                    requestCallBack.requestSuccess(responseResult);
+                            	Log.d("tag","result-->"+responseResult.resultStr);
+                            	sendMsg(responseResult,1);
+//                                    requestCallBack.requestSuccess(responseResult);
                             }else{
+                            	sendMsg(responseResult,-1);
                                     //失败
-                                    requestCallBack.requestFailedStr(ErrorCodeUtils.changeCodeToStr(responseResult.resultCode));
+//                                    requestCallBack.requestFailedStr(ErrorCodeUtils.changeCodeToStr(responseResult.resultCode));
                             }
                             
                             
                     }
                     
             }.start();
+    }
+    
+    private void sendMsg(ResponseResult responseResult,int flag){
+    	Message msg = handler.obtainMessage();
+    	msg.what = flag;
+    	msg.obj = responseResult;
+    	handler.sendMessage(msg);
     }
     
     /**
@@ -119,18 +149,19 @@ public class InternetHelper {
 			for (Map.Entry<String, Object> entry : map.entrySet()) {
 				String key = entry.getKey();
 				Object value = entry.getValue();
-				try {
-					if (value != null) {
-						value = URLEncoder.encode(String.valueOf(value),
-								"UTF-8");
-						// value = new String(value.getBytes(),"utf-8");
-						Log.d("tag", "value-->" + value);
-					}
-
-				} catch (UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+//				try {
+//					if (value != null) {
+//						Log.d("tag", "value-->" + value);
+//						value = URLEncoder.encode(String.valueOf(value),
+//								"UTF-8");
+//						// value = new String(value.getBytes(),"utf-8");
+//						Log.d("tag", "value--utf>" + value);
+//					}
+//
+//				} catch (UnsupportedEncodingException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 				url += key + "=" + value + "&";
 			}
 			url = url.substring(0, url.length() - 1);

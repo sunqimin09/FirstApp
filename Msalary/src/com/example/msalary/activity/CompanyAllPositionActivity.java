@@ -88,7 +88,6 @@ public class CompanyAllPositionActivity extends Activity {
 
 		@Override
 		public long getItemId(int position) {
-			// TODO Auto-generated method stub
 			return position;
 		}
 

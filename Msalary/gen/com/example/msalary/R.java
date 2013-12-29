@@ -42,11 +42,13 @@ public final class R {
         public static final int salary_topcut=0x7f020012;
     }
     public static final class id {
-        public static final int Linear=0x7f080023;
+        public static final int Linear=0x7f08002c;
         public static final int LinearLayout1=0x7f080000;
-        public static final int action_settings=0x7f08002d;
+        public static final int LinearLayout1_salary=0x7f080025;
+        public static final int action_settings=0x7f080036;
         public static final int allposition_list=0x7f08000f;
         public static final int allposition_tv=0x7f08000c;
+        public static final int back=0x7f080023;
         public static final int bodylayout=0x7f080005;
         public static final int comment_list=0x7f080009;
         public static final int comment_somecompany_tv=0x7f08000e;
@@ -56,7 +58,7 @@ public final class R {
         public static final int company_ibtn_2=0x7f080002;
         public static final int company_message_textview=0x7f080016;
         public static final int company_more_tv=0x7f080014;
-        public static final int exposure_salary_back=0x7f08002c;
+        public static final int exposure_salary_back=0x7f080035;
         public static final int exposure_tv=0x7f080010;
         public static final int gridlayout_num1=0x7f080017;
         public static final int gridlayout_num2=0x7f080018;
@@ -66,7 +68,7 @@ public final class R {
         public static final int hot_company_header=0x7f080020;
         public static final int hot_company_lv=0x7f080013;
         public static final int hot_company_textview=0x7f080015;
-        public static final int hotposition_gv=0x7f080028;
+        public static final int hotposition_gv=0x7f080031;
         public static final int make_comments_btn=0x7f080008;
         public static final int make_comments_et=0x7f080007;
         public static final int mistake_back=0x7f080021;
@@ -74,19 +76,26 @@ public final class R {
         public static final int position_category2=0x7f08001c;
         public static final int position_category3=0x7f08001d;
         public static final int position_category4=0x7f08001e;
+        public static final int position_detail_no=0x7f08002a;
+        public static final int position_detail_ok=0x7f080029;
+        public static final int position_detail_position_name=0x7f080024;
         public static final int position_ibtn_1=0x7f080003;
         public static final int position_ibtn_2=0x7f080004;
-        public static final int position_list_lv=0x7f080024;
-        public static final int position_message_tv=0x7f08002b;
-        public static final int position_salary_back=0x7f080022;
+        public static final int position_list_lv=0x7f08002d;
+        public static final int position_message_tv=0x7f080034;
+        public static final int position_salary_back=0x7f08002b;
         public static final int position_salary_tv=0x7f08000d;
-        public static final int position_search_back=0x7f080025;
-        public static final int salary_message_back=0x7f080029;
+        public static final int position_search_back=0x7f08002e;
+        public static final int progressBar1=0x7f080027;
+        public static final int relativeLayout1=0x7f080022;
+        public static final int rl_comment=0x7f080028;
+        public static final int salary_message_back=0x7f080032;
         public static final int search_company_bt=0x7f080012;
         public static final int search_company_et=0x7f080011;
-        public static final int search_position_bt=0x7f080027;
-        public static final int search_position_et=0x7f080026;
-        public static final int selectposition_tv=0x7f08002a;
+        public static final int search_position_bt=0x7f080030;
+        public static final int search_position_et=0x7f08002f;
+        public static final int selectposition_tv=0x7f080033;
+        public static final int textView1=0x7f080026;
         public static final int viewPager=0x7f080006;
     }
     public static final class layout {
@@ -105,13 +114,14 @@ public final class R {
         public static final int listview_header=0x7f03000c;
         public static final int mistake_main=0x7f03000d;
         public static final int mistake_title=0x7f03000e;
-        public static final int position_salary_title=0x7f03000f;
-        public static final int position_search_main=0x7f030010;
-        public static final int position_search_title=0x7f030011;
-        public static final int position_tab=0x7f030012;
-        public static final int salary_message_title=0x7f030013;
-        public static final int selectpositionlist=0x7f030014;
-        public static final int titlebutton=0x7f030015;
+        public static final int position_detail_act=0x7f03000f;
+        public static final int position_salary_title=0x7f030010;
+        public static final int position_search_main=0x7f030011;
+        public static final int position_search_title=0x7f030012;
+        public static final int position_tab=0x7f030013;
+        public static final int salary_message_title=0x7f030014;
+        public static final int selectpositionlist=0x7f030015;
+        public static final int titlebutton=0x7f030016;
     }
     public static final class menu {
         public static final int main=0x7f070000;

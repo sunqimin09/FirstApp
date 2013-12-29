@@ -13,7 +13,7 @@ public class RequestEntity {
 	}
 	
 	public String getUrl() {
-		return context.getResources().getString(R.string.url_home)+url;
+		return url;
 	}
 
 	public void setUrl(String url) {

@@ -209,7 +209,7 @@ public class MainActivity extends Activity implements OnClickListener{
 			viewPager.setCurrentItem(PAGE2);
 			break;
 		case R.id.search_company_bt://�鹫˾
-//			String value = 
+//			String value = et.getText().toString();
 			startActivity(new Intent(MainActivity.this,SelectCompanyActivity.class).putExtra("key", ""));
 			break;
 		case R.id.search_position_bt:
@@ -217,6 +217,11 @@ public class MainActivity extends Activity implements OnClickListener{
 		default:
 			break;
 		}
+	}
+	
+	private boolean checkInput(){
+		
+		return false;
 	}
 	
 	/**

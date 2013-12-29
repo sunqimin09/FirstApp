@@ -54,6 +54,11 @@
             android:name="com.example.msalary.activity.SelectCompanyActivity"
             android:theme="@android:style/Theme.Translucent"
             ></activity>
+        <!-- 岗位详情 -->
+        <activity 
+            android:name="com.example.msalary.activity.PositionDetailActivity"
+            android:theme="@android:style/Theme.Translucent"
+            ></activity>
     </application>
 
 </manifest>

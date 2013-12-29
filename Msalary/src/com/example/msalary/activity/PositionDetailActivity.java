@@ -8,6 +8,7 @@ import java.util.HashMap;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.msalary.R;
 import com.example.msalary.entity.RequestEntity;
 import com.example.msalary.entity.ResponseResult;
 import com.example.msalary.internet.InternetHelper;
@@ -23,27 +24,29 @@ public class PositionDetailActivity extends BaseActivity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		setContentView(R.)
+		setContentView(R.layout.position_detail_act);
 		initView();
 	}
-Object o ;
 	/**
 	 * 
 	 */
 	public void initView() {
-		
+		int companyId = getIntent().getIntExtra("companyId", 0);
+		int jobId = getIntent().getIntExtra("jobId", 0);
+		request(companyId, jobId);
 	}
 
 	/**
 	 * ·¢ÆðÍøÂçÇëÇó
 	 * @param requestStr
 	 */
-	private void request(String requestStr){
-		RequestEntity requestEntity =new RequestEntity(this,MConstant.URL_SELECT_COMPANY);
+	private void request(int companyId,int jobId){
+		RequestEntity requestEntity =new RequestEntity(this,MConstant.URL_JOB_DETAIL);
 		HashMap<String,Object> map = new HashMap<String,Object>();
-		map.put("key", requestStr+"a");
+		map.put("companyId", companyId);
+		map.put("jobId", jobId);
 		requestEntity.params = map;
-		InternetHelper.requestThread(requestEntity, this);
+		new InternetHelper().requestThread(requestEntity, this);
 	}
 	
 	@Override

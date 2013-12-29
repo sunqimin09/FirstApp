@@ -1,7 +1,7 @@
 package com.example.msalary.entity;
 
 
-public class JobEntity {
+public class JobEntity extends ShowResult{
 	
 	public int getId() {
 		return id;
