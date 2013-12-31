@@ -21,6 +21,7 @@ import android.widget.Toast;
  */
 public class BaseActivity extends Activity implements IRequestCallBack{
 
+	
 	/**
 	 * ³õÊ¼»¯¿Ø¼þ
 	 */
