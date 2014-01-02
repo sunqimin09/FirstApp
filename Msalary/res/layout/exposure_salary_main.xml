@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFAF0"
+    android:orientation="vertical"
+
+    tools:context=".MainActivity" >
+
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:text="我要曝工资"
+        android:textSize="25sp"/>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginRight="15sp"
+        android:orientation="vertical"
+        android:background="#FFE7BA">
+        <EditText 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="12sp"
+            android:hint="填写公司名称"/>
+        <EditText 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="填写职位"/>
+        <EditText 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="填写月薪（含税）"/>
+    </LinearLayout>
+    <Button 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/blue_button"
+        android:text="提  交"
+        android:textSize="25sp"
+        android:gravity="center"/>
+
+</LinearLayout>

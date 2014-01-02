@@ -1,0 +1,69 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFAF0"
+    android:orientation="vertical"
+
+    tools:context=".MainActivity" >
+
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView 
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:background="@drawable/blue_button"
+            android:text="上海宝钢建设有限公司（19条信息）"
+            android:textColor="#121212"/>
+        <TextView 
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            
+            android:layout_gravity="center_vertical"
+            android:textColor="#242424"
+            android:text="评论"/>
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/make_comments_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#C1FFC1"
+            android:minLines="4"/>
+        <Button
+            android:id="@+id/make_comments_btn" 
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:gravity="center"
+            android:text="发表评论"
+            android:background="@drawable/blue_button"/>
+    </LinearLayout>
+    <ListView
+        android:id="@+id/comment_list" 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        
+        ></ListView>
+</LinearLayout>

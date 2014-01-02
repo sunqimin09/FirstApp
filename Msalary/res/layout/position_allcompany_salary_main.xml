@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFAF0"
+    android:orientation="vertical"
+
+    tools:context=".MainActivity" >
+
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        >
+     <TextView 
+         android:id="@+id/some_position_tv"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:gravity="center"
+         android:text="Android软件工程师"
+         android:textSize="25sp"/>
+    </LinearLayout>
+
+        <ListView
+           android:id="@+id/allcompany_list" 
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+          
+           
+        ></ListView>
+    
+</LinearLayout>

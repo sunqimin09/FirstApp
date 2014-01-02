@@ -1,0 +1,84 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFAF0"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        
+        
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:layout_gravity="left"
+            android:src="@drawable/background1" />
+
+        <ImageView
+            android:id="@+id/exposure_tv"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_gravity="right|center_vertical"
+            android:gravity="right"
+            android:src="@drawable/niminga" />
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="#FFE7BA"
+        android:orientation="horizontal"
+        android:layout_marginLeft="15dp">
+        <EditText
+            android:id="@+id/search_company_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="要查询的公司"
+            android:textSize="20dp"
+            android:layout_weight="2"/>
+        <Button
+            android:id="@+id/search_company_bt"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:text="查"
+            android:textSize="20dp"
+            android:onClick="onClick"
+            android:background="@drawable/cha"
+            />
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="热门公司"
+            android:textSize="15sp"
+            android:layout_alignParentLeft="true"
+            android:background="#FFF8DC"/>
+        <ListView
+            android:id="@+id/hot_company_lv" 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+             android:layout_marginTop="3dp"
+            ></ListView>
+    </LinearLayout>
+    <TextView 
+        android:id="@+id/company_more_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="更多..."
+        android:textColor="#FF00FF"
+        android:textSize="20sp"/>
+
+</LinearLayout>

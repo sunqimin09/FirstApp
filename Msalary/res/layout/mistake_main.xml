@@ -1,0 +1,91 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFAF0"
+    android:orientation="vertical"
+
+    tools:context=".MainActivity" >
+
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:text="我要纠错"
+        android:textSize="25sp"/>
+    <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="15dp"
+            android:orientation="vertical">
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="公司名称："
+                android:textColor="#FF6EB4"
+                android:textSize="15sp"/>
+            <TextView
+                android:id="@+id/mistake_companyName" 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="深圳富士康企业集团"
+                android:textSize="15sp"/>
+        </LinearLayout>
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="17dp"
+            android:orientation="vertical">
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FF6EB4"
+                android:text="职位名称："
+                android:textSize="15sp"/>
+            <TextView 
+                android:id="@+id/miatake_jobName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="销售代表"
+                android:textSize="15sp"/>
+        </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15sp"
+        android:orientation="vertical"
+        android:background="#FFE7BA">
+        
+        <EditText 
+            android:id="@+id/mistake_salary_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="12sp"
+            android:hint="请填写工资"/>
+        <EditText 
+            android:id="@+id/mistake_critical_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="评论（福利奖金等）"/>
+        
+    </LinearLayout>
+    <Button 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/blue_button"
+        android:text="提  交"
+        android:textSize="25sp"
+        android:gravity="center"/>
+
+</LinearLayout>
