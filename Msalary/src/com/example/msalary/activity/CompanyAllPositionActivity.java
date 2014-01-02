@@ -101,6 +101,7 @@ public class CompanyAllPositionActivity extends BaseActivity {
       *
       */
      private class allpositionAdapter extends BaseAdapter{
+    	 
     	 private Context context;
     	 private ArrayList<JobEntity> list;
        public allpositionAdapter(Context context,ShowResult result){

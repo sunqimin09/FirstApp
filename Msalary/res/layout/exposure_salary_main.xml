@@ -24,26 +24,31 @@
         android:orientation="vertical"
         android:background="#FFE7BA">
         <EditText 
+            android:id="@+id/exposure_et_companyName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="12sp"
             android:hint="填写公司名称"/>
         <EditText 
+            android:id="@+id/exposure_et_jobName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="填写职位"/>
         <EditText 
+            android:id="@+id/exposure_et_salary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="填写月薪（含税）"/>
     </LinearLayout>
     <Button 
+        android:id="@+id/exposure_btn_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10sp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:background="@drawable/blue_button"
+        android:onClick="onClick"
         android:text="提  交"
         android:textSize="25sp"
         android:gravity="center"/>

@@ -44,4 +44,8 @@ public class BaseActivity extends Activity implements IRequestCallBack{
 		Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
 	}
 	
+	public void Toast(String str){
+		Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+	}
+	
 }

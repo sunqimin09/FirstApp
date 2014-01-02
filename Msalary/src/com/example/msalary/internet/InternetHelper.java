@@ -3,8 +3,6 @@ package com.example.msalary.internet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.Map;
 
 import org.apache.http.HttpResponse;
