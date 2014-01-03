@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.msalary.entity.CompanyCommentEntity;
 import com.example.msalary.entity.JobEntity;
 import com.example.msalary.entity.ResponseResult;
 import com.example.msalary.entity.ShowResult;
@@ -20,13 +21,14 @@ public class JsonCommentsOfCompany {
 			JSONObject object = new JSONObject(responseResult.resultStr);
 			int code = object.getInt("code");
 			JSONArray array = object.getJSONArray("list");
-			List<JobEntity> list = new ArrayList<JobEntity>();
-			JobEntity entity =  null;
+			List<CompanyCommentEntity> list = new ArrayList<CompanyCommentEntity>();
+			CompanyCommentEntity entity =  null;
 			JSONObject item = null;
 			for(int i =0;i<array.length();i++){
 				item = array.getJSONObject(i);
-				entity = new JobEntity();
-				entity.setSalary(item.getInt("salary"));
+				entity = new CompanyCommentEntity();
+				entity.setCreateDate(item.getString("createDate"));
+				entity.setContent(item.getString("commentContent"));
 				list.add(entity);
 			}
 			showResult.list = list;

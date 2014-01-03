@@ -24,6 +24,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -33,7 +35,7 @@ import android.widget.TextView;
  * @author Administrator
  *
  */
-public class CompanyAllPositionActivity extends BaseActivity {
+public class CompanyAllPositionActivity extends BaseActivity implements OnItemClickListener{
 	private ImageButton back_btn;
 //	private TextView  allPosition_tv;
 //	private TextView  positionSalary_tv;//职位薪资
@@ -60,6 +62,8 @@ public class CompanyAllPositionActivity extends BaseActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent=new Intent(CompanyAllPositionActivity.this, CommentActivity.class);
+				intent.putExtra("companyId", getIntent().getIntExtra("companyId", 0));
+				intent.putExtra("companyName", getIntent().getStringExtra("companyName"));
 				startActivity(intent);
 			}
 		});
@@ -93,6 +97,7 @@ public class CompanyAllPositionActivity extends BaseActivity {
  	public void requestSuccess(ResponseResult responseResult) {
  		Log.d("tag","showResult"+responseResult);
  		showResult = JsonSelectConpany.parse(responseResult,this);
+ 		comment_someCompany.setText("评论"+showResult.map.get("commentCount")+"条");
  		 adapter.setData(showResult);
  	}
      /**
@@ -138,11 +143,12 @@ public class CompanyAllPositionActivity extends BaseActivity {
 			convertView=LayoutInflater.from(context).inflate(R.layout.company_allposition_list, null);
 			holder.allPosition_tv=(TextView) convertView.findViewById(R.id.allposition_tv);
 			holder.positionSalary_tv=(TextView) convertView.findViewById(R.id.position_salary_tv);
-			holder.allPosition_tv.setText(list.get(position).getName());
-			holder.positionSalary_tv.setText(list.get(position).getSalary());
+			
 			 }else{
 				 holder = (ViewHolder) convertView.getTag();  
 			 }
+			 holder.allPosition_tv.setText(list.get(position).getName());
+		     holder.positionSalary_tv.setText(list.get(position).getSalary());
 			return convertView;
 		}
 		class ViewHolder {  
@@ -150,4 +156,9 @@ public class CompanyAllPositionActivity extends BaseActivity {
 	        public TextView positionSalary_tv;  
 	    }  
      }
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		// TODO Auto-generated method stub
+		
+	}
 }

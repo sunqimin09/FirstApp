@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -41,7 +42,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	    private static final int PAGE2=1;
 	    private ViewPager viewPager;
 	    private List<View> mListViews;// TabÒ³Ãæ
-	    private ImageButton tab1,tab2,tab1_2,tab2_2;
+	    private Button tab1,tab2,tab1_2,tab2_2;
 	    private GridView hotPositionList;
 	    private ListView hotCompanyList;
 	    private View tabView1,tabView2;
@@ -49,6 +50,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	    private TextView more_tv;//¸ü¶à¡£¡£
 	    private TextView hotCompany_tv;
 	    private TextView companyMessage_tv;
+	    private TextView exposure1,exposure2;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -59,10 +61,10 @@ public class MainActivity extends Activity implements OnClickListener{
 		initPager2View();
 	}
 	private void initView(){
-		tab1=(ImageButton) findViewById(R.id.company_ibtn_2);
-		tab2=(ImageButton) findViewById(R.id.position_ibtn_1);
-		tab1_2=(ImageButton)findViewById(R.id.company_ibtn_1);
-		tab2_2=(ImageButton)findViewById(R.id.position_ibtn_2);
+		tab1=(Button) findViewById(R.id.company_ibtn_2);
+		tab2=(Button) findViewById(R.id.position_ibtn_1);
+		tab1_2=(Button)findViewById(R.id.company_ibtn_1);
+		tab2_2=(Button)findViewById(R.id.position_ibtn_2);
 		tab1.setOnClickListener(this);
 		tab2.setOnClickListener(this);
 		tab1_2.setOnClickListener(this);
@@ -75,15 +77,11 @@ public class MainActivity extends Activity implements OnClickListener{
     	tabView1=inflater.inflate(R.layout.company_tab, null);
     	tabView2=inflater.inflate(R.layout.position_tab, null);
     	exposure_iv=(ImageView)tabView1.findViewById(R.id.exposure_tv);
-    	exposure_iv.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent=new Intent(MainActivity.this, ExposureSalary.class);
-				startActivity(intent);
-			}
-		});
+    	exposure_iv.setOnClickListener(this);
+		exposure1=(TextView) tabView1.findViewById(R.id.exposure_tv1);
+		exposure2=(TextView) tabView2.findViewById(R.id.exposure_tv2);
+		exposure1.setOnClickListener(this);
+		exposure2.setOnClickListener(this);
     	more_tv=(TextView)tabView1.findViewById(R.id.company_more_tv);
     	more_tv.setOnClickListener(new OnClickListener() {
 			
@@ -193,6 +191,18 @@ public class MainActivity extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch(v.getId()){
+		case R.id.exposure_tv1:
+			Intent intent1=new Intent(MainActivity.this, ExposureSalary.class);
+			startActivity(intent1);
+			break;
+		case R.id.exposure_tv2:
+		     Intent intent2=new Intent(MainActivity.this, ExposureSalary.class);
+		     startActivity(intent2);
+		     break;
+		case R.id.exposure_tv:
+			Intent intent0=new Intent(MainActivity.this, ExposureSalary.class);
+			startActivity(intent0);
+			break;     
 		case R.id.company_ibtn_1:
 			
 			tab1.setVisibility(1);

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -23,7 +24,7 @@ import com.example.msalary.internet.InternetHelper;
 import com.example.msalary.json.JsonSelectConpany;
 import com.example.msalary.util.MConstant;
 
-public class SelectCompanyActivity extends BaseActivity implements OnItemClickListener {
+public class SelectCompanyActivity extends BaseActivity implements OnItemClickListener ,OnClickListener{
     private ImageButton back_btn;
 	private ListView listView;
 	
@@ -39,7 +40,7 @@ public class SelectCompanyActivity extends BaseActivity implements OnItemClickLi
     	getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.company_search_title);
     	back_btn=(ImageButton) findViewById(R.id.company_search_back);
     	back_btn.setBackgroundResource(R.drawable.cloud_back_click);
-		
+		back_btn.setOnClickListener(this);
 		initView();
 		request(getIntent().getStringExtra("key"));
 		
@@ -77,8 +78,15 @@ public class SelectCompanyActivity extends BaseActivity implements OnItemClickLi
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		Intent i = new Intent(SelectCompanyActivity.this,CompanyAllPositionActivity.class);
 		i.putExtra("companyId", ((CompanyEntity)showResult.list.get((int)arg3)).getId());
+		i.putExtra("companyName", ((CompanyEntity)showResult.list.get((int)arg3)).getName());
 		startActivity(i);
 		
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		finish();
 	}
 
 	

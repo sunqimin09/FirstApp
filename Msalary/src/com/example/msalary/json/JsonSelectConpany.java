@@ -21,6 +21,7 @@ public class JsonSelectConpany {
 			JSONObject object = new JSONObject(responseResult.resultStr);
 			int code = object.getInt("code");
 			JSONArray array = object.getJSONArray("list");
+			int commentCount=object.getInt("commentCount");
 			List<CompanyEntity> list = new ArrayList<CompanyEntity>();
 			CompanyEntity entity =  null;
 			JSONObject item = null;
@@ -31,6 +32,7 @@ public class JsonSelectConpany {
 				entity.setJobCount(item.getInt("jobCount"));
 				list.add(entity);
 			}
+			showResult.map.put("commentCount", commentCount+"");
 			showResult.list = list;
 			showResult.resultCode =code;
 		} catch (JSONException e) {

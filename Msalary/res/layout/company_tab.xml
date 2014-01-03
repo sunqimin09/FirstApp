@@ -4,14 +4,14 @@
     android:layout_height="match_parent"
     android:background="#FFFAF0"
     android:orientation="vertical" >
-
+<!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         
         
         android:orientation="horizontal" >
-
+ 
         <ImageView
             android:layout_width="100dp"
             android:layout_height="70dp"
@@ -26,33 +26,85 @@
             android:gravity="right"
             android:src="@drawable/niminga" />
     </LinearLayout>
-    <LinearLayout 
+     -->
+     <RelativeLayout 
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="15dp"
+         android:layout_gravity="center">
+         <ImageView
+             android:id="@+id/exposure_tv"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             
+             android:layout_centerHorizontal="true"
+             android:gravity="center"
+             android:src="@drawable/icon" />
+         <TextView 
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_toLeftOf="@+id/exposure_tv"
+             android:layout_centerVertical="true"
+             android:textColor="#FF34B3"
+             android:text="匿名 "/>
+         <TextView 
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_centerVertical="true"
+             android:layout_toRightOf="@+id/exposure_tv"
+             android:textColor="#FF34B3"
+             android:text=" 工资"/>
+
+         
+
+     </RelativeLayout>
+    
+    <LinearLayout
+        android:id="@+id/ex_lay" 
+        
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:background="#FFE7BA"
+        
         android:orientation="horizontal"
         android:layout_marginLeft="15dp">
         <EditText
             android:id="@+id/search_company_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+           
             android:hint="要查询的公司"
             android:textSize="20dp"
-            android:layout_weight="2"/>
+            android:layout_weight="3"/>
         <Button
             android:id="@+id/search_company_bt"
             android:layout_width="60dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:text="查"
-            android:textSize="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="1dp"
             android:onClick="onClick"
-            android:background="@drawable/cha"
+            android:background="@drawable/search_normal"
             />
     </LinearLayout>
+    
+     <RelativeLayout 
+         android:layout_marginTop="22dp"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         >
+         <TextView 
+              android:id="@+id/exposure_tv1"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              
+              android:text=">>曝工资"
+              
+              android:layout_alignParentRight="true"
+              android:textColor="#FF34B3"/>
     <LinearLayout 
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/exposure_tv1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
@@ -72,6 +124,7 @@
              android:layout_marginTop="3dp"
             ></ListView>
     </LinearLayout>
+    </RelativeLayout>
     <TextView 
         android:id="@+id/company_more_tv"
         android:layout_width="wrap_content"
