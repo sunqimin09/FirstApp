@@ -1,37 +1,26 @@
 package com.example.msalary.activity;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.example.msalary.R;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageButton;
+import android.widget.ListView;
 
+import com.example.msalary.R;
 import com.example.msalary.adapter.PositionAllCompanyAdapter;
 import com.example.msalary.entity.CompanyEntity;
-import com.example.msalary.entity.JobEntity;
 import com.example.msalary.entity.RequestEntity;
 import com.example.msalary.entity.ResponseResult;
 import com.example.msalary.entity.ShowResult;
 import com.example.msalary.internet.InternetHelper;
 import com.example.msalary.json.JsonCompanysOfJob;
-import com.example.msalary.json.JsonSelectPosition;
 import com.example.msalary.util.MConstant;
-
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.TextView;
 /**
  * 某职位在所有公司的信息，包括公司名，曝光数量，平均工资。
  * @author Administrator
@@ -94,8 +83,9 @@ public class PositionAllCompanyActivity extends BaseActivity implements OnItemCl
 		Intent intent=new Intent(PositionAllCompanyActivity.this,PositionDetailActivity.class);
 		intent.putExtra("companyId", ((CompanyEntity)showResult.list.get((int)arg3)).getId());
 		intent.putExtra("jobId", getIntent().getIntExtra("positionId", 0));
-		intent.putExtra("jobName", getIntent().getIntExtra("positionName", 0));
-		intent.putExtra("companyName", ((CompanyEntity)showResult.list.get((int)arg3)).getName());
+//		intent.putExtra("jobName", getIntent().getIntExtra("positionName", 0));
+//		intent.putExtra("companyName", ((CompanyEntity)showResult.list.get((int)arg3)).getName());
+		startActivity(intent);
 	}
     
 }

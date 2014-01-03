@@ -20,19 +20,24 @@ public class JsonSelectConpany {
 		try {
 			JSONObject object = new JSONObject(responseResult.resultStr);
 			int code = object.getInt("code");
+			if(code!=0){//²»ÕýÈ·
+				requestCallBack.requestFailedStr(ErrorCodeUtils.changeCodeToStr(-101));
+				return null;
+			}
 			JSONArray array = object.getJSONArray("list");
-			int commentCount=object.getInt("commentCount");
+//			int commentCount=object.getInt("commentCount");
 			List<CompanyEntity> list = new ArrayList<CompanyEntity>();
 			CompanyEntity entity =  null;
 			JSONObject item = null;
 			for(int i =0;i<array.length();i++){
 				item = array.getJSONObject(i);
 				entity = new CompanyEntity();
+				entity.setId(item.getInt("id"));
 				entity.setName(item.getString("name"));
 				entity.setJobCount(item.getInt("jobCount"));
 				list.add(entity);
 			}
-			showResult.map.put("commentCount", commentCount+"");
+//			showResult.map.put("commentCount", commentCount+"");
 			showResult.list = list;
 			showResult.resultCode =code;
 		} catch (JSONException e) {

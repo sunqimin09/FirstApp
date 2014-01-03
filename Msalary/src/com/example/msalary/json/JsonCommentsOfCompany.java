@@ -27,8 +27,8 @@ public class JsonCommentsOfCompany {
 			for(int i =0;i<array.length();i++){
 				item = array.getJSONObject(i);
 				entity = new CompanyCommentEntity();
-				entity.setCreateDate(item.getString("createDate"));
-				entity.setContent(item.getString("commentContent"));
+				entity.setCreateDate(item.getString("createTime"));
+				entity.setContent(item.getString("name"));
 				list.add(entity);
 			}
 			showResult.list = list;

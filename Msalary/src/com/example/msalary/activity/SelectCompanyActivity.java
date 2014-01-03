@@ -76,9 +76,10 @@ public class SelectCompanyActivity extends BaseActivity implements OnItemClickLi
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		Log.d("tag",arg3+"]]"+arg2+"companyId-->"+ ((CompanyEntity)showResult.list.get((int)arg3)).getId());
 		Intent i = new Intent(SelectCompanyActivity.this,CompanyAllPositionActivity.class);
 		i.putExtra("companyId", ((CompanyEntity)showResult.list.get((int)arg3)).getId());
-		i.putExtra("companyName", ((CompanyEntity)showResult.list.get((int)arg3)).getName());
+//		i.putExtra("companyName", ((CompanyEntity)showResult.list.get((int)arg3)).getName());
 		startActivity(i);
 		
 	}
