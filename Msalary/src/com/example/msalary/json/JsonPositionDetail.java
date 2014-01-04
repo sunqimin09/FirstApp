@@ -29,6 +29,10 @@ public class JsonPositionDetail {
 		try {
 			JSONObject object = new JSONObject(responseResult.resultStr);
 			int code = object.getInt("code");
+			if(code!=0){//Èç¹û´íÎó
+				requestCallBack.requestFailedStr(ErrorCodeUtils.changeCodeToStr(-101));
+				return null;
+			}
 			JSONArray array = object.getJSONArray("list");
 			List<JobEntity> list = new ArrayList<JobEntity>();
 			JobEntity entity =  null;
@@ -42,7 +46,6 @@ public class JsonPositionDetail {
 				entity.setCount3(item.getInt("count3"));
 				entity.setCount4(item.getInt("count4"));
 				entity.setUserful_num(item.getInt("userful_num"));
-				
 				list.add(entity);
 			}
 			showResult.list = list;

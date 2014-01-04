@@ -47,7 +47,7 @@
         android:layout_marginTop="10sp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:background="@drawable/blue_button"
+        android:background="@drawable/selector_blue_btn"
         android:onClick="onClick"
         android:text="提  交"
         android:textSize="25sp"

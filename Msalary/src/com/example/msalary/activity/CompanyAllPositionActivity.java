@@ -45,6 +45,8 @@ public class CompanyAllPositionActivity extends BaseActivity implements
 	// private TextView positionSalary_tv;//职位薪资
 	private ListView allPosition_list;// 一个公司所有职位列表
 	private TextView comment_someCompany;// 评论
+	private TextView tv_company_name;
+	
 	private allpositionAdapter adapter;
 	private ShowResult showResult;
 
@@ -85,11 +87,23 @@ public class CompanyAllPositionActivity extends BaseActivity implements
 		// map.put("salary", "￥3500");
 		// list.add(map);
 		// }
+		initView();
+	}
+
+	
+	
+	@Override
+	protected void initView() {
+		tv_company_name = (TextView) findViewById(R.id.company_allpositions_company_name_tv);
+		
+		tv_company_name.setText(getIntent().getStringExtra("companyName"));
 		showResult = new ShowResult();
 		adapter = new allpositionAdapter(this, showResult);
 		allPosition_list.setAdapter(adapter);
 		request(getIntent().getIntExtra("companyId", 0));
 	}
+
+
 
 	/**
 	 * 发起网络请求

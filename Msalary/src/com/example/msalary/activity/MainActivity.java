@@ -51,6 +51,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	    private TextView hotCompany_tv;
 	    private TextView companyMessage_tv;
 	    private TextView exposure1,exposure2;
+	    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -60,6 +61,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		initPager1View();//初始化每一个pagerView的组件
 		initPager2View();
 	}
+	
 	private void initView(){
 		tab1=(Button) findViewById(R.id.company_ibtn_2);
 		tab2=(Button) findViewById(R.id.position_ibtn_1);
@@ -274,16 +276,16 @@ public class MainActivity extends Activity implements OnClickListener{
 			companyMessage_tv=(TextView) convertView.findViewById(R.id.company_message_textview);
 			hotCompany_tv.setText(list.get(position).get("company"));
 			companyMessage_tv.setText(list.get(position).get("message"));
-			convertView.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					Intent intent=new Intent(MainActivity.this,CompanyAllPositionActivity.class);
-					startActivity(intent);
-					
-				}
-			});
+//			convertView.setOnClickListener(new OnClickListener() {
+//				
+//				@Override
+//				public void onClick(View v) {
+//					// TODO Auto-generated method stub
+//					Intent intent=new Intent(MainActivity.this,CompanyAllPositionActivity.class);
+//					startActivity(intent);
+//					
+//				}
+//			});
 			return convertView;
 		}
 	}
