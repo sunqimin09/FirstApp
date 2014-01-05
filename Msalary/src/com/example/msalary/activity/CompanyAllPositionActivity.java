@@ -124,7 +124,10 @@ public class CompanyAllPositionActivity extends BaseActivity implements
 	public void requestSuccess(ResponseResult responseResult) {
 		Log.d("tag", "showResult" + responseResult);
 		showResult = JsonPositionsOfCompany.parse(responseResult, this);
-		comment_someCompany.setText("ÆÀÂÛ" + showResult.map.get("commentCount")
+		if(showResult==null){
+			return;
+		}
+		comment_someCompany.setText("ÆÀÂÛ" + showResult.list.size()//map.get("commentCount")
 				+ "Ìõ");
 		adapter.setData(showResult);
 	}

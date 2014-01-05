@@ -41,6 +41,7 @@ import android.widget.TextView;
  */
 public class CommentActivity extends BaseActivity implements OnClickListener{
 	private ImageButton back_btn;
+	private TextView comment_title;
 	private TextView commentTime_tv;//评论的时间
 	private TextView comment_tv;//评论内容
 	private ListView comment_list;//以往评论列表
@@ -65,6 +66,8 @@ public class CommentActivity extends BaseActivity implements OnClickListener{
     }
      protected void initView(){
     	 comment_list=(ListView) findViewById(R.id.comment_list);
+    	 comment_title = (TextView) findViewById(R.id.comment_company_name);
+    	 comment_title.setText(getIntent().getStringExtra("companyName"));
     	 showResult=new ShowResult();
     	 adapter=new CommentAdapter(this, showResult);
     	 comment_list.setAdapter(adapter);
@@ -188,7 +191,9 @@ public class CommentActivity extends BaseActivity implements OnClickListener{
 				   Toast("请添加评论内容");
 			   }
 			break;
-
+		case R.id.comment_company_name://
+			finish();
+			break;
 		default:
 			break;
 		}

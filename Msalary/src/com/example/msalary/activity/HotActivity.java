@@ -21,7 +21,7 @@ import android.widget.TextView;
  * @author Administrator
  *
  */
-public class HotActivity extends Activity {
+public class HotActivity extends BaseActivity {
 	
      @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +57,10 @@ public class HotActivity extends Activity {
 //    		gridlaout1.addView(tv,params);
 //    	}
     }
+     
+     
+     
+     
      /**
       * 给GridView加数据，自定义Adapter
       * @author Administrator

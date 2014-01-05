@@ -26,6 +26,10 @@ public class JsonPositionsOfCompany {
 		try {
 			JSONObject object = new JSONObject(responseResult.resultStr);
 			int code = object.getInt("code");
+			if(code!=0){
+				requestCallBack.requestFailedStr(ErrorCodeUtils.changeCodeToStr(-101));
+				return null;
+			}
 			JSONArray array = object.getJSONArray("list");
 			List<JobEntity> list = new ArrayList<JobEntity>();
 			JobEntity entity =  null;

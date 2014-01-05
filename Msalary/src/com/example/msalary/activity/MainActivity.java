@@ -90,7 +90,7 @@ public class MainActivity extends Activity implements OnClickListener{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent=new Intent(MainActivity.this, HotActivity.class);
+				Intent intent=new Intent(MainActivity.this, HotAct.class);
 				startActivity(intent);
 			}
 		});

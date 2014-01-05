@@ -88,6 +88,9 @@ public class PositionDetailActivity extends BaseActivity{
 	public void requestSuccess(ResponseResult responseResult) {
 		super.requestSuccess(responseResult);
 		showResult=JsonPositionDetail.parse(responseResult,this);
+		if(showResult==null){
+			return;
+		}
 		textView1.setText(((JobEntity)(showResult.list.get(0))).getCount1()+"");
 		textView2.setText(((JobEntity)(showResult.list.get(0))).getCount2()+"");
 		textView3.setText(((JobEntity)(showResult.list.get(0))).getCount3()+"");

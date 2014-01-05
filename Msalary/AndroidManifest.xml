@@ -32,15 +32,22 @@
            android:name="com.example.msalary.activity.MistakeActivity"
            android:theme="@style/test"
            ></activity>
+        <!-- 热门公司 -->
+        <activity 
+            android:name="com.example.msalary.activity.HotAct"
+           android:theme="@style/test"
+            ></activity>
+        <!-- 暂时废弃 -->
         <activity 
            android:name="com.example.msalary.activity.HotActivity"
            android:theme="@style/test"
            ></activity>
+        <!-- 查找职位 -->
         <activity 
            android:name="com.example.msalary.activity.SelectPositionActivity"
            android:theme="@style/test"
            ></activity>
-        
+        <!-- 公司的所有职位 -->
         <activity 
            android:name="com.example.msalary.activity.CompanyAllPositionActivity"
            android:theme="@style/test"
