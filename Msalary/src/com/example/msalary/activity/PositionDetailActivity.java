@@ -28,7 +28,6 @@ import com.example.msalary.util.MConstant;
  * 功能描述: 公司名称，岗位名称，平均薪资， <br>
  */
 public class PositionDetailActivity extends BaseActivity{
-   private ImageButton back_btn;
    private TextView mistake_tv;
    private ShowResult showResult = null;
    //在0-3000等四个范围内曝光的数量。
@@ -37,18 +36,15 @@ public class PositionDetailActivity extends BaseActivity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		setContentView(R.layout.position_detail_act);
-    	getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.salary_message_title);
-    	back_btn=(ImageButton) findViewById(R.id.salary_message_back);
-    	back_btn.setBackgroundResource(R.drawable.cloud_back_click);
-		
 		initView();
 	}
 	/**
 	 * 
 	 */
 	public void initView() {
+		super.initView();
+		tv_title.setText(getString(R.string.position_detail_title));
 		int companyId = getIntent().getIntExtra("companyId", 0);
 		int jobId = getIntent().getIntExtra("jobId", 0);
 		request(companyId, jobId);
@@ -81,7 +77,7 @@ public class PositionDetailActivity extends BaseActivity{
 		map.put("companyId", companyId);
 		map.put("jobId", jobId);
 		requestEntity.params = map;
-		new InternetHelper().requestThread(requestEntity, this);
+		new InternetHelper(this).requestThread(requestEntity, this);
 	}
 	
 	@Override

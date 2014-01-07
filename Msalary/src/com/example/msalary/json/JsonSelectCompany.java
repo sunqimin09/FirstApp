@@ -13,17 +13,13 @@ import com.example.msalary.entity.ShowResult;
 import com.example.msalary.internet.IRequestCallBack;
 import com.example.msalary.util.ErrorCodeUtils;
 
-public class JsonSelectConpany {
+public class JsonSelectCompany {
 	
 	public static ShowResult parse(ResponseResult responseResult,IRequestCallBack requestCallBack){
 		ShowResult showResult = new ShowResult();
 		try {
 			JSONObject object = new JSONObject(responseResult.resultStr);
 			int code = object.getInt("code");
-			if(code!=0){//²»ÕýÈ·
-				requestCallBack.requestFailedStr(ErrorCodeUtils.changeCodeToStr(-101));
-				return null;
-			}
 			JSONArray array = object.getJSONArray("list");
 //			int commentCount=object.getInt("commentCount");
 			List<CompanyEntity> list = new ArrayList<CompanyEntity>();
@@ -41,7 +37,7 @@ public class JsonSelectConpany {
 			showResult.list = list;
 			showResult.resultCode =code;
 		} catch (JSONException e) {
-			requestCallBack.requestFailedStr(ErrorCodeUtils.changeCodeToStr(-101));
+			requestCallBack.requestFailedStr(ErrorCodeUtils.changeCodeToStr(1));
 			e.printStackTrace();
 			return null;
 		}

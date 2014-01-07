@@ -12,7 +12,7 @@ import com.example.msalary.entity.ResponseResult;
 import com.example.msalary.entity.ShowResult;
 import com.example.msalary.internet.InternetHelper;
 import com.example.msalary.json.JsonPositionsOfCompany;
-import com.example.msalary.json.JsonSelectConpany;
+import com.example.msalary.json.JsonSelectCompany;
 import com.example.msalary.util.MConstant;
 
 import android.app.Activity;
@@ -40,9 +40,6 @@ import android.widget.TextView;
  */
 public class CompanyAllPositionActivity extends BaseActivity implements
 		OnItemClickListener {
-	private ImageButton back_btn;
-	// private TextView allPosition_tv;
-	// private TextView positionSalary_tv;//职位薪资
 	private ListView allPosition_list;// 一个公司所有职位列表
 	private TextView comment_someCompany;// 评论
 	private TextView tv_company_name;
@@ -55,12 +52,18 @@ public class CompanyAllPositionActivity extends BaseActivity implements
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		// 设置标题，自定义标题
-		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		setContentView(R.layout.company_allpositions_salary);
-		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,
-				R.layout.position_salary_title);
-		back_btn = (ImageButton) findViewById(R.id.position_salary_back);
-		back_btn.setBackgroundResource(R.drawable.cloud_back_click);
+		initView();
+	}
+
+	
+	
+	@Override
+	protected void initView() {
+		super.initView();
+		tv_title.setText(getString(R.string.company_all_position_title));
+		tv_company_name = (TextView) findViewById(R.id.company_allpositions_company_name_tv);
+		
 		allPosition_list = (ListView) findViewById(R.id.allposition_list);
 		// 评论事件处理
 		comment_someCompany = (TextView) findViewById(R.id.comment_somecompany_tv);
@@ -78,24 +81,6 @@ public class CompanyAllPositionActivity extends BaseActivity implements
 				startActivity(intent);
 			}
 		});
-		// //为list赋值。职位、薪资。
-		// ArrayList<HashMap<String, String>> list=new
-		// ArrayList<HashMap<String,String>>();
-		// for(int i=0;i<7;i++){
-		// HashMap<String, String> map=new HashMap<String, String>();
-		// map.put("position", "职位职位");
-		// map.put("salary", "￥3500");
-		// list.add(map);
-		// }
-		initView();
-	}
-
-	
-	
-	@Override
-	protected void initView() {
-		tv_company_name = (TextView) findViewById(R.id.company_allpositions_company_name_tv);
-		
 		tv_company_name.setText(getIntent().getStringExtra("companyName"));
 		showResult = new ShowResult();
 		adapter = new allpositionAdapter(this, showResult);
@@ -103,7 +88,13 @@ public class CompanyAllPositionActivity extends BaseActivity implements
 		request(getIntent().getIntExtra("companyId", 0));
 	}
 
-
+	public void onClick(View view){
+		switch(view.getId()){
+		case R.id.back:
+			finish();
+			break;
+		}
+	}
 
 	/**
 	 * 发起网络请求
@@ -111,13 +102,12 @@ public class CompanyAllPositionActivity extends BaseActivity implements
 	 * @param i
 	 */
 	private void request(int i) {
-		getString(R.string.url_home);
 		RequestEntity requestEntity = new RequestEntity(this,
 				MConstant.URL_COMPANY_DETAIL);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("key", i);
 		requestEntity.params = map;
-		new InternetHelper().requestThread(requestEntity, this);
+		new InternetHelper(this).requestThread(requestEntity, this);
 	}
 
 	@Override

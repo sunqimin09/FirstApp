@@ -24,7 +24,6 @@ import com.example.msalary.util.MConstant;
  * 
  */
 public class ExposureSalary extends BaseActivity {
-	private ImageButton back_btn;
 
 	private EditText et_CompanyName, et_JobName, et_Salary;
 
@@ -33,20 +32,18 @@ public class ExposureSalary extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		
 		super.onCreate(savedInstanceState);
 		// 自定义标题
-		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		setContentView(R.layout.exposure_salary_main);
-		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,
-				R.layout.titlebutton);
 		initView();
 	}
 
 	@Override
 	protected void initView() {
+		super.initView();
+		tv_title.setText(getString(R.string.exposure_title));
 		// 返回键
-		back_btn = (ImageButton) findViewById(R.id.exposure_salary_back);
-		back_btn.setBackgroundResource(R.drawable.cloud_back_click);
 		et_CompanyName = (EditText) findViewById(R.id.exposure_et_companyName);
 		et_JobName = (EditText) findViewById(R.id.exposure_et_jobName);
 		et_Salary = (EditText) findViewById(R.id.exposure_et_salary);
@@ -62,6 +59,9 @@ public class ExposureSalary extends BaseActivity {
 			if (checkInput(company, job, salary)) {
 				request(company, job, salary);
 			}
+			break;
+		case R.id.back://返回
+			finish();
 			break;
 		}
 	}
@@ -89,7 +89,7 @@ public class ExposureSalary extends BaseActivity {
 		map.put("jobName", job);
 		map.put("salary", salary);
 		requestEntity.params = map;
-		new InternetHelper().requestThread(requestEntity, this);
+		new InternetHelper(this).requestThread(requestEntity, this);
 	}
 
 	@Override

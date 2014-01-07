@@ -14,7 +14,6 @@ import android.widget.TextView;
  *
  */
 public class MistakeActivity extends BaseActivity {
-	private ImageButton back_btn;
 	private TextView mistake_companyName;
 	private TextView mistake_jobName;
 	private EditText mistake_salary_et;
@@ -23,13 +22,11 @@ public class MistakeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
     	// TODO Auto-generated method stub
     	super.onCreate(savedInstanceState);
-    	requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
     	setContentView(R.layout.mistake_main);
-    	getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.mistake_title);
-    	back_btn=(ImageButton) findViewById(R.id.mistake_back);
-    	back_btn.setBackgroundResource(R.drawable.cloud_back_click);
     }
      protected void initView(){
+    	 super.initView();
+    	 tv_title.setText(getString(R.string.mistake_title));
     	 mistake_companyName=(TextView) findViewById(R.id.mistake_companyName);
     	 mistake_jobName=(TextView) findViewById(R.id.mistake_critical_et);
     	 mistake_salary_et=(EditText) findViewById(R.id.mistake_salary_et);

@@ -8,6 +8,18 @@ public class ErrorCodeUtils {
 	 * @return
 	 */
 	public static String changeCodeToStr(int resultCode) {
-		return null;
+		if(resultCode<error.length-1){
+			return error[resultCode];
+		}else{
+			return error[2];
+		}
+		
 	}
+	
+	private static String[] error = {
+		"无网络连接，请检查网络",	
+		"数据解析错误",
+		"服务器异常"
+	};
+	
 }

@@ -27,7 +27,6 @@ import com.example.msalary.util.MConstant;
  *
  */
 public class PositionAllCompanyActivity extends BaseActivity implements OnItemClickListener{
-	private ImageButton back_btn;
 	private ListView allCompanyList;
 	private ShowResult showResult = null;
 	PositionAllCompanyAdapter adapter;
@@ -36,18 +35,16 @@ public class PositionAllCompanyActivity extends BaseActivity implements OnItemCl
     	// TODO Auto-generated method stub
     	super.onCreate(savedInstanceState);
     	//设置标题，自定义标题
-    	requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
     	setContentView(R.layout.position_allcompany_salary_main);
-    	getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.position_salary_title);
-    	back_btn=(ImageButton) findViewById(R.id.position_salary_back);
-    	back_btn.setBackgroundResource(R.drawable.cloud_back_click);
     	
     	initView();
     }
      protected void initView(){
+    	 super.initView();
+    	 tv_title.setText(getString(R.string.position_all_company_title));
     	 allCompanyList=(ListView) findViewById(R.id.allcompany_list);
     	 showResult = new  ShowResult();
-    	adapter=new PositionAllCompanyAdapter(this,showResult);
+    	 adapter=new PositionAllCompanyAdapter(this,showResult);
     	 allCompanyList.setAdapter(adapter);
     	 allCompanyList.setOnItemClickListener(this);
     	 request(getIntent().getIntExtra("positionId", 0));
@@ -58,12 +55,11 @@ public class PositionAllCompanyActivity extends BaseActivity implements OnItemCl
   	 * @param requestStr
   	 */
   	private void request(int requestStr){
-  		getString(R.string.url_home);
   		RequestEntity requestEntity =new RequestEntity(this,MConstant.URL_COMPANYS_OF_JOB);
   		HashMap<String,Object> map = new HashMap<String,Object>();
   		map.put("key", requestStr);
   		requestEntity.params = map;
-  		new InternetHelper().requestThread(requestEntity, this);
+  		new InternetHelper(this).requestThread(requestEntity, this);
   	}
 
   	@Override

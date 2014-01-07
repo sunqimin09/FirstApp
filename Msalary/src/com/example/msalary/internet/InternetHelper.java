@@ -12,6 +12,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreConnectionPNames;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -25,6 +27,15 @@ import com.example.msalary.entity.ResponseResult;
 import com.example.msalary.util.ErrorCodeUtils;
 
 public class InternetHelper {
+	
+	private Context context = null;
+	
+	public InternetHelper(Context context){
+		this.context = context;
+	}
+	
+	public InternetHelper(){}
+	
 	  /**
      * 检测是否有网络连接
      * @param context
@@ -76,6 +87,9 @@ public class InternetHelper {
      * @param requestCallBack
      */
     public void requestThread(final RequestEntity requestEntity,final IRequestCallBack requestCallBack){
+    	if(isInternetAvaliable(context)){
+    		sendMsg(null, -1);
+    	}
     	this.requestCallBack = requestCallBack;
             new Thread(){
 
@@ -84,7 +98,20 @@ public class InternetHelper {
                             ResponseResult responseResult = InternetHelper.request(requestEntity);
                             if(responseResult.resultCode==HttpStatus.SC_OK){//成功
                             	Log.d("tag","result-->"+responseResult.resultStr);
-                            	sendMsg(responseResult,1);
+                            	JSONObject object;
+								try {
+									object = new JSONObject(responseResult.resultStr);
+									int code = object.getInt("code");
+									if(code!=0){//数据不正常
+										sendMsg(responseResult, -1);
+//	                    				requestCallBack.requestFailedStr(ErrorCodeUtils.changeCodeToStr(1));
+	                    			}else{//数据正常
+	                    				sendMsg(responseResult,1);
+	                    			}
+								} catch (JSONException e) {
+									sendMsg(responseResult, -1);
+									e.printStackTrace();
+								}
 //                                    requestCallBack.requestSuccess(responseResult);
                             }else{
                             	sendMsg(responseResult,-1);

@@ -6,13 +6,14 @@
     android:orientation="horizontal" >
 
     <ImageButton
-        android:id="@+id/exposure_salary_back"
+        android:id="@+id/back"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="20dp"
-        android:background="#00000000" />
+        android:onClick="onClick"
+        android:background="@drawable/cloud_back_click" />
 
     <View
         android:layout_width="1dp"
@@ -21,6 +22,7 @@
         android:background="@drawable/salary_topcut" />
 
     <TextView
+        android:id="@+id/title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

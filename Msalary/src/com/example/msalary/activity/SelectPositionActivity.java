@@ -12,7 +12,7 @@ import com.example.msalary.entity.RequestEntity;
 import com.example.msalary.entity.ResponseResult;
 import com.example.msalary.entity.ShowResult;
 import com.example.msalary.internet.InternetHelper;
-import com.example.msalary.json.JsonSelectConpany;
+import com.example.msalary.json.JsonSelectCompany;
 import com.example.msalary.json.JsonSelectPosition;
 import com.example.msalary.util.MConstant;
 
@@ -43,7 +43,6 @@ import android.widget.TextView;
 public class SelectPositionActivity extends BaseActivity implements
 		OnItemClickListener {
 
-	private ImageButton back_btn;
 	private ArrayList<HashMap<String, String>> listPosition;
 	private ListView position_list;
 	private ShowResult showResult = null;
@@ -53,13 +52,7 @@ public class SelectPositionActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		// 自定义标题。。
-		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		setContentView(R.layout.position_search_main);
-		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,
-				R.layout.position_search_title);
-		back_btn = (ImageButton) findViewById(R.id.position_search_back);
-		back_btn.setBackgroundResource(R.drawable.cloud_back_click);
 		initView();
 		request(getIntent().getStringExtra("key"));
 
@@ -67,6 +60,8 @@ public class SelectPositionActivity extends BaseActivity implements
 
 	@Override
 	protected void initView() {
+		super.initView();
+		tv_title.setText(getString(R.string.select_position_title));
 		// TODO Auto-generated method stub
 		position_list = (ListView) findViewById(R.id.position_list_lv);
 		position_list.setOnItemClickListener(this);
@@ -81,13 +76,12 @@ public class SelectPositionActivity extends BaseActivity implements
 	 * @param requestStr
 	 */
 	private void request(String requestStr) {
-		getString(R.string.url_home);
 		RequestEntity requestEntity = new RequestEntity(this,
 				MConstant.URL_SELECT_POSITION);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("key", requestStr);
 		requestEntity.params = map;
-		new InternetHelper().requestThread(requestEntity, this);
+		new InternetHelper(this).requestThread(requestEntity, this);
 	}
 
 	@Override

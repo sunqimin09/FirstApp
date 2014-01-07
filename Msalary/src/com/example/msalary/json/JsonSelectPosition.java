@@ -36,7 +36,7 @@ public class JsonSelectPosition {
 			showResult.list = list;
 			showResult.resultCode =code;
 		} catch (JSONException e) {
-			requestCallBack.requestFailedStr(ErrorCodeUtils.changeCodeToStr(-101));
+			requestCallBack.requestFailedStr(ErrorCodeUtils.changeCodeToStr(1));
 			e.printStackTrace();
 			return null;
 		}

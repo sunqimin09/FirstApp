@@ -10,6 +10,9 @@ package com.example.msalary;
 public final class R {
     public static final class attr {
     }
+    public static final class color {
+        public static final int back_white=0x7f040000;
+    }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
 
@@ -17,8 +20,8 @@ public final class R {
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f040000;
-        public static final int activity_vertical_margin=0x7f040001;
+        public static final int activity_horizontal_margin=0x7f050000;
+        public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
         public static final int background1=0x7f020000;
@@ -48,94 +51,93 @@ public final class R {
         public static final int title=0x7f020018;
     }
     public static final class id {
-        public static final int LinearLayout1=0x7f080006;
-        public static final int LinearLayout1_salary=0x7f080039;
-        public static final int action_settings=0x7f080057;
-        public static final int allcompany_list=0x7f080035;
-        public static final int allcompany_tv=0x7f080031;
-        public static final int allposition_list=0x7f080011;
-        public static final int allposition_tv=0x7f08000d;
-        public static final int back=0x7f080037;
-        public static final int bodylayout=0x7f080004;
-        public static final int comment_company_name=0x7f080007;
-        public static final int comment_list=0x7f08000a;
-        public static final int comment_somecompany_tv=0x7f080010;
-        public static final int comment_tv=0x7f08000c;
-        public static final int commenttime_tv=0x7f08000b;
-        public static final int company_allpositions_company_name_tv=0x7f08000f;
-        public static final int company_ibtn_1=0x7f080000;
-        public static final int company_ibtn_2=0x7f080001;
-        public static final int company_list_lv=0x7f080012;
-        public static final int company_message_textview=0x7f080021;
-        public static final int company_message_tv=0x7f080053;
-        public static final int company_more_tv=0x7f08001a;
-        public static final int company_salary_tv=0x7f080033;
-        public static final int company_search_back=0x7f080013;
-        public static final int detail_mistake_tv=0x7f080049;
-        public static final int ex_lay=0x7f080015;
-        public static final int exposure_btn_submit=0x7f08001e;
-        public static final int exposure_et_companyName=0x7f08001b;
-        public static final int exposure_et_jobName=0x7f08001c;
-        public static final int exposure_et_salary=0x7f08001d;
-        public static final int exposure_number=0x7f080032;
-        public static final int exposure_salary_back=0x7f080056;
-        public static final int exposure_tv=0x7f080014;
-        public static final int exposure_tv1=0x7f080018;
-        public static final int exposure_tv2=0x7f08004f;
-        public static final int gridlayout_num1=0x7f080022;
-        public static final int gridlayout_num2=0x7f080023;
-        public static final int gridlayout_num3=0x7f080024;
-        public static final int gridlayout_num4=0x7f080025;
-        public static final int hot_act_listview=0x7f08001f;
-        public static final int hot_back=0x7f08002a;
-        public static final int hot_company_header=0x7f08002b;
-        public static final int hot_company_lv=0x7f080019;
-        public static final int hot_company_textview=0x7f080020;
-        public static final int hotposition_gv=0x7f080050;
-        public static final int make_comments_btn=0x7f080009;
-        public static final int make_comments_et=0x7f080008;
-        public static final int miatake_jobName=0x7f08002d;
-        public static final int mistake_back=0x7f080030;
-        public static final int mistake_companyName=0x7f08002c;
-        public static final int mistake_critical_et=0x7f08002f;
-        public static final int mistake_salary_et=0x7f08002e;
-        public static final int percent1=0x7f08003c;
-        public static final int percent2=0x7f08003f;
-        public static final int percent3=0x7f080042;
-        public static final int percent4=0x7f080045;
-        public static final int position_category1=0x7f080026;
-        public static final int position_category2=0x7f080027;
-        public static final int position_category3=0x7f080028;
-        public static final int position_category4=0x7f080029;
-        public static final int position_detail_no=0x7f080048;
-        public static final int position_detail_position_name=0x7f080038;
-        public static final int position_ibtn_1=0x7f080002;
-        public static final int position_ibtn_2=0x7f080003;
-        public static final int position_list_lv=0x7f08004b;
-        public static final int position_message_tv=0x7f080055;
-        public static final int position_salary_back=0x7f08004a;
-        public static final int position_salary_tv=0x7f08000e;
-        public static final int position_search_back=0x7f08004c;
-        public static final int progressBar1=0x7f08003b;
-        public static final int progressBar2=0x7f08003e;
-        public static final int progressBar3=0x7f080041;
-        public static final int progressBar4=0x7f080044;
-        public static final int relativeLayout1=0x7f080036;
-        public static final int rl_comment=0x7f080046;
-        public static final int salary_message_back=0x7f080051;
-        public static final int search_company_bt=0x7f080017;
-        public static final int search_company_et=0x7f080016;
-        public static final int search_position_bt=0x7f08004e;
-        public static final int search_position_et=0x7f08004d;
-        public static final int selectcompany_tv=0x7f080052;
-        public static final int selectposition_tv=0x7f080054;
-        public static final int some_position_tv=0x7f080034;
-        public static final int textView1=0x7f08003a;
-        public static final int textView2=0x7f08003d;
-        public static final int textView3=0x7f080040;
-        public static final int textView4=0x7f080043;
-        public static final int userful_tv=0x7f080047;
-        public static final int viewPager=0x7f080005;
+        public static final int LinearLayout1=0x7f090006;
+        public static final int LinearLayout1_salary=0x7f090038;
+        public static final int action_settings=0x7f090056;
+        public static final int allcompany_list=0x7f090035;
+        public static final int allcompany_tv=0x7f090031;
+        public static final int allposition_list=0x7f090011;
+        public static final int allposition_tv=0x7f09000d;
+        public static final int back=0x7f090054;
+        public static final int bodylayout=0x7f090004;
+        public static final int comment_company_name=0x7f090007;
+        public static final int comment_list=0x7f09000a;
+        public static final int comment_somecompany_tv=0x7f090010;
+        public static final int comment_tv=0x7f09000c;
+        public static final int commenttime_tv=0x7f09000b;
+        public static final int company_allpositions_company_name_tv=0x7f09000f;
+        public static final int company_ibtn_1=0x7f090000;
+        public static final int company_ibtn_2=0x7f090001;
+        public static final int company_list_lv=0x7f090012;
+        public static final int company_message_textview=0x7f090021;
+        public static final int company_message_tv=0x7f090051;
+        public static final int company_more_tv=0x7f09001a;
+        public static final int company_salary_tv=0x7f090033;
+        public static final int company_search_back=0x7f090013;
+        public static final int detail_mistake_tv=0x7f090047;
+        public static final int ex_lay=0x7f090015;
+        public static final int exposure_btn_submit=0x7f09001e;
+        public static final int exposure_et_companyName=0x7f09001b;
+        public static final int exposure_et_jobName=0x7f09001c;
+        public static final int exposure_et_salary=0x7f09001d;
+        public static final int exposure_number=0x7f090032;
+        public static final int exposure_tv=0x7f090014;
+        public static final int exposure_tv1=0x7f090018;
+        public static final int exposure_tv2=0x7f09004d;
+        public static final int gridlayout_num1=0x7f090023;
+        public static final int gridlayout_num2=0x7f090025;
+        public static final int gridlayout_num3=0x7f090027;
+        public static final int gridlayout_num4=0x7f090029;
+        public static final int hot_act_listview=0x7f09001f;
+        public static final int hot_back=0x7f09002a;
+        public static final int hot_company_header=0x7f09002b;
+        public static final int hot_company_lv=0x7f090019;
+        public static final int hot_company_textview=0x7f090020;
+        public static final int hotposition_gv=0x7f09004e;
+        public static final int make_comments_btn=0x7f090009;
+        public static final int make_comments_et=0x7f090008;
+        public static final int miatake_jobName=0x7f09002d;
+        public static final int mistake_back=0x7f090030;
+        public static final int mistake_companyName=0x7f09002c;
+        public static final int mistake_critical_et=0x7f09002f;
+        public static final int mistake_salary_et=0x7f09002e;
+        public static final int percent1=0x7f09003b;
+        public static final int percent2=0x7f09003e;
+        public static final int percent3=0x7f090041;
+        public static final int percent4=0x7f090044;
+        public static final int position_category1=0x7f090022;
+        public static final int position_category2=0x7f090024;
+        public static final int position_category3=0x7f090026;
+        public static final int position_category4=0x7f090028;
+        public static final int position_detail_position_name=0x7f090037;
+        public static final int position_ibtn_1=0x7f090002;
+        public static final int position_ibtn_2=0x7f090003;
+        public static final int position_list_lv=0x7f090049;
+        public static final int position_message_tv=0x7f090053;
+        public static final int position_salary_back=0x7f090048;
+        public static final int position_salary_tv=0x7f09000e;
+        public static final int position_search_back=0x7f09004a;
+        public static final int progressBar1=0x7f09003a;
+        public static final int progressBar2=0x7f09003d;
+        public static final int progressBar3=0x7f090040;
+        public static final int progressBar4=0x7f090043;
+        public static final int relativeLayout1=0x7f090036;
+        public static final int rl_comment=0x7f090045;
+        public static final int salary_message_back=0x7f09004f;
+        public static final int search_company_bt=0x7f090017;
+        public static final int search_company_et=0x7f090016;
+        public static final int search_position_bt=0x7f09004c;
+        public static final int search_position_et=0x7f09004b;
+        public static final int selectcompany_tv=0x7f090050;
+        public static final int selectposition_tv=0x7f090052;
+        public static final int some_position_tv=0x7f090034;
+        public static final int textView1=0x7f090039;
+        public static final int textView2=0x7f09003c;
+        public static final int textView3=0x7f09003f;
+        public static final int textView4=0x7f090042;
+        public static final int title_tv=0x7f090055;
+        public static final int userful_tv=0x7f090046;
+        public static final int viewPager=0x7f090005;
     }
     public static final class layout {
         public static final int act_job_detail=0x7f030000;
@@ -166,17 +168,28 @@ public final class R {
         public static final int salary_message_title=0x7f030019;
         public static final int selectcompanylist=0x7f03001a;
         public static final int selectpositionlist=0x7f03001b;
-        public static final int titlebutton=0x7f03001c;
+        public static final int title=0x7f03001c;
     }
     public static final class menu {
-        public static final int main=0x7f070000;
+        public static final int main=0x7f080000;
     }
     public static final class string {
-        public static final int action_settings=0x7f050003;
-        public static final int app_name=0x7f050002;
-        public static final int hello_world=0x7f050004;
-        public static final int url_home=0x7f050000;
-        public static final int url_select_company=0x7f050001;
+        public static final int action_settings=0x7f060003;
+        public static final int app_name=0x7f060002;
+        public static final int comment_title=0x7f060008;
+        public static final int company_all_position_title=0x7f060009;
+        public static final int exposure_title=0x7f060005;
+        public static final int hello_world=0x7f060004;
+        public static final int hot_title=0x7f060006;
+        public static final int main_title=0x7f06000f;
+        public static final int mistake_title=0x7f06000a;
+        public static final int position_all_company_title=0x7f06000b;
+        public static final int position_detail_title=0x7f06000c;
+        public static final int select_company_title=0x7f06000d;
+        public static final int select_position_title=0x7f06000e;
+        public static final int select_title=0x7f060007;
+        public static final int url_home=0x7f060000;
+        public static final int url_select_company=0x7f060001;
     }
     public static final class style {
         /** 
@@ -200,12 +213,12 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f060000;
+        public static final int AppBaseTheme=0x7f070000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f060001;
-        public static final int CustomWindowTitleBackground=0x7f060002;
-        public static final int test=0x7f060003;
+        public static final int AppTheme=0x7f070001;
+        public static final int CustomWindowTitleBackground=0x7f070002;
+        public static final int test=0x7f070003;
     }
 }

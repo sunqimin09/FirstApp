@@ -30,7 +30,7 @@ public class JsonPositionDetail {
 			JSONObject object = new JSONObject(responseResult.resultStr);
 			int code = object.getInt("code");
 			if(code!=0){//Èç¹û´íÎó
-				requestCallBack.requestFailedStr(ErrorCodeUtils.changeCodeToStr(-101));
+				requestCallBack.requestFailedStr(ErrorCodeUtils.changeCodeToStr(1));
 				return null;
 			}
 			JSONArray array = object.getJSONArray("list");
@@ -51,7 +51,7 @@ public class JsonPositionDetail {
 			showResult.list = list;
 			showResult.resultCode =code;
 		} catch (JSONException e) {
-			requestCallBack.requestFailedStr(ErrorCodeUtils.changeCodeToStr(-101));
+			requestCallBack.requestFailedStr(ErrorCodeUtils.changeCodeToStr(1));
 			e.printStackTrace();
 			return null;
 		}

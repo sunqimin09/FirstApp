@@ -3,13 +3,12 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFAF0"   
+    android:background="@color/back_white"   
     android:orientation="vertical"
-
     tools:context=".MainActivity" >
 
     
-       
+       <!-- 
         <GridLayout
             android:id="@+id/gridlayout_num1" 
             android:layout_width="match_parent"
@@ -76,5 +75,5 @@
             android:background="#FF00FF"
             android:gravity="center"/>
         </GridLayout>
-
+ -->
 </LinearLayout>

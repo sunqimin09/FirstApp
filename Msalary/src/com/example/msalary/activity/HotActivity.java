@@ -39,23 +39,6 @@ public class HotActivity extends BaseActivity {
     	gridView1.setAdapter(adapter1);
     	gridView1.setAdapter(adapter1);
     	gridView1.setAdapter(adapter1);
-//    	String[] chars1=new String[]{
-//    			"电话销售","网络销售","3",
-//    			"4","5","6"
-//    	};
-//    	for(int i=0;i<chars1.length;i++){
-//    		TextView tv=new TextView(this);
-//    		tv.setText(chars1[i]);
-//    		tv.setTextSize(23);
-//    		tv.setBackgroundColor(Color.WHITE);
-//    		tv.setGravity(Gravity.CENTER);
-//    	
-//    		GridLayout.Spec rowSpec=GridLayout.spec(i/3+1);
-//    		GridLayout.Spec columSpec=GridLayout.spec(i%3);
-//    		GridLayout.LayoutParams params=new GridLayout.LayoutParams(rowSpec,columSpec);
-//    		params.setGravity(Gravity.FILL);
-//    		gridlaout1.addView(tv,params);
-//    	}
     }
      
      

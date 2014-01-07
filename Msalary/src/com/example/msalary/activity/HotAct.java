@@ -5,6 +5,7 @@ import java.util.List;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -16,7 +17,8 @@ import com.example.msalary.entity.RequestEntity;
 import com.example.msalary.entity.ResponseResult;
 import com.example.msalary.entity.ShowResult;
 import com.example.msalary.internet.InternetHelper;
-import com.example.msalary.json.JsonSelectConpany;
+import com.example.msalary.json.JsonSalaryRank;
+import com.example.msalary.json.JsonSelectCompany;
 import com.example.msalary.util.MConstant;
 
 public class HotAct extends BaseActivity implements OnItemClickListener{
@@ -35,6 +37,8 @@ public class HotAct extends BaseActivity implements OnItemClickListener{
 
 	@Override
 	protected void initView() {
+		super.initView();
+		tv_title.setText(getString(R.string.hot_title));
 		listView = (ListView) findViewById(R.id.hot_act_listview);
 		adapter = new HotCompanyAdapter(this);
 		listView.setAdapter(adapter);
@@ -48,13 +52,13 @@ public class HotAct extends BaseActivity implements OnItemClickListener{
 	 */
 	private void request(){
 		RequestEntity requestEntity =new RequestEntity(this,MConstant.URL_COMPANY_SALARY_RANK);
-		new InternetHelper().requestThread(requestEntity, this);
+		new InternetHelper(this).requestThread(requestEntity, this);
 	}
 	
 	@Override
 	public void requestSuccess(ResponseResult responseResult) {
 		super.requestSuccess(responseResult);
-		ShowResult showResult = JsonSelectConpany.parse(responseResult,this);
+		ShowResult showResult = JsonSalaryRank.parse(responseResult,this);
 		adapter.setData((List<CompanyEntity>) showResult.list);
 	}
 

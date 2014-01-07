@@ -15,7 +15,7 @@ import com.example.msalary.entity.ShowResult;
 import com.example.msalary.internet.IRequestCallBack;
 import com.example.msalary.internet.InternetHelper;
 import com.example.msalary.json.JsonCommentsOfCompany;
-import com.example.msalary.json.JsonSelectConpany;
+import com.example.msalary.json.JsonSelectCompany;
 import com.example.msalary.util.MConstant;
 
 
@@ -40,7 +40,6 @@ import android.widget.TextView;
  *
  */
 public class CommentActivity extends BaseActivity implements OnClickListener{
-	private ImageButton back_btn;
 	private TextView comment_title;
 	private TextView commentTime_tv;//评论的时间
 	private TextView comment_tv;//评论内容
@@ -54,17 +53,14 @@ public class CommentActivity extends BaseActivity implements OnClickListener{
     	// TODO Auto-generated method stub
     	super.onCreate(savedInstanceState);
     	//设置标题
-    	requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
     	setContentView(R.layout.comment_main);
-    	getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.position_salary_title);
-    	back_btn=(ImageButton) findViewById(R.id.position_salary_back);
-    	back_btn.setBackgroundResource(R.drawable.cloud_back_click);
-    	
     	initView();
     	request(getIntent().getIntExtra("companyId", 0));
 
     }
      protected void initView(){
+    	 super.initView();
+    	 tv_title.setText(getString(R.string.comment_title));
     	 comment_list=(ListView) findViewById(R.id.comment_list);
     	 comment_title = (TextView) findViewById(R.id.comment_company_name);
     	 comment_title.setText(getIntent().getStringExtra("companyName"));
@@ -74,17 +70,38 @@ public class CommentActivity extends BaseActivity implements OnClickListener{
     	 make_comment_et=(EditText) findViewById(R.id.make_comments_et);
     	 make_comment_btn=(Button) findViewById(R.id.make_comments_btn);
      }
+     
+     @Override
+ 	public void onClick(View v) {
+ 		// TODO Auto-generated method stub
+ 		switch (v.getId()) {
+ 		case R.id.make_comments_btn:
+ 			   if(make_comment_et.getText().toString()!=null){
+ 				   SimpleDateFormat  sDateFormat=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");    
+ 				   String date= sDateFormat.format(new java.util.Date());
+ 				   request(date,make_comment_et.getText().toString());
+ 			   }else{
+ 				   Toast("请添加评论内容");
+ 			   }
+ 			break;
+ 		case R.id.back://
+ 			finish();
+ 			break;
+ 		default:
+ 			break;
+ 		}
+ 	}
+     
      /**
  	 * 发起网络请求
  	 * @param requestStr
  	 */
  	private void request(int requestStr){
- 		getString(R.string.url_home);
  		RequestEntity requestEntity =new RequestEntity(this,MConstant.URL_COMPANY_COMMENT);
  		HashMap<String,Object> map = new HashMap<String,Object>();
  		map.put("key", requestStr);
  		requestEntity.params = map;
- 		new InternetHelper().requestThread(requestEntity, this);
+ 		new InternetHelper(this).requestThread(requestEntity, this);
  	}
 	@Override
  	public void requestSuccess(ResponseResult responseResult) {
@@ -100,7 +117,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener{
  		map.put("commentContent", content);
  		requestEntity.params = map;
  
- 		new InternetHelper().requestThread(requestEntity, callback1);
+ 		new InternetHelper(this).requestThread(requestEntity, callback1);
  	}
 	IRequestCallBack callback1=new IRequestCallBack() {
 		
@@ -178,25 +195,6 @@ public class CommentActivity extends BaseActivity implements OnClickListener{
      /**
       * 点击事件
       */
-	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		switch (v.getId()) {
-		case R.id.make_comments_btn:
-			   if(make_comment_et.getText().toString()!=null){
-				   SimpleDateFormat  sDateFormat=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");    
-				   String date= sDateFormat.format(new java.util.Date());
-				   request(date,make_comment_et.getText().toString());
-			   }else{
-				   Toast("请添加评论内容");
-			   }
-			break;
-		case R.id.comment_company_name://
-			finish();
-			break;
-		default:
-			break;
-		}
-	}
+	
      
 }

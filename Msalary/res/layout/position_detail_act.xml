@@ -2,18 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
-    android:background="#FFFAF0">
+    android:background="@color/back_white">
 
     <RelativeLayout
         android:id="@+id/relativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_revert" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -146,7 +140,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:text="9000以上" />
+                android:text="9000以上   " />
 
             <ProgressBar
                 android:id="@+id/progressBar4"
@@ -155,7 +149,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/textView4"
-               
                 android:layout_centerVertical="true"
                  />
              <TextView 
@@ -187,19 +180,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true" >
-         <ImageView 
-            android:id="@+id/position_detail_no"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             
-             android:src="@android:drawable/ic_menu_edit"
-            />
          <TextView 
              android:id="@+id/detail_mistake_tv"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:background="@drawable/blue_button"
-             android:layout_toRightOf="@id/position_detail_no"
              android:text="我要纠错！"
              android:gravity="center"/>
     </RelativeLayout>

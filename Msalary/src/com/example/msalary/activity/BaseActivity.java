@@ -3,11 +3,15 @@
  */
 package com.example.msalary.activity;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Window;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.msalary.R;
 import com.example.msalary.entity.ResponseResult;
 import com.example.msalary.internet.IRequestCallBack;
-
-import android.app.Activity;
-import android.widget.Toast;
 
 /**
  * 项目名称：营销移动智能工作平台 <br>
@@ -21,11 +25,20 @@ import android.widget.Toast;
  */
 public class BaseActivity extends Activity implements IRequestCallBack{
 
+	protected TextView tv_title;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+	}
+
 	/**
 	 * 初始化控件
 	 */
 	protected void initView(){
-		
+		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.title);
+		tv_title = (TextView) findViewById(R.id.title_tv);
 	}
 	
 	/* (non-Javadoc)

@@ -21,11 +21,10 @@ import com.example.msalary.entity.RequestEntity;
 import com.example.msalary.entity.ResponseResult;
 import com.example.msalary.entity.ShowResult;
 import com.example.msalary.internet.InternetHelper;
-import com.example.msalary.json.JsonSelectConpany;
+import com.example.msalary.json.JsonSelectCompany;
 import com.example.msalary.util.MConstant;
 
 public class SelectCompanyActivity extends BaseActivity implements OnItemClickListener ,OnClickListener{
-    private ImageButton back_btn;
 	private ListView listView;
 	
 	private SelectCompanyAdapter adapter = null;
@@ -35,18 +34,15 @@ public class SelectCompanyActivity extends BaseActivity implements OnItemClickLi
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
     	setContentView(R.layout.company_search_main);
-    	getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.company_search_title);
-    	back_btn=(ImageButton) findViewById(R.id.company_search_back);
-    	back_btn.setBackgroundResource(R.drawable.cloud_back_click);
-		back_btn.setOnClickListener(this);
 		initView();
 		request(getIntent().getStringExtra("key"));
 		
 	}
 
 	protected void initView() {
+		super.initView();
+		tv_title.setText(getString(R.string.select_company_title));
 		listView = (ListView) findViewById(R.id.company_list_lv);
 		showResult = new  ShowResult();
 		adapter = new SelectCompanyAdapter(this, showResult);
@@ -59,18 +55,17 @@ public class SelectCompanyActivity extends BaseActivity implements OnItemClickLi
 	 * @param requestStr
 	 */
 	private void request(String requestStr){
-		getString(R.string.url_home);
 		RequestEntity requestEntity =new RequestEntity(this,MConstant.URL_SELECT_COMPANY);
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		map.put("key", requestStr);
 		requestEntity.params = map;
-		new InternetHelper().requestThread(requestEntity, this);
+		new InternetHelper(this).requestThread(requestEntity, this);
 	}
 
 	@Override
 	public void requestSuccess(ResponseResult responseResult) {
 		Log.d("tag","showResult"+responseResult);
-		showResult = JsonSelectConpany.parse(responseResult,this);
+		showResult = JsonSelectCompany.parse(responseResult,this);
 		adapter.setData(showResult);
 	}
 

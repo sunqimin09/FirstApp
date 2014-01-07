@@ -37,7 +37,7 @@ import android.widget.TextView;
  * Create at:   2013-12-26 ÏÂÎç11:04:23 
  * TODO
  */
-public class MainActivity extends Activity implements OnClickListener{
+public class MainActivity extends BaseActivity implements OnClickListener{
 	   private static final int PAGE1=0;
 	    private static final int PAGE2=1;
 	    private ViewPager viewPager;
@@ -54,7 +54,6 @@ public class MainActivity extends Activity implements OnClickListener{
 	    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		initView();
@@ -62,7 +61,10 @@ public class MainActivity extends Activity implements OnClickListener{
 		initPager2View();
 	}
 	
-	private void initView(){
+	public void initView(){
+		super.initView();
+		findViewById(R.id.back).setVisibility(View.GONE);
+		tv_title.setText(getString(R.string.main_title));
 		tab1=(Button) findViewById(R.id.company_ibtn_2);
 		tab2=(Button) findViewById(R.id.position_ibtn_1);
 		tab1_2=(Button)findViewById(R.id.company_ibtn_1);
