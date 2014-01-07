@@ -46,6 +46,14 @@ public class HotAct extends BaseActivity implements OnItemClickListener{
 		request();
 	}
 
+	public void onClick(View view){
+		switch(view.getId()){
+		case R.id.back:
+			finish();
+			break;
+		}
+	}
+	
 	/**
 	 * ·¢ÆğÍøÂçÇëÇó
 	 * @param requestStr

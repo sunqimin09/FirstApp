@@ -74,6 +74,9 @@ public class InternetHelper {
 			case -1:
 				requestCallBack.requestFailedStr(ErrorCodeUtils.changeCodeToStr(((ResponseResult) msg.obj).resultCode));
 				break;
+			case 0://当前无网络连接
+				requestCallBack.requestFailedStr(ErrorCodeUtils.changeCodeToStr(0));
+				break;
 			}
 		}
     	
@@ -87,10 +90,12 @@ public class InternetHelper {
      * @param requestCallBack
      */
     public void requestThread(final RequestEntity requestEntity,final IRequestCallBack requestCallBack){
-    	if(isInternetAvaliable(context)){
-    		sendMsg(null, -1);
-    	}
     	this.requestCallBack = requestCallBack;
+    	if(!isInternetAvaliable(context)){
+    		sendMsg(null, 0);
+    		Log.d("tag","无网络");
+    		return;
+    	}
             new Thread(){
 
                     @Override
