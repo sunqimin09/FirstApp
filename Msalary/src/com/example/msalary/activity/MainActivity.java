@@ -1,7 +1,6 @@
 package com.example.msalary.activity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -25,7 +24,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.msalary.R;
+import com.example.msalary.adapter.MainCompanysAdapter;
 import com.example.msalary.adapter.ViewPagerAdapter;
+import com.example.msalary.entity.CompanyEntity;
 import com.example.msalary.entity.RequestEntity;
 import com.example.msalary.entity.ResponseResult;
 import com.example.msalary.internet.InternetHelper;
@@ -47,9 +48,11 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 	    private View tabView1,tabView2;
 	    private ImageView exposure_iv;//匿名曝光工资
 	    private TextView more_tv;//更多。。
-	    private TextView hotCompany_tv;
-	    private TextView companyMessage_tv;
+//	    private TextView hotCompany_tv;
+//	    private TextView companyMessage_tv;
 	    private TextView exposure1,exposure2;
+	    
+	    private MainCompanysAdapter companysAdapter = null;
 	    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -143,15 +146,16 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 	 */
 	private void initPager1View(){
 		hotCompanyList=(ListView) tabView1.findViewById(R.id.hot_company_lv);
-		ArrayList<HashMap<String, String>> list1=new ArrayList<HashMap<String,String>>();
-		for(int i=0;i<5;i++){
-			HashMap<String, String> map=new HashMap<String, String>();
-			map.put("company", "华为");
-			map.put("message", "321条信息");
-			list1.add(map);			
-		}
-		BaseAdapter adapter1=new ListViewAdapter(this, list1);
-		hotCompanyList.setAdapter(adapter1);
+//		ArrayList<HashMap<String, String>> list1=new ArrayList<HashMap<String,String>>();
+//		for(int i=0;i<5;i++){
+//			HashMap<String, String> map=new HashMap<String, String>();
+//			map.put("company", "华为");
+//			map.put("message", "321条信息");
+//			list1.add(map);			
+//		}
+		ArrayList<CompanyEntity> list = new ArrayList<CompanyEntity>();
+		companysAdapter=new MainCompanysAdapter(this,list);
+		hotCompanyList.setAdapter(companysAdapter);
 	}
 
 	
@@ -261,54 +265,54 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 
 
 
-	/**
-	 * 
-	 * @author 主页热门公司的adapter
-	 *
-	 */
-	private class ListViewAdapter extends BaseAdapter{
-		private Context context;
-		private ArrayList<HashMap<String, String>> list;
-		public ListViewAdapter(Context context,ArrayList<HashMap<String, String>> list){
-			this.context=context;
-			this.list=list;
-		}
-		@Override
-		public int getCount() {
-			// TODO Auto-generated method stub
-			return list.size();
-		}
-		@Override
-		public Object getItem(int position) {
-			// TODO Auto-generated method stub
-			return list.get(position);
-		}
-		@Override
-		public long getItemId(int position) {
-			// TODO Auto-generated method stub
-			return position;
-		}
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			// TODO Auto-generated method stub
-			convertView=LayoutInflater.from(context).inflate(R.layout.hot_company_listitem, null);
-			hotCompany_tv=(TextView) convertView.findViewById(R.id.hot_company_textview);
-			companyMessage_tv=(TextView) convertView.findViewById(R.id.company_message_textview);
-			hotCompany_tv.setText(list.get(position).get("company"));
-			companyMessage_tv.setText(list.get(position).get("message"));
-//			convertView.setOnClickListener(new OnClickListener() {
-//				
-//				@Override
-//				public void onClick(View v) {
-//					// TODO Auto-generated method stub
-//					Intent intent=new Intent(MainActivity.this,CompanyAllPositionActivity.class);
-//					startActivity(intent);
-//					
-//				}
-//			});
-			return convertView;
-		}
-	}
+//	/**
+//	 * 
+//	 * @author 主页热门公司的adapter
+//	 *
+//	 */
+//	private class ListViewAdapter extends BaseAdapter{
+//		private Context context;
+//		private ArrayList<HashMap<String, String>> list;
+//		public ListViewAdapter(Context context,ArrayList<HashMap<String, String>> list){
+//			this.context=context;
+//			this.list=list;
+//		}
+//		@Override
+//		public int getCount() {
+//			// TODO Auto-generated method stub
+//			return list.size();
+//		}
+//		@Override
+//		public Object getItem(int position) {
+//			// TODO Auto-generated method stub
+//			return list.get(position);
+//		}
+//		@Override
+//		public long getItemId(int position) {
+//			// TODO Auto-generated method stub
+//			return position;
+//		}
+//		@Override
+//		public View getView(int position, View convertView, ViewGroup parent) {
+//			// TODO Auto-generated method stub
+//			convertView=LayoutInflater.from(context).inflate(R.layout.hot_company_listitem, null);
+//			hotCompany_tv=(TextView) convertView.findViewById(R.id.hot_company_textview);
+//			companyMessage_tv=(TextView) convertView.findViewById(R.id.company_message_textview);
+//			hotCompany_tv.setText(list.get(position).get("company"));
+//			companyMessage_tv.setText(list.get(position).get("message"));
+////			convertView.setOnClickListener(new OnClickListener() {
+////				
+////				@Override
+////				public void onClick(View v) {
+////					// TODO Auto-generated method stub
+////					Intent intent=new Intent(MainActivity.this,CompanyAllPositionActivity.class);
+////					startActivity(intent);
+////					
+////				}
+////			});
+//			return convertView;
+//		}
+//	}
 	/**
 	 * 
 	 * @author 主页热门职位的adapter。

@@ -126,6 +126,7 @@
             android:layout_gravity="right"
             android:textSize="20sp"
             android:textColor="#FF00FF"
+            android:visibility="gone"
             android:text="更多.."/>
     </LinearLayout>
 </RelativeLayout>
