@@ -16,6 +16,7 @@
         android:background="@drawable/cloud_back_click" />
 
     <View
+        android:id="@+id/title_line"
         android:layout_width="1dp"
         android:layout_height="fill_parent"
         android:layout_marginLeft="80dp"

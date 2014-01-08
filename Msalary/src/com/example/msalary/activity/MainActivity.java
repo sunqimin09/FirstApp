@@ -65,6 +65,7 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 	
 	public void initView(){
 		super.initView();
+		findViewById(R.id.title_line).setVisibility(View.GONE);
 		findViewById(R.id.back).setVisibility(View.GONE);
 		tv_title.setText(getString(R.string.main_title));
 		tab1=(Button) findViewById(R.id.company_ibtn_2);
@@ -182,13 +183,7 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch(v.getId()){
 		case R.id.exposure_tv1:
-			Intent intent1=new Intent(MainActivity.this, ExposureSalary.class);
-			startActivity(intent1);
-			break;
 		case R.id.exposure_tv2:
-		     Intent intent2=new Intent(MainActivity.this, ExposureSalary.class);
-		     startActivity(intent2);
-		     break;
 		case R.id.exposure_tv:
 			Intent intent0=new Intent(MainActivity.this, ExposureSalary.class);
 			startActivity(intent0);
@@ -197,7 +192,6 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 			
 			tab1.setVisibility(1);
 			tab1_2.setVisibility(View.GONE);
-			
 			tab2_2.setVisibility(View.GONE);
 			tab2.setVisibility(1);
 			viewPager.setCurrentItem(PAGE1);
@@ -212,21 +206,26 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 		case R.id.search_company_bt://查公司
 			EditText search_company_et=(EditText) findViewById(R.id.search_company_et);
 			String v1= search_company_et.getText().toString();
-			startActivity(new Intent(MainActivity.this,SelectCompanyActivity.class).putExtra("key",v1));
+			if(checkInput(v1))
+				startActivity(new Intent(MainActivity.this,SelectCompanyActivity.class).putExtra("key",v1));
 			break;
 		case R.id.search_position_bt://查职位
 			EditText search_position_et=(EditText) findViewById(R.id.search_position_et);
 			String value=search_position_et.getText().toString();
-			startActivity(new Intent(MainActivity.this,SelectPositionActivity.class).putExtra("key",value));
+			if(checkInput(value))
+				startActivity(new Intent(MainActivity.this,SelectPositionActivity.class).putExtra("key",value));
 			break;
 		default:
 			break;
 		}
 	}
 	
-	private boolean checkInput(){
-		
-		return false;
+	private boolean checkInput(String str){
+		if(str.equals("")){
+			Toast("搜点啥呢");
+			return false;
+		}
+		return true;
 	}
 	
 	/**

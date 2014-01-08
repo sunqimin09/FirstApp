@@ -70,15 +70,14 @@ public class SelectPositionActivity extends BaseActivity implements
 		position_list.setAdapter(adapter);
 	}
 
-	public void onClick(View view){
-		switch(view.getId()){
+	public void onClick(View view) {
+		switch (view.getId()) {
 		case R.id.back:
 			finish();
 			break;
 		}
 	}
-	
-	
+
 	/**
 	 * ·¢ÆðÍøÂçÇëÇó
 	 * 
@@ -179,8 +178,8 @@ public class SelectPositionActivity extends BaseActivity implements
 				PositionAllCompanyActivity.class);
 		intent.putExtra("positionId",
 				((JobEntity) showResult.list.get((int) arg3)).getId());
-//		intent.putExtra("positionName",
-//				((JobEntity) showResult.list.get((int) arg3)).getName());
+		// intent.putExtra("positionName",
+		// ((JobEntity) showResult.list.get((int) arg3)).getName());
 		startActivity(intent);
 	}
 }
