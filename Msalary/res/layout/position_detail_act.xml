@@ -174,6 +174,7 @@
              android:layout_height="wrap_content"
              android:background="@drawable/blue_button"
              android:layout_alignParentLeft="true"
+             android:onClick="onClick"
              android:text="有用（11）"
              android:gravity="center"/>
         <RelativeLayout
@@ -186,6 +187,7 @@
              android:layout_height="wrap_content"
              android:background="@drawable/blue_button"
              android:text="我要纠错！"
+             android:onClick="onClick"
              android:gravity="center"/>
     </RelativeLayout>
     </RelativeLayout>

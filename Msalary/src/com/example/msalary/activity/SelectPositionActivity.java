@@ -70,6 +70,15 @@ public class SelectPositionActivity extends BaseActivity implements
 		position_list.setAdapter(adapter);
 	}
 
+	public void onClick(View view){
+		switch(view.getId()){
+		case R.id.back:
+			finish();
+			break;
+		}
+	}
+	
+	
 	/**
 	 * ·¢ÆğÍøÂçÇëÇó
 	 * 

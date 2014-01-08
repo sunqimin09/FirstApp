@@ -20,7 +20,7 @@ public class RequestEntity {
 		this.url = url;
 	}
 	
-	private Context context =null;
+	public int requestCode = 0;
 	
 	public HashMap<String,Object> params = new HashMap<String,Object>();
     

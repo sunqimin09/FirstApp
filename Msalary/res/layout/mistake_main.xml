@@ -68,6 +68,7 @@
             android:id="@+id/mistake_salary_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="number" 
             android:paddingTop="12sp"
             android:hint="请填写工资"/>
         <EditText 
@@ -78,14 +79,17 @@
         
     </LinearLayout>
     <Button 
+        android:id="@+id/mistake_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10sp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:background="@drawable/blue_button"
+        android:onClick="onClick"
         android:text="提  交"
         android:textSize="25sp"
         android:gravity="center"/>
+
 
 </LinearLayout>

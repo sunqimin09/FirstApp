@@ -55,7 +55,7 @@ public class CommentActivity extends BaseActivity implements OnClickListener{
     	//设置标题
     	setContentView(R.layout.comment_main);
     	initView();
-    	request(getIntent().getIntExtra("companyId", 0));
+    	request(0);
 
     }
      protected void initView(){
@@ -76,15 +76,21 @@ public class CommentActivity extends BaseActivity implements OnClickListener{
  		// TODO Auto-generated method stub
  		switch (v.getId()) {
  		case R.id.make_comments_btn:
- 			   if(make_comment_et.getText().toString()!=null){
- 				   SimpleDateFormat  sDateFormat=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");    
- 				   String date= sDateFormat.format(new java.util.Date());
- 				   request(date,make_comment_et.getText().toString());
- 			   }else{
- 				   Toast("请添加评论内容");
- 			   }
+ 			String temp = make_comment_et.getText().toString();
+ 			if(checkInput(temp))
+ 				request(1,temp);
+// 			   if(make_comment_et.getText().toString()!=null){
+// 				   SimpleDateFormat  sDateFormat=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");    
+// 				   String date= sDateFormat.format(new java.util.Date());
+// 				   
+// 			   }else{
+// 				   Toast("请添加评论内容");
+// 			   }
  			break;
  		case R.id.back://
+ 			finish();
+ 			break;
+ 		case R.id.comment_company_name:
  			finish();
  			break;
  		default:
@@ -92,62 +98,103 @@ public class CommentActivity extends BaseActivity implements OnClickListener{
  		}
  	}
      
+     private boolean checkInput(String temp){
+    	 if(temp.equals("")){
+    		 Toast("您写的太少了吧");
+    		 return false;
+    	 }else if(temp.trim().length()>100){
+    		 Toast("评论内容太长了");
+    		 return false;
+    	 }
+    	 
+    	 return true;
+     }
+     
+     private void request(int requestCode,String... arg0){
+    	 RequestEntity requestEntity = null;
+    	 HashMap<String,Object> map = new HashMap<String,Object>();
+    	 switch(requestCode){
+    	 case 0://
+    		 requestEntity =new RequestEntity(this,MConstant.URL_COMPANY_COMMENT);
+    		 map.put("key",getIntent().getIntExtra("companyId", 0));
+    		 break;
+    	 case 1://
+    		 requestEntity =new RequestEntity(this,MConstant.URL_COMPANY_COMMENT_NEW);
+    		 map.put("companyId",getIntent().getIntExtra("companyId", 0));
+    	 	 map.put("commentContent", arg0[0]);
+    		 break;
+    	 }
+    	 requestEntity.params = map;
+  		 new InternetHelper(this).requestThread(requestEntity, this);
+     }
+     
+     
+     
      /**
  	 * 发起网络请求
  	 * @param requestStr
  	 */
- 	private void request(int requestStr){
- 		RequestEntity requestEntity =new RequestEntity(this,MConstant.URL_COMPANY_COMMENT);
- 		HashMap<String,Object> map = new HashMap<String,Object>();
- 		map.put("key", requestStr);
- 		requestEntity.params = map;
- 		new InternetHelper(this).requestThread(requestEntity, this);
- 	}
+// 	private void request(int requestStr){
+// 		RequestEntity requestEntity =new RequestEntity(this,MConstant.URL_COMPANY_COMMENT);
+// 		HashMap<String,Object> map = new HashMap<String,Object>();
+// 		map.put("key", requestStr);
+// 		requestEntity.params = map;
+// 		new InternetHelper(this).requestThread(requestEntity, this);
+// 	}
 	@Override
  	public void requestSuccess(ResponseResult responseResult) {
  		Log.d("tag","showResult"+responseResult);
- 		showResult = JsonCommentsOfCompany.parse(responseResult,this);
- 		adapter.setData(showResult);
+ 		switch(responseResult.requestCode){
+ 		case 0://评论列表
+ 			showResult = JsonCommentsOfCompany.parse(responseResult,this);
+ 	 		adapter.setData(showResult);
+ 			break;
+ 		case 1://发表评论
+ 			break;
+ 		}
+ 		
  	}
- 	private void request(String createDate,String content){
- 		getString(R.string.url_home);
- 		RequestEntity requestEntity =new RequestEntity(this,MConstant.URL_COMPANY_COMMENT_NEW);
- 		HashMap<String,Object> map = new HashMap<String,Object>();
- 		map.put("createDate", createDate);
- 		map.put("commentContent", content);
- 		requestEntity.params = map;
- 
- 		new InternetHelper(this).requestThread(requestEntity, callback1);
- 	}
-	IRequestCallBack callback1=new IRequestCallBack() {
-		
-		@Override
-		public void requestSuccess(ResponseResult responseResult) {
-			// TODO Auto-generated method stub
-			make_comment_et.setText("");
-			Toast("评论发表成功");
-		}
-		
-		@Override
-		public void requestFailedStr(String str) {
-			// TODO Auto-generated method stub
-			
-		}
-	};
+// 	private void request(String createDate,String content){
+// 		RequestEntity requestEntity =new RequestEntity(this,MConstant.URL_COMPANY_COMMENT_NEW);
+// 		HashMap<String,Object> map = new HashMap<String,Object>();
+// 		map.put("createDate", createDate);
+// 		map.put("commentContent", content);
+// 		requestEntity.params = map;
+// 
+// 		new InternetHelper(this).requestThread(requestEntity, callback1);
+// 	}
+// 	
+//	IRequestCallBack callback1=new IRequestCallBack() {
+//		
+//		@Override
+//		public void requestSuccess(ResponseResult responseResult) {
+//			// TODO Auto-generated method stub
+//			make_comment_et.setText("");
+//			Toast("评论发表成功");
+//		}
+//		
+//		@Override
+//		public void requestFailedStr(String str) {
+//			// TODO Auto-generated method stub
+//			
+//		}
+//	};
  
      /**
       * 
       * @author 评论列表的数据adapter
       *
       */
-     private class CommentAdapter extends  BaseAdapter{
+     private class CommentAdapter extends BaseAdapter{
          private Context context;
          private ArrayList<CompanyCommentEntity> list;
-         public CommentAdapter(Context context,ShowResult result){
+         @SuppressWarnings("unchecked")
+		public CommentAdapter(Context context,ShowResult result){
         	 this.context=context;
         	 this.list=(ArrayList<CompanyCommentEntity>)result.list;
          }
-         public void setData(ShowResult result){
+         @SuppressWarnings("unchecked")
+		public void setData(ShowResult result){
      		this.list = (ArrayList<CompanyCommentEntity>) result.list;
      		this.notifyDataSetChanged();
      	}

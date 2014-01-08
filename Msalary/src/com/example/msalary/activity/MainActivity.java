@@ -3,34 +3,33 @@ package com.example.msalary.activity;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import com.example.msalary.R;
-import com.example.msalary.adapter.ViewPagerAdapter;
-
-import android.os.Bundle;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.view.Window;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
+
+import com.example.msalary.R;
+import com.example.msalary.adapter.ViewPagerAdapter;
+import com.example.msalary.entity.RequestEntity;
+import com.example.msalary.entity.ResponseResult;
+import com.example.msalary.internet.InternetHelper;
+import com.example.msalary.util.MConstant;
 /**
  * 预测：能破一千行
  * @author sunqm
@@ -91,7 +90,6 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Intent intent=new Intent(MainActivity.this, HotAct.class);
 				startActivity(intent);
 			}
@@ -155,25 +153,8 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 		BaseAdapter adapter1=new ListViewAdapter(this, list1);
 		hotCompanyList.setAdapter(adapter1);
 	}
-	/**
-	 
-	private void initPager1View(){
-//		hotCompanyList=(ListView) findViewById(R.id.hot_company_lv);
-//		hotCompanyList.addHeaderView(LayoutInflater.from(this).inflate(R.layout.listview_header, null));
-		hotCompanyList=(ListView) tabView1.findViewById(R.id.hot_company_lv);
-		hotCompanyList.addHeaderView(LayoutInflater.from(this).inflate(R.layout.listview_header, null));
-		ArrayList<Map<String, String>> listItems=new ArrayList<Map<String,String>>();
-		HashMap<String, String> map;
-		for(int i=0;i<5;i++){
-			map=new HashMap<String, String>();
-			map.put("company", "华为");
-			map.put("message", "100条信息");
-			listItems.add(map);
-		}
-		SimpleAdapter smapt=new SimpleAdapter(this, listItems, R.layout.hot_company_listitem, new String[] {"company","message"}, new int[] {R.id.hot_company_textview,R.id.company_message_textview});
-		hotCompanyList.setAdapter(smapt);
-	}
-	*/
+
+	
 	/**
 	 * 初始化界面2的信息
 	 */
@@ -182,12 +163,13 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 		BaseAdapter adapter=new GridViewAdapter(this);
 		hotPositionList.setAdapter(adapter);
 	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	
 	/**
 	 * 点击卡片事件。。。
 	 */
@@ -243,6 +225,42 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 		return false;
 	}
 	
+	/**
+	 * 发起网络请求
+	 * @param code
+	 */
+	private void request(int code){
+		RequestEntity requestEntity = null;
+		switch(code){
+		case 0://热门公司
+			requestEntity = new RequestEntity(this,MConstant.URL_COMPANY_SALARY_RANK);
+			
+			break;
+		case 1://热门职位
+			requestEntity = new RequestEntity(this,MConstant.URL_COMPANY_SALARY_RANK);
+			
+			break;
+		}
+		requestEntity.requestCode = code;
+		new InternetHelper(this).requestThread(requestEntity, this);
+	}
+	
+	
+	
+	@Override
+	public void requestSuccess(ResponseResult responseResult) {
+		switch(responseResult.requestCode){
+		case 0://热门公司
+			
+			break;
+		case 1://热门职位
+			
+			break;
+		}
+	}
+
+
+
 	/**
 	 * 
 	 * @author 主页热门公司的adapter
