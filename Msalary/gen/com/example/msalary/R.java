@@ -53,7 +53,7 @@ public final class R {
     public static final class id {
         public static final int LinearLayout1=0x7f090006;
         public static final int LinearLayout1_salary=0x7f090039;
-        public static final int action_settings=0x7f090057;
+        public static final int action_settings=0x7f090058;
         public static final int allcompany_list=0x7f090036;
         public static final int allcompany_tv=0x7f090032;
         public static final int allposition_list=0x7f090011;
@@ -136,7 +136,8 @@ public final class R {
         public static final int textView2=0x7f09003d;
         public static final int textView3=0x7f090040;
         public static final int textView4=0x7f090043;
-        public static final int title_tv=0x7f090056;
+        public static final int title_line=0x7f090056;
+        public static final int title_tv=0x7f090057;
         public static final int userful_tv=0x7f090047;
         public static final int viewPager=0x7f090005;
     }

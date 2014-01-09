@@ -68,7 +68,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="要查询的职位"
-            android:textSize="20dp"
+            android:textSize="20sp"
+            android:singleLine="true"
             android:layout_weight="3"/>
         <Button
             android:id="@+id/search_position_bt"
@@ -104,6 +105,7 @@
         android:layout_below="@+id/exposure_tv2"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="10dp"
+        android:visibility="gone"
         android:orientation="vertical">
         <TextView 
             android:layout_width="match_parent"

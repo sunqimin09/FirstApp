@@ -10,10 +10,12 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -37,7 +39,7 @@ import com.example.msalary.util.MConstant;
  * Create at:   2013-12-26 下午11:04:23 
  * TODO
  */
-public class MainActivity extends BaseActivity implements OnClickListener{
+public class MainActivity extends BaseActivity implements OnClickListener, OnKeyListener{
 	   private static final int PAGE1=0;
 	    private static final int PAGE2=1;
 	    private ViewPager viewPager;
@@ -51,7 +53,8 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 //	    private TextView hotCompany_tv;
 //	    private TextView companyMessage_tv;
 	    private TextView exposure1,exposure2;
-	    
+	    private EditText search_company_et;
+	    private EditText search_position_et;
 	    private MainCompanysAdapter companysAdapter = null;
 	    
 	@Override
@@ -146,6 +149,9 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 	 * 初始化界面1信息
 	 */
 	private void initPager1View(){
+		
+		search_company_et=(EditText) tabView1.findViewById(R.id.search_company_et);
+		search_company_et.setOnKeyListener(this);
 		hotCompanyList=(ListView) tabView1.findViewById(R.id.hot_company_lv);
 //		ArrayList<HashMap<String, String>> list1=new ArrayList<HashMap<String,String>>();
 //		for(int i=0;i<5;i++){
@@ -164,6 +170,9 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 	 * 初始化界面2的信息
 	 */
 	private void initPager2View(){
+		
+		search_position_et=(EditText) tabView2.findViewById(R.id.search_position_et);
+		search_position_et.setOnKeyListener(this);
 		hotPositionList=(GridView)tabView2.findViewById(R.id.hotposition_gv);
 		BaseAdapter adapter=new GridViewAdapter(this);
 		hotPositionList.setAdapter(adapter);
@@ -204,16 +213,10 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 			viewPager.setCurrentItem(PAGE2);
 			break;
 		case R.id.search_company_bt://查公司
-			EditText search_company_et=(EditText) findViewById(R.id.search_company_et);
-			String v1= search_company_et.getText().toString();
-			if(checkInput(v1))
-				startActivity(new Intent(MainActivity.this,SelectCompanyActivity.class).putExtra("key",v1));
+			searchCompany();
 			break;
 		case R.id.search_position_bt://查职位
-			EditText search_position_et=(EditText) findViewById(R.id.search_position_et);
-			String value=search_position_et.getText().toString();
-			if(checkInput(value))
-				startActivity(new Intent(MainActivity.this,SelectPositionActivity.class).putExtra("key",value));
+			searchPosition();
 			break;
 		default:
 			break;
@@ -263,6 +266,17 @@ public class MainActivity extends BaseActivity implements OnClickListener{
 	}
 
 
+	private void searchCompany(){
+		String v1= search_company_et.getText().toString();
+		if(checkInput(v1))
+			startActivity(new Intent(MainActivity.this,SelectCompanyActivity.class).putExtra("key",v1));
+	}
+	
+	private void searchPosition(){
+		String value=search_position_et.getText().toString();
+		if(checkInput(value))
+			startActivity(new Intent(MainActivity.this,SelectPositionActivity.class).putExtra("key",value));
+	}
 
 //	/**
 //	 * 
@@ -355,5 +369,25 @@ public class MainActivity extends BaseActivity implements OnClickListener{
              return convertView;  
          }  
            
-     }  
+     }
+
+
+
+	/* (non-Javadoc)
+	 * @see android.view.View.OnKeyListener#onKey(android.view.View, int, android.view.KeyEvent)
+	 */
+	@Override
+	public boolean onKey(View v, int keyCode, KeyEvent event) {
+		if(keyCode==KeyEvent.KEYCODE_ENTER){//修改回车键功能
+			switch(v.getId()){
+			case R.id.search_company_et://公司
+				searchCompany();
+				break;
+			case R.id.search_position_et://职位
+				searchPosition();
+				break;
+			}
+		}
+		return false;
+	}  
 }

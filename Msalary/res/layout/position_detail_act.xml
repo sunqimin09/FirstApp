@@ -25,6 +25,9 @@
         android:layout_margin="3dp"
         android:layout_centerHorizontal="true"
         android:text="华为科技" />
+    
+    
+    
     <LinearLayout 
         android:id="@+id/LinearLayout1_salary"
         android:layout_width="match_parent"
@@ -42,28 +45,27 @@
 
             <TextView
                 android:id="@+id/textView1"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                
                 android:text="0000~3000" />
 
             <ProgressBar
                 android:id="@+id/progressBar1"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/textView1"
-               
-               
                 android:layout_centerVertical="true"
-                 />
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_toLeftOf="@+id/percent1"
+                android:layout_toRightOf="@+id/textView1" />
+
             <TextView 
                 android:id="@+id/percent1"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/progressBar1"
+                android:layout_alignParentRight="true"
                 android:text="14%"/>
         </RelativeLayout>
         <RelativeLayout
@@ -75,7 +77,7 @@
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:text="3000~6000" />
@@ -83,18 +85,19 @@
             <ProgressBar
                 android:id="@+id/progressBar2"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
                 android:layout_toRightOf="@+id/textView2"
-          
+          		android:layout_toLeftOf="@+id/percent2"
                 android:layout_centerVertical="true"
                  />
              <TextView 
                 android:id="@+id/percent2"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/progressBar2"
+                android:layout_alignParentRight="true"
                 android:text="14%"/>
         </RelativeLayout>
         <RelativeLayout
@@ -106,7 +109,7 @@
 
             <TextView
                 android:id="@+id/textView3"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:text="6000~9000" />
@@ -114,18 +117,19 @@
             <ProgressBar
                 android:id="@+id/progressBar3"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/textView3"
-               
+                android:layout_toLeftOf="@+id/percent3"
+                android:layout_marginRight="20dp"
                 android:layout_centerVertical="true"
                  />
              <TextView 
                 android:id="@+id/percent3"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/progressBar3"
+                android:layout_alignParentRight="true"
                 android:text="14%"/>
         </RelativeLayout>
         <RelativeLayout
@@ -137,7 +141,7 @@
 
             <TextView
                 android:id="@+id/textView4"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:text="9000以上   " />
@@ -145,17 +149,19 @@
             <ProgressBar
                 android:id="@+id/progressBar4"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_toLeftOf="@+id/percent4"
                 android:layout_toRightOf="@+id/textView4"
                 android:layout_centerVertical="true"
                  />
              <TextView 
                 android:id="@+id/percent4"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/progressBar4"
+                android:layout_alignParentRight="true"
                 android:text="14%"/>
         </RelativeLayout>
     </LinearLayout>

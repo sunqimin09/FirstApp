@@ -85,6 +85,7 @@ public class CompanyAllPositionActivity extends BaseActivity implements
 		showResult = new ShowResult();
 		adapter = new allpositionAdapter(this, showResult);
 		allPosition_list.setAdapter(adapter);
+		allPosition_list.setOnItemClickListener(this);
 		request(getIntent().getIntExtra("companyId", 0));
 	}
 
@@ -189,7 +190,13 @@ public class CompanyAllPositionActivity extends BaseActivity implements
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		// TODO Auto-generated method stub
+		Intent intent = new Intent(CompanyAllPositionActivity.this,
+				PositionDetailActivity.class);
+		intent.putExtra("jobId",
+				((JobEntity) showResult.list.get((int) arg3)).getId());
+		intent.putExtra("companyId",
+				getIntent().getIntExtra("companyId", 0));
+		startActivity(intent);
 
 	}
 }

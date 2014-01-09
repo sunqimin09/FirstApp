@@ -27,17 +27,21 @@
             android:id="@+id/exposure_et_companyName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             android:paddingTop="12sp"
             android:hint="填写公司名称"/>
         <EditText 
             android:id="@+id/exposure_et_jobName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             android:hint="填写职位"/>
         <EditText 
             android:id="@+id/exposure_et_salary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="number"
+            android:singleLine="true"
             android:hint="填写月薪（含税）"/>
     </LinearLayout>
     <Button 

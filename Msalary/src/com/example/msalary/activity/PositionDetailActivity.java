@@ -63,14 +63,6 @@ public class PositionDetailActivity extends BaseActivity{
 		progressBar4 = (ProgressBar) findViewById(R.id.progressBar4);
 		userful_tv=(TextView) findViewById(R.id.userful_tv);
 		mistake_tv=(TextView) findViewById(R.id.detail_mistake_tv);
-//		mistake_tv.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				// TODO Auto-generated method stub
-//			
-//			}
-//		});
 	}
  
 	public void onClick(View view){

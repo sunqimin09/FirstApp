@@ -15,6 +15,8 @@ import org.apache.http.params.CoreConnectionPNames;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -30,8 +32,12 @@ public class InternetHelper {
 
 	private Context context = null;
 
+	ProgressDialog progressDialog = null;
+	
 	public InternetHelper(Context context) {
 		this.context = context;
+		progressDialog = new ProgressDialog(context);
+		progressDialog.setMessage("数据加载中...");
 	}
 
 	public InternetHelper() {
@@ -54,6 +60,7 @@ public class InternetHelper {
 				if (info != null && info.isConnected()) {
 					// 判断当前网络是否已经连接
 					if (info.getState() == NetworkInfo.State.CONNECTED) {
+						Log.d("tag","有网络");
 						return true;
 					}
 				}
@@ -65,8 +72,11 @@ public class InternetHelper {
 		return false;
 	}
 
+	
+	
 	Handler handler = new Handler() {
 
+		@SuppressLint("HandlerLeak")
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
@@ -83,6 +93,7 @@ public class InternetHelper {
 						.changeCodeToStr(0));
 				break;
 			}
+			progressDialog.dismiss();
 		}
 
 	};
@@ -97,6 +108,7 @@ public class InternetHelper {
 	 */
 	public void requestThread(final RequestEntity requestEntity,
 			final IRequestCallBack requestCallBack) {
+		progressDialog.show();
 		this.requestCallBack = requestCallBack;
 		if (!isInternetAvaliable(context)) {
 			sendMsg(null, 0);
@@ -107,7 +119,8 @@ public class InternetHelper {
 
 			@Override
 			public void run() {
-				ResponseResult responseResult = InternetHelper
+				ResponseResult responseResult = null;
+				responseResult = InternetHelper
 						.request(requestEntity);
 				if (responseResult.resultCode == HttpStatus.SC_OK) {// 成功
 					Log.d("tag", "result-->" + responseResult.resultStr);
@@ -248,11 +261,11 @@ public class InternetHelper {
 					.getStatusCode());
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
-			responseResult.resultCode = (-1);
+			responseResult.resultCode = (2);
 		} catch (Exception e) {
 			e.printStackTrace();
 			Log.e("tag", "HttpHelper-get-result-exception->" + e);
-			responseResult.resultCode = (-2);
+			responseResult.resultCode = (2);
 		} finally {
 			try {
 				if (null != reader) {
@@ -261,7 +274,7 @@ public class InternetHelper {
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
-				responseResult.resultCode = (-2);
+				responseResult.resultCode = (2);
 			}
 			client.getConnectionManager().shutdown();
 		}
