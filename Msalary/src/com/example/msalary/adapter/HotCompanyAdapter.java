@@ -37,7 +37,6 @@ public class HotCompanyAdapter extends BaseAdapter{
 
 	@Override
 	public Object getItem(int arg0) {
-		// TODO Auto-generated method stub
 		return list.get(arg0);
 	}
 

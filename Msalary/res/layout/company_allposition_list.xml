@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/back_white"
+    style="@style/list_item_background"
     android:orientation="horizontal" >
 
   
@@ -22,6 +22,4 @@
         android:layout_alignParentRight="true"
         android:textColor="#FF7F50"
         android:textSize="15sp" />
-    
-
 </RelativeLayout>

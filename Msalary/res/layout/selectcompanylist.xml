@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
+    style="@style/list_item_background"
     android:orientation="horizontal" >
 
   
@@ -22,8 +23,5 @@
         android:layout_alignParentRight="true"
         android:gravity="center_vertical"
         android:textColor="#FF7F50"
-        
         android:textSize="15sp" />
-    
-
 </RelativeLayout>

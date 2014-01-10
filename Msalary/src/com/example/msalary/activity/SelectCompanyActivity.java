@@ -2,15 +2,16 @@ package com.example.msalary.activity;
 
 import java.util.HashMap;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -81,9 +82,30 @@ public class SelectCompanyActivity extends BaseActivity implements OnItemClickLi
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		finish();
 	}
+	
+	private void showNothingDialog(){
+		 AlertDialog.Builder builder = new Builder(this);
+		 builder.setMessage("确认退出吗？");
+		 builder.setTitle("提示");
+		 builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+	   @Override
+		   public void onClick(DialogInterface dialog, int which) {
+//		    dialog.dismiss();
+//	     Main.this.finish();
+	   		}
+		});
+	     builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+		  @Override
+		   public void onClick(DialogInterface dialog, int which) {
+//		    dialog.dismiss();
+		  }
+	     });
+		  builder.create().show();
+	}
 
+	private Dialog dialog = null;
+	
 	
 }
