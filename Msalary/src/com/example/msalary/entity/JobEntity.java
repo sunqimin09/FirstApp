@@ -122,6 +122,14 @@ public class JobEntity extends ShowResult{
 		this.salary = salary;
 	}
 	
+	public int getExporseCount() {
+		return exporseCount;
+	}
+
+	public void setExporseCount(int exporseCount) {
+		this.exporseCount = exporseCount;
+	}
+	
 	private int id;
 	
 	private String name;
@@ -130,6 +138,9 @@ public class JobEntity extends ShowResult{
 	/**有该岗位的公司的数量*/
 	private int companyCount;
 	
+	/**该职位曝光的次数*/
+	private int exporseCount;
+
 	private int salary;
 	/**创建时间*/
 	private String createDate;

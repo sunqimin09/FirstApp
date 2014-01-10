@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="5dp"
     style="@style/list_item_background"
     android:orientation="horizontal" >
 
@@ -10,10 +11,9 @@
         android:id="@+id/allposition_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
         android:layout_alignParentLeft="true"
-        android:textSize="22sp" />
+        android:hint="Name"
+        android:textSize="18sp" />
      <TextView
         android:id="@+id/position_salary_tv"
         android:layout_width="wrap_content"
@@ -21,5 +21,16 @@
         android:paddingTop="3dp"
         android:layout_alignParentRight="true"
         android:textColor="#FF7F50"
-        android:textSize="15sp" />
+        android:hint="Salary"
+        android:textSize="24sp" />
+
+     <TextView
+         android:id="@+id/company_allposition_item_count_tv"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@+id/allposition_tv"
+         android:layout_marginTop="3dp"
+         android:hint="0人曝光" />
+
 </RelativeLayout>

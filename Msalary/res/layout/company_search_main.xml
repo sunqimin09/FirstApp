@@ -10,6 +10,7 @@
       android:id="@+id/company_list_lv" 
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_marginTop="2dp"
    	  android:divider="@android:drawable/divider_horizontal_bright"
       ></ListView>
 

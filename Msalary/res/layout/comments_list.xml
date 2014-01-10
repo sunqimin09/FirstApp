@@ -7,22 +7,21 @@
 
   
     <TextView
-        
         android:id="@+id/commenttime_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:textColor="#0000FF"
+        android:hint="2014-02-14"
         android:textSize="15sp" />
      <TextView
-         
         android:id="@+id/comment_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/commenttime_tv"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="3dp"
-       
+        android:hint="没啥说的"
         android:textSize="15sp" />
     
 

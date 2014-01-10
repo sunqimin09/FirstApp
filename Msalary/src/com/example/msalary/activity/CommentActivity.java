@@ -228,7 +228,8 @@ public class CommentActivity extends BaseActivity implements OnClickListener{
 			}else{
 				 holder = (ViewHolder) convertView.getTag();
 			}
-			holder.commentTime_tv.setText(list.get(position).getCreateDate());
+			if(list.get(position).getCreateDate()!=null&&list.get(position).getCreateDate().length()>10)
+				holder.commentTime_tv.setText(list.get(position).getCreateDate().substring(0, 10));
 			holder.comment_tv.setText(list.get(position).getContent());
 			
 			return convertView;

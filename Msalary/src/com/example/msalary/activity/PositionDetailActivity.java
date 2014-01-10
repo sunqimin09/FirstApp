@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -61,6 +62,7 @@ public class PositionDetailActivity extends BaseActivity{
 		progressBar2 = (ProgressBar) findViewById(R.id.progressBar2);
 		progressBar3 = (ProgressBar) findViewById(R.id.progressBar3);
 		progressBar4 = (ProgressBar) findViewById(R.id.progressBar4);
+		progressBar1.setMax(10);
 		userful_tv=(TextView) findViewById(R.id.userful_tv);
 		mistake_tv=(TextView) findViewById(R.id.detail_mistake_tv);
 	}
@@ -141,10 +143,10 @@ public class PositionDetailActivity extends BaseActivity{
 		progressBar2.setMax(max);
 		progressBar3.setMax(max);
 		progressBar4.setMax(max);
-		progressBar1.setSecondaryProgress((salarys[0]/max)*100);
-		progressBar2.setSecondaryProgress((salarys[1]/max)*100);
-		progressBar3.setSecondaryProgress((salarys[2]/max)*100);
-		progressBar4.setSecondaryProgress((1-(salarys[0]/max+salarys[1]/max+salarys[2]/max))*100);
+		progressBar1.setProgress((salarys[0]/max)*100);
+		progressBar2.setProgress((salarys[1]/max)*100);
+		progressBar3.setProgress((salarys[2]/max)*100);
+		progressBar4.setProgress((1-(salarys[0]/max+salarys[1]/max+salarys[2]/max))*100);
 		
 		
 	}

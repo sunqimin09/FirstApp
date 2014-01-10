@@ -41,7 +41,7 @@ public class JsonPositionsOfCompany {
 				entity.setSalary(item.getInt("salary"));
 				entity.setName(item.getString("name"));
 				//职位曝光次数
-				entity.setCompanyCount(item.getInt("jobCount"));
+				entity.setExporseCount(item.getInt("jobCount"));
 				list.add(entity);
 			}
 			showResult.list = list;

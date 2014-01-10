@@ -172,6 +172,8 @@ public class CompanyAllPositionActivity extends BaseActivity implements
 						.findViewById(R.id.allposition_tv);
 				holder.positionSalary_tv = (TextView) convertView
 						.findViewById(R.id.position_salary_tv);
+				holder.positionCount_tv = (TextView) convertView
+						.findViewById(R.id.company_allposition_item_count_tv);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
@@ -179,12 +181,14 @@ public class CompanyAllPositionActivity extends BaseActivity implements
 			holder.allPosition_tv.setText(list.get(position).getName());
 			holder.positionSalary_tv.setText(list.get(position).getSalary()
 					+ "£§");
+			holder.positionCount_tv.setText(list.get(position).getCompanyCount()+"»À∆ÿπ‚");
 			return convertView;
 		}
 
 		class ViewHolder {
 			public TextView allPosition_tv;
 			public TextView positionSalary_tv;
+			TextView positionCount_tv;
 		}
 	}
 
