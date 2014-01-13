@@ -56,6 +56,8 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnKey
 	    private EditText search_company_et;
 	    private EditText search_position_et;
 	    private MainCompanysAdapter companysAdapter = null;
+	    /**是否被按下*/
+	    private boolean isPushed = false;
 	    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -265,6 +267,13 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnKey
 		}
 	}
 
+	
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+//		isPushed = false;
+	}
 
 	private void searchCompany(){
 		String v1= search_company_et.getText().toString();
@@ -381,10 +390,16 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnKey
 		if(keyCode==KeyEvent.KEYCODE_ENTER){//修改回车键功能
 			switch(v.getId()){
 			case R.id.search_company_et://公司
-				searchCompany();
+//				if(!isPushed){
+					searchCompany();
+//					isPushed = true;
+//				}
 				break;
 			case R.id.search_position_et://职位
-				searchPosition();
+//				if(!isPushed){//当前没有按下
+					searchPosition();
+//					isPushed = true;
+//				}
 				break;
 			}
 		}

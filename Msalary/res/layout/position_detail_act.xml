@@ -193,6 +193,7 @@
              android:layout_height="wrap_content"
              android:background="@drawable/blue_button"
              android:text="我要纠错！"
+             android:visibility="gone"
              android:onClick="onClick"
              android:gravity="center"/>
     </RelativeLayout>

@@ -7,12 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.msalary.R;
 import com.example.msalary.entity.JobEntity;
@@ -38,6 +37,9 @@ public class PositionDetailActivity extends BaseActivity{
    private int[] salarys =new int[4];
    
    private ProgressBar progressBar1,progressBar2,progressBar3,progressBar4;
+   
+   /**有用的数量*/
+   private int userfullCount = 0;
    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,7 @@ public class PositionDetailActivity extends BaseActivity{
 			break;
 		case R.id.userful_tv://点击有用
 			request(1);
+			
 			userful_tv.setEnabled(false);
 			break;
 		case R.id.detail_mistake_tv:
