@@ -4,7 +4,10 @@
 package com.example.msalary.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +43,33 @@ public class BaseActivity extends Activity implements IRequestCallBack{
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.title);
 		tv_title = (TextView) findViewById(R.id.title_tv);
 	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.action_settings){
+            share();
+        }
+        return true;
+    }
+
+	
+	/**分享*/
+	private void share(){
+		Intent intent=new Intent(Intent.ACTION_SEND);
+		intent.setType("image/*");//intent.setType("text/plain");
+		intent.putExtra(Intent.EXTRA_SUBJECT, "好友推荐");
+		intent.putExtra(Intent.EXTRA_TEXT, "嗨，我正在使用查工资，你也来查查吧！");
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(Intent.createChooser(intent, getTitle()));
+
+	}
+	
 	
 	/* (non-Javadoc)
 	 * @see com.example.msalary.internet.IRequestCallBack#requestSuccess(com.example.msalary.entity.ResponseResult)

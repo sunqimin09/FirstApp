@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Msalary</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">分享</string>
     <string name="hello_world">Hello world!</string>
 	<string name="exposure_title">曝工资</string>
 	<string name="hot_title">热门</string>

@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
@@ -33,6 +34,12 @@ import com.example.msalary.entity.RequestEntity;
 import com.example.msalary.entity.ResponseResult;
 import com.example.msalary.internet.InternetHelper;
 import com.example.msalary.util.MConstant;
+/**
+ * 预测：能破一千行
+ * @author sunqm
+ * Create at:   2013-12-26 下午11:04:23 
+ * TODO
+ */
 /**
  * 预测：能破一千行
  * @author sunqm
@@ -180,11 +187,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnKey
 		hotPositionList.setAdapter(adapter);
 	}
 	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
+	
 	
 	/**
 	 * 点击卡片事件。。。
@@ -225,6 +228,9 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnKey
 		}
 	}
 	
+	
+
+
 	private boolean checkInput(String str){
 		if(str.equals("")){
 			Toast("搜点啥呢");
@@ -232,6 +238,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, OnKey
 		}
 		return true;
 	}
+
 	
 	/**
 	 * 发起网络请求
