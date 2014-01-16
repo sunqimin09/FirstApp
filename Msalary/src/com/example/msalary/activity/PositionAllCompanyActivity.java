@@ -6,11 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.msalary.R;
 import com.example.msalary.adapter.PositionAllCompanyAdapter;
@@ -48,6 +47,8 @@ public class PositionAllCompanyActivity extends BaseActivity implements
 		super.initView();
 		tv_title.setText(getString(R.string.position_all_company_title));
 		allCompanyList = (ListView) findViewById(R.id.allcompany_list);
+		TextView tvName = (TextView) findViewById(R.id.some_position_tv);
+		tvName.setText(getIntent().getStringExtra("positionName"));
 		showResult = new ShowResult();
 		adapter = new PositionAllCompanyAdapter(this, showResult);
 		allCompanyList.setAdapter(adapter);
@@ -72,7 +73,7 @@ public class PositionAllCompanyActivity extends BaseActivity implements
 		RequestEntity requestEntity = new RequestEntity(this,
 				MConstant.URL_COMPANYS_OF_JOB);
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("key", requestStr);
+		map.put("jobId", requestStr);
 		requestEntity.params = map;
 		new InternetHelper(this).requestThread(requestEntity, this);
 	}

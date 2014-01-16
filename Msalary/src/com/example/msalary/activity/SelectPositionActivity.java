@@ -178,8 +178,8 @@ public class SelectPositionActivity extends BaseActivity implements
 				PositionAllCompanyActivity.class);
 		intent.putExtra("positionId",
 				((JobEntity) showResult.list.get((int) arg3)).getId());
-		// intent.putExtra("positionName",
-		// ((JobEntity) showResult.list.get((int) arg3)).getName());
+		 intent.putExtra("positionName",
+		 ((JobEntity) showResult.list.get((int) arg3)).getName());
 		startActivity(intent);
 	}
 }

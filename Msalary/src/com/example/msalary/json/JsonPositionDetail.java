@@ -42,11 +42,11 @@ public class JsonPositionDetail {
 				item = array.getJSONObject(i);
 				entity = new JobEntity();
 				entity.setSalary(item.getInt("salary"));
-				entity.setCount1(item.getInt("count1"));
-				entity.setCount2(item.getInt("count2"));
-				entity.setCount3(item.getInt("count3"));
-				entity.setCount4(item.getInt("count4"));
-				entity.setUserful_num(item.getInt("userful_num"));
+//				entity.setCount1(item.getInt("count1"));
+//				entity.setCount2(item.getInt("count2"));
+//				entity.setCount3(item.getInt("count3"));
+//				entity.setCount4(item.getInt("count4"));
+//				entity.setUserful_num(item.getInt("userful_num"));
 				list.add(entity);
 			}
 			showResult.list = list;
