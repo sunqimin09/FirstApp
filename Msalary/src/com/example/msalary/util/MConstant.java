@@ -1,8 +1,8 @@
 package com.example.msalary.util;
 
 public class MConstant {
-//	115.29.45.6 192.168.1.111
-	public final static String URL_HOME_PATH = "http://115.29.45.6:8080/Web/servlet/";
+//	115.29.45.6 
+	public final static String URL_HOME_PATH = "http://192.168.1.110:8080/Web/servlet/";
 	
 	public final static String URL_TEST = "Test";
 	/**²éÑ¯¹«Ë¾*/

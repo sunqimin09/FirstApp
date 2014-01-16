@@ -63,7 +63,7 @@
 
             <TextView 
                 android:id="@+id/percent1"
-                android:layout_width="30dp"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="14%"/>
@@ -95,7 +95,7 @@
                  />
              <TextView 
                 android:id="@+id/percent2"
-                android:layout_width="30dp"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="14%"/>
@@ -127,7 +127,7 @@
                  />
              <TextView 
                 android:id="@+id/percent3"
-                android:layout_width="30dp"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="14%"/>
@@ -159,7 +159,7 @@
                  />
              <TextView 
                 android:id="@+id/percent4"
-                android:layout_width="30dp"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="14%"/>

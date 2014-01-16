@@ -56,10 +56,10 @@ public class PositionDetailActivity extends BaseActivity{
 //		int companyId = getIntent().getIntExtra("companyId", 0);
 //		int jobId = getIntent().getIntExtra("jobId", 0);
 		request(0);
-		textView1=(TextView) findViewById(R.id.textView1);
-		textView2=(TextView) findViewById(R.id.textView2);
-		textView3=(TextView) findViewById(R.id.textView3);
-		textView4=(TextView) findViewById(R.id.textView4);
+		textView1=(TextView) findViewById(R.id.percent1);
+		textView2=(TextView) findViewById(R.id.percent2);
+		textView3=(TextView) findViewById(R.id.percent3);
+		textView4=(TextView) findViewById(R.id.percent4);
 		progressBar1 = (ProgressBar) findViewById(R.id.progressBar1);
 		progressBar2 = (ProgressBar) findViewById(R.id.progressBar2);
 		progressBar3 = (ProgressBar) findViewById(R.id.progressBar3);
@@ -118,7 +118,7 @@ public class PositionDetailActivity extends BaseActivity{
 			showResult=JsonPositionDetail.parse(responseResult,this);
 			salarys = doResult((List<JobEntity>) showResult.list);
 			showResult(salarys);
-			userful_tv.setText("有用("+((JobEntity)(showResult.list.get(0))).getUserful_num()+")");
+//			userful_tv.setText("有用("+((JobEntity)(showResult.list.get(0))).getUserful_num()+")");
 			break;
 		case 1://提交赞成功
 			Toast("赞+1");
@@ -133,23 +133,26 @@ public class PositionDetailActivity extends BaseActivity{
 	 * @param salarys
 	 */
 	private void showResult(int[] salarys){
-		int max = 0;
+		int max = 1;
 		for(int i = 0;i<salarys.length;i++){
 			max +=salarys[i];
 		}
-		textView1.setText(salarys[0]/max+"");
-		textView2.setText(salarys[1]/max+"");
-		textView3.setText(salarys[2]/max+"");
-		textView4.setText((1-(salarys[0]/max+salarys[1]/max+salarys[2]/max))+"");
-		
+		textView1
+				.setText(100 *(1 - (salarys[3] / max + salarys[1] / max + salarys[2]
+						/ max))
+						+ "%");
+		textView2.setText(100 * salarys[1] / max + "%");
+		textView3.setText(100 *salarys[2] / max + "%");
+		textView4.setText(100 *salarys[3] / max + "%");
+
 		progressBar1.setMax(max);
 		progressBar2.setMax(max);
 		progressBar3.setMax(max);
 		progressBar4.setMax(max);
-		progressBar1.setProgress((salarys[0]/max)*100);
+		progressBar1.setProgress((1-(salarys[3]/max+salarys[1]/max+salarys[2]/max))*100);
 		progressBar2.setProgress((salarys[1]/max)*100);
 		progressBar3.setProgress((salarys[2]/max)*100);
-		progressBar4.setProgress((1-(salarys[0]/max+salarys[1]/max+salarys[2]/max))*100);
+		progressBar4.setProgress((salarys[3]/max)*100);
 		
 		
 	}
