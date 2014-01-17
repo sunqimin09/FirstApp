@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:layout_height="wrap_content"
     style="@style/list_item_background"
      >
-
-  
     <TextView
         android:id="@+id/allcompany_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginLeft="5dp"
         android:layout_alignParentLeft="true"
         android:text="华为技术有限公司"
         android:textSize="22sp" />
@@ -19,7 +16,9 @@
         android:id="@+id/exposure_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
         android:textSize="16sp"
+        android:layout_marginLeft="5dp"
         android:text="18人曝信息"
         android:layout_below="@id/allcompany_tv"
         />
@@ -30,7 +29,7 @@
         android:paddingTop="3dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="14dp"
-        android:layout_marginTop="15dp"
+        android:layout_centerVertical="true"
         android:textColor="#FF7F50"
         android:textSize="25sp" 
         android:text="￥3,500"/>

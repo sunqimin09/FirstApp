@@ -31,7 +31,7 @@ public class PositionAllCompanyActivity extends BaseActivity implements
 		OnItemClickListener {
 	private ListView allCompanyList;
 	private ShowResult showResult = null;
-	PositionAllCompanyAdapter adapter;
+	private PositionAllCompanyAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -97,10 +97,12 @@ public class PositionAllCompanyActivity extends BaseActivity implements
 		intent.putExtra("companyId",
 				((CompanyEntity) showResult.list.get((int) arg3)).getId());
 		intent.putExtra("jobId", getIntent().getIntExtra("positionId", 0));
-		// intent.putExtra("jobName", getIntent().getIntExtra("positionName",
-		// 0));
-		// intent.putExtra("companyName",
-		// ((CompanyEntity)showResult.list.get((int)arg3)).getName());
+		 intent.putExtra("jobName", getIntent().getStringExtra("positionName"));
+		 intent.putExtra("companyName",
+		 ((CompanyEntity)showResult.list.get((int)arg3)).getName());
+		
+		 Log.d("tag","companyname"+ ((CompanyEntity)showResult.list.get((int)arg3)).getName());
+		 
 		startActivity(intent);
 	}
 

@@ -8,6 +8,7 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -55,6 +56,11 @@ public class PositionDetailActivity extends BaseActivity{
 		tv_title.setText(getString(R.string.position_detail_title));
 //		int companyId = getIntent().getIntExtra("companyId", 0);
 //		int jobId = getIntent().getIntExtra("jobId", 0);
+		TextView tvJobName = (TextView) findViewById(R.id.position_detail_tv_job_name);
+		TextView tvCompanyName = (TextView) findViewById(R.id.position_detail_tv_company_name);
+		Log.d("tag","jobname-->"+getIntent().getStringExtra("jobName"));
+		tvJobName.setText(getIntent().getStringExtra("jobName"));
+		tvCompanyName.setText(getIntent().getStringExtra("companyName"));
 		request(0);
 		textView1=(TextView) findViewById(R.id.percent1);
 		textView2=(TextView) findViewById(R.id.percent2);

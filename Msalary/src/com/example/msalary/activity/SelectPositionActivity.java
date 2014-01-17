@@ -156,8 +156,7 @@ public class SelectPositionActivity extends BaseActivity implements
 				vh = (ViewHolder) convertView.getTag();
 			}
 			vh.selectposition_tv.setText(list.get(position).getName());
-			vh.position_message_tv.setText(list.get(position).getCompanyCount()
-					+ "");
+			vh.position_message_tv.setText("¹«Ë¾Êý"+list.get(position).getCompanyCount());
 			return convertView;
 		}
 

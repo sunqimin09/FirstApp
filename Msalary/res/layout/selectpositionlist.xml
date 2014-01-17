@@ -4,7 +4,8 @@
     android:layout_height="fill_parent"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
-    android:orientation="horizontal" >
+    style="@style/list_item_background"
+    >
 
   
     <TextView
@@ -22,7 +23,6 @@
         android:layout_alignParentRight="true"
         android:gravity="center_vertical"
         android:textColor="#FF7F50"
-        
         android:textSize="15sp" />
     
 

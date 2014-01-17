@@ -78,7 +78,7 @@ public class PositionAllCompanyAdapter extends BaseAdapter {
 		}
 		holder.allCompany_tv.setText(list.get(position).getName());
 		holder.exposure_count_tv.setText(list.get(position).getJobCount() + "");
-		holder.companySalary_tv.setText(list.get(position).getAvgSalary() + "");
+		holder.companySalary_tv.setText("гд"+list.get(position).getAvgSalary());
 		return convertView;
 	}
 
