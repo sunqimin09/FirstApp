@@ -46,7 +46,7 @@ public class JsonPositionDetail {
 //				entity.setCount2(item.getInt("count2"));
 //				entity.setCount3(item.getInt("count3"));
 //				entity.setCount4(item.getInt("count4"));
-//				entity.setUserful_num(item.getInt("userful_num"));
+				entity.setUserful_num(item.getInt("usefull"));
 				list.add(entity);
 			}
 			showResult.list = list;

@@ -25,7 +25,7 @@ public class MConstant {
 	/**曝工资*/
 	public final static String URL_NEW_JOB = URL_HOME_PATH + "NewSalaryServlet?";
 	/**该薪资详细对我有用*/
-	public final static String URL_USERFUL = URL_HOME_PATH +"";
+	public final static String URL_USERFUL = URL_HOME_PATH +"UsefullServlet?";//usefull,jobId,companyId
 	
 	
 	

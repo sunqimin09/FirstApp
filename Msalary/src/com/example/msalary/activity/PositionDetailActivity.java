@@ -108,6 +108,7 @@ public class PositionDetailActivity extends BaseActivity{
 			break;
 		case 1:
 			requestEntity = new RequestEntity(this,MConstant.URL_USERFUL);
+			map.put("usefull", userfullCount+1);
 			break;
 		}
 		map.put("companyId", getIntent().getIntExtra("companyId", 0));
@@ -124,10 +125,11 @@ public class PositionDetailActivity extends BaseActivity{
 			showResult=JsonPositionDetail.parse(responseResult,this);
 			salarys = doResult((List<JobEntity>) showResult.list);
 			showResult(salarys);
-//			userful_tv.setText("有用("+((JobEntity)(showResult.list.get(0))).getUserful_num()+")");
+			userful_tv.setText("有用("+((JobEntity)(showResult.list.get(0))).getUserful_num()+")");
 			break;
 		case 1://提交赞成功
 			Toast("赞+1");
+			userful_tv.setText("有用("+userfullCount+++")");
 			break;
 		}
 		
