@@ -26,6 +26,7 @@ import android.util.Log;
 
 import com.sun.apphair.entity.RequestEntity;
 import com.sun.apphair.entity.ResponseResult;
+import com.sun.apphair.utils.Mconstant;
 
 
 public class InternetHelper {
@@ -85,10 +86,13 @@ public class InternetHelper {
 				break;
 			case -1://显示服务器异常，返回的错误描述信息
 				requestCallBack
-						.requestFailedStr("");
+						.requestFailedStr(getErrorStr((ResponseResult) msg.obj));
 				break;
-			case 0:// ��ǰ����������
-				requestCallBack.requestFailedStr("");
+			case -2:// Json解析错误
+				requestCallBack.requestFailedStr(Mconstant.ERROR_JSON);
+				break;
+			case -3://服务器 没响应 等错误
+				requestCallBack.requestFailedStr(Mconstant.ERROR_SERVER);
 				break;
 			}
 			progressDialog.dismiss();
@@ -96,6 +100,19 @@ public class InternetHelper {
 
 	};
 
+	private String getErrorStr(ResponseResult responseResult){
+		String errorStr = null;
+		try {
+			JSONObject object = new JSONObject(responseResult.resultStr);
+			errorStr = object.getString("errorStr");
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return Mconstant.ERROR_JSON;
+		}
+		return errorStr;
+		
+	}
+	
 	private IRequestCallBack requestCallBack = null;
 
 	/**
@@ -132,12 +149,12 @@ public class InternetHelper {
 							sendMsg(responseResult, 1);
 						}
 					} catch (JSONException e) {
-						sendMsg(responseResult, -1);
+						sendMsg(responseResult, -2);
 						e.printStackTrace();
 					}
 					// requestCallBack.requestSuccess(responseResult);
 				} else {
-					sendMsg(responseResult, -1);
+					sendMsg(responseResult, -3);
 					// ʧ��
 					// requestCallBack.requestFailedStr(ErrorCodeUtils.changeCodeToStr(responseResult.resultCode));
 				}
@@ -195,7 +212,7 @@ public class InternetHelper {
 	 * @return
 	 */
 	private static String getUrl(String url, Map<String, Object> map) {
-		if (!map.isEmpty()) {// �����ڲ���
+		if (!map.isEmpty()) {// 
 			for (Map.Entry<String, Object> entry : map.entrySet()) {
 				String key = entry.getKey();
 				Object value = entry.getValue();

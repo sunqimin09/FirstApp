@@ -9,4 +9,10 @@ public class ResponseResult {
 	public String resultStr = null;
 	/** 错误描述 */
 	public String errorStr = null;
+	
+	public String toString(){
+		return "RequestCode:"+requestCode+"ResultCode:"+resultCode
+				+"ResultStr:"+resultStr+"ErrorStr:"+errorStr;
+	}
+	
 }

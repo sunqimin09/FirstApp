@@ -3,6 +3,10 @@
  */
 package com.sun.apphair;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import android.content.Intent;
 import android.os.Bundle;
 
 /**
@@ -15,10 +19,24 @@ import android.os.Bundle;
  */
 public class WelcomeAct extends BaseAct{
 
+	private long delay = 1000*1;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		setContentView(R.layout.welcome_act);
+		timer.schedule(task, delay);
 	}
+	
+	Timer timer = new Timer();
+	
+	TimerTask task = new TimerTask() {
+		
+		@Override
+		public void run() {
+			startActivity(new Intent(WelcomeAct.this,MainActivity.class));
+			finish();
+		}
+	};
 	
 }

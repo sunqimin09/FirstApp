@@ -1,34 +1,82 @@
 package com.sun.apphair;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 
-import java.util.regex.Pattern;
-
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
+import com.sun.apphair.adapter.MainAdapter;
+import com.sun.apphair.entity.RequestEntity;
+import com.sun.apphair.entity.ResponseResult;
+import com.sun.apphair.entity.ShopEntity;
+import com.sun.apphair.internet.InternetHelper;
+import com.sun.apphair.json.JsonMainList;
+import com.sun.apphair.utils.Mconstant;
 
-public class MainActivity extends Activity {
+/**
+ * 
+ * 项目名称：Hair<br>
+ * 文件名：MainActivity.java <br>
+ * 作者：@sunqm <br>
+ * 创建时间：2014-1-18 下午2:04:32 功能描述: 商店列表 版本 V 1.0 <br>
+ */
+public class MainActivity extends BaseAct implements OnItemClickListener {
 
-	private Vibrator mVibrator01 =null;
-	private LocationClient mLocClient;
+	private ListView listview = null;
+
+	private MainAdapter adapter = null;
+
+	private ArrayList<ShopEntity> list = new ArrayList<ShopEntity>();
+	/**坐标*/
+	private long request_x,request_y;
 	
-	private boolean  mIsStart;
-	private static int count = 1;
-	
-	private Button startBtn = null;
+	private int request_distance = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		startBtn = (Button) findViewById(R.id.startBtn);
+		initView();
+	}
+
+	/**
+	 * 
+	 */
+	private void initView() {
+		listview = (ListView) findViewById(R.id.main_ls);
+
+		adapter = new MainAdapter(this, list);
+		listview.setAdapter(adapter);
+		listview.setOnItemClickListener(this);
+	}
+
+	/**
+	 * 参数：坐标，筛选条件：distance:1000,
+	 * 排序方式：价格高->低  ，低->高；评分：高->低  ； 距离：近到远
+	 * 
+	 */
+	private void request(){
+		RequestEntity requestEntity = new RequestEntity(this,
+				Mconstant.URL_SHOPS);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("x", request_x);
+		map.put("y", request_y);
+		map.put("distance", request_distance);
+		requestEntity.params = map;
+		new InternetHelper(this).requestThread(requestEntity, this);
+	}
+	
+	@Override
+	public void requestSuccess(ResponseResult responseResult) {
+		super.requestSuccess(responseResult);
+		list = new JsonMainList().parse(responseResult, this);
+		adapter.setData(list);//只更新20条数据
 	}
 
 	@Override
@@ -37,67 +85,23 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
-	public void OnClick(View view){
-		switch(view.getId()){
-		case R.id.startBtn:
-			location();
-			break;
-		}
-	}
-	
-	private void location(){
-		if (!mIsStart) {
-			setLocationOption();
-			mLocClient.start();
-			startBtn.setText("停止");
-			mIsStart = true;
 
-		} else {
-			mLocClient.stop();
-			mIsStart = false;
-			startBtn.setText("开始");
-		} 
-	}
-	
-	//设置相关参数
-		private void setLocationOption(){
-//			LocationClientOption option = new LocationClientOption();
-//			option.setOpenGps(true);				//打开gps mGpsCheck.isChecked()
-//			option.setCoorType("bd09ll");		//设置坐标类型 mCoorEdit.getText().toString()
-//			option.setServiceName("com.baidu.location.service_v2.9");
-//			option.setPoiExtraInfo(true);	//mIsAddrInfoCheck.isChecked()//地址信息
-//			if(mIsAddrInfoCheck.isChecked())
-//			{
-//				option.setAddrType("all");
-//			}		
-//			if(null!=mSpanEdit.getText().toString())
-//			{
-//				boolean b = isNumeric(mSpanEdit.getText().toString());
-//				 if(b)
-//				{
-//					option.setScanSpan(Integer.parseInt(mSpanEdit.getText().toString()));	//设置定位模式，小于1秒则一次定位;大于等于1秒则定时定位
-//				}
-//			}
-////			option.setScanSpan(3000);
-//			
-//			if(mPriorityCheck.isChecked())
-//			{
-//				option.setPriority(LocationClientOption.NetWorkFirst);      //设置网络优先
-//			}
-//			else
-//			{
-//				option.setPriority(LocationClientOption.GpsFirst);        //不设置，默认是gps优先
-//			}
-//
-//			option.setPoiNumber(10);
-//			option.disableCache(true);		
-//			mLocClient.setLocOption(option);
-		}
+	public void OnClick(View view) {
 
-		protected boolean isNumeric(String str) {   
-			Pattern pattern = Pattern.compile("[0-9]*");   
-			return pattern.matcher(str).matches();   
-		}  
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *  //进入详情页面
+	 * @see
+	 * android.widget.AdapterView.OnItemClickListener#onItemClick(android.widget
+	 * .AdapterView, android.view.View, int, long)
+	 */
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		Intent i = new Intent(MainActivity.this,ShopDetailAct.class);
+		i.putExtra("shop", list.get((int)arg3));
+		startActivity(i);
+	}
 
 }
