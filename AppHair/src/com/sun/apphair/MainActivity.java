@@ -1,5 +1,6 @@
 package com.sun.apphair;
 
+import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -38,6 +39,18 @@ public class MainActivity extends BaseAct implements OnItemClickListener {
 	
 	private int request_distance = 0;
 	
+	private int orderByDistance =1;//距离
+	
+	private int orderByScore =2;//评价，得分
+	
+//	private int orderByServer =3;//服务质量
+	
+	private int orderByCost =3;//价钱-低->高
+	
+	private int orderByCost1 =4;//价钱 高->低
+	
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,13 +74,14 @@ public class MainActivity extends BaseAct implements OnItemClickListener {
 	 * 排序方式：价格高->低  ，低->高；评分：高->低  ； 距离：近到远
 	 * 
 	 */
-	private void request(){
+	private void request(int orderby){
 		RequestEntity requestEntity = new RequestEntity(this,
 				Mconstant.URL_SHOPS);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("x", request_x);
 		map.put("y", request_y);
 		map.put("distance", request_distance);
+		map.put("orderby", orderby);
 		requestEntity.params = map;
 		new InternetHelper(this).requestThread(requestEntity, this);
 	}

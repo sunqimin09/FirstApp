@@ -18,7 +18,8 @@ public class ShopDetailAct extends BaseAct{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		setContentView(R.layout.shop_detail_act);
+		initView();
 	}
 	
 	private void initView(){
