@@ -23,3 +23,30 @@
  	5.支付：理发店id，支付金额，预约时间，
  	6.
  	
+ 	
+ 	数据库操作：
+ 	
+
+d＝111.12cos{1/[sinΦAsinΦB十 cosΦAcosΦBcos(λB-λA)]}
+其中:A点经度，纬度分别为λA和ΦA
+      B点的经度、纬度分别为λB和ΦB，d为距离
+d = 111.12*cos(1/(sin(y)*sin(latitude)+cos(y)*cos(latitude)*cos(longitude-x))) 
+获得了距离+
+
+1.//查询商铺列表，按照orderby 顺序
+select id,name,d from shop where d<1000 orderby Order;
+
+2.//查询店铺详细
+select * from shop  where id = 'ID';
+
+3.//添加订单
+insert into order set () values();
+
+4。//查询订单，+预定时间，+备注
+select * from order where user_id = 'id';
+
+5.//login
+
+
+6.//regist
+
