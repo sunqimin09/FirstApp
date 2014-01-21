@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.sun.apphair.entity.ResponseResult;
 import com.sun.apphair.internet.IRequestCallBack;
@@ -40,5 +41,8 @@ public class BaseAct extends Activity implements IRequestCallBack{
 		
 	}
 	
-
+	public void Toast(String str){
+		Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+	}
+	
 }

@@ -1,18 +1,24 @@
 package com.sun.apphair;
 
-import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.sun.apphair.adapter.MainAdapter;
+import com.sun.apphair.adapter.StringAdapter;
 import com.sun.apphair.entity.RequestEntity;
 import com.sun.apphair.entity.ResponseResult;
 import com.sun.apphair.entity.ShopEntity;
@@ -29,6 +35,8 @@ import com.sun.apphair.utils.Mconstant;
  */
 public class MainActivity extends BaseAct implements OnItemClickListener {
 
+	private TextView tv_Distance,tv_Order;
+	
 	private ListView listview = null;
 
 	private MainAdapter adapter = null;
@@ -63,7 +71,9 @@ public class MainActivity extends BaseAct implements OnItemClickListener {
 	 */
 	private void initView() {
 		listview = (ListView) findViewById(R.id.main_ls);
-
+		tv_Distance = (TextView) findViewById(R.id.main_distance_tv);
+		tv_Order = (TextView) findViewById(R.id.main_order_tv);
+		
 		adapter = new MainAdapter(this, list);
 		listview.setAdapter(adapter);
 		listview.setOnItemClickListener(this);
@@ -101,7 +111,14 @@ public class MainActivity extends BaseAct implements OnItemClickListener {
 	}
 
 	public void OnClick(View view) {
-
+		switch(view.getId()){
+		case R.id.main_distance_tv://距离
+			break;
+		case R.id.main_order_tv://排序方式
+			Toast("order");
+			showPopwindow(tv_Order);
+			break;
+		}
 	}
 
 	/*
@@ -118,4 +135,33 @@ public class MainActivity extends BaseAct implements OnItemClickListener {
 		startActivity(i);
 	}
 
+	private void showPopwindow(View view) {
+	
+		ListView listviewTemp = (ListView) View.inflate(this, R.layout.list_view, null);
+		
+//		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
+//				android.R.layout.simple_list_item_1, order);
+		StringAdapter stringAdapter = new StringAdapter(this, order);
+		listviewTemp.setAdapter(stringAdapter);
+		
+		pop = new PopupWindow(listviewTemp,LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, true);
+		pop.setBackgroundDrawable(new BitmapDrawable());
+		pop.setFocusable(true);
+		pop.setOutsideTouchable(true);
+		pop.showAsDropDown(view);
+		listviewTemp.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				Log.d("tag","item");
+				Toast("item");
+			}
+		});
+	}
+	
+	private PopupWindow pop = null;
+	
+	private String[] order = {"距离","评分","价格 低->高","价格 高->低"};
+	
 }
