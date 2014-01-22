@@ -50,3 +50,8 @@ select * from order where user_id = 'id';
 
 6.//regist
 
+
+
+总体说明：反的是什么？现金？代金券？
+如果是现金怎么返还，
+如果是代金券，诱惑够大吗？有足够吸引力吗

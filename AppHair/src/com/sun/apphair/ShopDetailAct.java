@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TabHost;
+import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TextView;
 
 import com.sun.apphair.adapter.CommentAdapter;
@@ -32,7 +33,7 @@ import com.sun.apphair.utils.Mconstant;
  * 功能描述:  
  * 版本 V 1.0               
  */
-public class ShopDetailAct extends BaseAct{
+public class ShopDetailAct extends BaseAct implements OnTabChangeListener{
 	
 	
 	private TextView tv_name;
@@ -67,6 +68,8 @@ public class ShopDetailAct extends BaseAct{
 	
 	private final int BAD = 1;
 	
+	private boolean firstBad = true;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -93,9 +96,10 @@ public class ShopDetailAct extends BaseAct{
 			       .setIndicator(getString(R.string.comment_good),null)  
 			           .setContent(R.id.tab1));  
 
-			tabHost.addTab(tabHost.newTabSpec("tab2")
+		tabHost.addTab(tabHost.newTabSpec("tab2")
 			       .setIndicator(getString(R.string.comment_good))  
 			           .setContent(R.id.tab2));
+		tabHost.setOnTabChangedListener(this);
 	}
 	
 
@@ -144,6 +148,18 @@ public class ShopDetailAct extends BaseAct{
 			badAdapter.notifyDataSetChanged();
 			break;
 		
+		}
+	}
+
+
+	/* (non-Javadoc)
+	 * @see android.widget.TabHost.OnTabChangeListener#onTabChanged(java.lang.String)
+	 */
+	@Override
+	public void onTabChanged(String tabId) {
+		if(tabId.equals("tab2")&&firstBad){//加载差评
+			request(BAD);
+			firstBad = false;
 		}
 	}
 	
