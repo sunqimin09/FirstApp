@@ -108,11 +108,11 @@ public class ShopDetailAct extends BaseAct implements OnTabChangeListener{
 	 */
 	private void initData() {
 		shopEntity = (ShopEntity) getIntent().getSerializableExtra("shop");
-		tv_name.setTag(shopEntity.name);
-		tv_price.setText(shopEntity.address);
-		tv_phone.setText(shopEntity.phone);
-		tv_address.setText(shopEntity.address);
-		ratingBar.setProgress((int)shopEntity.ratingbarScore);
+//		tv_name.setText(shopEntity.name);
+//		tv_price.setText(shopEntity.address);
+//		tv_phone.setText(shopEntity.phone);
+//		tv_address.setText(shopEntity.address);
+//		ratingBar.setProgress((int)shopEntity.ratingbarScore);
 		goodAdapter = new CommentAdapter(this, list_comment_good);
 		badAdapter = new CommentAdapter(this, list_comment_bad);
 		

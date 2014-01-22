@@ -28,6 +28,9 @@
         
         <!-- 店铺详细 -->
         <activity android:name="com.sun.apphair.ShopDetailAct"></activity>
+        
+        <!-- 订单详细 -->
+        <activity android:name="com.sun.apphair.OrderAct"></activity>
     </application>
 
 </manifest>

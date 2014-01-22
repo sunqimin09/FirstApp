@@ -34,7 +34,7 @@ public class WelcomeAct extends BaseAct{
 		
 		@Override
 		public void run() {
-			startActivity(new Intent(WelcomeAct.this,ShopDetailAct.class));
+			startActivity(new Intent(WelcomeAct.this,OrderAct.class));
 			finish();
 		}
 	};
