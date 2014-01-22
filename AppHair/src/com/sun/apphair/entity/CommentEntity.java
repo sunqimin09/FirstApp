@@ -17,18 +17,23 @@ public class CommentEntity extends ShowResult{
 	
 	public int userId;
 	
+	public String userName;
+	
 	public int shopId;
 	
 	public String content;
 	
+	public String createTime;
+	
 	/**评分*/
 	public float ratingbarScore;
-	
+
 	public String other;
 
 	public String toString() {
-		return "Id:" + id + "UserId" + userId + "Content:" + content
-				+ "RatingBarScore" + ratingbarScore + "other:" + other;
+		return "Id:" + id + "UserId" + userId + "Username:" + userName
+				+ "Content:" + content + "RatingBarScore" + ratingbarScore
+				+ "other:" + other;
 	}
-	
+
 }

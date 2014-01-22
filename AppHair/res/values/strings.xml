@@ -4,5 +4,7 @@
     <string name="app_name">AppHair</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="comment_good">好评</string>
+    <string name="comment_bad">差评</string>
 
 </resources>

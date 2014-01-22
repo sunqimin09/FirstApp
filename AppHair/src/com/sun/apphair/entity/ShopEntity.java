@@ -30,10 +30,16 @@ public class ShopEntity extends ShowResult implements Serializable{
 	
 	public String address;
 	
+	public String phone;
+	
 	public int distance ;
 	
 	/**得分--几星*/
 	public float ratingbarScore;
+	/**好评数*/
+	public int good_count;
+	/**差评数*/
+	public int bad_count;
 	
 	/**经纬度*/
 	public double latitude;
@@ -43,7 +49,7 @@ public class ShopEntity extends ShowResult implements Serializable{
 
 	public String toString() {
 		return "ID:" + id + "Name:" + name + "LogoUrl" + logoUrl + "Price:"
-				+ price +"Address:"+address+"Distance:"+distance+
+				+ price +"Address:"+address+"Phone:"+phone+"Distance:"+distance+
 				"Latitue:" + latitude + "Longitude:" + longitude
 				+ "Score:" + ratingbarScore;
 	}

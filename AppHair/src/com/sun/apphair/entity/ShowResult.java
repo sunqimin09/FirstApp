@@ -13,5 +13,5 @@ public class ShowResult implements Cloneable{
 
      public List<? extends ShowResult> list = new ArrayList<ShowResult>();
      /***/
-     public Map<String,String> map = new HashMap<String,String>();
+     public Map<String,Object> map = new HashMap<String,Object>();
 }
