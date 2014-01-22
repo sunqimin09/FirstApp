@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.WindowManager.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -137,8 +136,8 @@ public class MainActivity extends BaseAct implements OnItemClickListener {
 
 	private void showPopwindow(View view) {
 	
-		ListView listviewTemp = (ListView) View.inflate(this, R.layout.list_view, null);
-		
+		View viewTemp =  View.inflate(this, R.layout.menu_listview, null);
+		ListView listviewTemp = (ListView) viewTemp.findViewById(R.id.listView1);
 //		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
 //				android.R.layout.simple_list_item_1, order);
 		StringAdapter stringAdapter = new StringAdapter(this, order);
