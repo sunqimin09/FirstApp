@@ -19,7 +19,7 @@ import android.os.Bundle;
  */
 public class WelcomeAct extends BaseAct{
 
-	private long delay = 1000*1;
+	private long delay = 1*1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class WelcomeAct extends BaseAct{
 		
 		@Override
 		public void run() {
-			startActivity(new Intent(WelcomeAct.this,OrderAct.class));
+			startActivity(new Intent(WelcomeAct.this,MainActivity.class));
 			finish();
 		}
 	};

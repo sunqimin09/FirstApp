@@ -2,22 +2,23 @@ package com.sun.apphair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager.LayoutParams;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.sun.apphair.adapter.KeyValueAdapter;
 import com.sun.apphair.adapter.MainAdapter;
-import com.sun.apphair.adapter.StringAdapter;
 import com.sun.apphair.entity.RequestEntity;
 import com.sun.apphair.entity.ResponseResult;
 import com.sun.apphair.entity.ShopEntity;
@@ -46,38 +47,54 @@ public class MainActivity extends BaseAct implements OnItemClickListener {
 	
 	private int request_distance = 0;
 	
-	private int orderByDistance =1;//距离
+	/**当前排序选项*/
+	private int currentOrder = 0;
 	
-	private int orderByScore =2;//评价，得分
-	
-//	private int orderByServer =3;//服务质量
-	
-	private int orderByCost =3;//价钱-低->高
-	
-	private int orderByCost1 =4;//价钱 高->低
-	
-	
+	private int currentDistance = 1000;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		initView();
+		initData();
 	}
 
 	/**
-	 * 
+	 * 控件初始化
 	 */
 	private void initView() {
 		listview = (ListView) findViewById(R.id.main_ls);
 		tv_Distance = (TextView) findViewById(R.id.main_distance_tv);
 		tv_Order = (TextView) findViewById(R.id.main_order_tv);
-		
+		initOrderPop();
+		initDistancePop();
 		adapter = new MainAdapter(this, list);
 		listview.setAdapter(adapter);
 		listview.setOnItemClickListener(this);
 	}
 
+	/**
+	 * 数据初始化
+	 */
+	private void initData() {
+		//p
+		HashMap<String, Object> map = null;
+		for(int i = 0;i<orders.length;i++){
+			map = new HashMap<String, Object>();
+			map.put("key", i);
+			map.put("value", orders[i]);
+			orderHashMaps.add(map);
+		}
+		
+		for(int i = 0;i<distances.length;i++){
+			map = new HashMap<String, Object>();
+			map.put("key", i);
+			map.put("value", distances[i]);
+			distanceMaps.add(map);
+		}
+	}
+	
 	/**
 	 * 参数：坐标，筛选条件：distance:1000,
 	 * 排序方式：价格高->低  ，低->高；评分：高->低  ； 距离：近到远
@@ -112,10 +129,11 @@ public class MainActivity extends BaseAct implements OnItemClickListener {
 	public void OnClick(View view) {
 		switch(view.getId()){
 		case R.id.main_distance_tv://距离
+			popDistance.showAsDropDown(tv_Distance);
 			break;
 		case R.id.main_order_tv://排序方式
 			Toast("order");
-			showPopwindow(tv_Order);
+			popOrder.showAsDropDown(tv_Order);
 			break;
 		}
 	}
@@ -134,33 +152,69 @@ public class MainActivity extends BaseAct implements OnItemClickListener {
 		startActivity(i);
 	}
 
-	private void showPopwindow(View view) {
-	
-		View viewTemp =  View.inflate(this, R.layout.menu_listview, null);
-		ListView listviewTemp = (ListView) viewTemp.findViewById(R.id.listView1);
-//		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
-//				android.R.layout.simple_list_item_1, order);
-		StringAdapter stringAdapter = new StringAdapter(this, order);
-		listviewTemp.setAdapter(stringAdapter);
+	private void initOrderPop(){
+		View popView = View.inflate(this, R.layout.menu_listview, null);
+		ListView listViewPop = (ListView) popView.findViewById(R.id.listView1);
+		KeyValueAdapter adapter = new KeyValueAdapter(this, orderHashMaps);
+		listViewPop.setAdapter(adapter);
 		
-		pop = new PopupWindow(listviewTemp,LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, true);
-		pop.setBackgroundDrawable(new BitmapDrawable());
-		pop.setFocusable(true);
-		pop.setOutsideTouchable(true);
-		pop.showAsDropDown(view);
-		listviewTemp.setOnItemClickListener(new OnItemClickListener() {
+		popOrder = new PopupWindow(popView,LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,true);
+		popOrder.setBackgroundDrawable(new BitmapDrawable());
+		popOrder.setOutsideTouchable(true);
+		
+		listViewPop.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				Log.d("tag","item");
-				Toast("item");
+				popOrder.dismiss();
+				tv_Order.setText(orderHashMaps.get(arg2).get("value").toString());
+				currentOrder = arg2;
 			}
+			
 		});
 	}
 	
-	private PopupWindow pop = null;
+	private void initDistancePop(){
+		View popView = View.inflate(this, R.layout.menu_listview, null);
+		ListView listViewPop = (ListView) popView.findViewById(R.id.listView1);
+		KeyValueAdapter adapter = new KeyValueAdapter(this, distanceMaps);
+		listViewPop.setAdapter(adapter);
+		
+		popDistance = new PopupWindow(popView,LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT,true);
+		popDistance.setBackgroundDrawable(new BitmapDrawable());
+		popDistance.setOutsideTouchable(true);
+		
+		listViewPop.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				popDistance.dismiss();
+				tv_Distance.setText(distanceMaps.get(arg2).get("value").toString());
+				currentDistance =Integer.parseInt(distanceMaps.get(arg2).get("value").toString());
+			}
+			
+		});
+	}
 	
-	private String[] order = {"距离","评分","价格 低->高","价格 高->低"};
+//	private void showPopwindow(View view) {
+//		pop.showAsDropDown(view);
+//	}
+	
+	
+	
+	private PopupWindow popOrder = null;
+	
+	private PopupWindow popDistance = null;
+	
+	private List<HashMap<String,Object>> distanceMaps = new ArrayList<HashMap<String,Object>>();
+	
+	private List<HashMap<String,Object>> orderHashMaps = new ArrayList<HashMap<String,Object>>();
+	
+	private String[] orders = {"距离","评分","价格: 低->高","价格: 高->低"};
+
+	private int[] distances = {1000,2000,5000};
+
 	
 }

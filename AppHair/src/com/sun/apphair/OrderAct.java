@@ -47,7 +47,7 @@ public class OrderAct extends BaseAct implements OnClickListener{
 	 * 
 	 */
 	private void initView() {
-		btn_Date = (Button) findViewById(R.id.order_btn_date);
+//		btn_Date = (Button) findViewById(R.id.order_btn_date);
 		btn_submit = (Button) findViewById(R.id.order_btn_submit);
 		tv_money = (TextView) findViewById(R.id.order_money);
 		et_content = (EditText) findViewById(R.id.order_et);
@@ -62,9 +62,9 @@ public class OrderAct extends BaseAct implements OnClickListener{
 	
 	public void OnClick(View view){
 		switch(view.getId()){
-		case R.id.order_btn_date://选择日期
-			timeDialog.show();
-			break;
+//		case R.id.order_btn_date://选择日期
+//			timeDialog.show();
+//			break;
 		case R.id.order_btn_submit://提交订单
 			
 			break;

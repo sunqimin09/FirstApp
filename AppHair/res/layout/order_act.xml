@@ -7,7 +7,8 @@
     <RelativeLayout
         android:id="@+id/relativeLayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:visibility="gone" >
 
         <TextView
             android:id="@+id/textView1"
@@ -15,27 +16,80 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="@string/order_time" />
+    </RelativeLayout>
 
-        <Button
-            android:id="@+id/order_btn_date"
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/order_shopname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/textView1"
-            android:onClick="OnClick"
-            android:text="2014-01-22 12:20" />
-    </RelativeLayout>
+            android:text="商店名称" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="价格:" />
+             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="20元" />
+            
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="数量:" />
+             <ImageView 
+                android:id="@+id/order_img_decrease"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/order_et_number"
+                android:visibility="gone"
+                android:src="@drawable/ic_launcher"
+                />
+			<EditText 
+			    android:id="@+id/order_et_number"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/order_img_add"
+                android:inputType="number"
+                android:text="1111"
+			    />
+            <ImageView
+                android:id="@+id/order_img_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_launcher" />
+            
+        </RelativeLayout>
+    </LinearLayout>
 
     <EditText
         android:id="@+id/order_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/relativeLayout1"
+        android:layout_below="@+id/ll1"
         android:layout_marginTop="10dp"
-        android:ems="10"
-        android:lines="5" >
+        android:ems="10" >
     </EditText>
 
     <RelativeLayout
@@ -51,16 +105,15 @@
             android:layout_alignParentLeft="true"
             android:onClick="OnClick"
             android:text="提交订单" />
-        
-         <TextView
+
+        <TextView
             android:id="@+id/order_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/order_btn_submit"
-            android:layout_marginLeft="3dp"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@+id/order_btn_submit"
             android:text="@string/order_time" />
-        
     </RelativeLayout>
 
 </RelativeLayout>

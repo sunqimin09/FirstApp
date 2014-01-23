@@ -127,7 +127,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/imageView2"
-            android:text="phone" />
+            android:text="立即抢购" />
 
         <ImageView
             android:layout_width="wrap_content"
