@@ -3,20 +3,33 @@ package com.sun.apphair;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.map.Ground;
 import com.baidu.mapapi.map.GroundOverlay;
 import com.baidu.mapapi.map.ItemizedOverlay;
+import com.baidu.mapapi.map.LocationData;
 import com.baidu.mapapi.map.MapController;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MyLocationOverlay;
+import com.baidu.mapapi.map.MyLocationOverlay.LocationMode;
 import com.baidu.mapapi.map.OverlayItem;
 import com.baidu.mapapi.map.PopupClickListener;
 import com.baidu.mapapi.map.PopupOverlay;
@@ -30,7 +43,7 @@ public class OverlayDemo extends Activity {
 	/**
 	 *  MapView 是地图主控件
 	 */
-	private MapView mMapView = null;
+	private MyLocationMapView mMapView = null;
 	private Button mClearBtn;
 	private Button mResetBtn;
 	/**
@@ -67,7 +80,29 @@ public class OverlayDemo extends Activity {
 	private double mLat5 = 39.92235;
 	private double mLon6 = 116.414977;
 	private double mLat6 = 39.947246;
+
+	/** 定位相关 */
 	
+	private enum E_BUTTON_TYPE {
+		LOC,
+		COMPASS,
+		FOLLOW
+	}
+	
+	private E_BUTTON_TYPE mCurBtnType;
+
+	LocationClient mLocClient;
+	LocationData locData = null;
+	public MyLocationListenner myListener = new MyLocationListenner();
+
+	// 定位图层
+	locationOverlay myLocationOverlay = null;
+	// 弹出泡泡图层
+
+	boolean isRequest = false;//是否手动触发请求定位
+	boolean isFirstLoc = true;//是否首次定位
+	
+	Button requestLocButton = null;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +123,7 @@ public class OverlayDemo extends Activity {
           * 由于MapView在setContentView()中初始化,所以它需要在BMapManager初始化之后
           */
         setContentView(R.layout.activity_overlay);
-        mMapView = (MapView)findViewById(R.id.bmapView);
+        mMapView = (MyLocationMapView)findViewById(R.id.bmapView);
         mClearBtn = (Button) findViewById(R.id.clear);
         mResetBtn = (Button) findViewById(R.id.reset);
         /**
@@ -108,18 +143,91 @@ public class OverlayDemo extends Activity {
          */
         mMapView.setBuiltInZoomControls(true);
         
-        initOverlay();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+//        initOverlay();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
         
-        
+        createPaopao();
+        initLocation();
         
 
         /**
          * 设定地图中心点
          */
-        GeoPoint p = new GeoPoint((int)(39.933859 * 1E6), (int)(116.400191* 1E6));
-        mMapController.setCenter(p);
+//        GeoPoint p = new GeoPoint((int)(39.933859 * 1E6), (int)(116.400191* 1E6));
+//        mMapController.setCenter(p);
+       
+        //创建 弹出泡泡图层
+        
+    }
+    
+	private void initLocation() {
+		mCurBtnType = E_BUTTON_TYPE.LOC;
+		requestLocButton = (Button) findViewById(R.id.button1);
+		OnClickListener btnClickListener = new OnClickListener() {
+			public void onClick(View v) {
+				switch (mCurBtnType) {
+				case LOC:
+					// 手动定位请求
+					requestLocClick();
+					break;
+				case COMPASS:
+					myLocationOverlay.setLocationMode(LocationMode.NORMAL);
+					requestLocButton.setText("定位");
+					mCurBtnType = E_BUTTON_TYPE.LOC;
+					break;
+				case FOLLOW:
+					myLocationOverlay.setLocationMode(LocationMode.COMPASS);
+					requestLocButton.setText("罗盘");
+					mCurBtnType = E_BUTTON_TYPE.COMPASS;
+					break;
+				}
+			}
+		};
+		requestLocButton.setOnClickListener(btnClickListener);
+		// 定位初始化
+		mLocClient = new LocationClient( this );
+        locData = new LocationData();
+        mLocClient.registerLocationListener(myListener);
+        LocationClientOption option = new LocationClientOption();
+        option.setOpenGps(true);//打开gps
+        option.setCoorType("bd09ll");     //设置坐标类型
+        option.setScanSpan(1000);
+        mLocClient.setLocOption(option);
+        mLocClient.start();
+       
+        //定位图层初始化
+		myLocationOverlay = new locationOverlay(mMapView);
+		//设置定位数据
+	    myLocationOverlay.setData(locData);
+	    //添加定位图层
+		mMapView.getOverlays().add(myLocationOverlay);
+		myLocationOverlay.enableCompass();
+		//修改定位数据后刷新图层生效
+		mMapView.refresh();
     }
   
+    public void requestLocClick(){
+    	isRequest = true;
+        mLocClient.requestLocation();
+        Toast.makeText(OverlayDemo.this, "正在定位……", Toast.LENGTH_SHORT).show();
+    }
+    
+    /**
+  	 * 创建弹出泡泡图层
+  	 */
+  	public void createPaopao(){
+  		viewCache = getLayoutInflater().inflate(R.layout.custom_text_view, null);
+          popupText =(TextView) viewCache.findViewById(R.id.textcache);
+          //泡泡点击响应回调
+          PopupClickListener popListener = new PopupClickListener(){
+  			@Override
+  			public void onClickedPopup(int index) {
+  				Log.v("click", "clickapoapo");
+  			}
+          };
+          pop = new PopupOverlay(mMapView,popListener);
+          MyLocationMapView.pop = pop;
+  	}
+    
     public void initOverlay(){
     	/**
     	 * 创建自定义overlay
@@ -269,6 +377,8 @@ public class OverlayDemo extends Activity {
     
     @Override
     protected void onDestroy() {
+    	  if (mLocClient != null)
+              mLocClient.stop();
     	/**
     	 *  MapView的生命周期与Activity同步，当activity销毁时需调用MapView.destroy()
     	 */
@@ -330,4 +440,95 @@ public class OverlayDemo extends Activity {
     	
     }
     
+    /**
+     * 定位SDK监听函数
+     */
+    public class MyLocationListenner implements BDLocationListener {
+    	
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            if (location == null)
+                return ;
+            Log.d("tag","Receive-->position");
+            locData.latitude = location.getLatitude();
+            locData.longitude = location.getLongitude();
+            //如果不显示定位精度圈，将accuracy赋值为0即可
+            locData.accuracy = location.getRadius();
+            // 此处可以设置 locData的方向信息, 如果定位 SDK 未返回方向信息，用户可以自己实现罗盘功能添加方向信息。
+            locData.direction = location.getDerect();
+            //更新定位数据
+            myLocationOverlay.setData(locData);
+            //更新图层数据执行刷新后生效
+            mMapView.refresh();
+            //是手动触发请求或首次定位时，移动到定位点
+            if (isRequest || isFirstLoc){
+            	//移动地图到定位点
+            	Toast.makeText(OverlayDemo.this, "定位到", Toast.LENGTH_SHORT).show();
+            	Log.d("LocationOverlay", "receive location, animate to it");
+                mMapController.animateTo(new GeoPoint((int)(locData.latitude* 1e6), (int)(locData.longitude *  1e6)));
+                isRequest = false;
+                myLocationOverlay.setLocationMode(LocationMode.FOLLOWING);
+//				requestLocButton.setText("跟随");
+                mCurBtnType = E_BUTTON_TYPE.FOLLOW;
+            }
+            //首次定位完成
+            isFirstLoc = false;
+        }
+        
+        public void onReceivePoi(BDLocation poiLocation) {
+            if (poiLocation == null){
+                return ;
+            }
+        }
+    }
+    
+    //继承MyLocationOverlay重写dispatchTap实现点击处理
+  	public class locationOverlay extends MyLocationOverlay{
+
+  		public locationOverlay(MapView mapView) {
+  			super(mapView);
+  			// TODO Auto-generated constructor stub
+  		}
+  		@Override
+  		protected boolean dispatchTap() {
+  			// TODO Auto-generated method stub
+  			//处理点击事件,弹出泡泡
+  			popupText.setBackgroundResource(R.drawable.popup);
+			popupText.setText("我的位置");
+			pop.showPopup(BMapUtil.getBitmapFromView(popupText),
+					new GeoPoint((int)(locData.latitude*1e6), (int)(locData.longitude*1e6)),
+					8);
+  			return true;
+  		}
+  		
+  	}
 }
+
+/**
+ * 继承MapView重写onTouchEvent实现泡泡处理操作
+ * @author hejin
+ *
+ */
+class MyLocationMapView1 extends MapView{
+	static PopupOverlay   pop  = null;//弹出泡泡图层，点击图标使用
+	public MyLocationMapView1(Context context) {
+		super(context);
+		// TODO Auto-generated constructor stub
+	}
+	public MyLocationMapView1(Context context, AttributeSet attrs){
+		super(context,attrs);
+	}
+	public MyLocationMapView1(Context context, AttributeSet attrs, int defStyle){
+		super(context, attrs, defStyle);
+	}
+	@Override
+    public boolean onTouchEvent(MotionEvent event){
+		if (!super.onTouchEvent(event)){
+			//消隐泡泡
+			if (pop != null && event.getAction() == MotionEvent.ACTION_UP)
+				pop.hidePop();
+		}
+		return true;
+	}
+}
+

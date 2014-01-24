@@ -38,6 +38,8 @@
         
         <!-- 地图测试 -->
         <activity android:name="com.sun.apphair.OverlayDemo"></activity>
+        
+        <activity android:name="com.sun.apphair.LocationOverlayDemo"></activity>
     </application>
 	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
