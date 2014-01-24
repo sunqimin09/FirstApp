@@ -7,10 +7,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TextView;
@@ -43,6 +46,12 @@ public class ShopDetailAct extends BaseAct implements OnTabChangeListener{
 	private TextView tv_address;
 	
 	private TextView tv_phone;
+	
+	private RelativeLayout rl_address;
+	
+	private RelativeLayout rl_phone;
+	
+	private RelativeLayout rl_order;
 	
 	private ImageView img_icon;
 	/***/
@@ -88,7 +97,9 @@ public class ShopDetailAct extends BaseAct implements OnTabChangeListener{
 		ratingBar = (RatingBar) findViewById(R.id.shop_detail_ratingbar);
 		lv_good = (ListView) findViewById(R.id.shop_comment_ls_ok);
 		lv_bad =(ListView) findViewById(R.id.shop_comment_ls_no);
-		
+		rl_address = (RelativeLayout) findViewById(R.id.rl2_address);
+		rl_phone = (RelativeLayout) findViewById(R.id.rl3_phone);
+		rl_order = (RelativeLayout) findViewById(R.id.rl4_order);
 		
 		tabHost = (TabHost) findViewById(android.R.id.tabhost);
 		tabHost.setup();
@@ -97,7 +108,7 @@ public class ShopDetailAct extends BaseAct implements OnTabChangeListener{
 			           .setContent(R.id.tab1));  
 
 		tabHost.addTab(tabHost.newTabSpec("tab2")
-			       .setIndicator(getString(R.string.comment_good))  
+			       .setIndicator(getString(R.string.comment_bad))  
 			           .setContent(R.id.tab2));
 		tabHost.setOnTabChangedListener(this);
 	}
@@ -120,10 +131,29 @@ public class ShopDetailAct extends BaseAct implements OnTabChangeListener{
 		lv_bad.setAdapter(badAdapter);
 	}
 	
+	public void OnClick(View view){
+		switch(view.getId()){
+		case R.id.rl2_address://地址
+			
+			break;
+		case R.id.rl3_phone://电话
+			
+			break;
+		case R.id.rl4_order://购买
+			if(Mconstant.LoginName.equals("")){//没有登录
+				startActivity(new Intent(ShopDetailAct.this,LoginAct.class));
+				return ;
+			}
+			break;
+		}
+	}
+	
+	
 	/**
 	 * 请求评论，0，好评，1：差评
 	 */
 	private void request(int type){
+		
 		RequestEntity requestEntity = new RequestEntity(this,
 				Mconstant.URL_SHOPS);
 		requestEntity.requestCode = type;
@@ -158,7 +188,7 @@ public class ShopDetailAct extends BaseAct implements OnTabChangeListener{
 	@Override
 	public void onTabChanged(String tabId) {
 		if(tabId.equals("tab2")&&firstBad){//加载差评
-			request(BAD);
+//			request(BAD);
 			firstBad = false;
 		}
 	}

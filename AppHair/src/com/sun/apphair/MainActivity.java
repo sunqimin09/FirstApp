@@ -57,6 +57,7 @@ public class MainActivity extends BaseAct implements OnItemClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		initView();
+//		initTitle();
 		initData();
 	}
 
@@ -135,6 +136,10 @@ public class MainActivity extends BaseAct implements OnItemClickListener {
 			Toast("order");
 			popOrder.showAsDropDown(tv_Order);
 			break;
+		case R.id.title_map:
+			startActivity(new Intent(MainActivity.this,OverlayDemo.class));
+			break;
+			
 		}
 	}
 
@@ -197,12 +202,6 @@ public class MainActivity extends BaseAct implements OnItemClickListener {
 			
 		});
 	}
-	
-//	private void showPopwindow(View view) {
-//		pop.showAsDropDown(view);
-//	}
-	
-	
 	
 	private PopupWindow popOrder = null;
 	

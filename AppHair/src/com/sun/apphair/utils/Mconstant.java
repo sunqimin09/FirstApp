@@ -13,6 +13,8 @@ package com.sun.apphair.utils;
  */
 public class Mconstant {
 	
+	/**登录用户名*/
+	public static String LoginName = "";
 	
 	public static final String URL_HOME = "http://115.29.45.6:8080/Web/servlet/"; 
 	/**商铺列表*/

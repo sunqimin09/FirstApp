@@ -3,13 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <include 
+	    android:id="@+id/title"
+	    layout="@layout/title" />
+    
     <TextView
         android:id="@+id/shop_detail_tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:singleLine="true"
+        android:layout_below="@+id/title"
         android:text="TextView" />
 
     <RelativeLayout
@@ -50,10 +54,11 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/rl2"
+        android:id="@+id/rl2_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:onClick="OnClick"
         android:layout_below="@+id/rl1" >
 
         <ImageView
@@ -80,11 +85,12 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/rl3"
+        android:id="@+id/rl3_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/rl2" >
+        android:onClick="OnClick"
+        android:layout_below="@+id/rl2_address" >
 
         <ImageView
             android:id="@+id/imageView2"
@@ -108,11 +114,12 @@
     </RelativeLayout>
 
      <RelativeLayout
-        android:id="@+id/rl4"
+        android:id="@+id/rl4_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/rl3" >
+        android:onClick="OnClick"
+        android:layout_below="@+id/rl3_phone" >
 
         <ImageView
             android:id="@+id/imageView2"
@@ -141,7 +148,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/rl4"
+        android:layout_below="@+id/rl4_order"
         android:orientation="vertical" >
 
         <TabHost
