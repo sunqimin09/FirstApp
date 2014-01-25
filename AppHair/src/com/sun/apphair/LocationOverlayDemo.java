@@ -51,7 +51,7 @@ public class LocationOverlayDemo extends Activity {
 	//定位图层
 	locationOverlay myLocationOverlay = null;
 	//弹出泡泡图层
-	private PopupOverlay   pop  = null;//弹出泡泡图层，浏览节点时使用
+	private PopupOverlay pop  = null;//弹出泡泡图层，浏览节点时使用
 	private TextView  popupText = null;//泡泡view
 	private View viewCache = null;
 	
@@ -198,9 +198,10 @@ public class LocationOverlayDemo extends Activity {
     	
         @Override
         public void onReceiveLocation(BDLocation location) {
+        	 Toast.makeText(LocationOverlayDemo.this, "location--success"+location, Toast.LENGTH_SHORT).show();
             if (location == null)
                 return ;
-            
+            Toast.makeText(LocationOverlayDemo.this, "location--success++", Toast.LENGTH_SHORT).show();
             locData.latitude = location.getLatitude();
             locData.longitude = location.getLongitude();
             //如果不显示定位精度圈，将accuracy赋值为0即可
@@ -226,6 +227,7 @@ public class LocationOverlayDemo extends Activity {
         }
         
         public void onReceivePoi(BDLocation poiLocation) {
+        	Toast.makeText(LocationOverlayDemo.this, "location--Poi", Toast.LENGTH_SHORT).show();
             if (poiLocation == null){
                 return ;
             }
