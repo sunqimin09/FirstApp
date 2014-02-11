@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@drawable/selector_list_item"
+     >
 
     <ImageView
         android:id="@+id/main_ls_item_icon"
@@ -13,7 +15,7 @@
         android:paddingBottom="10dp"
         android:paddingRight="10dp"
         android:layout_marginLeft="14dp"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/shop_default" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Name" />
 
         <LinearLayout
@@ -37,16 +40,26 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="horizontal">
-            <RatingBar
+            <!-- 
+             <RatingBar
                 android:id="@+id/main_ls_item_ratingbar"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp" />
-
+                android:layout_height="20dp"
+                android:isIndicator="true"
+                 />
+             -->
+           
+			<ImageView
+			    android:id="@+id/main_ls_item_img_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+			    />
             <TextView
                 android:id="@+id/main_ls_item_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
+                android:textColor="@color/grey"
                 android:text="price" />
         </LinearLayout>
          <LinearLayout
@@ -60,6 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
+                android:textColor="@color/grey"
                 android:text="address" />
 
             <TextView
@@ -67,6 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
+                android:textColor="@color/grey"
                 android:text="distance" />
         </LinearLayout>
     </LinearLayout>

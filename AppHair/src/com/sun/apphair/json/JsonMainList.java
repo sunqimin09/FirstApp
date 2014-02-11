@@ -46,11 +46,12 @@ public class JsonMainList {
 				entity.address = item.getString("address");
 				entity.distance = item.getInt("distance");
 				entity.price = (float) item.getDouble("price");
+				entity.phone = item.getString("phone");
 				
-				entity.ratingbarScore = (float) item.getDouble("ratingbarScore");
-				entity.logoUrl = item.getString("logoUrl");
-				entity.good_count = item.getInt("good_count");
-				entity.bad_count = item.getInt("bad_count");
+//				entity.ratingbarScore = (float) item.getDouble("ratingbarScore");
+//				entity.logoUrl = item.getString("logoUrl");
+//				entity.good_count = item.getInt("good_count");
+//				entity.bad_count = item.getInt("bad_count");
 				list.add(entity);
 			}
 			showResult.list = list;

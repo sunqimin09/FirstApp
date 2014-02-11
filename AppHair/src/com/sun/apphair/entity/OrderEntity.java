@@ -19,6 +19,13 @@ public class OrderEntity extends ShowResult{
 	
 	public int shopId;
 	
+	public String shopName;
+	
+	public String orderName;
+	
+	/**消费数量*/
+	public int count;
+	/**总价格*/
 	public float money;
 	
 	public int status;

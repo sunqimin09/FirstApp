@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -45,7 +46,7 @@ public class MainActivity extends BaseAct implements OnItemClickListener {
 	/**坐标*/
 	private long request_x,request_y;
 	
-	private int request_distance = 0;
+//	private int request_distance = 0;
 	
 	/**当前排序选项*/
 	private int currentOrder = 0;
@@ -54,6 +55,7 @@ public class MainActivity extends BaseAct implements OnItemClickListener {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		initView();
@@ -66,6 +68,8 @@ public class MainActivity extends BaseAct implements OnItemClickListener {
 	 */
 	private void initView() {
 		listview = (ListView) findViewById(R.id.main_ls);
+		TextView tvTitle = (TextView) findViewById(R.id.title_content);
+		tvTitle.setText("理发店列表");
 		tv_Distance = (TextView) findViewById(R.id.main_distance_tv);
 		tv_Order = (TextView) findViewById(R.id.main_order_tv);
 		initOrderPop();
@@ -94,6 +98,7 @@ public class MainActivity extends BaseAct implements OnItemClickListener {
 			map.put("value", distances[i]);
 			distanceMaps.add(map);
 		}
+		request();
 	}
 	
 	/**
@@ -101,14 +106,15 @@ public class MainActivity extends BaseAct implements OnItemClickListener {
 	 * 排序方式：价格高->低  ，低->高；评分：高->低  ； 距离：近到远
 	 * 
 	 */
-	private void request(int orderby){
+	private void request(){
 		RequestEntity requestEntity = new RequestEntity(this,
 				Mconstant.URL_SHOPS);
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		//坐标
 		map.put("x", request_x);
 		map.put("y", request_y);
-		map.put("distance", request_distance);
-		map.put("orderby", orderby);
+		map.put("distance", currentDistance);
+		map.put("orderby", currentOrder);
 		requestEntity.params = map;
 		new InternetHelper(this).requestThread(requestEntity, this);
 	}
@@ -133,7 +139,6 @@ public class MainActivity extends BaseAct implements OnItemClickListener {
 			popDistance.showAsDropDown(tv_Distance);
 			break;
 		case R.id.main_order_tv://排序方式
-			Toast("order");
 			popOrder.showAsDropDown(tv_Order);
 			break;
 		case R.id.title_map:
@@ -173,8 +178,13 @@ public class MainActivity extends BaseAct implements OnItemClickListener {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				popOrder.dismiss();
-				tv_Order.setText(orderHashMaps.get(arg2).get("value").toString());
-				currentOrder = arg2;
+				
+				if(currentOrder!=arg2){
+					tv_Order.setText(orderHashMaps.get(arg2).get("value").toString());
+					currentOrder = arg2;
+					request();
+				}
+				
 			}
 			
 		});
@@ -196,8 +206,12 @@ public class MainActivity extends BaseAct implements OnItemClickListener {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				popDistance.dismiss();
-				tv_Distance.setText(distanceMaps.get(arg2).get("value").toString());
-				currentDistance =Integer.parseInt(distanceMaps.get(arg2).get("value").toString());
+				if(currentDistance!=Integer.parseInt(distanceMaps.get(arg2).get("value").toString())){
+					tv_Distance.setText(distanceMaps.get(arg2).get("value").toString());
+					currentDistance =Integer.parseInt(distanceMaps.get(arg2).get("value").toString());
+					request();
+				}
+				
 			}
 			
 		});

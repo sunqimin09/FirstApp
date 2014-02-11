@@ -80,7 +80,7 @@ public class MainAdapter extends BaseAdapter{
             holder.tv_address = (TextView) convertView.findViewById(R.id.main_ls_item_address);  
             holder.tv_distance = (TextView) convertView.findViewById(R.id.main_ls_item_distance); 
             holder.img_icon =(ImageView)  convertView.findViewById(R.id.main_ls_item_icon); 
-            holder.ratingBar = (RatingBar) convertView.findViewById(R.id.main_ls_item_ratingbar);
+            holder.img_start = (ImageView) convertView.findViewById(R.id.main_ls_item_img_start);
             convertView.setTag(holder);  
         } else {  
             holder = (ViewHolder) convertView.getTag();  
@@ -89,16 +89,49 @@ public class MainAdapter extends BaseAdapter{
         holder.tv_price.setText("￥"+list.get(position).price);
         holder.tv_address.setText(list.get(position).address);
         holder.tv_distance.setText(list.get(position).distance+"m");
-        holder.ratingBar.setRating(list.get(position).ratingbarScore);
+        setStart(holder.img_start, (int)list.get(position).ratingbarScore);
 		return convertView;
 	}
+	
+	private void setStart(ImageView imgView,int start){
+		int temp = 0;
+		if(start<5){
+			temp = 0;
+		}else if(start<10){
+			temp = 1;
+		}else if(start<15){
+			temp = 2;
+		}else if(start<20){
+			temp = 3;
+		}else if(start<25){
+			temp = 4;
+		}else if(start<30){
+			temp = 5;
+		}else if(start<35){
+			temp = 6;
+		}else if(start<40){
+			temp = 7;
+		}else if(start<45){
+			temp = 8;
+		}else {
+			temp = 9;
+		}
+		imgView.setImageResource(starts[temp]);
+	}
+	
+	private int[] starts = { R.drawable.star0, R.drawable.star10,
+			R.drawable.star15, R.drawable.star20, R.drawable.star25,
+			R.drawable.star30, R.drawable.star35, R.drawable.star40,
+			R.drawable.star45, R.drawable.star50 };
+
 	static class ViewHolder {  
         TextView tv_name;  
         TextView tv_price;  
         TextView tv_address;
         TextView tv_distance;
         ImageView img_icon;
-        RatingBar ratingBar;
+        ImageView img_start;
+//        RatingBar ratingBar;
         
     }  
 }

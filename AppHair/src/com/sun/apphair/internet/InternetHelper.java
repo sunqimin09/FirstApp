@@ -3,6 +3,8 @@ package com.sun.apphair.internet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.Map;
 
 import org.apache.http.HttpResponse;
@@ -38,7 +40,7 @@ public class InternetHelper {
 	public InternetHelper(Context context) {
 		this.context = context;
 		progressDialog = new ProgressDialog(context);
-		progressDialog.setMessage("��ݼ�����...");
+		progressDialog.setMessage("数据加载中...");
 	}
 
 	public InternetHelper() {
@@ -104,7 +106,7 @@ public class InternetHelper {
 		String errorStr = null;
 		try {
 			JSONObject object = new JSONObject(responseResult.resultStr);
-			errorStr = object.getString("errorStr");
+			errorStr = object.getString("error_str");
 		} catch (JSONException e) {
 			e.printStackTrace();
 			return Mconstant.ERROR_JSON;
@@ -126,7 +128,7 @@ public class InternetHelper {
 		this.requestCallBack = requestCallBack;
 		if (!isInternetAvaliable(context)) {
 			sendMsg(null, 0);
-			Log.d("tag", "������");
+			Log.d("tag", "数据加载中...");
 			return;
 		}
 		new Thread() {
@@ -134,8 +136,13 @@ public class InternetHelper {
 			@Override
 			public void run() {
 				ResponseResult responseResult = null;
-				responseResult = InternetHelper
-						.request(requestEntity);
+				try {
+					responseResult = InternetHelper
+							.request(requestEntity);
+				} catch (UnsupportedEncodingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				if (responseResult.resultCode == HttpStatus.SC_OK) {// �ɹ�
 					Log.d("tag", "result-->" + responseResult.resultStr);
 					JSONObject object;
@@ -177,8 +184,9 @@ public class InternetHelper {
 	 * @param requestEntity
 	 *            �������
 	 * @return ������
+	 * @throws UnsupportedEncodingException 
 	 */
-	private static ResponseResult request(RequestEntity requestEntity) {
+	private static ResponseResult request(RequestEntity requestEntity) throws UnsupportedEncodingException {
 		// if(requestEntity.isPost){
 		//
 		// }
@@ -191,8 +199,9 @@ public class InternetHelper {
 	 * Get �������
 	 * 
 	 * @param requestEntity
+	 * @throws UnsupportedEncodingException 
 	 */
-	private static ResponseResult doGet(RequestEntity requestEntity) {
+	private static ResponseResult doGet(RequestEntity requestEntity) throws UnsupportedEncodingException {
 		// ��������ȫ��ַ
 
 		String url = getUrl(requestEntity.getUrl(), requestEntity.params);
@@ -200,7 +209,7 @@ public class InternetHelper {
 		Log.d("tag", "request--url" + url + "urlend");
 		ResponseResult responseResult = get(url);
 		responseResult.requestCode = requestEntity.requestCode;
-		Log.d("tag", "request--result||>" + responseResult.toString());
+		Log.d("tag", new String(responseResult.toString().getBytes(),"utf-8")+"request--result||>" + responseResult.toString());
 		return responseResult;
 	}
 
@@ -254,7 +263,8 @@ public class InternetHelper {
 			/** ����ʱ 20�� */
 			request.getParams().setParameter(
 					CoreConnectionPNames.CONNECTION_TIMEOUT, 20 * 1000);
-			// request.getParams().setParameter(Charset.defaultCharset(), arg1)
+			
+//			 request.getParams().setParameter(Charset.defaultCharset(),"gbk");
 			// �������󣬵õ���Ӧ
 			HttpResponse response = client.execute(request);
 

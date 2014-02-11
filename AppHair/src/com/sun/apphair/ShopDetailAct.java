@@ -8,11 +8,13 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
@@ -51,11 +53,11 @@ public class ShopDetailAct extends BaseAct implements OnTabChangeListener{
 	
 	private RelativeLayout rl_phone;
 	
-	private RelativeLayout rl_order;
+	private Button btn_order;
 	
 	private ImageView img_icon;
 	/***/
-	private RatingBar ratingBar;
+	private ImageView ratingBar;
 	
 	private TabHost tabHost = null;
 	/**好评*/
@@ -81,6 +83,7 @@ public class ShopDetailAct extends BaseAct implements OnTabChangeListener{
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.shop_detail_act);
 		initView();
@@ -89,24 +92,25 @@ public class ShopDetailAct extends BaseAct implements OnTabChangeListener{
 	
 
 	private void initView(){
-		tv_name = (TextView) findViewById(R.id.shop_detail_tv_name);
+		findViewById(R.id.title_back).setVisibility(View.VISIBLE);
+		tv_name = (TextView) findViewById(R.id.title_content);
 		tv_address = (TextView) findViewById(R.id.shop_detail_tv_address);
 		tv_phone = (TextView) findViewById(R.id.shop_detail_tv_phone);
 		tv_price = (TextView) findViewById(R.id.shop_detail_tv_price);
 		img_icon = (ImageView) findViewById(R.id.shop_detail_img_icon);
-		ratingBar = (RatingBar) findViewById(R.id.shop_detail_ratingbar);
+		ratingBar = (ImageView) findViewById(R.id.shop_detail_ratingbar);
 		lv_good = (ListView) findViewById(R.id.shop_comment_ls_ok);
 		lv_bad =(ListView) findViewById(R.id.shop_comment_ls_no);
 		rl_address = (RelativeLayout) findViewById(R.id.rl2_address);
 		rl_phone = (RelativeLayout) findViewById(R.id.rl3_phone);
-		rl_order = (RelativeLayout) findViewById(R.id.rl4_order);
+		btn_order = (Button) findViewById(R.id.shop_detail_btn_order);
 		
 		tabHost = (TabHost) findViewById(android.R.id.tabhost);
 		tabHost.setup();
 		tabHost.addTab(tabHost.newTabSpec("tab1")
 			       .setIndicator(getString(R.string.comment_good),null)  
 			           .setContent(R.id.tab1));  
-
+ 
 		tabHost.addTab(tabHost.newTabSpec("tab2")
 			       .setIndicator(getString(R.string.comment_bad))  
 			           .setContent(R.id.tab2));
@@ -119,30 +123,39 @@ public class ShopDetailAct extends BaseAct implements OnTabChangeListener{
 	 */
 	private void initData() {
 		shopEntity = (ShopEntity) getIntent().getSerializableExtra("shop");
-//		tv_name.setText(shopEntity.name);
-//		tv_price.setText(shopEntity.address);
-//		tv_phone.setText(shopEntity.phone);
-//		tv_address.setText(shopEntity.address);
-//		ratingBar.setProgress((int)shopEntity.ratingbarScore);
+		tv_name.setText(shopEntity.name);
+		tv_price.setText("￥"+shopEntity.price);
+		tv_phone.setText(shopEntity.phone);
+		tv_address.setText(shopEntity.address);
 		goodAdapter = new CommentAdapter(this, list_comment_good);
 		badAdapter = new CommentAdapter(this, list_comment_bad);
 		
 		lv_good.setAdapter(goodAdapter);
 		lv_bad.setAdapter(badAdapter);
+		request(GOOD);
 	}
 	
 	public void OnClick(View view){
 		switch(view.getId()){
+		case R.id.title_back://返回
+			finish();
+			break;
 		case R.id.rl2_address://地址
-			
+			startActivity(new Intent(ShopDetailAct.this,LocationOverlayDemo.class));
 			break;
 		case R.id.rl3_phone://电话
-			
+			Uri uri = Uri.parse("tel:"+shopEntity.phone);   
+			 
+			Intent intent = new Intent(Intent.ACTION_DIAL, uri);     
+			 
+			startActivity(intent);  
 			break;
-		case R.id.rl4_order://购买
-			if(Mconstant.LoginName.equals("")){//没有登录
+		case R.id.shop_detail_btn_order://购买
+			if(Mconstant.LoginName.equals("1")){//没有登录
 				startActivity(new Intent(ShopDetailAct.this,LoginAct.class));
 				return ;
+			}else{
+				startActivity(new Intent(ShopDetailAct.this,OrderAct.class));
 			}
 			break;
 		}
@@ -155,26 +168,29 @@ public class ShopDetailAct extends BaseAct implements OnTabChangeListener{
 	private void request(int type){
 		
 		RequestEntity requestEntity = new RequestEntity(this,
-				Mconstant.URL_SHOPS);
+				Mconstant.URL_SHOP_COMMENT);
 		requestEntity.requestCode = type;
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("shopId", shopEntity.id);
+		map.put("shop_id", shopEntity.id);
 		map.put("type", type);
 		requestEntity.params = map;
 		new InternetHelper(this).requestThread(requestEntity, this);
 	}
 
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void requestSuccess(ResponseResult responseResult) {
 		super.requestSuccess(responseResult);
 		ShowResult showResult = new JsonComment().parse(responseResult, this);
-		list_comment_good.add((CommentEntity) showResult.list);
+		
 		switch(responseResult.requestCode){
 		case GOOD://好评
+			list_comment_good.addAll((List<CommentEntity>) showResult.list);
 			goodAdapter.notifyDataSetChanged();
 			break;
 		case BAD://差评
+			list_comment_bad.addAll((List<CommentEntity>) showResult.list);
 			badAdapter.notifyDataSetChanged();
 			break;
 		
@@ -187,8 +203,8 @@ public class ShopDetailAct extends BaseAct implements OnTabChangeListener{
 	 */
 	@Override
 	public void onTabChanged(String tabId) {
-		if(tabId.equals("tab2")&&firstBad){//加载差评
-//			request(BAD);
+		if(tabId.equals("tab2")&& firstBad ){//加载差评
+			request(BAD);
 			firstBad = false;
 		}
 	}

@@ -46,8 +46,8 @@ public class JsonComment {
 				entity = new CommentEntity();
 				entity.content = (item.getString("content"));
 				entity.id = (item.getInt("id"));
-				entity.createTime = item.getString("createTime");
-				entity.ratingbarScore = (float) item.getDouble("ratingbarScore");
+//				entity.createTime = item.getString("createTime");
+//				entity.ratingbarScore = (float) item.getDouble("ratingbarScore");
 				list.add(entity);
 			}
 			showResult.list = list;

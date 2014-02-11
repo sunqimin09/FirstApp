@@ -28,11 +28,18 @@
             android:id="@+id/order_shopname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text="商店名称" />
-
+		<ImageView 
+		    android:layout_width="match_parent"
+		    android:layout_height="1dp"
+		    android:src="@drawable/list_item_divider_1"
+		    />
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+             >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -43,41 +50,80 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="20元" />
+                android:text="￥20元" />
             
         </RelativeLayout>
+        <ImageView 
+		    android:layout_width="match_parent"
+		    android:layout_height="1dp"
+		    android:src="@color/silver"
+		    />
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+             >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
                 android:text="数量:" />
-             <ImageView 
+             <Button 
                 android:id="@+id/order_img_decrease"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/order_et_number"
-                android:visibility="gone"
-                android:src="@drawable/ic_launcher"
+                android:layout_centerVertical="true"
+                android:onClick="OnClick"
+                android:background="@drawable/selector_btn_minus"
                 />
 			<EditText 
 			    android:id="@+id/order_et_number"
-                android:layout_width="30dp"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/order_img_add"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:inputType="number"
+                android:maxLength="2"
+                android:layout_centerVertical="true"
                 android:text="1111"
 			    />
-            <ImageView
+            <Button
                 android:id="@+id/order_img_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/ic_launcher" />
+                android:layout_centerVertical="true"
+                android:onClick="OnClick"
+                android:background="@drawable/selector_btn_plus" />
+            
+        </RelativeLayout>
+        <ImageView 
+		    android:layout_width="match_parent"
+		    android:layout_height="1dp"
+		    android:src="@color/silver"
+		    />
+         <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+             >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="总价:" />
+             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/orange"
+                android:text="￥20元" />
             
         </RelativeLayout>
     </LinearLayout>
@@ -89,6 +135,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/ll1"
         android:layout_marginTop="10dp"
+        android:visibility="invisible"
         android:ems="10" >
     </EditText>
 
@@ -96,14 +143,17 @@
         android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:layout_below="@+id/order_et" >
 
         <Button
             android:id="@+id/order_btn_submit"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:onClick="OnClick"
+            android:textColor="@color/white"
+            android:background="@drawable/selector_btn_yellow"
             android:text="提交订单" />
 
         <TextView
