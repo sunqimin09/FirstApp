@@ -47,6 +47,7 @@
                 android:layout_alignParentLeft="true"
                 android:text="价格:" />
              <TextView
+                android:id="@+id/order_tv_unitprice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -119,6 +120,7 @@
                 android:layout_alignParentLeft="true"
                 android:text="总价:" />
              <TextView
+                android:id="@+id/order_tv_total_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

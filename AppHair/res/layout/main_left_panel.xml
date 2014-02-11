@@ -32,12 +32,6 @@
                     android:text="我的账户余额:￥0" />
             </RelativeLayout>
 
-            <ImageView 
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@drawable/divider_vertical_bright"
-                />
-            
             <RelativeLayout
                 android:id="@+id/rl2"
                 android:layout_width="match_parent"
@@ -50,7 +44,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@android:attr/textAppearanceMedium"
+                    android:textSize="18sp"
                     android:text="代金券余额:￥0" />
             </RelativeLayout>
 
@@ -72,6 +66,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                     android:textSize="18sp"
                     android:textAppearance="@android:attr/textAppearanceMedium"
                     android:text="未完成订单:0" />
             </RelativeLayout>
@@ -94,6 +89,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                     android:textSize="18sp"
                     android:textAppearance="@android:attr/textAppearanceMedium"
                     android:text="已完成订单:0" />
             </RelativeLayout>

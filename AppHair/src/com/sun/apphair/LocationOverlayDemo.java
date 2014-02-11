@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -155,7 +154,7 @@ public class LocationOverlayDemo extends Activity {
 		myLocationOverlay.enableCompass();
 		//修改定位数据后刷新图层生效
 		mMapView.refresh();
-		Toast.makeText(this, "location", Toast.LENGTH_SHORT).show();
+//		Toast.makeText(this, "location", Toast.LENGTH_SHORT).show();
     }
     /**
      * 手动触发一次定位请求
@@ -163,7 +162,7 @@ public class LocationOverlayDemo extends Activity {
     public void requestLocClick(){
     	isRequest = true;
         mLocClient.requestLocation();
-        Toast.makeText(LocationOverlayDemo.this, "正在定位……", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(LocationOverlayDemo.this, "正在定位……", Toast.LENGTH_SHORT).show();
     }
     /**
      * 修改位置图标
@@ -198,10 +197,10 @@ public class LocationOverlayDemo extends Activity {
     	
         @Override
         public void onReceiveLocation(BDLocation location) {
-        	 Toast.makeText(LocationOverlayDemo.this, "location--success"+location, Toast.LENGTH_SHORT).show();
+//        	 Toast.makeText(LocationOverlayDemo.this, "location--success"+location, Toast.LENGTH_SHORT).show();
             if (location == null)
                 return ;
-            Toast.makeText(LocationOverlayDemo.this, "location--success++", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(LocationOverlayDemo.this, "location--success++", Toast.LENGTH_SHORT).show();
             locData.latitude = location.getLatitude();
             locData.longitude = location.getLongitude();
             //如果不显示定位精度圈，将accuracy赋值为0即可
@@ -227,7 +226,7 @@ public class LocationOverlayDemo extends Activity {
         }
         
         public void onReceivePoi(BDLocation poiLocation) {
-        	Toast.makeText(LocationOverlayDemo.this, "location--Poi", Toast.LENGTH_SHORT).show();
+//        	Toast.makeText(LocationOverlayDemo.this, "location--Poi", Toast.LENGTH_SHORT).show();
             if (poiLocation == null){
                 return ;
             }

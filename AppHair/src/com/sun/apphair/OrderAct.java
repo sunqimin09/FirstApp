@@ -31,6 +31,10 @@ public class OrderAct extends BaseAct implements OnClickListener, TextWatcher{
 	
 	private TextView tv_money;
 	
+	private TextView tv_unit_price;
+	
+	private TextView tv_total_price;
+	
 	private EditText et_content;
 	
 	private EditText et_number;
@@ -45,12 +49,21 @@ public class OrderAct extends BaseAct implements OnClickListener, TextWatcher{
 	
 	private DatePicker datePicker = null;
 	
+	/**单价*/
+	private int unitPrice = 20;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_act);
 		initView();
+		initData();
+	}
+
+	private void initData() {
+		tv_unit_price.setText("￥"+unitPrice+"元");
+		
 	}
 
 	/**
@@ -60,6 +73,8 @@ public class OrderAct extends BaseAct implements OnClickListener, TextWatcher{
 //		btn_Date = (Button) findViewById(R.id.order_btn_date);
 		btn_submit = (Button) findViewById(R.id.order_btn_submit);
 		tv_money = (TextView) findViewById(R.id.order_money);
+		tv_unit_price = (TextView) findViewById(R.id.order_tv_unitprice);
+		tv_total_price = (TextView) findViewById(R.id.order_tv_total_price);
 		et_number = (EditText) findViewById(R.id.order_et_number);
 		et_content = (EditText) findViewById(R.id.order_et);
 		btn_plus = (Button) findViewById(R.id.order_img_add);
@@ -126,6 +141,7 @@ public class OrderAct extends BaseAct implements OnClickListener, TextWatcher{
 		}else if(Integer.parseInt(arg0.toString())>99){
 			btn_plus.setEnabled(false);
 		}else{
+			tv_total_price.setText("￥"+unitPrice*Integer.parseInt(arg0.toString())+"元");
 			btn_decrease.setEnabled(true);
 			btn_plus.setEnabled(true);
 		}
