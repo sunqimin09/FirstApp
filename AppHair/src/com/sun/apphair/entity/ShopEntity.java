@@ -5,6 +5,9 @@ package com.sun.apphair.entity;
 
 import java.io.Serializable;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * 项目名称：Hair
  * 文件名：ShopEntity.java  
@@ -13,7 +16,7 @@ import java.io.Serializable;
  * 功能描述:  
  * 版本 V 1.0               
  */
-public class ShopEntity extends ShowResult implements Serializable{
+public class ShopEntity extends ShowResult implements Parcelable{
 	
 	/**
 	 * 
@@ -52,6 +55,26 @@ public class ShopEntity extends ShowResult implements Serializable{
 				+ price +"Address:"+address+"Phone:"+phone+"Distance:"+distance+
 				"Latitue:" + latitude + "Longitude:" + longitude
 				+ "Score:" + ratingbarScore;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see android.os.Parcelable#describeContents()
+	 */
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see android.os.Parcelable#writeToParcel(android.os.Parcel, int)
+	 */
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

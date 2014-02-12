@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.support.v4.os.ParcelableCompat;
+
 public class ShowResult implements Cloneable{
 
 	 public int requestCode;

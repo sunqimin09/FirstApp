@@ -1,6 +1,7 @@
 package com.sun.apphair;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +36,7 @@ import com.baidu.mapapi.map.OverlayItem;
 import com.baidu.mapapi.map.PopupClickListener;
 import com.baidu.mapapi.map.PopupOverlay;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
+import com.sun.apphair.entity.ShopEntity;
 
 /**
  * 演示覆盖物的用法
@@ -80,6 +83,8 @@ public class OverlayDemo extends Activity {
 	private double mLat5 = 39.92235;
 	private double mLon6 = 116.414977;
 	private double mLat6 = 39.947246;
+	
+	private double[][] position = new double[10][2];
 
 	/** 定位相关 */
 	
@@ -103,8 +108,13 @@ public class OverlayDemo extends Activity {
 	boolean isFirstLoc = true;//是否首次定位
 	
 	Button requestLocButton = null;
+	
+	private List<ShopEntity> list = new ArrayList<ShopEntity>();
+	
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
+    	requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         /**
          * 使用地图sdk前需先初始化BMapManager.
@@ -142,13 +152,13 @@ public class OverlayDemo extends Activity {
          * 显示内置缩放控件
          */
         mMapView.setBuiltInZoomControls(true);
-        
-//        initOverlay();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+        initData();
+        initOverlay();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
         
         createPaopao();
         initLocation();
         
-
+       
         /**
          * 设定地图中心点
          */
@@ -157,7 +167,16 @@ public class OverlayDemo extends Activity {
        
         //创建 弹出泡泡图层
         
-    }
+	}
+
+	private void initData() {
+		list = getIntent().getParcelableArrayListExtra("shops");
+		position = new double[list.size()][2];
+		for (int i = 0; i < list.size(); i++) {
+			position[i][0] = list.get(i).latitude;
+			position[i][1] = list.get(i).longitude;
+		}
+	}
     
 	private void initLocation() {
 		mCurBtnType = E_BUTTON_TYPE.LOC;
@@ -205,6 +224,14 @@ public class OverlayDemo extends Activity {
 		mMapView.refresh();
     }
   
+	public void OnClick(View view){
+		switch(view.getId()){
+		case R.id.back:
+			finish();
+			break;
+		}
+	}
+	
     public void requestLocClick(){
     	isRequest = true;
         mLocClient.requestLocation();
@@ -467,7 +494,7 @@ public class OverlayDemo extends Activity {
             	Log.d("LocationOverlay", "receive location, animate to it");
                 mMapController.animateTo(new GeoPoint((int)(locData.latitude* 1e6), (int)(locData.longitude *  1e6)));
                 isRequest = false;
-                myLocationOverlay.setLocationMode(LocationMode.FOLLOWING);
+                myLocationOverlay.setLocationMode(LocationMode.NORMAL);
 //				requestLocButton.setText("跟随");
                 mCurBtnType = E_BUTTON_TYPE.FOLLOW;
             }

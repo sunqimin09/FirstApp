@@ -1,5 +1,8 @@
 package com.sun.apphair;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -28,6 +31,7 @@ import com.baidu.mapapi.map.MyLocationOverlay.LocationMode;
 import com.baidu.mapapi.map.PopupClickListener;
 import com.baidu.mapapi.map.PopupOverlay;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
+import com.sun.apphair.entity.ShopEntity;
 /**
  * 此demo用来展示如何结合定位SDK实现定位，并使用MyLocationOverlay绘制定位位置
  * 同时展示如何使用自定义图标绘制并点击时弹出泡泡
@@ -64,6 +68,8 @@ public class LocationOverlayDemo extends Activity {
 	Button requestLocButton = null;
 	boolean isRequest = false;//是否手动触发请求定位
 	boolean isFirstLoc = true;//是否首次定位
+	
+	private List<ShopEntity> list = new ArrayList<ShopEntity>();
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -106,6 +112,8 @@ public class LocationOverlayDemo extends Activity {
 				}
 			}
 		};
+		//获得传来信息,商店信息
+		list = getIntent().getParcelableArrayListExtra("shops");
 	    requestLocButton.setOnClickListener(btnClickListener);
 	    
         RadioGroup group = (RadioGroup)this.findViewById(R.id.radioGroup);
@@ -156,6 +164,11 @@ public class LocationOverlayDemo extends Activity {
 		mMapView.refresh();
 //		Toast.makeText(this, "location", Toast.LENGTH_SHORT).show();
     }
+    
+    private void initData(){
+    	
+    }
+    
     /**
      * 手动触发一次定位请求
      */

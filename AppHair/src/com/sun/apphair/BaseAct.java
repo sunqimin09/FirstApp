@@ -38,7 +38,7 @@ public class BaseAct extends Activity implements IRequestCallBack{
 	 */
 	@Override
 	public void requestFailedStr(String str) {
-		
+		Toast(str);
 	}
 	
 	public void Toast(String str){

@@ -142,7 +142,10 @@ public class MainActivity extends BaseAct implements OnItemClickListener {
 			popOrder.showAsDropDown(tv_Order);
 			break;
 		case R.id.title_map:
-			startActivity(new Intent(MainActivity.this,LocationOverlayDemo.class));
+			
+			Intent i = new Intent(MainActivity.this,OverlayDemo.class);
+			i.putParcelableArrayListExtra("shops", list);
+			startActivity(i);
 			break;
 			
 		}
