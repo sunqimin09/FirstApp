@@ -25,11 +25,12 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/order_shopname"
+            android:id="@+id/order_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="18sp"
             android:padding="10dp"
-            android:text="商店名称" />
+            android:text="订单名称" />
 		<ImageView 
 		    android:layout_width="match_parent"
 		    android:layout_height="1dp"
@@ -90,7 +91,7 @@
                 android:inputType="number"
                 android:maxLength="2"
                 android:layout_centerVertical="true"
-                android:text="1111"
+                android:text="1"
 			    />
             <Button
                 android:id="@+id/order_img_add"

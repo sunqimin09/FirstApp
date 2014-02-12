@@ -10,6 +10,7 @@ import java.util.List;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -93,6 +94,7 @@ public class ShopDetailAct extends BaseAct implements OnTabChangeListener{
 
 	private void initView(){
 		findViewById(R.id.title_back).setVisibility(View.VISIBLE);
+		findViewById(R.id.title_map).setVisibility(View.GONE);
 		tv_name = (TextView) findViewById(R.id.title_content);
 		tv_address = (TextView) findViewById(R.id.shop_detail_tv_address);
 		tv_phone = (TextView) findViewById(R.id.shop_detail_tv_phone);
@@ -123,6 +125,7 @@ public class ShopDetailAct extends BaseAct implements OnTabChangeListener{
 	 */
 	private void initData() {
 		shopEntity = (ShopEntity) getIntent().getSerializableExtra("shop");
+		Log.d("tag","shopentity->"+shopEntity);
 		tv_name.setText(shopEntity.name);
 		tv_price.setText("￥"+shopEntity.price);
 		tv_phone.setText(shopEntity.phone);
@@ -132,7 +135,7 @@ public class ShopDetailAct extends BaseAct implements OnTabChangeListener{
 		
 		lv_good.setAdapter(goodAdapter);
 		lv_bad.setAdapter(badAdapter);
-		request(GOOD);
+//		request(GOOD);
 	}
 	
 	public void OnClick(View view){
@@ -155,7 +158,7 @@ public class ShopDetailAct extends BaseAct implements OnTabChangeListener{
 				startActivity(new Intent(ShopDetailAct.this,LoginAct.class));
 				return ;
 			}else{
-				startActivity(new Intent(ShopDetailAct.this,OrderAct.class));
+				startActivity(new Intent(ShopDetailAct.this,OrderAct.class).putExtra("shop", shopEntity));
 			}
 			break;
 		}

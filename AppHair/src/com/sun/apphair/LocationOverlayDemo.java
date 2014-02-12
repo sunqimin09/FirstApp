@@ -113,7 +113,7 @@ public class LocationOverlayDemo extends Activity {
 			}
 		};
 		//获得传来信息,商店信息
-		list = getIntent().getParcelableArrayListExtra("shops");
+//		list = getIntent().getParcelableArrayListExtra("shops");
 	    requestLocButton.setOnClickListener(btnClickListener);
 	    
         RadioGroup group = (RadioGroup)this.findViewById(R.id.radioGroup);

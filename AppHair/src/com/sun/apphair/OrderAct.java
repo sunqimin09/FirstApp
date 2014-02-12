@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.sun.apphair.entity.ShopEntity;
+
 /**
  * 项目名称：Hair
  * 文件名：OrderAct.java  
@@ -35,6 +37,8 @@ public class OrderAct extends BaseAct implements OnClickListener, TextWatcher{
 	
 	private TextView tv_total_price;
 	
+	private TextView tv_order_name;
+	
 	private EditText et_content;
 	
 	private EditText et_number;
@@ -50,7 +54,9 @@ public class OrderAct extends BaseAct implements OnClickListener, TextWatcher{
 	private DatePicker datePicker = null;
 	
 	/**单价*/
-	private int unitPrice = 20;
+	private int unitPrice = 0;
+	
+	private ShopEntity shopEntity;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +68,10 @@ public class OrderAct extends BaseAct implements OnClickListener, TextWatcher{
 	}
 
 	private void initData() {
-		tv_unit_price.setText("￥"+unitPrice+"元");
-		
+		shopEntity = (ShopEntity) getIntent().getSerializableExtra("shop");
+		unitPrice = (int) shopEntity.price;
+		tv_unit_price.setText("￥"+shopEntity.price+"元");
+		tv_order_name.setText(shopEntity.name);
 	}
 
 	/**
@@ -71,6 +79,7 @@ public class OrderAct extends BaseAct implements OnClickListener, TextWatcher{
 	 */
 	private void initView() {
 //		btn_Date = (Button) findViewById(R.id.order_btn_date);
+		tv_order_name = (TextView) findViewById(R.id.order_name);
 		btn_submit = (Button) findViewById(R.id.order_btn_submit);
 		tv_money = (TextView) findViewById(R.id.order_money);
 		tv_unit_price = (TextView) findViewById(R.id.order_tv_unitprice);

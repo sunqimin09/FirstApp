@@ -16,7 +16,7 @@ import android.os.Parcelable;
  * 功能描述:  
  * 版本 V 1.0               
  */
-public class ShopEntity extends ShowResult implements Parcelable{
+public class ShopEntity extends ShowResult implements Serializable{
 	
 	/**
 	 * 
@@ -50,6 +50,24 @@ public class ShopEntity extends ShowResult implements Parcelable{
 	public double longitude; 
 	
 
+//	 public static final Parcelable.Creator<ShopEntity> CREATOR = new Creator(){  
+//		   
+//         @Override  
+//         public ShopEntity createFromParcel(Parcel source) {  
+//             // TODO Auto-generated method stub  
+//             // 必须按成员变量声明的顺序读取数据，不然会出现获取数据出错  
+//        	 ShopEntity p = new ShopEntity();  
+//             return p;  
+//         }
+//
+//		@Override
+//		public Object[] newArray(int arg0) {
+//			// TODO Auto-generated method stub
+//			return null;
+//		}  
+//   
+//     };  
+	
 	public String toString() {
 		return "ID:" + id + "Name:" + name + "LogoUrl" + logoUrl + "Price:"
 				+ price +"Address:"+address+"Phone:"+phone+"Distance:"+distance+
@@ -61,20 +79,20 @@ public class ShopEntity extends ShowResult implements Parcelable{
 	/* (non-Javadoc)
 	 * @see android.os.Parcelable#describeContents()
 	 */
-	@Override
-	public int describeContents() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-	/* (non-Javadoc)
-	 * @see android.os.Parcelable#writeToParcel(android.os.Parcel, int)
-	 */
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		// TODO Auto-generated method stub
-		
-	}
+//	@Override
+//	public int describeContents() {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
+//
+//
+//	/* (non-Javadoc)
+//	 * @see android.os.Parcelable#writeToParcel(android.os.Parcel, int)
+//	 */
+//	@Override
+//	public void writeToParcel(Parcel dest, int flags) {
+//		// TODO Auto-generated method stub
+//		
+//	}
 
 }

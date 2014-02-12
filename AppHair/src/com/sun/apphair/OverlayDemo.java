@@ -170,7 +170,7 @@ public class OverlayDemo extends Activity {
 	}
 
 	private void initData() {
-		list = getIntent().getParcelableArrayListExtra("shops");
+//		list = getIntent().getParcelableArrayListExtra("shops");
 		position = new double[list.size()][2];
 		for (int i = 0; i < list.size(); i++) {
 			position[i][0] = list.get(i).latitude;
