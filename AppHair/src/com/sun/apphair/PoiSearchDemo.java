@@ -279,6 +279,8 @@ public class PoiSearchDemo extends Activity implements IRequestCallBack{
 	 */
 	@Override
 	public void requestFailedStr(String str) {
+		Toast.makeText(PoiSearchDemo.this, "failed", Toast.LENGTH_SHORT).show();
+		Log.d("tag","failed");
 //		goToNextPage();
 
 	}

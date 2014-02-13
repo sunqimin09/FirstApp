@@ -48,29 +48,14 @@ public class ShopEntity extends ShowResult implements Serializable,NameValuePair
 	/**差评数*/
 	public int bad_count;
 	
-	/**经纬度*/
+	/**纬度*/
 	public int latitude;//E6
-	
+	/**经度*/
 	public int longitude; 
 	
-
-//	 public static final Parcelable.Creator<ShopEntity> CREATOR = new Creator(){  
-//		   
-//         @Override  
-//         public ShopEntity createFromParcel(Parcel source) {  
-//             // TODO Auto-generated method stub  
-//             // 必须按成员变量声明的顺序读取数据，不然会出现获取数据出错  
-//        	 ShopEntity p = new ShopEntity();  
-//             return p;  
-//         }
-//
-//		@Override
-//		public Object[] newArray(int arg0) {
-//			// TODO Auto-generated method stub
-//			return null;
-//		}  
-//   
-//     };  
+	
+	/**营业时间--新增的*/
+	public String shop_hours;
 	
 	public String toString() {
 		return "ID:" + id + "Name:" + name + "LogoUrl" + logoUrl + "Price:"
