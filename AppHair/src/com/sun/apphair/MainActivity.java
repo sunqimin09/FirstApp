@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.baidu.mapapi.search.MKPoiInfo;
 import com.sun.apphair.adapter.KeyValueAdapter;
 import com.sun.apphair.adapter.MainAdapter;
 import com.sun.apphair.entity.RequestEntity;
@@ -26,6 +27,7 @@ import com.sun.apphair.entity.ShopEntity;
 import com.sun.apphair.internet.InternetHelper;
 import com.sun.apphair.json.JsonMainList;
 import com.sun.apphair.utils.Mconstant;
+import com.sun.apphair.utils.SaveShopUtils;
 
 /**
  * 
@@ -145,7 +147,11 @@ public class MainActivity extends BaseAct implements OnItemClickListener {
 			
 			Intent i = new Intent(MainActivity.this,PoiSearchDemo.class);
 //			i.putParcelableArrayListExtra("shops", list);
-			startActivity(i);
+//			startActivity(i);
+			ArrayList<MKPoiInfo> list = new ArrayList<MKPoiInfo>();
+			
+			new SaveShopUtils(MainActivity.this).save(list,MainActivity.this);
+            
 			break;
 			
 		}

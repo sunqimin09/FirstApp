@@ -23,6 +23,12 @@ public class Mconstant {
 	public static final String URL_SHOP_DETAIL = URL_HOME + "";
 	
 	public static final String URL_SHOP_COMMENT = URL_HOME+"CommentsServlet?";
+	
+	/**保存商铺信息*/
+	public static final String URL_SHOP_SAVE = URL_HOME+"SaveShopServlet?";
+	
+	
+	
 
 	public static final String ERROR_JSON = "数据错误";
 	

@@ -39,7 +39,7 @@ public class SaveShopUtils {
 	 */
 	public void save(ArrayList<MKPoiInfo> entitys,IRequestCallBack callBack){
 		RequestEntity requestEntity = new RequestEntity(context,
-				Mconstant.URL_SHOPS);
+				Mconstant.URL_SHOP_SAVE);
 		ArrayList<ShopEntity> list = new ArrayList<ShopEntity>();
 		ShopEntity shopEntity = null;
 		for(MKPoiInfo entity:entitys){
