@@ -39,7 +39,8 @@
         <activity android:name="com.sun.apphair.OverlayDemo"></activity>
         
         <activity android:name="com.sun.apphair.LocationOverlayDemo"></activity>
-        
+        <!-- 地理信息获取 -->
+        <activity android:name="com.sun.apphair.PoiSearchDemo"></activity>
          <service
             android:name="com.baidu.location.f"
             android:enabled="true"

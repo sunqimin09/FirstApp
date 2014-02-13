@@ -143,7 +143,7 @@ public class MainActivity extends BaseAct implements OnItemClickListener {
 			break;
 		case R.id.title_map:
 			
-			Intent i = new Intent(MainActivity.this,OverlayDemo.class);
+			Intent i = new Intent(MainActivity.this,PoiSearchDemo.class);
 //			i.putParcelableArrayListExtra("shops", list);
 			startActivity(i);
 			break;

@@ -180,7 +180,7 @@ public class OverlayDemo extends Activity {
     
 	private void initLocation() {
 		mCurBtnType = E_BUTTON_TYPE.LOC;
-		requestLocButton = (Button) findViewById(R.id.button1);
+//		requestLocButton = (Button) findViewById(R.id.button1);
 		OnClickListener btnClickListener = new OnClickListener() {
 			public void onClick(View v) {
 				switch (mCurBtnType) {
@@ -201,7 +201,7 @@ public class OverlayDemo extends Activity {
 				}
 			}
 		};
-		requestLocButton.setOnClickListener(btnClickListener);
+//		requestLocButton.setOnClickListener(btnClickListener);
 		// 定位初始化
 		mLocClient = new LocationClient( this );
         locData = new LocationData();

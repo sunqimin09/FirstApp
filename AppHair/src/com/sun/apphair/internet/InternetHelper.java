@@ -4,16 +4,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreConnectionPNames;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,6 +33,7 @@ import android.util.Log;
 
 import com.sun.apphair.entity.RequestEntity;
 import com.sun.apphair.entity.ResponseResult;
+import com.sun.apphair.entity.ShopEntity;
 import com.sun.apphair.utils.Mconstant;
 
 
@@ -187,12 +193,10 @@ public class InternetHelper {
 	 * @throws UnsupportedEncodingException 
 	 */
 	private static ResponseResult request(RequestEntity requestEntity) throws UnsupportedEncodingException {
-		// if(requestEntity.isPost){
-		//
-		// }
-		// return doPost(requestEntity);
-		// else
-		return doGet(requestEntity);
+		 if(!requestEntity.isPost){//get 方法
+			 return doGet(requestEntity);
+		 }
+		return doPost(requestEntity);
 	}
 
 	/**
@@ -314,52 +318,51 @@ public class InternetHelper {
 	 * 
 	 * @param requestEntity
 	 */
-	// @SuppressWarnings("finally")
-	// private static ResponseResult doPost(RequestEntity requestEntity) {
-	// ResponseResult responseResult = new ResponseResult();
-	//
-	// Log.d("tag", "Internet-post-url>" + requestEntity.url);
-	// HttpPost httpPost = null;
-	// try {
-	// httpPost = new HttpPost(requestEntity.url);
-	// // ��������ʱ,20��
-	// httpPost.getParams().setParameter(
-	// CoreConnectionPNames.CONNECTION_TIMEOUT,
-	// 20*1000);
-	//
-	// HttpResponse httpResponse = null;
-	// /**�����������*/
-	// httpPost.setEntity(new
-	// UrlEncodedFormEntity(requestEntity.get_post_params(),
-	// HTTP.UTF_8));
-	// httpResponse = (HttpResponse) new DefaultHttpClient()
-	// .execute(httpPost);
-	// if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {//
-	// ���󵽽��
-	// // ����ʹ��getEntity������÷��ؽ��
-	//
-	// responseResult.setResultStr(EntityUtils.toString(
-	// httpResponse.getEntity(), "utf-8"));
-	// } else {
-	// Log.e("tag", "Internet-post-response->"
-	// + httpResponse.getStatusLine().getStatusCode());
-	// }
-	// responseResult.setResultCode(httpResponse.getStatusLine().getStatusCode());
-	// } catch (org.apache.http.conn.ConnectTimeoutException e) {
-	// responseResult.setResultCode(0);
-	// e.printStackTrace();
-	// Log.i("tag", "Internet-����code-4>" + e);
-	// } catch (Exception e) {
-	// responseResult.setResultCode(1);
-	// e.printStackTrace();
-	// Log.i("tag", "Internet-����code-6>" + e);
-	// }
-	//
-	// finally {
-	// // client.getConnectionManager().shutdown();
-	// Log.i("tag", "Internet-post-  end..." + responseResult.toString());
-	// return responseResult;
-	// }
-	// }
+	@SuppressWarnings("finally")
+	private static ResponseResult doPost(RequestEntity requestEntity) {
+		ResponseResult responseResult = new ResponseResult();
+
+		Log.d("tag", "Internet-post-url>" + requestEntity.getUrl());
+		HttpPost httpPost = null;
+		try {
+			httpPost = new HttpPost(requestEntity.getUrl());
+			// ��������ʱ,20��
+			httpPost.getParams().setParameter(
+					CoreConnectionPNames.CONNECTION_TIMEOUT, 20 * 1000);
+
+			HttpResponse httpResponse = null;
+			/** ����������� */
+
+			httpPost.setEntity(new UrlEncodedFormEntity(
+					requestEntity.postParams, HTTP.UTF_8));
+			httpResponse = (HttpResponse) new DefaultHttpClient()
+					.execute(httpPost);
+			if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {//
+
+				// ����ʹ��getEntity������÷��ؽ��
+
+				 responseResult.resultStr = (EntityUtils.toString(
+				 httpResponse.getEntity(), "utf-8"));
+			} else {
+				Log.e("tag", "Internet-post-response->"
+						+ httpResponse.getStatusLine().getStatusCode());
+			}
+			// responseResult.setResultCode(httpResponse.getStatusLine().getStatusCode());
+		} catch (org.apache.http.conn.ConnectTimeoutException e) {
+			// responseResult.setResultCode(0);
+			e.printStackTrace();
+			Log.i("tag", "Internet-����code-4>" + e);
+		} catch (Exception e) { 
+			// responseResult.setResultCode(1);
+			e.printStackTrace();
+			Log.i("tag", "Internet-����code-6>" + e);
+		}
+
+		finally {
+			// client.getConnectionManager().shutdown();
+			Log.i("tag", "Internet-post-  end..." + responseResult.toString());
+			return responseResult;
+		}
+	}
 
 }

@@ -5,6 +5,8 @@ package com.sun.apphair.entity;
 
 import java.io.Serializable;
 
+import org.apache.http.NameValuePair;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -16,7 +18,7 @@ import android.os.Parcelable;
  * 功能描述:  
  * 版本 V 1.0               
  */
-public class ShopEntity extends ShowResult implements Serializable{
+public class ShopEntity extends ShowResult implements Serializable,NameValuePair{
 	
 	/**
 	 * 
@@ -33,6 +35,8 @@ public class ShopEntity extends ShowResult implements Serializable{
 	
 	public String address;
 	
+	public String city;
+	
 	public String phone;
 	
 	public int distance ;
@@ -45,9 +49,9 @@ public class ShopEntity extends ShowResult implements Serializable{
 	public int bad_count;
 	
 	/**经纬度*/
-	public double latitude;
+	public int latitude;//E6
 	
-	public double longitude; 
+	public int longitude; 
 	
 
 //	 public static final Parcelable.Creator<ShopEntity> CREATOR = new Creator(){  
@@ -77,22 +81,25 @@ public class ShopEntity extends ShowResult implements Serializable{
 
 
 	/* (non-Javadoc)
-	 * @see android.os.Parcelable#describeContents()
+	 * @see org.apache.http.NameValuePair#getName()
 	 */
-//	@Override
-//	public int describeContents() {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
-//
-//
-//	/* (non-Javadoc)
-//	 * @see android.os.Parcelable#writeToParcel(android.os.Parcel, int)
-//	 */
-//	@Override
-//	public void writeToParcel(Parcel dest, int flags) {
-//		// TODO Auto-generated method stub
-//		
-//	}
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see org.apache.http.NameValuePair#getValue()
+	 */
+	@Override
+	public String getValue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	
 
 }
