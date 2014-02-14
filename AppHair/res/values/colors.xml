@@ -1,6 +1,8 @@
 <resources>
 
     <color name="grey">#6D5F68</color>
+    <color name="french_grey">#A8A8A8</color>
+    
 	<color name="white">#ffffff</color>
 	<!-- 银色 -->
     <color name="silver">#CCCC99</color>

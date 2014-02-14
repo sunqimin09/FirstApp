@@ -147,10 +147,10 @@ public class MainActivity extends BaseAct implements OnItemClickListener {
 			
 			Intent i = new Intent(MainActivity.this,PoiSearchDemo.class);
 //			i.putParcelableArrayListExtra("shops", list);
-//			startActivity(i);
-			ArrayList<MKPoiInfo> list = new ArrayList<MKPoiInfo>();
-			
-			new SaveShopUtils(MainActivity.this).save(list,MainActivity.this);
+			startActivity(i);
+//			ArrayList<MKPoiInfo> list = new ArrayList<MKPoiInfo>();
+//			
+//			new SaveShopUtils(MainActivity.this).save(list,MainActivity.this);
             
 			break;
 			

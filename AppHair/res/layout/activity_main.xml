@@ -38,9 +38,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
+        
         android:paddingTop="@dimen/activity_vertical_margin"
+        android:background="@drawable/list_bg"
         tools:context=".MainActivity" >
 
         <include
@@ -53,40 +53,57 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/title"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:background="@drawable/title_bg"
+            >
 
             <TextView
                 android:id="@+id/main_distance_tv"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:clickable="true"
                 android:drawableRight="@drawable/ic_arrow_down_black"
+                android:paddingRight="30dp"
                 android:gravity="center"
                 android:onClick="OnClick"
                 android:text="距离"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
+            
+            <ImageView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@color/french_grey" />
 
-            <TextView
-                android:id="@+id/main_order_tv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:drawableRight="@drawable/ic_arrow_down_black"
-                android:gravity="center"
-                android:onClick="OnClick"
-                android:text="排序"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    android:id="@+id/main_order_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/ic_arrow_down_black"
+                    android:paddingRight="30dp"
+                    android:gravity="center"
+                    android:onClick="OnClick"
+                    android:text="排序"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
         </LinearLayout>
+
+		<ImageView
+		    android:layout_width="match_parent"
+		    android:layout_height="1dp"
+		    android:layout_below="@+id/ll_type"
+		    android:visibility="gone"
+		    android:background="@drawable/list_item_divider_1"		     />
 
         <ListView
             android:id="@+id/main_ls"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/ll_type"
-            android:background="@drawable/list_bg" >
+             >
         </ListView>
     </RelativeLayout>
 
