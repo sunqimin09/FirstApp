@@ -66,7 +66,8 @@ public class PushReceiver extends FrontiaPushMessageReceiver{
 //			int channelId = 1;
 //			int newsId = 29641;
 			NewsEntity entity = dbHandler.selectNews(pushMessage.c_id, pushMessage.a_id);
-			Log.d("tag","MESSAGE-->"+entity.toString());
+			
+			Log.d("tag","MESSAGE-->"+entity);
 			
 			if(!isRunning(arg0))
 				showNotification(arg0,pushMessage,entity,isRunning(arg0));
@@ -110,7 +111,7 @@ public class PushReceiver extends FrontiaPushMessageReceiver{
 		// 要发送的内容
 		intent.putExtra("content", pushMessage.title);
 		intent.putExtra("news", entity);
-		Log.d("tag","news-==content33-->"+entity.toString());
+		Log.d("tag","news-==content33-->"+entity);
 		intent.putExtra("channelId", pushMessage.a_id);
 		// 发送 一个无序广播
 		context.sendBroadcast(intent);
@@ -130,10 +131,16 @@ public class PushReceiver extends FrontiaPushMessageReceiver{
 		JSONObject data = new JSONObject(result);
 		pushMessage.title = data.getString("title");
 //		pushMessage.description = data.getString("description");
-		pushMessage.open_type = data.getInt("open_type");
-		JSONObject content = data.getJSONObject("custom_content");
-		pushMessage.a_id = content.getInt("a_id");
-		pushMessage.c_id =content.getInt("c_id");
+		if(data.has("open_type"))
+			pushMessage.open_type = data.getInt("open_type");
+		if(data.has("custom_content")){
+			JSONObject content = data.getJSONObject("custom_content");
+			if(content.has("a_id"))
+				pushMessage.a_id = content.getInt("a_id");
+			if(content.has("c_id"))
+				pushMessage.c_id =content.getInt("c_id");
+		}
+		
 		return pushMessage;
 	}
 	
@@ -211,7 +218,7 @@ public class PushReceiver extends FrontiaPushMessageReceiver{
 	        	Log.d("tag","message--main");
 	        	notificationIntent =new Intent(context, MainActivity.class); 
 	        }
-	        Log.d("tag","MESSAGE-111->"+entity.toString());
+	        Log.d("tag","MESSAGE-111->"+entity);
 	        notificationIntent.putExtra("news", entity);
 	        notificationIntent.putExtra("channelId", pushMessage.c_id);
 	        notificationIntent.putExtra("news_id", pushMessage.a_id);

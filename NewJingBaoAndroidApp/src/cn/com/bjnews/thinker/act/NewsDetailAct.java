@@ -161,7 +161,7 @@ public class NewsDetailAct extends BaseAct implements OnClickListener, OnPageCha
 		if (temp) {
 			newsEntity = (NewsEntity) getIntent().getSerializableExtra("news");
 		}
-		Log.d("tag", temp+"news-==content>--" + newsEntity.toString());
+		Log.d("tag", temp+"news-==content>--" + newsEntity);
 		if (newsEntity != null) {
 			Log.d("tag", "news-==content>" + newsEntity.medias.size()
 					+ "title->" + newsEntity.title);

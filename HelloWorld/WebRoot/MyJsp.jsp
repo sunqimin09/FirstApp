@@ -26,15 +26,16 @@
 	</head>
 
 	<body>
-		This is my JSP page.
+		
 		<br>
-		<table width="165" height="31">
+		<table width="755" height="189">
 			<tr>
 				<td>
-					名字
+					Android 
+					<br>
 				</td>
 				<td>
-					地址
+				
 				</td>
 			</tr>
 			<%
