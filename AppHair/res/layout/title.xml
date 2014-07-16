@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
+    android:layout_height="wrap_content"
     android:background="@drawable/title_bg"
      >
 
@@ -34,11 +34,5 @@
         android:layout_marginRight="20dp"
         android:onClick="OnClick"
         android:src="@drawable/nav_turn_via_1" />
-	 
-    <ImageView 
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/orange"
-        />
+
 </RelativeLayout>

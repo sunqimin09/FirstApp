@@ -6,159 +6,95 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerVertical="true" >
+        android:layout_height="match_parent" 
+        android:layout_centerVertical="true"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/list_bg_without_icon"
             android:layout_margin="3dp"
             android:orientation="vertical" >
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/rl1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" 
+                android:padding="10dp"
+                android:background="@drawable/selector_main_left_item"
+                android:clickable="true"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@android:attr/textAppearanceMedium"
+                    android:text="我的账户余额:￥0" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:background="@drawable/list_bg_without_icon"
-                android:orientation="vertical" >
+                android:padding="10dp"
+                android:background="@drawable/selector_main_left_item"
+                android:clickable="true"
+                 >
 
-                <RelativeLayout
-                    android:id="@+id/rl1"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_main_left_item"
-                    android:clickable="true"
-                    android:padding="10dp"
-                    android:visibility="gone" >
+                    android:textSize="18sp"
+                    android:text="代金券余额:￥0" />
+            </RelativeLayout>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="我的账户余额:￥0"
-                        android:textAppearance="@android:attr/textAppearanceMedium" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/rl2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/selector_main_left_item"
-                    android:clickable="true"
-                    android:padding="10dp" >
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="代金券余额:￥0"
-                        android:textSize="18sp" />
-                </RelativeLayout>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@drawable/divider_vertical_bright" />
-
-                <RelativeLayout
-                    android:id="@+id/rl3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/selector_main_left_item"
-                    android:clickable="true"
-                    android:padding="10dp" >
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="未完成订单:0"
-                        android:textAppearance="@android:attr/textAppearanceMedium"
-                        android:textSize="18sp" />
-                </RelativeLayout>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@drawable/divider_vertical_bright" />
-
-                <RelativeLayout
-                    android:id="@+id/rl4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/selector_main_left_item"
-                    android:clickable="true"
-                    android:padding="10dp" >
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="已完成订单:0"
-                        android:textAppearance="@android:attr/textAppearanceMedium"
-                        android:textSize="18sp" />
-                </RelativeLayout>
-            </LinearLayout>
-
-            <LinearLayout
+             <ImageView 
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@drawable/divider_vertical_bright"
+                />
+            
+            <RelativeLayout
+                android:id="@+id/rl2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:background="@drawable/list_bg_without_icon"
-                android:orientation="vertical" >
+                android:padding="10dp"
+                android:background="@drawable/selector_main_left_item"
+                android:clickable="true"
+                 >
 
-                <RelativeLayout
-                    android:id="@+id/rl5"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_main_left_item"
-                    android:clickable="true"
-                    android:padding="10dp" >
+                     android:textSize="18sp"
+                    android:textAppearance="@android:attr/textAppearanceMedium"
+                    android:text="未完成订单:0" />
+            </RelativeLayout>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="意见反馈"
-                        android:textAppearance="@android:attr/textAppearanceMedium"
-                        android:textSize="18sp" />
-                </RelativeLayout>
+             <ImageView 
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@drawable/divider_vertical_bright"
+                />
+            
+            <RelativeLayout
+                android:id="@+id/rl3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" 
+                android:padding="10dp"
+                android:background="@drawable/selector_main_left_item"
+                android:clickable="true"
+                >
 
-                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@drawable/divider_vertical_bright" />
-                <RelativeLayout
-                    android:id="@+id/rl6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/selector_main_left_item"
-                    android:clickable="true"
-                    android:padding="10dp" >
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="关于"
-                        android:textAppearance="@android:attr/textAppearanceMedium"
-                        android:textSize="18sp" />
-                </RelativeLayout>
-
-                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@drawable/divider_vertical_bright" />
-                <RelativeLayout
-                    android:id="@+id/rl7"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_main_left_item"
-                    android:clickable="true"
-                    android:padding="10dp" >
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="已完成订单:0"
-                        android:textAppearance="@android:attr/textAppearanceMedium"
-                        android:textSize="18sp" />
-                </RelativeLayout>
-            </LinearLayout>
+                     android:textSize="18sp"
+                    android:textAppearance="@android:attr/textAppearanceMedium"
+                    android:text="已完成订单:0" />
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 
