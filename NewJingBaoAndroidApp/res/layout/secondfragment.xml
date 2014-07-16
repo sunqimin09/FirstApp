@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="标题"
+        style="@style/MediumText27" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/detail_act_fragment_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2014-03-10 03:42:42" />
+
+        <TextView
+            android:id="@+id/detail_act_fragment_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="新京报" />
+
+        <TextView
+            android:id="@+id/detail_act_fragment_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="酸辣粉丝" />
+    </LinearLayout>
+
+    <ViewPager
+        android:id="@+id/detail_act_fragment_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ViewPager>
+
+    <TextView
+        android:id="@+id/detail_act_fragment_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:text="content"
+        />
+    <!-- 不规则多图 -->
+	<LinearLayout
+	    android:id="@+id/detail_act_fragment_pics_ll"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    ></LinearLayout>
+    <LinearLayout
+	    android:id="@+id/detail_act_fragment_related_ll"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    ></LinearLayout>
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="新京报"
+        />
+</LinearLayout>

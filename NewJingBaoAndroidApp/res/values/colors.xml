@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+     <!-- listview设置颜色 -->
+    <drawable name="actionbar_bg">#a80000</drawable>
+    
+    <drawable name="tab_bg">#272727</drawable>
+    <drawable name="listview_cachecolor">#00000000</drawable>
+    <drawable name="white">#ffffff</drawable>
+    <drawable name="viewpager_back">#000000</drawable>
+    <color name="listview_selected">#666699</color>
+    <color name="listview_default">#024477</color>
+    <drawable name="listview_caption">#818181</drawable>
+    <drawable name="channel_title_selected">#ff0000</drawable>
+    <drawable name="channel_title_default">#ffffff</drawable>
+    <drawable name="detail_img_caption">#666666</drawable>
+    <drawable name="detail_bottom_title">#666666</drawable>
+    <!-- 详细页面 -->
+    <drawable name="content">#383838</drawable>
+    <color name="related_txt">#024477</color>
+    <color name="tab_selected">#a80000</color>
+    <color name="detial_content">#cccccc</color>
+</resources>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+	
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:background="@drawable/actionbar_bg" >
+
+        <ImageView
+            android:id="@+id/activity_main_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="10dp"
+            android:src="@drawable/logo" />
+
+        <ImageView
+            android:id="@+id/menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:visibility="gone"
+            android:src="@drawable/menu" />
+
+        <TextView
+            android:id="@+id/activity_main_loading_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="#ffffff"
+            android:text="@string/pull_refresh"
+            android:visibility="gone"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>
+	
+    <cn.com.bjnews.thinker.view.MyTabPageIndicator
+        android:id="@+id/indicator"
+        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:paddingLeft="8dp"
+        android:background="@drawable/tab_bg"
+        />
+    <!-- -->
+    <cn.com.bjnews.thinker.view.MScrollView
+        android:id="@+id/activity_main_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:background="#000000"
+        android:scrollbars="none"
+        android:visibility="gone"
+         >
+
+        <LinearLayout
+            android:id="@+id/activity_main_type_ll"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:background="#000000"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+        </LinearLayout>
+        
+    </cn.com.bjnews.thinker.view.MScrollView>
+   
+    
+    <FrameLayout
+        android:id="@+id/realtabcontent"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+        
+        <cn.com.bjnews.thinker.view.WholeViewPager
+            android:id="@+id/activity_main_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+        </cn.com.bjnews.thinker.view.WholeViewPager>
+    </FrameLayout>
+
+</LinearLayout>

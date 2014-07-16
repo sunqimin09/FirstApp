@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <cn.com.bjnews.thinker.view.MListView
+            android:id="@+id/fragment_first_lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="1dp"
+            android:cacheColorHint="#00000000" />
+
+        <LinearLayout
+            android:id="@+id/fragment_first_loadingBars"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:orientation="horizontal"
+            android:visibility="invisible" >
+
+             <ProgressBar
+                android:id="@+id/fragment_first_loadingBarLeft"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-7dp"
+                android:layout_weight="1"
+                android:progressDrawable="@drawable/progress_horizontal_holo_dark"
+                android:max="200"
+                android:scaleX="-1.0"
+                android:scaleY="1.0" />
+
+            <ProgressBar
+                android:id="@+id/fragment_first_loadingBarRight"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:progressDrawable="@drawable/progress_horizontal_holo_dark"
+                android:layout_marginTop="-7dp"
+                android:layout_weight="1"
+                android:max="200" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/fragment_first_loadingBarInDeterminate"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="12dp"
+            android:layout_marginTop="-10dp"
+            android:indeterminateDrawable="@drawable/progress_indeterminate_horizontal_holo"
+            android:visibility="visible" />
+    </FrameLayout>
+
+</LinearLayout>
