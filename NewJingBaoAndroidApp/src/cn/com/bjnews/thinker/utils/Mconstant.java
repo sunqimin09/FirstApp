@@ -32,7 +32,7 @@ public class Mconstant {
 	
 	public final static String URL_HOME = "http://app.bjnews.com.cn/m/json/";
 	/**频道*/
-	public final static String URL_CHANNELS = URL_HOME + "bjnews_settings.json";
+	public final static String URL_CHANNELS = URL_HOME + "bjnews_settings.json";//bjnews_settings_test
 	/**新闻列表*/
 	public final static String URL_NEWS = "";
 	

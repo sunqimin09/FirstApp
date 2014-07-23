@@ -85,7 +85,7 @@ public class ActPlay extends BaseAct implements OnPageChangeListener, IRequestCa
 		//所有数据和当前所在位置
 		medias = getIntent().getParcelableArrayListExtra("medias");
 		int selectedId = getIntent().getIntExtra("selectedId", 0);
-		Log.d("tag","temp2-->"+medias.size());
+//		Log.d("tag","temp2-->"+medias.size());
 		View view;
 		ImageView imageView;
 		VideoView videoView ;
@@ -97,10 +97,10 @@ public class ActPlay extends BaseAct implements OnPageChangeListener, IRequestCa
 					.inflate(R.layout.view_pager_item, null); 
 			imageView = (ImageView) view.findViewById(R.id.viewpager_item_img);
 			videoView = (VideoView) view.findViewById(R.id.viewpager_video);
-			Log.d("tag","videoView-flag->"+medias.get(i).flag);
+//			Log.d("tag","videoView-flag->"+medias.get(i).flag);
 			if(medias.get(i).flag ==0){//视频
 				down.isExit("");
-				Log.d("tag","videoView-url->"+medias.get(i).video);
+//				Log.d("tag","videoView-url->"+medias.get(i).video);
 				initVideo(videoView);
 				videoView.setVisibility(View.VISIBLE);
 				videoView.setTag(medias.get(i).video);
@@ -118,7 +118,7 @@ public class ActPlay extends BaseAct implements OnPageChangeListener, IRequestCa
 				imageLoader.DisplayImage(medias.get(i).pic, imageView, false);
 				imageView.setVisibility(View.VISIBLE);
 			}
-			Log.d("tag","imageWidth:>"+imageView.getWidth()+"Height:"+imageView.getHeight());
+//			Log.d("tag","imageWidth:>"+imageView.getWidth()+"Height:"+imageView.getHeight());
 			views.add(view);
 			
 			ImgIcon = new ImageView(this);
@@ -152,7 +152,7 @@ public class ActPlay extends BaseAct implements OnPageChangeListener, IRequestCa
 	}
 	
 	private void playVideo(VideoView videoView,String filepath){
-		Log.d("tag","playVideo-->");
+//		Log.d("tag","playVideo-->");
 //		name = Mconstant.LOCAL_FILE_PATH + name;
 		videoView.setVideoPath(filepath);
 		videoView.requestFocus();
@@ -194,7 +194,7 @@ public class ActPlay extends BaseAct implements OnPageChangeListener, IRequestCa
 
 		@Override
 		public Object instantiateItem(View container, int position) {
-			Log.d("tag","instantiateItem-->"+position);
+//			Log.d("tag","instantiateItem-->"+position);
 			((ViewPager) container).addView(views.get(position));
 			return views.get(position);
 		}
@@ -219,7 +219,7 @@ public class ActPlay extends BaseAct implements OnPageChangeListener, IRequestCa
 	@Override
     public void onConfigurationChanged(Configuration newConfig) {
          super.onConfigurationChanged(newConfig);
-         Log.d("tag","configchanged-->");
+//         Log.d("tag","configchanged-->");
 //          if(this.getResources().getConfiguration().orientation ==Configuration.ORIENTATION_LANDSCAPE) {
 //        	  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 //               // land donothing is ok
@@ -232,17 +232,17 @@ public class ActPlay extends BaseAct implements OnPageChangeListener, IRequestCa
 	@Override
 	public void onPageSelected(int arg0) {
 		currentPage = arg0;
-		Log.d("tag","pageSelected-->"+arg0);
+//		Log.d("tag","pageSelected-->"+arg0);
 		Utils.setViewPagerIcon(llViewPagerIcon, arg0);
 		stopVideo(lastVideoView);
-		Log.d("tag","pageSelected--22>"+medias.get(arg0).flag);
+//		Log.d("tag","pageSelected--22>"+medias.get(arg0).flag);
 		if(medias.get(arg0).flag==0){//视频
 			VideoView videoView = (VideoView)views.get(arg0).findViewWithTag(medias.get(arg0).video);
 			if(down.isExit( medias.get(arg0).video)==null){
 				Toast.makeText(this, "视频加载中请稍后", Toast.LENGTH_SHORT).show();
 				return;
 			}
-			Log.d("tag","pageSelected--33>"+down.isExit(medias.get(arg0).video));
+//			Log.d("tag","pageSelected--33>"+down.isExit(medias.get(arg0).video));
 //			initVideo(videoView);
 			playVideoUrl(videoView, medias.get(arg0).video);
 			lastVideoView = videoView;

@@ -11,6 +11,9 @@
         android:id="@+id/act_detail_pics_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:scaleType="matrix"
+        android:maxHeight="8000dp"
+        android:maxWidth="1080dp"
         android:background="@drawable/default_img" />
 
     <TextView

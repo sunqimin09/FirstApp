@@ -27,7 +27,7 @@ public class MainService extends Service{
 	public void onCreate() {
 		super.onCreate();
 		dbHandler =DbHandler .getInstance(this);
-		Log.d("tag","service--oncreate");
+//		Log.d("tag","service--oncreate");
 	}
 
 

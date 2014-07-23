@@ -23,21 +23,13 @@ import android.widget.Toast;
  */
 public class BaseAct extends FragmentActivity {
 
-	//
-	// protected void onStart() {
-	// // MyBroadcastReceiver mReceiver = new MyBroadcastReceiver();
-	// IntentFilter inFilter = new IntentFilter();
-	// inFilter.addAction(Intent.ACTION_TIME_TICK);
-	//
-	// // 我百度了一下，说getApplicationContext得到的是整个应用程序的上下文
-	// // 而Activity.this仅仅是该Activity的上下文，两者不同
-	// // 那意思是不是说，广播接收注册给了哪个Context，就要由哪个Context来解除注册？
-	//
-	// // BroadcastReceiver的onReceive函数有两个回调参数，Context和Intent
-	// // 这个Context参数又是谁的上下文？感觉越来越晦涩了！
-	// this.registerReceiver(dynamicReceiver, inFilter);
-	// super.onStart();
-	// }
+	/**
+	 * 
+	 * @param log
+	 */
+	public void Log(String log){
+		Log.d("tag",log);
+	}
 
 	@Override
 	protected void onStart() {
@@ -76,13 +68,13 @@ public class BaseAct extends FragmentActivity {
 			
 			if (intent.getAction().equals("pushMessage")) { // 动作检测
 				String target = intent.getStringExtra("target");
-				Log.d("tag", "brocast---onreceiver>"+target+"<>"+getClassName());
+//				Log.d("tag", "brocast---onreceiver>"+target+"<>"+getClassName());
 				String msg = intent.getStringExtra("content");
 				NewsEntity entity = (NewsEntity) intent.getSerializableExtra("news");
 				int channelId = intent.getIntExtra("channelId", 0);
 				if(target.equals(getClassName()))
 					showDialog("新闻推送",msg,channelId,entity);
-				Log.d("tag","news-==content22-->"+entity);
+//				Log.d("tag","news-==content22-->"+entity);
 //				Toast.makeText(context, "msg", Toast.LENGTH_SHORT).show();
 //				abortBroadcast();
 			}
@@ -95,38 +87,56 @@ public class BaseAct extends FragmentActivity {
 		TextView tvTitle = (TextView) view.findViewById(R.id.dialog_title);
 		tvTitle.setText(title);
 		tvContent.setText(content);
-		Dialog alertDialog = new AlertDialog.Builder(this)
-				.setView(view)
-				.setPositiveButton("查看", new DialogInterface.OnClickListener() {
+		Dialog alertDialog = null;
+		if(entity!=null){
+			alertDialog = new AlertDialog.Builder(this)
+			.setView(view)
+			.setPositiveButton("查看", new DialogInterface.OnClickListener() {
 
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						Intent i = null;
-						if (entity != null) {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Intent i = null;
+					if (entity != null) {
 
-							i = new Intent(BaseAct.this, NewsDetailAct.class); // 点击该通知后要跳转的Activity
-							i.putExtra("channelId", channelId + "");
-							Log.d("tag", "news-==content11-->" + entity);
-							i.putExtra("news", entity);
-							i.setAction("brocastreceiver");
-							startActivity(i);
-						}
-						dialog.dismiss();
-						// Intent i = new
-						// Intent(BaseAct.this,NewsDetailAct.class);
-
+						i = new Intent(BaseAct.this, NewsDetailAct.class); // 点击该通知后要跳转的Activity
+						i.putExtra("channelId", channelId);
+//						Log.d("tag", "news-==content11-->" + entity);
+						i.putExtra("news", entity);
+						i.setAction("brocastreceiver");
+						startActivity(i);
 					}
-				})
-				.setNegativeButton("忽略", new DialogInterface.OnClickListener() {
+					dialog.dismiss();
+					// Intent i = new
+					// Intent(BaseAct.this,NewsDetailAct.class);
 
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
-					}
-				})
-				.create();
+				}
+			})
+			.setNegativeButton("忽略", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			})
+			.create();
+		}else{//只有一个确定
+			alertDialog = new AlertDialog.Builder(this)
+			.setView(view)
+			.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			})
+			.create();
+		}
+		
 		alertDialog.show();
 
 	}
+	
+	
+	
 
 }

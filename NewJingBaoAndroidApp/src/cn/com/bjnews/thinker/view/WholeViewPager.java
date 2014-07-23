@@ -41,7 +41,7 @@ public class WholeViewPager extends ViewPager{
 //			return Mconstant.viewPagerIntercept;
 //		if(MotionEvent.ACTION_UP == arg0.getAction())
 //			
-		Log.d("tag","abcviewpager->intercept->"+Mconstant.viewPagerIntercept+arg0.getAction());
+		Log.d("tag","abcviewpager->intercept->"+super.onInterceptTouchEvent(arg0));
 		return super.onInterceptTouchEvent(arg0);
 	}
 	

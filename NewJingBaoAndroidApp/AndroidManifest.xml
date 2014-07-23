@@ -37,6 +37,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
+        android:hardwareAccelerated="false"
          >
         <activity android:name="cn.com.bjnews.thinker.act.WelcomeAct"
             android:theme="@style/ContentOverlay"

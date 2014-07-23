@@ -8,8 +8,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningTaskInfo;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -179,6 +184,28 @@ public class Utils {
 	}
 
 	/**
+	 * 当前数据是否是老数据
+	 * @return
+	 */
+	public boolean isOld(String str){
+		SimpleDateFormat format = new SimpleDateFormat(
+				"EEE, dd MMM yyyy HH:mm:ss ZZZZ", Locale.ENGLISH);// "EEE, dd MMM yyyy HH:mm:ss ZZZZ");
+		
+		Calendar c = Calendar.getInstance();  
+		c.setTime(new Date());
+		int day = c.get(Calendar.DATE);
+		c.set(Calendar.DATE, day-1);
+		Date yesterday = new Date(c.getTimeInMillis());
+		try {
+			return yesterday.after(format.parse(str));//获得的日期比昨天还早
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
+	
+	/**
 	 * 像素转 dip
 	 * 
 	 * @param context
@@ -212,6 +239,28 @@ public class Utils {
 		}else{
 			return true;
 		}
+	}
+	
+	/***
+	 * mainActivity 是否在运行
+	 * @param context
+	 * @return
+	 */
+	public static boolean mainIsExit(Context context){
+		ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE); 
+		
+		//test
+		List<RunningTaskInfo> list1 = am.getRunningTasks(100); 
+		for (RunningTaskInfo info : list1) { 
+		    if (info.topActivity.getPackageName().equals("cn.com.bjnews.thinker") && info.baseActivity.getPackageName().equals("cn.com.bjnews.thinker")) { 
+		    	Log.d("tag",(info.baseActivity.getClassName().equals("cn.com.bjnews.thinker.act.MainActivity"))+"info---222>"+info.topActivity.getClassName()+"<>");
+		    	if(info.baseActivity.getClassName().equals("cn.com.bjnews.thinker.act.MainActivity")){
+		    		return true;
+		    	}
+		        //find it, break 
+		    } 
+		}  
+		return false;
 	}
 
 }

@@ -18,7 +18,7 @@ public class Fragment_six extends Fragment{
 		View view = View.inflate(getActivity(), R.layout.fragment_six, null);
 		Toast.makeText(getActivity(), "First", Toast.LENGTH_SHORT).show();
 		
-		Log.d("tag","First");
+//		Log.d("tag","First");
 		return view;
 	}
 

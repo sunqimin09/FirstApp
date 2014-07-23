@@ -99,6 +99,7 @@ public class ImageLoader {
 //		imageView.setImageResource(defaultDrawable);//ImageBitmap(BitmapFactory.decodeResource(context.getResources(), defaultDrawable));
 		imageViews.put(imageView, url);
 		Bitmap bitmap = memoryCache.get(url);
+		Log.d("tag",url+"First--image->--download->"+bitmap);
 		if (bitmap != null) {
 //			Log.d("tag", "showimage==imageWidth-bitmap>" + bitmap.getWidth()
 //					+ "height:" + bitmap.getHeight());
@@ -147,12 +148,12 @@ public class ImageLoader {
 	private Bitmap getBitmap(String url) {
 		
 		File f = fileCache.getFile(url);
-		Log.d("tag","图片下载:3");
+		Log.d("tag","图片下载:3"+f+url);
 		Bitmap b = null;
 		if (f != null && f.exists()) {
 			b = decodeFile(f);
 		}
-		Log.d("tag","图片下载:4");
+		Log.d("tag","图片下载:4"+b);
 		if (b != null) {
 			return b;
 		}
@@ -211,6 +212,7 @@ public class ImageLoader {
 			o2.inSampleSize = scale;
 			return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
 		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -426,11 +428,14 @@ public class ImageLoader {
 					photoToLoad.imageView.setLayoutParams(params);
 					Log.d("tag",params.height+"ImageWidth--Height3:"+photoToLoad.imageView.getHeight());
 				}
-				Log.d("tag","showimage-imagewith-result_width>"+bitmap.getHeight()*aimWidth/bitmap.getWidth());
+				Log.d("tag","showimage-imagewith-result_width>"+photoToLoad.url);
 				if(isBg)
 					photoToLoad.imageView.setBackground(new BitmapDrawable(bitmap));
-				else
+				else{
+					Log.d("tag","shwoimage-url"+photoToLoad.url+bitmap);
 					photoToLoad.imageView.setImageBitmap(bitmap);
+				}
+					
 //					
 //				}
 				Log.d("tag","ImageWidth--Height2:"+photoToLoad.imageView.getHeight());

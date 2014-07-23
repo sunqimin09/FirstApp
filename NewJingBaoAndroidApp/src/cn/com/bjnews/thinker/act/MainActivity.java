@@ -60,6 +60,9 @@ public class MainActivity extends BaseAct implements IRequestCallBack,
 	private MyTabPageIndicator indicator;
 
 	public static int currentPageIndex = 0;
+	
+	/**fragment 的状态*/
+	public static int[] state;
 
 	@Override
 	protected void onPause() {
@@ -72,7 +75,7 @@ public class MainActivity extends BaseAct implements IRequestCallBack,
 		super.onResume();
 		MobclickAgent.onResume(this);
 		indicator.setCurrentItem(Mconstant.currentPageIndex);
-		Log.d("tag","current-item>"+viewPager.getCurrentItem());
+//		Log.d("tag","current-item>"+viewPager.getCurrentItem());
 	}
 	
 	@Override
@@ -87,8 +90,8 @@ public class MainActivity extends BaseAct implements IRequestCallBack,
 		// 发起网络请求
 		request();
 
-		Log.d("tag", "path->"
-				+ Environment.getDataDirectory().getAbsolutePath());
+//		Log.d("tag", "path->"
+//				+ Environment.getDataDirectory().getAbsolutePath());
 	}
 
 	/**
@@ -118,11 +121,11 @@ public class MainActivity extends BaseAct implements IRequestCallBack,
 	private void initData() {
 		readLocalData();
 		int channelId = getIntent().getIntExtra("channelId", 0);
-		Log.d("tag","channelId-->"+channelId);
+//		Log.d("tag","channelId-->"+channelId);
 //		
 		
 		showLocalData(localSettingEntity);
-		
+		state = new int[localSettingEntity.channelList.size()];
 		indicator.setCurrentItem(getPageIndex(channelId));
 		Mconstant.currentPageIndex = getPageIndex(channelId);
 		// 启动推送服务
@@ -139,7 +142,7 @@ public class MainActivity extends BaseAct implements IRequestCallBack,
 	public static int getPageIndex(int channelId){
 		for(int i=0;i<localSettingEntity.channelList.size();i++){
 			if(localSettingEntity.channelList.get(i).id == channelId){
-				Log.d("tag","channelid--pageIndex"+i);
+//				Log.d("tag","channelid--pageIndex"+i);
 				return i;
 			}
 		}
@@ -193,7 +196,7 @@ public class MainActivity extends BaseAct implements IRequestCallBack,
 	}
 
 	public void showLoading(int str) {
-		Log.d("tag","showLoading--->"+getString(str));
+//		Log.d("tag","showLoading--->"+getString(str));
 		if(tvLoading.getVisibility() == View.VISIBLE){//已经显示
 			tvLoading.setText(getString(str));
 		}else{
@@ -252,9 +255,23 @@ public class MainActivity extends BaseAct implements IRequestCallBack,
 	public void onPageSelected(int arg0) {
 		currentPageIndex = arg0;
 		Mconstant.currentPageIndex = arg0;
-		Log.d("tag","new==pageIndex-pageSElected--->"+arg0);
+//		Log.d("tag","new==pageIndex-pageSElected--->"+arg0);
 		 ((Fragment_First)adapter.getItem(arg0)).pageSelected(localSettingEntity.channelList.get(arg0).id);
 		 
+	}
+	
+	public static int getState(int pageIndex){
+		if(pageIndex>state.length||pageIndex==state.length){
+			return -1;
+		}
+		return state[pageIndex];
+	}
+	
+	public static void setState(int pageIndex,int stateTemp){
+		if(pageIndex>state.length||pageIndex==state.length){
+			return ;
+		}
+		state[pageIndex] = stateTemp;
 	}
 
 	@Override
@@ -282,7 +299,7 @@ public class MainActivity extends BaseAct implements IRequestCallBack,
 		public void onServiceConnected(ComponentName className,
 				IBinder localBinder) {
 			service = ((LocalBinder) localBinder).getService();
-			Log.d("tag", "service-connected->" + service);
+//			Log.d("tag", "service-connected->" + service);
 		}
 
 		public void onServiceDisconnected(ComponentName arg0) {

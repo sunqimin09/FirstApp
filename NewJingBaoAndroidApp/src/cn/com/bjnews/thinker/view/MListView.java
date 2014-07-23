@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import cn.com.bjnews.thinker.act.Fragment_First;
+import cn.com.bjnews.thinker.act.MainActivity;
 import cn.com.bjnews.thinker.utils.Mconstant;
 
 
@@ -78,6 +79,7 @@ public class MListView extends ListView{
 		
 	}
 
+	@SuppressLint("ClickableViewAccessibility")
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 //		Log.d("tag","abcListView--onTouch");
@@ -85,6 +87,7 @@ public class MListView extends ListView{
 
 		case MotionEvent.ACTION_DOWN: {
 			isScrollFromTop = true;
+			Log.d("tag","listview--IN"+Mconstant.listViewIntercept+"viewpager-->"+Mconstant.viewPagerIntercept);
 		}
 
 		case MotionEvent.ACTION_UP: {
@@ -100,12 +103,12 @@ public class MListView extends ListView{
 		
 		case MotionEvent.ACTION_MOVE: {
 			isProgessStarted = true;
-//			Log.d("tag","yyy-->"+event.getY());
+			Log.d("tag","listview-move-->"+event.getY());
 			gestureDetector.onTouchEvent(event);
 		}
 
 		}
-		Log.d("tag","abc---listview-touch"+Mconstant.listViewIntercept+"<viewpager>"+Mconstant.viewPagerIntercept);
+		Log.d("tag","abc---listview-touch"+Mconstant.listViewIntercept+"<viewpager>"+super.onTouchEvent(event));
 		return super.onTouchEvent(event);
 	}
 	
@@ -115,7 +118,7 @@ public class MListView extends ListView{
 			int scrollY, int scrollRangeX, int scrollRangeY,
 			int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent) {
 
-
+		Log.d("tag","overscroillby-->"+isProgessStarted+(!Fragment_First.requestInterupted));
 		if(getFirstVisiblePosition() == 0 && isProgessStarted&& !Fragment_First.requestInterupted){
 			
 			value  += deltaY;
@@ -145,6 +148,7 @@ public class MListView extends ListView{
 							loadingBarIndeterminate.setVisibility(View.VISIBLE);
 							loadingBarIndeterminate.setIndeterminate(true);
 							Fragment_First.isRefreshStarted = true;
+//							MainActivity.setState(Mconstant.currentPageIndex, 1);
 						}
 					}
 				}
@@ -182,7 +186,7 @@ public class MListView extends ListView{
 	
 	private class GestureListener extends SimpleOnGestureListener{
 
-		private static final int SWIPE_MIN_DISTANCE = 60;
+		private static final int SWIPE_MIN_DISTANCE = 80;
 		private static final int SWIPE_THRESHOLD_VELOCITY = 60;
 		
 		@Override
@@ -198,23 +202,27 @@ public class MListView extends ListView{
 				//From Right to Left
 //				Log.d("tag","Gesture-->向左");
 				Mconstant.viewPagerIntercept = true;
+				Mconstant.listViewIntercept = false;
 				return true;
 			}  else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE ) {
 				//From Left to Right
 //				Log.d("tag","Gesture-->向右");
 				Mconstant.viewPagerIntercept = true;
+				Mconstant.listViewIntercept = false;
 				return true;
 			}
 
 			if(e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE ) {
 				//From Bottom to Top
 				Mconstant.viewPagerIntercept = false;
+				Mconstant.listViewIntercept = true;
 //				Log.d("tag","Gesture-->向上");
 				return false;
 			}  else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE ) {
 				//From Top to Bottom
 //				Log.d("tag","Gesture-->向下");
 				Mconstant.viewPagerIntercept = false;
+				Mconstant.listViewIntercept = true;
 				return false;
 			}
 			return super.onScroll(e1, e2, distanceX, distanceY);

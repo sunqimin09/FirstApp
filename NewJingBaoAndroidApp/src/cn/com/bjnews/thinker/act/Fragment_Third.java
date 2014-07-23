@@ -14,7 +14,7 @@ public class Fragment_Third extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = View.inflate(getActivity(), R.layout.thirdfragment, null);
-		Log.d("tag","Third");
+//		Log.d("tag","Third");
 		return view;
 	}
 

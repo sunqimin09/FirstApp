@@ -5,6 +5,8 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningTaskInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -106,10 +108,10 @@ public class NewsDetailAct extends BaseAct implements OnClickListener, OnPageCha
 		setActionBarLayout(R.layout.act_detail_title);
 		initView();
 		initData();
-		Log.d("tag", "getcalling->"+(getCallingActivity()==null)+getIntent().getAction());
+//		Log.d("tag", "getcalling->"+(getCallingActivity()==null)+getIntent().getAction());
 //		if(getCallingActivity()==null){
 //			IsPush = true;
-//		}else{
+//		}else{	
 //			IsPush = false;
 //		}
 	}
@@ -155,16 +157,16 @@ public class NewsDetailAct extends BaseAct implements OnClickListener, OnPageCha
 		
 		if(getIntent().hasExtra("channelId")){
 			channelId = getIntent().getIntExtra("channelId",0);
-			Log.d("tag","news_id>>"+ getIntent().getIntExtra("news_id",0));
+//			Log.d("tag","news_id>>"+ getIntent().getIntExtra("news_id",0));
 		}
 			
 		if (temp) {
 			newsEntity = (NewsEntity) getIntent().getSerializableExtra("news");
 		}
-		Log.d("tag", temp+"news-==content>--" + newsEntity);
+//		Log.d("tag", temp+"news-==content>--" + newsEntity);
 		if (newsEntity != null) {
-			Log.d("tag", "news-==content>" + newsEntity.medias.size()
-					+ "title->" + newsEntity.title);
+//			Log.d("tag", "news-==content>" + newsEntity.medias.size()
+//					+ "title->" + newsEntity.title);
 			tvTitle.setText(newsEntity.title);
 			tvData.setText(new Utils().formatDate(newsEntity.pubDate));
 			tvContent.setText(newsEntity.content);
@@ -222,10 +224,18 @@ public class NewsDetailAct extends BaseAct implements OnClickListener, OnPageCha
 	 * 上部 媒体 
 	 */
 	private void showViewPagerTop(ArrayList<MediaEntity> medias) {
+		if(medias.size()==0&& newsEntity.thumbnail!=null){//如果当前没有大图，显示缩略图
+			MediaEntity tempEntity = new MediaEntity();
+			tempEntity.pic = newsEntity.thumbnail;
+			tempEntity.flag =1;//图片
+			tempEntity.caption = "";
+			medias.add(tempEntity);
+		}
 		if(medias.size() ==0 ){
 			rlViewPagerTop.setVisibility(View.GONE);
 			return;
 		}
+		
 		if(medias.size()==1){//只有一个不显示下部位置tab
 			llViewPagerTopIcons.setVisibility(View.GONE);
 		}else{
@@ -241,6 +251,7 @@ public class NewsDetailAct extends BaseAct implements OnClickListener, OnPageCha
 		ImageView imageVideo = null;
 		llViewPagerTopIcons.removeAllViews();
 		ImageView ImgIcon;
+		
 		for(int i =0;i<medias.size();i++){
 			viewImage = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE))
 					.inflate(R.layout.act_detail_pic, null);
@@ -308,23 +319,32 @@ public class NewsDetailAct extends BaseAct implements OnClickListener, OnPageCha
 
 
 	public void onClick(View view) {
-		Log.d("tag","click-->1"+view.getId());
+//		Log.d("tag","click-->1"+view.getId());
 		if(!Mconstant.isClickAble){
 			return;
 		}
-		Log.d("tag","click-->2"+Mconstant.isClickAble);
+//		Log.d("tag","click-->2"+Mconstant.isClickAble);
 		new Utils().setViewUnable();
 		switch (view.getId()) {
 		case R.id.back:
+//			Toast.makeText(this, "startAct"+IsPush, Toast.LENGTH_SHORT).show();
 			if(IsPush){
 				try{
+						
+					
 					Mconstant.currentPageIndex = MainActivity.getPageIndex(channelId);
+					if(!Utils.mainIsExit(this)){
+						Intent i = new Intent(NewsDetailAct.this,MainActivity.class);
+						i.putExtra("channelId",channelId);
+						NewsDetailAct.this.startActivity(i);
+					}
 				}catch(Exception e){
 					e.printStackTrace();
 					Log.e("tag","error-->"+e);
 					Intent i = new Intent(NewsDetailAct.this,MainActivity.class);
 					i.putExtra("channelId",channelId);
 					NewsDetailAct.this.startActivity(i);
+					
 				}
 				
 			}
@@ -342,12 +362,12 @@ public class NewsDetailAct extends BaseAct implements OnClickListener, OnPageCha
 					.putExtra("url", view.getTag().toString()));
 			break;
 		case R.id.detail_act_fragment_viewpager_small://
-			ArrayList<MediaEntity> temp1 = newsEntity.medias;
+			ArrayList<MediaEntity> temp1 =(ArrayList<MediaEntity>)  newsEntity.medias.clone();
 			temp1.addAll(newsEntity.images);
 			Intent i = new Intent(NewsDetailAct.this,ActPlay.class);
 			i.putExtra("selectedId", selectedViewpager);
 			i.putParcelableArrayListExtra("medias",temp1);
-			Log.d("tag","temp1————》"+temp1.size());
+//			Log.d("tag","temp1————》"+temp1.size());
 			startActivity(i);
 			break;
 		case IMG_ID://
@@ -358,15 +378,15 @@ public class NewsDetailAct extends BaseAct implements OnClickListener, OnPageCha
 					break;
 				}
 			}
-			Log.d("tag","temp————1》"+selectedImg);
+//			Log.d("tag","temp————1》"+selectedImg);
 			selectedImg = newsEntity.medias.size() + selectedImg;
 			ArrayList<MediaEntity> temp = (ArrayList<MediaEntity>) newsEntity.medias.clone();
-			Log.d("tag","temp————2》"+temp.size());
+//			Log.d("tag","temp————2》"+temp.size());
 			temp.addAll(newsEntity.images);
 			Intent i1 = new Intent(NewsDetailAct.this,ActPlay.class);
 			i1.putExtra("selectedId", selectedImg);
 			i1.putParcelableArrayListExtra("medias",temp);
-			Log.d("tag","temp————3》"+temp.size());
+//			Log.d("tag","temp————3》"+temp.size());
 			startActivity(i1);
 			break;
 		}
@@ -420,7 +440,7 @@ public class NewsDetailAct extends BaseAct implements OnClickListener, OnPageCha
 	
 	@Override
 	public void onTrimMemory(int level) {
-		Log.d("tag","trim---<>"+level);
+//		Log.d("tag","trim---<>"+level);
 		super.onTrimMemory(level);
 	}
 
@@ -439,7 +459,7 @@ public class NewsDetailAct extends BaseAct implements OnClickListener, OnPageCha
 	@Override
 	public void onPageSelected(int arg0) {
 		selectedViewpager = arg0; 
-		Log.d("tag","pageselected"+arg0+"size"+newsEntity.medias.size());
+//		Log.d("tag","pageselected"+arg0+"size"+newsEntity.medias.size());
 		tvViewpagerCaption.setText(newsEntity.medias.get(arg0).caption);
 		Utils.setViewPagerIcon(llViewPagerTopIcons, arg0);
 	}
@@ -465,6 +485,11 @@ public class NewsDetailAct extends BaseAct implements OnClickListener, OnPageCha
 	        	if(IsPush){
 					try{
 						Mconstant.currentPageIndex = MainActivity.getPageIndex(channelId);
+						if(!Utils.mainIsExit(this)){
+							Intent i = new Intent(NewsDetailAct.this,MainActivity.class);
+							i.putExtra("channelId",channelId);
+							NewsDetailAct.this.startActivity(i);
+						}
 					}catch(Exception e){
 						e.printStackTrace();
 						Intent i = new Intent(NewsDetailAct.this,MainActivity.class);
@@ -485,9 +510,14 @@ public class NewsDetailAct extends BaseAct implements OnClickListener, OnPageCha
 			if(IsPush){
 				try{
 					Mconstant.currentPageIndex = MainActivity.getPageIndex(channelId);
+					if(!Utils.mainIsExit(this)){
+						Intent i = new Intent(NewsDetailAct.this,MainActivity.class);
+						i.putExtra("channelId",channelId);
+						NewsDetailAct.this.startActivity(i);
+					}
 				}catch(Exception e){
 					e.printStackTrace();
-					Log.e("tag","error-->"+e);
+//					Log.e("tag","error-->"+e);
 					Intent i = new Intent(NewsDetailAct.this,MainActivity.class);
 					i.putExtra("channelId",channelId);
 					NewsDetailAct.this.startActivity(i);

@@ -24,7 +24,7 @@ public class Fragment_Second extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = View.inflate(getActivity(), R.layout.secondfragment, null);
-		Log.d("tag", "second");
+//		Log.d("tag", "second");
 		return view;
 	}
 

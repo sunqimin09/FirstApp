@@ -181,7 +181,7 @@ public class PushReceiver extends FrontiaPushMessageReceiver{
 	
 	     
 	    /**
-	     * 在状态栏显示通知
+	     * 在状态栏显示通知 http://218.253.0.168/
 	     */
 	    private void showNotification(Context context,PushMessage pushMessage,NewsEntity entity,boolean isRunning){
 	        // 创建一个NotificationManager的引用   
@@ -189,15 +189,21 @@ public class PushReceiver extends FrontiaPushMessageReceiver{
 	            context.getSystemService(android.content.Context.NOTIFICATION_SERVICE);   
 	         
 	        // 定义Notification的各种属性   
-	        Notification notification =new Notification(R.drawable.ic_launcher,   
-	        		pushMessage.title, System.currentTimeMillis()); 
+//	        Notification notification =new Notification(R.drawable.ic_launcher,   
+//	        		pushMessage.title, System.currentTimeMillis()); 
+	        Notification notification =new Notification(); 
+	        notification.tickerText = pushMessage.title;
+	        notification.when = System.currentTimeMillis();
+	        notification.icon = R.drawable.ic_launcher;
 	        //FLAG_AUTO_CANCEL   该通知能被状态栏的清除按钮给清除掉
 	        //FLAG_NO_CLEAR      该通知不能被状态栏的清除按钮给清除掉
 	        //FLAG_ONGOING_EVENT 通知放置在正在运行
 	        //FLAG_INSISTENT     是否一直进行，比如音乐一直播放，知道用户响应
 	        notification.flags |= Notification.FLAG_ONGOING_EVENT; // 将此通知放到通知栏的"Ongoing"即"正在运行"组中   
-	        notification.flags |= Notification.FLAG_AUTO_CANCEL; // 表明在点击了通知栏中的"清除通知"后，此通知不清除，经常与FLAG_ONGOING_EVENT一起使用   
+//	        notification.flags |= Notification.FLAG_AUTO_CANCEL; // 表明在点击了通知栏中的"清除通知"后，此通知不清除，经常与FLAG_ONGOING_EVENT一起使用   
 	        notification.flags |= Notification.FLAG_SHOW_LIGHTS;   
+	        notification.flags |=Notification.FLAG_LOCAL_ONLY;
+	        notification.flags |=Notification.FLAG_ONLY_ALERT_ONCE;
 	        //DEFAULT_ALL     使用所有默认值，比如声音，震动，闪屏等等
 	        //DEFAULT_LIGHTS  使用默认闪光提示
 	        //DEFAULT_SOUNDS  使用默认提示声音
@@ -212,22 +218,25 @@ public class PushReceiver extends FrontiaPushMessageReceiver{
 	        CharSequence contentTitle =pushMessage.title; // 通知栏标题   
 	        CharSequence contentText =pushMessage.description; // 通知栏内容   
 	        Intent notificationIntent = null;
-	        if(entity!=null)
-	        	notificationIntent =new Intent(context, NewsDetailAct.class); // 点击该通知后要跳转的Activity   
-	        else {
+	        if(entity!=null){
+	        	notificationIntent =new Intent(context, NewsDetailAct.class); // 点击该通知后要跳转的Activity 
+	        	notificationIntent.putExtra("channelId", pushMessage.c_id);
+	        }else {
+	        	
 	        	Log.d("tag","message--main");
 	        	notificationIntent =new Intent(context, MainActivity.class); 
+	        	notificationIntent.putExtra("pageIndex",0);
 	        }
 	        Log.d("tag","MESSAGE-111->"+entity);
 	        notificationIntent.putExtra("news", entity);
-	        notificationIntent.putExtra("channelId", pushMessage.c_id);
+	        
 	        notificationIntent.putExtra("news_id", pushMessage.a_id);
 	        notificationIntent.setAction("pushReceiver");
-	        PendingIntent contentItent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_ONE_SHOT);
+	        PendingIntent contentItent = PendingIntent.getActivity(context, pushMessage.a_id, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 	        notification.setLatestEventInfo(context, contentTitle, contentText, contentItent);   
 	         
 	        // 把Notification传递给NotificationManager   
-	        notificationManager.notify(0, notification);   
+	        notificationManager.notify(pushMessage.a_id, notification);   
 	    }
 	
 	    //删除通知    

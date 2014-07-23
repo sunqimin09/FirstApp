@@ -64,7 +64,7 @@ public class ActWeb extends BaseAct{
 		imageRefresh = (ImageView)  findViewById(R.id.refresh);
 		webView.setWebViewClient(new webViewClient());
 		url = getIntent().getStringExtra("url");
-		Log.d("tag","url--->"+url);
+//		Log.d("tag","url--->"+url);
 		webView.loadUrl(url);
 		
 	}
@@ -72,7 +72,7 @@ public class ActWeb extends BaseAct{
 	
 	
 	public void onClick(View view){
-		Log.d("tag","click"+view.getId());
+//		Log.d("tag","click"+view.getId());
 		switch(view.getId()){
 		case R.id.act_web_back://返回
 			finish();

@@ -140,7 +140,7 @@ public class ActMenu extends BaseAct implements OnItemClickListener{
 			}else if(arg2==menuCount+3){//关于我们
 				Intent i = new Intent(ActMenu.this,ActWeb.class);
 				i.putExtra("url", settingEntity.AboutUsUrl);
-				Log.d("tag","url-->"+settingEntity.AboutUsUrl);
+//				Log.d("tag","url-->"+settingEntity.AboutUsUrl);
 				startActivity(i);
 			}
 		}
