@@ -206,8 +206,9 @@ public class NewsDetailAct extends BaseAct implements OnClickListener, OnPageCha
 			image.setId(IMG_ID);
 			imgLoader.setIsBg(true);
 			imgLoader.setImgWidth(CommonUtil.getScreenWidth(this)-20);
+			Utils.getMemory("detail");
 			imgLoader.DisplayImage(list.get(i).pic , image,false);
-			
+			Utils.getMemory("detail-end");
 //			image.setTag(i);
 			image.setOnClickListener(this);
 			// image.setImage

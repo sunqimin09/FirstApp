@@ -26,6 +26,9 @@ public class Mconstant {
 	
 	public final static String TEST = "";
 	
+	/**网络连接超时*/
+	public static int TIME_OUT = 20 * 1000;
+	
 	public final static String LOCAL_FILE_PATH = Environment.getExternalStorageDirectory()+"/bjnews/";
 	
 	public final static String LOCAL_FILE_NAME = LOCAL_FILE_PATH+"bjnews_settings.json";

@@ -187,7 +187,7 @@ public class Utils {
 	 * 当前数据是否是老数据
 	 * @return
 	 */
-	public boolean isOld(String str){
+	public static boolean isOld(String str){
 		SimpleDateFormat format = new SimpleDateFormat(
 				"EEE, dd MMM yyyy HH:mm:ss ZZZZ", Locale.ENGLISH);// "EEE, dd MMM yyyy HH:mm:ss ZZZZ");
 		
@@ -261,6 +261,12 @@ public class Utils {
 		    } 
 		}  
 		return false;
+	}
+	
+	public static void getMemory(String log){
+		Log.d("tag",log+" free:"+Runtime.getRuntime().freeMemory());
+		Log.d("tag",log+"total:"+Runtime.getRuntime().totalMemory());
+		
 	}
 
 }

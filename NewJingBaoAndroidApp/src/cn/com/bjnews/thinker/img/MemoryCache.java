@@ -87,6 +87,7 @@ public class MemoryCache {
 					break;
 			}
 			System.gc();
+			Runtime.getRuntime().gc();
 			Log.i(TAG, "cache Clean size==>" + (cache.size())+ "size->"+size+"plimit"+limit+"total->"+Runtime.getRuntime().totalMemory());
 			Log.d("tag","memory-before2->"+Runtime.getRuntime().totalMemory());
 			
@@ -95,6 +96,8 @@ public class MemoryCache {
 		}
 	}
 
+	
+	
 	public void clear() {
 		cache.clear();
 	}

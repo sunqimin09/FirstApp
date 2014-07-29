@@ -3,6 +3,7 @@ package cn.com.bjnews.thinker.act;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -24,8 +25,10 @@ import android.widget.Toast;
 import cn.com.bjnews.thinker.R;
 import cn.com.bjnews.thinker.act.MainService.LocalBinder;
 import cn.com.bjnews.thinker.adapter.TestAdapter;
+import cn.com.bjnews.thinker.db.DbHandler;
 import cn.com.bjnews.thinker.debug.MyDebug;
 import cn.com.bjnews.thinker.entity.MainSettingEntity;
+import cn.com.bjnews.thinker.entity.NewsEntity;
 import cn.com.bjnews.thinker.entity.RequestEntity;
 import cn.com.bjnews.thinker.entity.ResponseResult;
 import cn.com.bjnews.thinker.internet.IRequestCallBack;
@@ -64,6 +67,9 @@ public class MainActivity extends BaseAct implements IRequestCallBack,
 	/**fragment 的状态*/
 	public static int[] state;
 
+	/***推送中新闻id*/
+	private static int newsId = -2;
+	
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -75,7 +81,8 @@ public class MainActivity extends BaseAct implements IRequestCallBack,
 		super.onResume();
 		MobclickAgent.onResume(this);
 		indicator.setCurrentItem(Mconstant.currentPageIndex);
-//		Log.d("tag","current-item>"+viewPager.getCurrentItem());
+		Log.d("tag","current-item-resume>"+viewPager.getCurrentItem());
+		
 	}
 	
 	@Override
@@ -88,7 +95,7 @@ public class MainActivity extends BaseAct implements IRequestCallBack,
 		initView();
 		initData();
 		// 发起网络请求
-		request();
+		request(Mconstant.TIME_OUT);
 
 //		Log.d("tag", "path->"
 //				+ Environment.getDataDirectory().getAbsolutePath());
@@ -122,8 +129,6 @@ public class MainActivity extends BaseAct implements IRequestCallBack,
 		readLocalData();
 		int channelId = getIntent().getIntExtra("channelId", 0);
 //		Log.d("tag","channelId-->"+channelId);
-//		
-		
 		showLocalData(localSettingEntity);
 		state = new int[localSettingEntity.channelList.size()];
 		indicator.setCurrentItem(getPageIndex(channelId));
@@ -133,15 +138,61 @@ public class MainActivity extends BaseAct implements IRequestCallBack,
 		 PushConstants.LOGIN_TYPE_API_KEY,
 		 Utils.getMetaValue(MainActivity.this, "api_key"));
 		 List<String> list = new ArrayList<String>();
-		 list.add("test");
+		 list.add("sun");//目前都是test 系列
 		 PushManager.setTags(this, list);
+		 
+	}
+
+	/**
+	 * 设置推送
+	 */
+	private void setPush(Intent intent){
+		Log.d("tag","setPush-->+"+getIntent().hasExtra("channelId")+getIntent().getSerializableExtra("news"));
+		if(intent.hasExtra("channelId")){//如果是推送消息
+			int channelId = intent.getIntExtra("channelId", 0);
+			int newsId = intent.getIntExtra("news_id", 0);
+			NewsEntity entity = (NewsEntity) intent.getSerializableExtra("news");
+			if(intent.getSerializableExtra("news")==null){//本地不存在，需要请求网络数据，请求网络后，继续跳转
+				indicator.setCurrentItem(getPageIndex(channelId));
+				Log.d("tag","currentpage--==>"+getPageIndex(channelId));
+				this.newsId = newsId;
+//				((Fragment_First)adapter.getItem(getPageIndex(channelId))).request();
+				
+			}else{//已经存在，设置当前栏目，并跳转
+				indicator.setCurrentItem(getPageIndex(channelId));
+				Intent i = new Intent(MainActivity.this,NewsDetailAct.class);
+				i.putExtra("news", entity);
+				startActivityForResult(i, 0);
+				if(service!=null){
+					service.update(newsId, 1);
+				}else{
+					DbHandler.getInstance(this).update(newsId, 1);
+				}
+			}
+			
+		}
+		
+	}
+	
+	public int getArticalId(){
+		return newsId;
+	}
+	
+	public void setArticalId(int id){
+		newsId = id;
+	}
+
+	@Override
+	protected void onNewIntent(Intent intent) {
+		setPush(intent);
+		super.onNewIntent(intent);
 	}
 
 	
 	
-	public static int getPageIndex(int channelId){
-		for(int i=0;i<localSettingEntity.channelList.size();i++){
-			if(localSettingEntity.channelList.get(i).id == channelId){
+	public static int getPageIndex(int channelId) {
+		for (int i = 0; i < localSettingEntity.channelList.size(); i++) {
+			if (localSettingEntity.channelList.get(i).id == channelId){
 //				Log.d("tag","channelid--pageIndex"+i);
 				return i;
 			}
@@ -169,6 +220,7 @@ public class MainActivity extends BaseAct implements IRequestCallBack,
 		} else {
 			localSettingEntity = JsonSettings.parse(localData);
 		}
+		
 
 	}
 
@@ -219,9 +271,9 @@ public class MainActivity extends BaseAct implements IRequestCallBack,
 	}
 
 	@Override
-	public void request() {
+	public void request(int timeOut) {
 		RequestEntity requestEntity = new RequestEntity(Mconstant.URL_CHANNELS);
-		new InternetHelper(this).requestThread(requestEntity, this);
+		new InternetHelper(this).requestThread(requestEntity, this,timeOut);
 	}
 
 	@Override
@@ -235,6 +287,7 @@ public class MainActivity extends BaseAct implements IRequestCallBack,
 			updateLocalData(remoteSettingEntity, responseResult.resultStr);
 			showLocalData(remoteSettingEntity);
 		}
+		setPush(getIntent()); 
 
 	}
 
@@ -274,6 +327,7 @@ public class MainActivity extends BaseAct implements IRequestCallBack,
 		state[pageIndex] = stateTemp;
 	}
 
+	
 	@Override
 	protected void onStart() {
 		

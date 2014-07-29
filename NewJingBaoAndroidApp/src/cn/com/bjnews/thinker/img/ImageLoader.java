@@ -61,7 +61,9 @@ public class ImageLoader {
 		memoryCache =MemoryCache.getInstance();
 		fileCache = new FileCache(context);
 		executorService = Executors.newFixedThreadPool(5);
-		Bitmap b = BitmapFactory.decodeResource(context.getResources(), drawable);
+		//???
+		Bitmap b = ImgUtils.getBitmap(context, drawable);
+//		Bitmap b = BitmapFactory.decodeResource(context.getResources(), drawable);
 		defaultWidth = b.getWidth();
 		defaultHeight = b.getHeight();
 		b.recycle();

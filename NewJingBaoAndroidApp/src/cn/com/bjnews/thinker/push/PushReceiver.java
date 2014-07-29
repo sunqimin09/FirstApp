@@ -200,7 +200,7 @@ public class PushReceiver extends FrontiaPushMessageReceiver{
 	        //FLAG_ONGOING_EVENT 通知放置在正在运行
 	        //FLAG_INSISTENT     是否一直进行，比如音乐一直播放，知道用户响应
 	        notification.flags |= Notification.FLAG_ONGOING_EVENT; // 将此通知放到通知栏的"Ongoing"即"正在运行"组中   
-//	        notification.flags |= Notification.FLAG_AUTO_CANCEL; // 表明在点击了通知栏中的"清除通知"后，此通知不清除，经常与FLAG_ONGOING_EVENT一起使用   
+	        notification.flags |= Notification.FLAG_AUTO_CANCEL; // 表明在点击了通知栏中的"清除通知"后，此通知不清除，经常与FLAG_ONGOING_EVENT一起使用   
 	        notification.flags |= Notification.FLAG_SHOW_LIGHTS;   
 	        notification.flags |=Notification.FLAG_LOCAL_ONLY;
 	        notification.flags |=Notification.FLAG_ONLY_ALERT_ONCE;
@@ -217,16 +217,15 @@ public class PushReceiver extends FrontiaPushMessageReceiver{
 	        // 设置通知的事件消息   
 	        CharSequence contentTitle =pushMessage.title; // 通知栏标题   
 	        CharSequence contentText =pushMessage.description; // 通知栏内容   
-	        Intent notificationIntent = null;
-	        if(entity!=null){
-	        	notificationIntent =new Intent(context, NewsDetailAct.class); // 点击该通知后要跳转的Activity 
-	        	notificationIntent.putExtra("channelId", pushMessage.c_id);
-	        }else {
-	        	
-	        	Log.d("tag","message--main");
-	        	notificationIntent =new Intent(context, MainActivity.class); 
-	        	notificationIntent.putExtra("pageIndex",0);
-	        }
+	        Intent notificationIntent  =new Intent(context, MainActivity.class); 
+	        notificationIntent.putExtra("channelId", pushMessage.c_id);
+//	        if(entity!=null){
+//	        	
+//	        }else {
+//	        	
+//	        	Log.d("tag","message--main");
+//	        	
+//	        }
 	        Log.d("tag","MESSAGE-111->"+entity);
 	        notificationIntent.putExtra("news", entity);
 	        

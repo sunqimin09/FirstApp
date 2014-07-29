@@ -31,6 +31,7 @@ import android.util.Log;
 
 import cn.com.bjnews.thinker.entity.RequestEntity;
 import cn.com.bjnews.thinker.entity.ResponseResult;
+import cn.com.bjnews.thinker.utils.Mconstant;
 
 
 
@@ -135,7 +136,7 @@ public class InternetHelper {
 	 * @param requestCallBack
 	 */
 	public void requestThread(final RequestEntity requestEntity,
-			final IRequestCallBack requestCallBack) {
+			final IRequestCallBack requestCallBack,final int timeOut) {
 //		progressDialog.show();
 		this.requestCallBack = requestCallBack;
 		if (!isInternetAvaliable(context)) {
@@ -150,7 +151,7 @@ public class InternetHelper {
 				ResponseResult responseResult = null;
 				try {
 					responseResult = InternetHelper
-							.request(requestEntity);
+							.request(requestEntity,timeOut);
 				} catch (UnsupportedEncodingException e1) {
 					e1.printStackTrace();
 				}
@@ -191,9 +192,9 @@ public class InternetHelper {
 	 * @return ������
 	 * @throws UnsupportedEncodingException 
 	 */
-	private static ResponseResult request(RequestEntity requestEntity) throws UnsupportedEncodingException {
+	private static ResponseResult request(RequestEntity requestEntity,int timeOut) throws UnsupportedEncodingException {
 		 if(!requestEntity.isPost){//get 方法
-			 return doGet(requestEntity);
+			 return doGet(requestEntity,timeOut);
 		 }
 		return doPost(requestEntity);
 	}
@@ -204,13 +205,13 @@ public class InternetHelper {
 	 * @param requestEntity
 	 * @throws UnsupportedEncodingException 
 	 */
-	private static ResponseResult doGet(RequestEntity requestEntity) throws UnsupportedEncodingException {
+	private static ResponseResult doGet(RequestEntity requestEntity,int timeOut) throws UnsupportedEncodingException {
 		// ��������ȫ��ַ
 		Log.d("tag", "request--url-before" + requestEntity.getUrl() + "urlend");
 		String url = getUrl(requestEntity.getUrl(), requestEntity.params);
 		// �������ĵ�ַ
 		Log.d("tag", "request--url" + url + "urlend");
-		ResponseResult responseResult = get(url);
+		ResponseResult responseResult = get(url,timeOut);
 		responseResult.requestCode = requestEntity.requestCode;
 		Log.d("tag", new String(responseResult.toString().getBytes(),"utf-8")+"request--result||>" + responseResult.toString());
 		return responseResult;
@@ -243,7 +244,7 @@ public class InternetHelper {
 	 * @param url
 	 * @return
 	 */
-	private static ResponseResult get(String url) {
+	private static ResponseResult get(String url,int timeOut) {
 		ResponseResult responseResult = new ResponseResult();
 		BufferedReader reader = null;
 		StringBuffer sb = null;
@@ -255,7 +256,8 @@ public class InternetHelper {
 			HttpGet request = new HttpGet(url);
 			/** ����ʱ 20�� */
 			request.getParams().setParameter(
-					CoreConnectionPNames.CONNECTION_TIMEOUT, 20 * 1000);
+					CoreConnectionPNames.CONNECTION_TIMEOUT, timeOut);
+			request.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, timeOut);
 			
 //			 request.getParams().setParameter(Charset.defaultCharset(),"gbk");
 			// �������󣬵õ���Ӧ
@@ -324,7 +326,7 @@ public class InternetHelper {
 			httpPost = new HttpPost(requestEntity.getUrl());
 			// ��������ʱ,20��
 			httpPost.getParams().setParameter(
-					CoreConnectionPNames.CONNECTION_TIMEOUT, 20 * 1000);
+					CoreConnectionPNames.CONNECTION_TIMEOUT, Mconstant.TIME_OUT);
 
 			HttpResponse httpResponse = null;
 			/** ����������� */

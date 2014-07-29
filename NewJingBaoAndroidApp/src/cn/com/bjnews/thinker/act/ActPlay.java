@@ -255,12 +255,6 @@ public class ActPlay extends BaseAct implements OnPageChangeListener, IRequestCa
 	}
 
 	@Override
-	public void request() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void requestSuccess(ResponseResult responseResult) {
 		medias.get(currentPage).video = (responseResult.resultStr);
 		if (medias.get(currentPage).flag  == 0) {// 视频
@@ -277,6 +271,12 @@ public class ActPlay extends BaseAct implements OnPageChangeListener, IRequestCa
 	@Override
 	public void requestFailedStr(String str) {
 		Toast.makeText(this,str, Toast.LENGTH_SHORT).show();
+		
+	}
+
+	@Override
+	public void request(int timeOut) {
+		// TODO Auto-generated method stub
 		
 	}
 

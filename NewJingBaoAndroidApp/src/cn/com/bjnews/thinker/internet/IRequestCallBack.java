@@ -9,7 +9,7 @@ public interface IRequestCallBack {
 	/**
 	 * 发起网络请求
 	 */
-	public void request();
+	public void request(int timeOut);
 	
 	/**
 	 * @param responseResult

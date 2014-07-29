@@ -21,7 +21,10 @@ public class FragmentFirstViewPagerAdapter extends PagerAdapter{
 	
 	private ImageLoader imgLoader = null;
 	
+	private Context context = null;
+	
 	public FragmentFirstViewPagerAdapter(Context context,ArrayList<View> views){
+		this.context = context;
 		this.views = views;
 		if(imgLoader==null)
 			imgLoader = new ImageLoader(context, R.drawable.default_img,false);
@@ -29,7 +32,7 @@ public class FragmentFirstViewPagerAdapter extends PagerAdapter{
 		
 	}
 	
-	public void setMedias(ArrayList<AdIntroEntity> medias,Context context){
+	public void setMedias(ArrayList<AdIntroEntity> medias){
 		Log.d("tag","设置显示的数据");
 		this.medias = medias;
 		imgLoader = new ImageLoader(context, R.drawable.default_img,false);
