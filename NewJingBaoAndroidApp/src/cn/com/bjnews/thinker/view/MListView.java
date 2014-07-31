@@ -148,6 +148,8 @@ public class MListView extends ListView{
 							loadingBarIndeterminate.setVisibility(View.VISIBLE);
 							loadingBarIndeterminate.setIndeterminate(true);
 							Fragment_First.isRefreshStarted = true;
+							//已经开始刷新，初始化 刷新指标
+							value = 0;
 //							MainActivity.setState(Mconstant.currentPageIndex, 1);
 						}
 					}

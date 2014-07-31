@@ -5,8 +5,6 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
-import android.app.ActivityManager;
-import android.app.ActivityManager.RunningTaskInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -15,15 +13,14 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
@@ -43,6 +40,16 @@ import cn.com.bjnews.thinker.utils.Mconstant;
 import cn.com.bjnews.thinker.utils.Utils;
 import cn.com.bjnews.thinker.view.MViewPager;
 import cn.com.bjnews.thinker.view.ViewPagerImageView;
+
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.bean.SocializeEntity;
+import com.umeng.socialize.controller.listener.SocializeListeners.SnsPostListener;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.sso.EmailHandler;
+import com.umeng.socialize.sso.QZoneSsoHandler;
+import com.umeng.socialize.sso.SmsHandler;
+import com.umeng.socialize.sso.UMQQSsoHandler;
+import com.umeng.socialize.weixin.controller.UMWXHandler;
 
 
 @SuppressLint("NewApi")
@@ -168,14 +175,16 @@ public class NewsDetailAct extends BaseAct implements OnClickListener, OnPageCha
 //			Log.d("tag", "news-==content>" + newsEntity.medias.size()
 //					+ "title->" + newsEntity.title);
 			tvTitle.setText(newsEntity.title);
-			tvData.setText(new Utils().formatDate(newsEntity.pubDate));
+			tvData.setText(new Utils().formatDate(newsEntity.pubDate)+" "+newsEntity.source);
 			tvContent.setText(newsEntity.content);
 //			tvContent.setLetterSpacing(0);
 			showViewPagerTop(newsEntity.medias);
 			showPics(newsEntity.images);
 			showRelated(newsEntity.relateds);
 			// newsEntity.getMedias().size()
+			
 		}
+		
 	}
 
 
@@ -225,13 +234,13 @@ public class NewsDetailAct extends BaseAct implements OnClickListener, OnPageCha
 	 * 上部 媒体 
 	 */
 	private void showViewPagerTop(ArrayList<MediaEntity> medias) {
-		if(medias.size()==0&& newsEntity.thumbnail!=null){//如果当前没有大图，显示缩略图
-			MediaEntity tempEntity = new MediaEntity();
-			tempEntity.pic = newsEntity.thumbnail;
-			tempEntity.flag =1;//图片
-			tempEntity.caption = "";
-			medias.add(tempEntity);
-		}
+//		if(medias.size()==0){//如果当前没有大图，显示缩略图
+//			MediaEntity tempEntity = new MediaEntity();
+//			tempEntity.pic = newsEntity.thumbnail;
+//			tempEntity.flag =1;//图片
+//			tempEntity.caption = "";
+//			medias.add(tempEntity);
+//		}
 		if(medias.size() ==0 ){
 			rlViewPagerTop.setVisibility(View.GONE);
 			return;
@@ -243,6 +252,11 @@ public class NewsDetailAct extends BaseAct implements OnClickListener, OnPageCha
 			llViewPagerTopIcons.setVisibility(View.VISIBLE);
 		}
 		//caption
+		if(medias.get(0).caption==null||medias.get(0).caption.equals("")){
+			tvViewpagerCaption.setVisibility(View.GONE);
+		}else{
+			tvViewpagerCaption.setVisibility(View.VISIBLE);
+		}
 		tvViewpagerCaption.setText(medias.get(0).caption);
 		rlViewPagerTop.setVisibility(View.VISIBLE);
 		ArrayList<View> views = new ArrayList<View>();
@@ -353,7 +367,8 @@ public class NewsDetailAct extends BaseAct implements OnClickListener, OnPageCha
 			
 			break;
 		case R.id.share:
-			share();
+//			share();
+			shareTestInit();
 			break;
 		case R.id.act_detail_pic_tv:
 			startActivity(new Intent(NewsDetailAct.this, ActPlay.class));
@@ -428,8 +443,114 @@ public class NewsDetailAct extends BaseAct implements OnClickListener, OnPageCha
 		
 	}
 
+	private void shareTest(com.umeng.socialize.controller.UMSocialService mController){
+		mController.openShare(this, false);
+	}
+
+	private void addWinXin() {
+		//微信
+		// wx967daebe835fbeac是你在微信开发平台注册应用的AppID, 这里需要替换成你注册的AppID
+		String appId = "wx967daebe835fbeac";
+		// 添加微信平台
+		UMWXHandler wxHandler = new UMWXHandler(this, appId);
+		wxHandler.addToSocialSDK();
+		// 支持微信朋友圈
+		UMWXHandler wxCircleHandler = new UMWXHandler(this, appId);
+		wxCircleHandler.setToCircle(true);
+		wxCircleHandler.addToSocialSDK();
+		
+		//QQ
+		//参数1为当前Activity，参数2为开发者在QQ互联申请的APP ID，参数3为开发者在QQ互联申请的APP kEY.
+//		UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(this, "100424468",
+//		                "c7394704798a158208a74ab60104f0ba");
+//		qqSsoHandler.addToSocialSDK();
+//		
+//		//qq空间
+//		//参数1为当前Activity，参数2为开发者在QQ互联申请的APP ID，参数3为开发者在QQ互联申请的APP kEY.
+//		QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(this, "100424468",
+//		                "c7394704798a158208a74ab60104f0ba");
+//		qZoneSsoHandler.addToSocialSDK();
+		
+		// 添加短信
+		SmsHandler smsHandler = new SmsHandler();
+		smsHandler.addToSocialSDK();
+		// 添加email
+		EmailHandler emailHandler = new EmailHandler();
+		emailHandler.addToSocialSDK();
+		
+	}
+
+	private void shareTestInit(){
+		addWinXin();
+		
+		// 首先在您的Activity中添加如下成员变量
+		final com.umeng.socialize.controller.UMSocialService mController =com.umeng.socialize.controller.UMServiceFactory.getUMSocialService("com.umeng.share");
+		mController.getConfig().removePlatform(SHARE_MEDIA.RENREN, SHARE_MEDIA.DOUBAN,SHARE_MEDIA.TENCENT);
+		// 设置分享内容
+		(mController).setShareContent(newsEntity.title+newsEntity.weburl);
+		// 设置分享图片, 参数2为图片的url地址
+		if(newsEntity.medias.size()>0)
+			mController.setShareMedia(new UMImage(this, 
+		                                      	newsEntity.medias.get(0).pic));
+		// 设置分享图片，参数2为本地图片的资源引用
+		//mController.setShareMedia(new UMImage(getActivity(), R.drawable.icon));
+		// 设置分享图片，参数2为本地图片的路径(绝对路径)
+		//mController.setShareMedia(new UMImage(getActivity(), 
+//		                                BitmapFactory.decodeFile("/mnt/sdcard/icon.png")));
+
+		// 设置分享音乐
+		//UMusic uMusic = new UMusic("http://sns.whalecloud.com/test_music.mp3");
+		//uMusic.setAuthor("GuGu");
+		//uMusic.setTitle("天籁之音");
+		// 设置音乐缩略图
+		//uMusic.setThumb("http://www.umeng.com/images/pic/banner_module_social.png");
+		//mController.setShareMedia(uMusic);
+
+		// 设置分享视频
+		//UMVideo umVideo = new UMVideo(
+//		          "http://v.youku.com/v_show/id_XNTE5ODAwMDM2.html?f=19001023");
+		// 设置视频缩略图
+		//umVideo.setThumb("http://www.umeng.com/images/pic/banner_module_social.png");
+		//umVideo.setTitle("友盟社会化分享!");
+		//mController.setShareMedia(umVideo);
+		
+		//新浪微博
+		shareTest(mController);
+//		shareSina(mController);
+	}
 	
-	
+	/**
+	 * 底层 自助 分享面板
+	 * @param mController
+	 */
+//	private void shareSina(
+//			com.umeng.socialize.controller.UMSocialService mController) {
+//		// 参数1为Context类型对象， 参数2为要分享到的目标平台， 参数3为分享操作的回调接口
+//		mController.postShare(this, SHARE_MEDIA.QQ, new SnsPostListener() {
+//			@Override
+//			public void onStart() {
+//				Toast.makeText(NewsDetailAct.this, "开始分享.", Toast.LENGTH_SHORT)
+//						.show();
+//			}
+//
+//			@Override
+//			public void onComplete(SHARE_MEDIA platform, int eCode,
+//					SocializeEntity entity) {
+//				if (eCode == 200) {
+//					Toast.makeText(NewsDetailAct.this, "分享成功.",
+//							Toast.LENGTH_SHORT).show();
+//				} else {
+//					String eMsg = "";
+//					if (eCode == -101) {
+//						eMsg = "没有授权";
+//					}
+//					Toast.makeText(NewsDetailAct.this,
+//							"分享失败[" + eCode + "] " + eMsg, Toast.LENGTH_SHORT)
+//							.show();
+//				}
+//			}
+//		});
+//	}
 	
 	public boolean hasApplication(Intent intent){    
         PackageManager packageManager = getPackageManager();    
@@ -461,6 +582,11 @@ public class NewsDetailAct extends BaseAct implements OnClickListener, OnPageCha
 	public void onPageSelected(int arg0) {
 		selectedViewpager = arg0; 
 //		Log.d("tag","pageselected"+arg0+"size"+newsEntity.medias.size());
+		if(newsEntity.medias.get(arg0).caption==null||newsEntity.medias.get(arg0).caption.equals("")){
+			tvViewpagerCaption.setVisibility(View.GONE);
+		}else{
+			tvViewpagerCaption.setVisibility(View.VISIBLE);
+		}
 		tvViewpagerCaption.setText(newsEntity.medias.get(arg0).caption);
 		Utils.setViewPagerIcon(llViewPagerTopIcons, arg0);
 	}

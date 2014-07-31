@@ -3,37 +3,37 @@ package cn.com.bjnews.thinker.act;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.umeng.analytics.MobclickAgent;
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.Window;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.VideoView;
 import cn.com.bjnews.thinker.R;
 import cn.com.bjnews.thinker.entity.MediaEntity;
 import cn.com.bjnews.thinker.entity.ResponseResult;
 import cn.com.bjnews.thinker.img.CommonUtil;
+import cn.com.bjnews.thinker.img.DragImageView;
 import cn.com.bjnews.thinker.img.FileManager;
 import cn.com.bjnews.thinker.img.ImageLoader;
 import cn.com.bjnews.thinker.internet.IRequestCallBack;
 import cn.com.bjnews.thinker.utils.FileDown;
-import cn.com.bjnews.thinker.utils.ImageUtils;
 import cn.com.bjnews.thinker.utils.Utils;
+
+import com.umeng.analytics.MobclickAgent;
 
 
 public class ActPlay extends BaseAct implements OnPageChangeListener, IRequestCallBack{
@@ -50,7 +50,12 @@ public class ActPlay extends BaseAct implements OnPageChangeListener, IRequestCa
 	
 	private ImageLoader imageLoader;
 	
-	private int currentPage = 0;;
+	private int currentPage = 0;
+	
+	private int window_width, window_height;// 控件宽度
+	private int state_height;// 状态栏的高度
+
+	private ViewTreeObserver viewTreeObserver;
 	
 	@Override
 	protected void onPause() {
@@ -87,7 +92,7 @@ public class ActPlay extends BaseAct implements OnPageChangeListener, IRequestCa
 		int selectedId = getIntent().getIntExtra("selectedId", 0);
 //		Log.d("tag","temp2-->"+medias.size());
 		View view;
-		ImageView imageView;
+//		final DragImageView imageView;
 		VideoView videoView ;
 		//下部位置标
 		ImageView ImgIcon;
@@ -95,7 +100,7 @@ public class ActPlay extends BaseAct implements OnPageChangeListener, IRequestCa
 		for(int i =0;i<medias.size();i++){
 			view = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE))
 					.inflate(R.layout.view_pager_item, null); 
-			imageView = (ImageView) view.findViewById(R.id.viewpager_item_img);
+			final DragImageView imageView = (DragImageView) view.findViewById(R.id.viewpager_item_img);
 			videoView = (VideoView) view.findViewById(R.id.viewpager_video);
 //			Log.d("tag","videoView-flag->"+medias.get(i).flag);
 			if(medias.get(i).flag ==0){//视频
@@ -116,7 +121,27 @@ public class ActPlay extends BaseAct implements OnPageChangeListener, IRequestCa
 				imageLoader.setMaxSreen(true);
 				imageLoader.setImgWidth(CommonUtil.getScreenWidth(this));
 				imageLoader.DisplayImage(medias.get(i).pic, imageView, false);
+				imageLoader.setScale(true);
+				imageView.setmActivity(this);
 				imageView.setVisibility(View.VISIBLE);
+				viewTreeObserver = imageView.getViewTreeObserver();
+				viewTreeObserver
+						.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+
+							@Override
+							public void onGlobalLayout() {
+								if (state_height == 0) {
+									// 获取状况栏高度
+									Rect frame = new Rect();
+									getWindow().getDecorView()
+											.getWindowVisibleDisplayFrame(frame);
+									state_height = frame.top;
+									imageView.setScreen_H(window_height-state_height);
+									imageView.setScreen_W(window_width);
+								}
+
+							}
+						});
 			}
 //			Log.d("tag","imageWidth:>"+imageView.getWidth()+"Height:"+imageView.getHeight());
 			views.add(view);
@@ -130,6 +155,8 @@ public class ActPlay extends BaseAct implements OnPageChangeListener, IRequestCa
 		adapter = new MViewPagerAdapter(views);
 		viewPager.setAdapter(adapter);
 		viewPager.setCurrentItem(selectedId);
+		
+		
 		
 	}
 	

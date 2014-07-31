@@ -24,6 +24,7 @@ import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -79,6 +80,15 @@ public class ImageLoader {
 		aimWidth = width;
 	}
 	
+	/**
+	 * 设置是否可以缩放
+	 * @param isScaleAble
+	 */
+	public void setScale(boolean isScaleAble){
+		this.isScale = isScaleAble;
+	}
+	
+	private  boolean isScale = false;
 	
 	private boolean isBg = true;
 	
@@ -128,8 +138,17 @@ public class ImageLoader {
 			Log.d("tag","showimage==imageWidth->"+imageView.getWidth()+"height:"+imageView.getHeight());
 			if(isBg)
 				imageView.setBackground(new BitmapDrawable(bitmap));
-			else
+			else if(isScale){
+				/** 获取可見区域高度 **/
+				WindowManager manager = ((Activity) imageView.getContext()).getWindowManager();
+				int window_width = manager.getDefaultDisplay().getWidth();
+				int window_height = manager.getDefaultDisplay().getHeight();
+//				dragImageView.setImageBitmap(bmp);
+				((DragImageView)imageView).setImageBitmap(BitmapUtil.getBitmap(bitmap, window_width, window_height));
+			}else{
 				imageView.setImageBitmap(bitmap);
+			}
+				
 			Log.d("tag","ImageWidth--Height1:"+imageView.getHeight());
 //			imageView.setImageBitmap(bitmap);
 			Log.d("tag","showimage--put2>"+Runtime.getRuntime().totalMemory());

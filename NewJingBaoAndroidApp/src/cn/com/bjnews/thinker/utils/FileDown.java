@@ -122,5 +122,22 @@ public class FileDown {
 		return sb.toString();
 	}
 	
+	/**
+	 * 
+	 * 移动文件
+	 * @param filePath
+	 * @return
+	 */
+	public boolean moveFile(String filePath){
+		File file = new File(filePath);
+		Log.d("tag","filePath===>"+file.getPath());
+		// 目标文件夹
+//		File dir = new File(destPath);
+//		// 将文件移动到另一个文件目录下
+//		boolean success = file.renameTo(new File(dir, file.getName()));
+//		return success;
+		return false;
+	}
+	
 	
 }

@@ -1,5 +1,6 @@
 package cn.com.bjnews.thinker.act;
 
+import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -132,13 +133,15 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 		initView(view);
 		// Log.d("tag","fragment-oncreate-IsRefresh:"+MainActivity.getState(currentPagerIndex));
 		initData();
-		if (MainActivity.getState(currentPagerIndex) == 1) {
-			showLoading();
-		} else if (MainActivity.getState(Mconstant.currentPageIndex) == 0) {// 当前显示的页，没有进行加载，需要不显示title
-			showstopLoading();
-		} else if (MainActivity.getState(Mconstant.currentPageIndex) == 1) {
-			showLoading();
-		}
+		if (MainActivity.isRefreshing(currentPagerIndex)) {
+			Refresh();
+		} else if (!MainActivity.isRefreshing(Mconstant.currentPageIndex) ) {// 当前显示的页，没有进行加载，需要不显示title
+			postRefresh();
+//			showstopLoading();
+		} 
+//		else if (MainActivity.isRefreshing(Mconstant.currentPageIndex) ) {
+//			showLoading();
+//		}
 		// if(savedInstanceState!=null)
 		// Log.d("tag","fragment-oncreate--end-Pageindex:"+savedInstanceState.getInt("refreshstate"));
 		return view;
@@ -225,8 +228,8 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 	public void pageSelected(int channelId) {
 		Log.d("tag", Mconstant.currentPageIndex + "fragment-pageSelected>"
 				+ getActivity());
-		if (MainActivity.getState(Mconstant.currentPageIndex) == 1) {
-			startLoading();
+		if (MainActivity.isRefreshing(Mconstant.currentPageIndex)) {
+			Refresh();
 		} else {
 			// stopLoading();
 		}
@@ -410,30 +413,30 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 	/**
 	 * O To start refreshing.
 	 */
-	public void startLoading() {
-		
-		if (!isRefreshStarted || MainActivity.getState(currentPagerIndex) != 1) {// 该页面没有正在加载
-			if (getActivity() != null) {
-				this.Refresh();
-				showLoading();
-				Log.d("tag", "startloading---->" + isRefreshStarted);
-			}
-		}
-	}
+//	public void startLoading() {
+//		
+//		if (!isRefreshStarted || !MainActivity.isRefreshing(currentPagerIndex)) {// 该页面没有正在加载
+//			if (getActivity() != null) {
+//				this.Refresh();
+//				showLoading();
+//				Log.d("tag", "startloading---->" + isRefreshStarted);
+//			}
+//		}
+//	}
 
-	/**
-	 * To stop refreshing.
-	 */
-	public void stopLoading() {
-		
-		if (isRefreshStarted) {
-			showstopLoading();
-			// if(refreshListnerInstance != null){
-			this.postRefresh();
-			// }
-
-		}
-	}
+//	/**
+//	 * To stop refreshing.
+//	 */
+//	public void stopLoading() {
+//		
+//		if (isRefreshStarted) {
+//			showstopLoading();
+//			// if(refreshListnerInstance != null){
+//			this.postRefresh();
+//			// }
+//
+//		}
+//	}
 
 	private void showstopLoading() {
 		loadingBars.setVisibility(View.INVISIBLE);
@@ -447,8 +450,9 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 	}
 
 	private void showLoading() {
+		
 		((MainActivity) getActivity()).showLoading(R.string.loading);
-		loadingBars.setVisibility(View.VISIBLE);
+		loadingBars.setVisibility(View.INVISIBLE);
 		loadingBarIndeterminate.setVisibility(View.VISIBLE);
 		loadingBarIndeterminate.setIndeterminate(true);
 		isRefreshStarted = true;
@@ -494,6 +498,12 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 		}
 	}
 	
+	/**
+	 * 跳转到 详细页面
+	 * @param newsId
+	 * @param entity
+	 */
+
 	private void skipToDetail(int newsId,NewsEntity entity){
 		if(entity==null){
 			return;
@@ -510,9 +520,16 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 		RequestEntity requestEntity = new RequestEntity(
 				MainActivity.localSettingEntity.channelList
 						.get(currentPagerIndex).url);
+		if(((MainActivity)getActivity()).getService()!=null){
+			((MainActivity)getActivity()).getService().request(getActivity(),requestEntity,this,timeOut);
+		}else{
+			new InternetHelper(getActivity()).requestThread(requestEntity, this,timeOut);
+		}
+		
 		// requestEntity.setUrl("http://app.bjnews.com.cn/m/json/worldcup_test.html");
 		Log.d("tag", "readlocal--request==start" + currentPagerIndex);
-		new InternetHelper(getActivity()).requestThread(requestEntity, this,timeOut);
+		//标记 正在请求网络
+		MainActivity.setState(currentPagerIndex, 1);
 	}
 
 	@Override
@@ -525,8 +542,15 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 		if (getActivity() != null) {
 //			 Toast.makeText(getActivity(),isRefreshStarted+"requestSuccess-->"+remoteListEntity.getNewsList().size(),
 //			 Toast.LENGTH_SHORT).show();
-			 Log.d("tag","RequestSuccessssss-->"+isRefreshStarted);
-			 showstopLoading();
+			 Log.d("tag","RequestSuccessssss-->"+locaListEntity+(remoteListEntity.equal(locaListEntity)));
+			 postRefresh();
+			 
+			 //标记  已经请求过
+//			boolean re =  dbHandler.updateChannelUpdate(MainActivity.localSettingEntity.channelList
+//						.get(currentPagerIndex).id,1);
+//			Log.d("tag",MainActivity.localSettingEntity.channelList
+//					.get(currentPagerIndex).id+"result===?"+re);
+//			 showstopLoading();
 		}
 
 		if (locaListEntity != null && remoteListEntity.equal(locaListEntity)) {// 不更新  &&
@@ -535,11 +559,11 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 		// Log.d("tag","requestSuccess-update-Pageindex:"+pageIndex);
 			locaListEntity = copy(remoteListEntity);
 			updateLocalData(locaListEntity);
-//			showData(locaListEntity);
-//			Toast.makeText(getActivity(), "请求结束", Toast.LENGTH_SHORT).show();
+			
+			showDataTest(locaListEntity);
+//			Toast.makeText(getActivity(), currentPagerIndex+"请求结束"+locaListEntity.newsList.size(), Toast.LENGTH_SHORT).show();
 			doPush();
-			Log.d("tag", "viewpager--width->" + viewPager.getWidth()
-					+ "Height>" + viewPager.getHeight());
+			
 		}
 	}
 
@@ -552,7 +576,8 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 
 		}
 		if(getActivity()!=null){
-			showstopLoading();
+//			showstopLoading();
+			postRefresh();
 		}
 		
 
@@ -573,7 +598,7 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 		Log.d("tag","onResume--fragment-->"+((MainActivity) getActivity()).getArticalId());
 		if(getActivity()!=null){
 			if(((MainActivity) getActivity()).getArticalId()>-1){//请求该id 数据,请求后跳转
-				startLoading();
+				Refresh();
 				request(Mconstant.TIME_OUT);
 //				Toast.makeText(getActivity(), "开始请求数据", Toast.LENGTH_SHORT).show();
 			}
@@ -688,48 +713,74 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 
 		if (MainActivity.localSettingEntity.channelList.get(currentPagerIndex).id != entity.channelId)
 			return;
-		locaListEntity = copy(entity);
-		if(locaListEntity.pubDate!=null)
-		Log.d("tag", "readlocal-success>" + Utils.isOld(locaListEntity.pubDate) + "<>"
-				+ locaListEntity.getNewsList().size());
+		locaListEntity = entity;
+//		locaListEntity = copy(entity);
+		if(entity.pubDate!=null)
+		Log.d("tag", "readlocal-success>" + Utils.isOld(entity.pubDate) + "<>"
+				+ entity.getNewsList().size());
 		// Log.d("tag",
 		// "Pageindex:" + pageIndex + "readlocal-success ads>"
 		// + locaListEntity.ads.size() + "size:"
 		// + locaListEntity.newsList.size());
 
 //		showData(locaListEntity);
-		showDataTest(locaListEntity);
-		if ((locaListEntity.pubDate != null && Utils
-				.isOld(locaListEntity.pubDate))
-				|| locaListEntity.newsList.size() == 0) {//老数据。或者没有数据
-			startLoading();
-			;
+		showDataTest(entity);
+		Log.d("tag","readsuccess--->"+entity.newsList.size() +"》《"+entity.requestState);
+		if (entity.newsList.size() == 0||entity.requestState==0)//(locaListEntity.pubDate != null && Utils.isOld(locaListEntity.pubDate)
+				  {//老数据。或者没有数据
+			Refresh();
+		}else{
+//			dbHandler.updateChannelUpdate(MainActivity.localSettingEntity.channelList
+//					.get(currentPagerIndex).id, Utils.getCurrentTime());
 		}
 	}
 
 	@Override
 	public void Refresh() {
 		Log.d("tag", "readlocal---showLoading---refresh>" + getActivity());
-		if (getActivity() != null) {
-			((MainActivity) getActivity()).showLoading(R.string.loading);
-			request(Mconstant.TIME_OUT);
-			MainActivity.setState(currentPagerIndex, 1);
+		RefreshTest();
+	}
+	
+	/**
+	 * 开始刷新，
+	 */
+	private void RefreshTest(){
+		if(getActivity()!=null){
+			//当前正在请求网络。。 需要显示 加载中。。(如果没有显示的话)
+			if(MainActivity.isRefreshing(currentPagerIndex)){//正在请求
+				if(currentPagerIndex==Mconstant.currentPageIndex)
+					showLoading();
+			}else{//当前没有请求网络。。
+				request(Mconstant.TIME_OUT);
+				if(currentPagerIndex==Mconstant.currentPageIndex)
+					showLoading();
+			}
 		}
-
 	}
 
-	@Override
-	public void postRefresh() {
-		// Log.d("tag","hide-post-->");
-		((MainActivity) getActivity()).hideLoading();
+	/**
+	 * 刷新结束
+	 */
+	private void postRefreshTest(){
+		showstopLoading();
 		MainActivity.setState(currentPagerIndex, 0);
 	}
+	
+	@Override
+	public void postRefresh() {//刷新结束
+		// Log.d("tag","hide-post-->");
+		postRefreshTest();
+//		((MainActivity) getActivity()).hideLoading();
+//		MainActivity.setState(currentPagerIndex, 0);
+	}
 
+	
+	
 	@Override
 	public void preRefresh() {
 		 Log.d("tag","showLoading---pre-pull>");
 		((MainActivity) getActivity()).showLoading(R.string.pull_refresh);
-		MainActivity.setState(currentPagerIndex, 1);
+		MainActivity.setState(currentPagerIndex, 0);
 	}
 
 	@Override

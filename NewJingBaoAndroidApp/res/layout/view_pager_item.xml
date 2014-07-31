@@ -5,11 +5,12 @@
     
      >
 
-    <ImageView
+    <cn.com.bjnews.thinker.img.DragImageView
         android:id="@+id/viewpager_item_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:scaleType="fitXY"
         android:background="@drawable/default_img" />
     <VideoView
         android:id="@+id/viewpager_video"

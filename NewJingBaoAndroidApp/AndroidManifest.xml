@@ -1,100 +1,75 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.com.bjnews.thinker"
-    android:versionCode="210"
-    android:versionName="2.1.0" >
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="211" android:versionName="2.1.1" package="cn.com.bjnews.thinker">
 
-    <uses-sdk
-        android:minSdkVersion="11"
-        android:targetSdkVersion="20" />
-	<supports-screens 
-	    android:xlargeScreens="true"
-	    android:largeScreens="true"
-	    android:anyDensity="true"
-	    android:resizeable="true"
-	    android:normalScreens="true"
-	    android:smallScreens="true"
-	    />
+    <uses-sdk android:minSdkVersion="11" android:targetSdkVersion="20"/>
+	<supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:resizeable="true" android:smallScreens="true" android:xlargeScreens="true"/>
     
     <!-- Push service 运行需要的权限 -->
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />  
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>  
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>
-    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.GET_TASKS" />  
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION"/>
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>  
     
-    <application
-        android:name="cn.com.bjnews.thinker.act.DemoApplication"
-        android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:hardwareAccelerated="false"
-         >
-        <activity android:name="cn.com.bjnews.thinker.act.WelcomeAct"
-            android:theme="@style/ContentOverlay"
-            android:screenOrientation="portrait"
-             >
+    <application android:allowBackup="true" android:hardwareAccelerated="false" android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:name="cn.com.bjnews.thinker.act.DemoApplication" android:theme="@style/AppTheme">
+        <activity android:name="cn.com.bjnews.thinker.act.WelcomeAct" android:screenOrientation="portrait" android:theme="@style/ContentOverlay">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name="cn.com.bjnews.thinker.act.MainActivity"
-            android:launchMode="singleTask"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-             >
+        <activity android:label="@string/app_name" android:launchMode="singleTask" android:name="cn.com.bjnews.thinker.act.MainActivity" android:screenOrientation="portrait">
         </activity>
-        <activity android:name="cn.com.bjnews.thinker.act.NewsDetailAct" 
-            android:theme="@android:style/Theme.Holo.Light"
-            android:screenOrientation="portrait"
-            >
+        <activity android:name="cn.com.bjnews.thinker.act.NewsDetailAct" android:screenOrientation="portrait" android:theme="@android:style/Theme.Holo.Light">
         </activity>
-        <activity 
-            android:configChanges="orientation|keyboardHidden|navigation"
-            android:name="cn.com.bjnews.thinker.act.ActPlay">
+        <activity android:configChanges="orientation|keyboardHidden|navigation" android:name="cn.com.bjnews.thinker.act.ActPlay">
         </activity>
         
-        <activity 
-            android:name="cn.com.bjnews.thinker.act.ActMenu"
-            android:theme="@android:style/Theme.Holo.Light"
-            android:screenOrientation="portrait"
-            ></activity>
-        <activity android:name="cn.com.bjnews.thinker.act.ActWeb"
-            android:theme="@android:style/Theme.Holo.Light"
-            android:screenOrientation="portrait"
-            ></activity>
+        <activity android:name="cn.com.bjnews.thinker.act.ActMenu" android:screenOrientation="portrait" android:theme="@android:style/Theme.Holo.Light"/>
+        <activity android:name="cn.com.bjnews.thinker.act.ActWeb" android:screenOrientation="portrait" android:theme="@android:style/Theme.Holo.Light"/>
         
         <!-- 所有的父类 -->
-        <activity android:name="cn.com.bjnews.thinker.act.BaseAct"
-            android:theme="@android:style/Theme.Holo.Light"
-            ></activity>
+        <activity android:name="cn.com.bjnews.thinker.act.BaseAct" android:theme="@android:style/Theme.Holo.Light"/>
         
         
-        <activity android:name="cn.com.bjnews.thinker.push.BaiduPushTestAct"
-            android:theme="@android:style/Theme.Holo.Light"
-            
-            ></activity>
-        <service android:name="cn.com.bjnews.thinker.act.MainService"></service>
+        <activity android:name="cn.com.bjnews.thinker.push.BaiduPushTestAct" android:theme="@android:style/Theme.Holo.Light"/>
+        <service android:name="cn.com.bjnews.thinker.act.MainService"/>
+         <!-- ###################注册SDK使用的Activity###################### -->
+        <!--分享编辑页-->
+        <activity android:configChanges="orientation|keyboard" android:launchMode="singleTask" android:name="com.umeng.socialize.view.ShareActivity" android:noHistory="true" android:windowSoftInputMode="stateVisible|adjustResize">
+        </activity>
+<!-- android:theme="@style/Theme.UMDialog" -->
+        <!-- ############ QQ空间和QQ SSO授权的Activity注册 ############ -->
+        <activity android:launchMode="singleTask" android:name="com.tencent.tauth.AuthActivity" android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <!-- 100424468，如果你使用的公用账号，则不需要修改；否则修改成你在QQ开放平台申请的 APP ID-->
+                <data android:scheme="tencent100424468"/> 
+            </intent-filter>
+        </activity>
+        <activity android:name="com.tencent.connect.common.AssistActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
+        
         
         <!-- 接收消息的 receiver -->
         <receiver android:name="cn.com.bjnews.thinker.push.PushReceiver">
             <intent-filter>
 			<!--  接收 push 消息  -->
-				<action android:name="com.baidu.android.pushservice.action.MESSAGE" />
+				<action android:name="com.baidu.android.pushservice.action.MESSAGE"/>
 			<!--  接收 bind、setTags 等 method 的返回结果  -->
-				<action android:name="com.baidu.android.pushservice.action.RECEIVE" />
+				<action android:name="com.baidu.android.pushservice.action.RECEIVE"/>
 			<!--  可选。接受通知点击事件，和通知自定义内容  -->
 				<action android:name="com.baidu.android.pushservice.action.notification.CLICK"/>
 			</intent-filter>
@@ -102,48 +77,39 @@
         
         
        
-         <receiver android:name="com.baidu.android.pushservice.PushServiceReceiver"
-            android:process=":bdservice_v1">
+         <receiver android:name="com.baidu.android.pushservice.PushServiceReceiver" android:process=":bdservice_v1">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-                <action android:name="com.baidu.android.pushservice.action.notification.SHOW" />
-                <action android:name="com.baidu.android.pushservice.action.media.CLICK" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="com.baidu.android.pushservice.action.notification.SHOW"/>
+                <action android:name="com.baidu.android.pushservice.action.media.CLICK"/>
             </intent-filter>
         </receiver>
-        <receiver android:name="com.baidu.android.pushservice.RegistrationReceiver"
-            android:process=":bdservice_v1">
+        <receiver android:name="com.baidu.android.pushservice.RegistrationReceiver" android:process=":bdservice_v1">
             <intent-filter>
-                <action android:name="com.baidu.android.pushservice.action.METHOD" />
-                <action android:name="com.baidu.android.pushservice.action.BIND_SYNC" />
+                <action android:name="com.baidu.android.pushservice.action.METHOD"/>
+                <action android:name="com.baidu.android.pushservice.action.BIND_SYNC"/>
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REMOVED"/>
-                <data android:scheme="package" />
+                <data android:scheme="package"/>
             </intent-filter>                   
         </receiver>
-        <service
-            android:name="com.baidu.android.pushservice.PushService"
-            android:exported="true"
-            android:process=":bdservice_v1"  >
+        <service android:exported="true" android:name="com.baidu.android.pushservice.PushService" android:process=":bdservice_v1">
             <intent-filter>
-                <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE" />
+                <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE"/>
             </intent-filter>
         </service>
         <!-- 友盟 更新组件 -->
-        <service
-            android:name="com.umeng.update.net.DownloadingService"
-            android:process=":DownloadingService" >
+        <service android:name="com.umeng.update.net.DownloadingService" android:process=":DownloadingService">
         </service>
 
-        <activity
-            android:name="com.umeng.update.UpdateDialogActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        <activity android:name="com.umeng.update.UpdateDialogActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
 <!-- -->
         <!-- 在百度开发者中心查询应用的API Key SdeUzbFBGSRWONDy9EXlbDMm  h2E03gOedAXK4eL9bLYha4ZHgge7SzyQ -->
         
-        <meta-data android:name="api_key" android:value="SdeUzbFBGSRWONDy9EXlbDMm" />
+        <meta-data android:name="api_key" android:value="SdeUzbFBGSRWONDy9EXlbDMm"/>
         <meta-data android:name="api_secret" android:value="h2E03gOedAXK4eL9bLYha4ZHgge7SzyQ"/>
         <!--
          
@@ -152,14 +118,12 @@
         <meta-data android:name="api_secret" android:value="zpCR4jqQhdtRR83K97o9eo79ruuYFAgt"/>
         -->
         
-        <meta-data
-            android:name="UMENG_APPKEY"
-            android:value="4e8022bf5270157201000014" >
+        <meta-data android:name="UMENG_APPKEY" android:value="4e8022bf5270157201000014">
         </meta-data>
-        <meta-data
-            android:name="UMENG_CHANNEL"
-            android:value="Umeng" >
+        <meta-data android:name="UMENG_CHANNEL" android:value="Umeng">
         </meta-data>
-    </application>
+    <activity android:configChanges="keyboardHidden|orientation|screenSize" android:exported="true" android:name=".wxapi.WXEntryActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+</application>
 
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 </manifest>

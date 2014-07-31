@@ -27,6 +27,7 @@ import cn.com.bjnews.thinker.act.MainService.LocalBinder;
 import cn.com.bjnews.thinker.adapter.TestAdapter;
 import cn.com.bjnews.thinker.db.DbHandler;
 import cn.com.bjnews.thinker.debug.MyDebug;
+import cn.com.bjnews.thinker.entity.ChannelEntity;
 import cn.com.bjnews.thinker.entity.MainSettingEntity;
 import cn.com.bjnews.thinker.entity.NewsEntity;
 import cn.com.bjnews.thinker.entity.RequestEntity;
@@ -220,7 +221,10 @@ public class MainActivity extends BaseAct implements IRequestCallBack,
 		} else {
 			localSettingEntity = JsonSettings.parse(localData);
 		}
-		
+		DbHandler dbHandler = DbHandler.getInstance(this);
+		for (ChannelEntity entity : localSettingEntity.channelList) {
+			dbHandler.updateChannelUpdate(entity.id, 0);
+		}
 
 	}
 
@@ -313,12 +317,19 @@ public class MainActivity extends BaseAct implements IRequestCallBack,
 		 
 	}
 	
-	public static int getState(int pageIndex){
+	public static boolean isRefreshing(int pageIndex){
 		if(pageIndex>state.length||pageIndex==state.length){
-			return -1;
+			return false;
 		}
-		return state[pageIndex];
+		return state[pageIndex]==1;
 	}
+	
+//	public static int getState(int pageIndex){
+//		if(pageIndex>state.length||pageIndex==state.length){
+//			return -1;
+//		}
+//		return state[pageIndex];
+//	}
 	
 	public static void setState(int pageIndex,int stateTemp){
 		if(pageIndex>state.length||pageIndex==state.length){

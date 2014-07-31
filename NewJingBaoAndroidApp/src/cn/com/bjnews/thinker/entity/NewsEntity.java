@@ -12,6 +12,11 @@ import java.util.ArrayList;
 public class NewsEntity implements Serializable {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * 两者是否相同
 	 * @param entity
 	 * @return
@@ -24,6 +29,10 @@ public class NewsEntity implements Serializable {
 	//	
 	public String title;
 //	
+	/**信息来源*/
+	public String source ;
+	
+	
 	public String description;
 	/**缩略图*/
 	public String thumbnail;

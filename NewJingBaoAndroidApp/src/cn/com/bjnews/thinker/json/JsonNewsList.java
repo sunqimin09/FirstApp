@@ -71,6 +71,7 @@ public class JsonNewsList {
 			newsEntity.id = (TempJson.getInt("id"));
 			newsEntity.pubDate = (TempJson.getString("pubDate"));
 			newsEntity.weburl = (TempJson.getString("weburl"));
+			newsEntity.source = TempJson.getString("source");
 			newsEntity
 					.content = (parseContent(TempJson.getJSONArray("content")));
 			newsEntity.thumbnail = (TempJson.getString("thumbnail"));

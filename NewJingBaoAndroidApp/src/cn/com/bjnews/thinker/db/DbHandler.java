@@ -1,6 +1,7 @@
 package cn.com.bjnews.thinker.db;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -18,13 +19,14 @@ import cn.com.bjnews.thinker.entity.MediaEntity;
 import cn.com.bjnews.thinker.entity.NewsEntity;
 import cn.com.bjnews.thinker.entity.NewsListEntity;
 import cn.com.bjnews.thinker.entity.RelatedEntity;
+import cn.com.bjnews.thinker.utils.FileDown;
 
 /**
  * 数据库操作
  * 
  * @author sunqm Create at: 2014-5-15 下午3:02:09 TODO
  */
-public class DbHandler extends SQLiteOpenHelper {
+public class DbHandler extends SQLiteOpenHelper implements IDbDao{
 
 	
 	
@@ -61,6 +63,8 @@ public class DbHandler extends SQLiteOpenHelper {
 	public static final String NEWS_DESCRIPTION = "description";
 
 	public static final String NEWS_THUMBNAIL = "thumbnail";
+	/**新--来源*/
+	public static final String NEWS_SOURCE = "source";
 
 	public static final String NEWS_CONTENT = "content";
 
@@ -100,6 +104,9 @@ public class DbHandler extends SQLiteOpenHelper {
 	public static final String LIST_TITLE = "title";
 
 	public static final String LIST_PUBDATE = "pubDate";
+	
+	/**是否已经请求过0：没有，1.请求过了*/
+	public static final String LIST_REQUEST_STATE = "state";
 
 	/****/
 	public static final int VIDEO = 0;
@@ -156,7 +163,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		String newsSql = "create table " + TABLE_NEWS + " ( " + NEWS_ID
 				+ " integer primary key," + NEWS_CHANNEL_ID + " INTEGER,"
 				+ NEWS_CONTENT + " TEXT," + NEWS_DATE + "  TEXT,"
-				+ NEWS_THUMBNAIL + " TEXT, "
+				+ NEWS_THUMBNAIL + " TEXT, "+NEWS_SOURCE+"  TEXT,"
 				+ NEWS_DESCRIPTION + " TEXT," + NEWS_TITLE + " TEXT,"
 				+ NEWS_WEBURL + " TEXT,"+ NEWS_STATE +" integer, "
 				+NEWS_ORDER+" integer "
@@ -170,12 +177,13 @@ public class DbHandler extends SQLiteOpenHelper {
 				+ " INTEGER," + RELATED_URL + " TEXT" + ")";
 		db.execSQL(relatedSql);
 		String listSql = "create table " + TABLE_LIST + " ( " + LIST_CHANNEL_ID
-				+ " integer primary key," + LIST_TITLE + " TEXT,"
+				+ " integer primary key," + LIST_TITLE + " TEXT, "
+				+ LIST_REQUEST_STATE+ " integer,"
 				+ LIST_PUBDATE + "  TEXT " + " )";
 
 		db.execSQL(listSql);
 		String mediaSql = "create table " + TABLE_MEDIA + " ( " + MEDIA_ID
-				+ " integer primary key AUTOINCREMENT," + MEDIA_CAPTION + " TEXT,"
+				+ " integer primary key AUTOINCREMENT," + MEDIA_CAPTION + " TEXT, "
 				+ MEDIA_NEWS_ID + "  integer," + MEDIA_PIC + " TEXT,"
 				+ MEDIA_IS_PICS_MODEL + " integer," + MEDIA_VIDEO + " TEXT, "
 				+ MEDIA_CHANNELID + " integer "
@@ -234,14 +242,16 @@ public class DbHandler extends SQLiteOpenHelper {
 				NewsListEntity entity = new NewsListEntity();
 				try{
 				entity.setChannelId(channelId);
-				entity.setPubDate(readNewsList(channelId)[0]);
-				entity.setTitle(readNewsList(channelId)[1]);
+				entity.setPubDate(readNewsList(channelId).pubDate);
+				entity.setTitle(readNewsList(channelId).title);
+				entity.requestState = readNewsList(channelId).requestState;
 				entity.setAds(readAds(channelId));
 				entity.setNewsList(readNews(channelId));
 				}catch(Exception e){
 					e.printStackTrace();
 					closeDb();
 				}
+				Log.d("tag","request--state->"+entity.requestState);
 				closeDb();
 				Message msg = handler.obtainMessage();
 				msg.what=1;
@@ -267,7 +277,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		NewsEntity entity;
 		open();
 		Cursor c = db.query(TABLE_NEWS, new String[] { NEWS_CONTENT, NEWS_DATE,
-				NEWS_DESCRIPTION, NEWS_ID,  NEWS_TITLE,NEWS_THUMBNAIL,
+				NEWS_DESCRIPTION, NEWS_ID,  NEWS_TITLE,NEWS_THUMBNAIL,NEWS_SOURCE,
 				NEWS_WEBURL ,NEWS_STATE}, NEWS_CHANNEL_ID + "=? and "+NEWS_ID +"=?", new String[] { channelId+""
 				 ,newsId+""}, null, null, NEWS_ORDER);
 		Log.d("tag","news-count-11>"+c.getCount());
@@ -279,6 +289,7 @@ public class DbHandler extends SQLiteOpenHelper {
 					.getColumnIndex(NEWS_DESCRIPTION)));
 			entity.title = (c.getString(c.getColumnIndex(NEWS_TITLE)));
 			entity.thumbnail = (c.getString(c.getColumnIndex(NEWS_THUMBNAIL)));
+			entity.source = c.getString(c.getColumnIndex(NEWS_SOURCE));
 			entity.pubDate = (c.getString(c.getColumnIndex(NEWS_DATE)));
 			entity.weburl = (c.getString(c.getColumnIndex(NEWS_WEBURL)));
 			entity.medias = (readMedia(c.getInt(c.getColumnIndex(NEWS_ID))));
@@ -339,6 +350,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 		values.put(LIST_CHANNEL_ID, entity.getChannelId());
 		values.put(LIST_PUBDATE, entity.getPubDate().toString());
+		values.put(LIST_REQUEST_STATE, 1);
 		values.put(LIST_TITLE, entity.getTitle());
 		return db.insert(TABLE_LIST, null, values);
 	}
@@ -360,6 +372,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		values.put(NEWS_DESCRIPTION, entity.description);
 		values.put(NEWS_ID, entity.id);
 		values.put(NEWS_THUMBNAIL, entity.thumbnail);
+		values.put(NEWS_SOURCE, entity.source);
 		values.put(NEWS_TITLE, entity.title);
 		values.put(NEWS_WEBURL, entity.weburl);
 		values.put(NEWS_STATE,0);
@@ -421,18 +434,20 @@ public class DbHandler extends SQLiteOpenHelper {
 		db.delete(TABLE_MEDIA, MEDIA_CHANNELID+"=?", new String[] { String.valueOf(channelId) });
 	}
 
-	private String[] readNewsList(int channelId){
-		String[] result =new String[2];
+	private NewsListEntity readNewsList(int channelId){
+		NewsListEntity entity = new NewsListEntity();
+//		String[] result =new String[2];
 		open();
-		Cursor c = db.query(TABLE_LIST, new String[] { LIST_PUBDATE, LIST_TITLE
+		Cursor c = db.query(TABLE_LIST, new String[] { LIST_PUBDATE, LIST_TITLE,LIST_REQUEST_STATE
 			 }, LIST_CHANNEL_ID + "=?", new String[] { String.valueOf(channelId)
 				}, null, null, null);
 		if(c.moveToNext()){
-			result[0] = c.getString(c.getColumnIndex(LIST_PUBDATE));
-			result[1] = c.getString(c.getColumnIndex(LIST_TITLE));
+			entity.pubDate = c.getString(c.getColumnIndex(LIST_PUBDATE));
+			entity.title = c.getString(c.getColumnIndex(LIST_TITLE));
+			entity.requestState = c.getInt(c.getColumnIndex(LIST_REQUEST_STATE));
 		}
 		c.close();
-		return result;
+		return entity;
 	}
 
 	/**
@@ -466,7 +481,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		NewsEntity entity;
 		open();
 		Cursor c = db.query(TABLE_NEWS, new String[] { NEWS_CONTENT, NEWS_DATE,
-				NEWS_DESCRIPTION, NEWS_ID,  NEWS_TITLE,NEWS_THUMBNAIL,
+				NEWS_DESCRIPTION, NEWS_ID,  NEWS_TITLE,NEWS_THUMBNAIL,NEWS_SOURCE,
 				NEWS_WEBURL ,NEWS_STATE}, NEWS_CHANNEL_ID + "=?", new String[] { channelId
 				+ "" }, null, null, NEWS_ORDER);
 		Log.d("tag","news-count->"+c.getCount());
@@ -478,6 +493,7 @@ public class DbHandler extends SQLiteOpenHelper {
 					.getColumnIndex(NEWS_DESCRIPTION)));
 			entity.title = (c.getString(c.getColumnIndex(NEWS_TITLE)));
 			entity.thumbnail = (c.getString(c.getColumnIndex(NEWS_THUMBNAIL)));
+			entity.source = c.getString(c.getColumnIndex(NEWS_SOURCE));
 			entity.pubDate = (c.getString(c.getColumnIndex(NEWS_DATE)));
 			entity.weburl = (c.getString(c.getColumnIndex(NEWS_WEBURL)));
 			entity.medias = (readMedia(c.getInt(c.getColumnIndex(NEWS_ID))));
@@ -659,6 +675,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		values.put(LIST_CHANNEL_ID, entity.getChannelId());
 		values.put(LIST_PUBDATE, entity.getPubDate().toString());
 		values.put(LIST_TITLE, entity.getTitle());
+		values.put(LIST_REQUEST_STATE, 1);
 		db.insert(TABLE_LIST, null, values);
 //		db.update(TABLE_LIST, values, LIST_CHANNEL_ID+"=?", new String[]{entity.getChannelId()+""});
 	}
@@ -678,6 +695,30 @@ public class DbHandler extends SQLiteOpenHelper {
 
 	public synchronized void updateMedias(MediaEntity entity,int newsId){
 		//delete   insert 
+	}
+
+	@Override
+	public List<String> queryAllImgName() {
+		open();
+		Cursor c = db.query(TABLE_MEDIA, new String[] { MEDIA_PIC },
+				null, null, null, null, null);
+		List<String> strs = new ArrayList<String>();
+		while (c.moveToNext()) {
+			strs.add(FileDown.getFileName(c.getString(c.getColumnIndex(MEDIA_PIC))));
+		}
+		c.close();
+		return strs;
+	}
+
+	@Override
+	public boolean updateChannelUpdate(int channelId, int state) {
+		open();
+		ContentValues values = new ContentValues();
+		values.put(LIST_REQUEST_STATE, state);
+		int result = db.update(TABLE_LIST, values, LIST_CHANNEL_ID+"=?", new String[]{""+channelId});
+		Log.d("tag", channelId+"update--state--"+state+result);
+		closeDb();
+		return result>0;
 	}
 	
 	/**

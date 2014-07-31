@@ -74,7 +74,7 @@ public class NewsListEntity implements Parcelable {
 		if(pubDate==null||entity.pubDate == null){
 			return false;
 		}
-		return this.pubDate.equals(entity.pubDate)&& this.channelId == entity.channelId;
+		return this.pubDate.equals(entity.pubDate)&& this.channelId == entity.channelId&& entity.equals(this);
 	}
 	
 	
@@ -84,13 +84,15 @@ public class NewsListEntity implements Parcelable {
 	
 	public String pubDate;
 	
+	/**请求状态0：没有请求过，1.请求过了*/
+	public int requestState = 0;
+	
 	public ArrayList<AdIntroEntity>  ads = new ArrayList<AdIntroEntity>();
 	
 	public ArrayList<NewsEntity> newsList = new ArrayList<NewsEntity>();
 
 	@Override
 	public int describeContents() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

@@ -173,7 +173,7 @@ public class Utils {
 		SimpleDateFormat format = new SimpleDateFormat(
 				"EEE, dd MMM yyyy HH:mm:ss ZZZZ", Locale.ENGLISH);// "EEE, dd MMM yyyy HH:mm:ss ZZZZ");
 		SimpleDateFormat formatShow = new SimpleDateFormat(
-				"yyyy-MM-dd HH:mm:ss");
+				"MM-dd HH:mm");
 		try {
 			return formatShow.format(format.parse(str));
 
@@ -193,15 +193,29 @@ public class Utils {
 		
 		Calendar c = Calendar.getInstance();  
 		c.setTime(new Date());
-		int day = c.get(Calendar.DATE);
-		c.set(Calendar.DATE, day-1);
+//		int day = c.get(Calendar.DATE);
+//		c.set(Calendar.DATE, day-1);
+		//提前三小时，三小之外的 进行更新
+		c.set(Calendar.HOUR, c.get(Calendar.HOUR)-3);
 		Date yesterday = new Date(c.getTimeInMillis());
+		
 		try {
+			Log.d("tag","isOld-->"+yesterday+"current->"+str+yesterday.after(format.parse(str)));
 			return yesterday.after(format.parse(str));//获得的日期比昨天还早
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		return true;
+	}
+	
+	/**
+	 * 获取当前时间
+	 * @return
+	 */
+	public static String getCurrentTime(){
+		SimpleDateFormat format = new SimpleDateFormat(
+				"EEE, dd MMM yyyy HH:mm:ss ZZZZ", Locale.ENGLISH);// "EEE, dd MMM yyyy HH:mm:ss ZZZZ");
+		return format.format(new Date(System.currentTimeMillis()));
 	}
 	
 	
