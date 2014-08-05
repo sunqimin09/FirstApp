@@ -48,8 +48,7 @@ public class FragmentFirstAdapter extends BaseAdapter {
 
 	private boolean busy = false;
 
-	public FragmentFirstAdapter(List<NewsEntity> entitys, Context context) {
-		this.list = entitys;
+	public FragmentFirstAdapter(Context context) {
 		this.context = context;
 		inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -75,6 +74,10 @@ public class FragmentFirstAdapter extends BaseAdapter {
 		this.list = entitys;
 		this.notifyDataSetChanged();
 	}
+	
+	public List<NewsEntity> getData(){
+		return list;
+	}
 
 	public void setFlagBusy(boolean flag) {
 		busy = flag;
@@ -85,6 +88,10 @@ public class FragmentFirstAdapter extends BaseAdapter {
 		return list.size();
 	}
 
+	public NewsEntity getEntity(long arg0){
+		return list.get((int)arg0);
+	}
+	
 	@Override
 	public Object getItem(int arg0) {
 		// TODO Auto-generated method stub

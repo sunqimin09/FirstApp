@@ -9,7 +9,10 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
+import cn.com.bjnews.thinker.actlogical.FragmentFirstLogical;
+import cn.com.bjnews.thinker.actlogical.IFragmentFirst;
 import cn.com.bjnews.thinker.db.DbHandler;
+import cn.com.bjnews.thinker.entity.NewsListEntity;
 import cn.com.bjnews.thinker.entity.RequestEntity;
 import cn.com.bjnews.thinker.img.FileManager;
 import cn.com.bjnews.thinker.internet.IRequestCallBack;
@@ -57,6 +60,19 @@ public class MainService extends Service{
 	 */
 	public void request(Context context,RequestEntity requestEntity,IRequestCallBack callBack,int timeOut){
 		new InternetHelper(context).requestThread(requestEntity, callBack,timeOut);
+	}
+	
+	public void showData(final NewsListEntity locaListEntity,final String result,final IFragmentFirst iFragmentFirst){
+		final FragmentFirstLogical logical = new FragmentFirstLogical(MainService.this);
+		new Thread(){
+
+			@Override
+			public void run() {
+				logical.doData(locaListEntity, result, iFragmentFirst);
+			}
+			
+		}.start();
+		
 	}
 	
 	/**

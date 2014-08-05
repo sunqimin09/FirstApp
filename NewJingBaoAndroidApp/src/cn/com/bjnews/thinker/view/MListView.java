@@ -1,27 +1,39 @@
 package cn.com.bjnews.thinker.view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AbsListView.OnScrollListener;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-
+import android.widget.TextView;
+import cn.com.bjnews.thinker.R;
 import cn.com.bjnews.thinker.act.Fragment_First;
-import cn.com.bjnews.thinker.act.MainActivity;
+import cn.com.bjnews.thinker.adapter.FragmentFirstViewPagerAdapter;
+import cn.com.bjnews.thinker.entity.AdIntroEntity;
+import cn.com.bjnews.thinker.img.CommonUtil;
+import cn.com.bjnews.thinker.img.ImageLoader;
 import cn.com.bjnews.thinker.utils.Mconstant;
+import cn.com.bjnews.thinker.utils.Utils;
 
 
-public class MListView extends ListView{
+public class MListView extends ListView  implements OnPageChangeListener{
 
 	private final int PROGRESS_THRESHOLD = 200;
 	
@@ -78,6 +90,131 @@ public class MListView extends ListView{
 		gestureDetector = new GestureDetector(this.context, new GestureListener());
 		
 	}
+	
+	
+	private ArrayList<View> adViews = new ArrayList<View>();
+	
+	private View HeaderView;
+	
+	private LinearLayout llHeaderIcon;
+	
+	/** 控制标题背景色 */
+	private LinearLayout llCaptionBg;
+	
+	private TextView tvCaption;
+	
+	private MViewPager viewPager;
+	
+	private ImageLoader imgLoader;
+	
+	private FragmentFirstViewPagerAdapter viewpagerAdapter;
+	
+	private List<AdIntroEntity> ads = new ArrayList<AdIntroEntity>();
+	
+	private static final int VIEWPAGER = 1;
+	
+	public int currentAddPageIndex = 0;
+	
+	public void initHeadView(int resId,OnClickListener clickListener){
+		HeaderView = (View) ((LayoutInflater) context.getSystemService(
+				Context.LAYOUT_INFLATER_SERVICE)).inflate(
+						resId, null);
+		// 初始化 viewpager 各页面
+		llCaptionBg = (LinearLayout) HeaderView
+				.findViewById(R.id.fragment_first_header_caption_ll);
+		tvCaption = (TextView) HeaderView
+				.findViewById(R.id.fragment_first_ad_caption);
+		tvCaption.setTextColor(Color.WHITE);
+		viewPager = (MViewPager) HeaderView
+				.findViewById(R.id.fragment_first_viewpager);
+		llHeaderIcon = (LinearLayout) HeaderView
+				.findViewById(R.id.fragment_first_header_icon_ll);
+		viewpagerAdapter = new FragmentFirstViewPagerAdapter(context,
+				adViews);
+
+		viewPager.setAdapter(viewpagerAdapter);
+		viewPager.setOnPageChangeListener(this);
+		viewPager.setOnClickListener(clickListener);
+		this.addHeaderView(HeaderView);
+		HeaderView.setVisibility(View.GONE);
+		imgLoader = new ImageLoader(context, R.drawable.default_img,
+				false);
+		resizeViewpager();
+	}
+	
+	private void resizeViewpager() {
+		ViewGroup.LayoutParams params = viewPager.getLayoutParams();
+		params.width = CommonUtil.getScreenWidth(context);
+		params.height = (int) CommonUtil.getScreenWidth(context) * 2 / 3;
+		viewPager.setLayoutParams(params);
+
+	}
+	
+	/**
+	 * 设置广告数据
+	 * @param ads
+	 */
+	public void setHeadData(List<AdIntroEntity> ads,OnClickListener clickListener){
+		if(ads.size()==0){
+			HeaderView.setVisibility(View.GONE);
+			return ;
+		}
+		this.ads = ads;
+		HeaderView.setVisibility(View.VISIBLE);
+		
+		adViews.clear();
+		llHeaderIcon.removeAllViews();
+		
+		tvCaption.setText(ads.get(0).caption);
+		ImageView img;
+		ImageView ImgIcon;
+		imgLoader.setImgWidth(CommonUtil.getScreenWidth(context));
+		imgLoader.setIsBg(false);
+		for(int i=0;i<ads.size();i++){//
+			img = new ImageView(context);
+			img.setId(VIEWPAGER);
+			img.setOnClickListener(clickListener);
+					
+			imgLoader.DisplayImage(ads.get(i).picUrl, img, false);
+			adViews.add(img);
+			// 添加icon
+			ImgIcon = new ImageView(context);
+			ImgIcon.setPadding(8, 9, 8, 10);
+			ImgIcon.setImageResource(R.drawable.scroll_selected); 
+			llHeaderIcon.addView(ImgIcon,i);
+			
+		}
+		
+		Utils.setViewPagerIcon(llHeaderIcon, 0);
+		if (ads.size() < 2) {// 只有一条数据
+			llHeaderIcon.setVisibility(View.GONE);
+		} else {
+			llHeaderIcon.setVisibility(View.VISIBLE);
+		}
+		
+		
+		viewpagerAdapter = new FragmentFirstViewPagerAdapter(context,
+				adViews);
+
+		viewPager.setAdapter(viewpagerAdapter);
+	}
+	
+	/**
+	 * 当前显示的Ads
+	 * @return
+	 */
+	public List<AdIntroEntity> getAds(){
+		return ads;
+	}
+	
+	/**
+	 * @return
+	 */
+	public int getCurrentAddIndex(){
+		return currentAddPageIndex;
+	}
+	
+	
 
 	@SuppressLint("ClickableViewAccessibility")
 	@Override
@@ -300,6 +437,40 @@ public class MListView extends ListView{
 				}	
 			}
 		};
+
+	@Override
+	public void onPageScrollStateChanged(int arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onPageScrolled(int arg0, float arg1, int arg2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onPageSelected(int arg0) {
+		currentAddPageIndex = arg0;
+		Utils.setViewPagerIcon(llHeaderIcon, arg0);
+		if (ads.size() > arg0 && ads.get(arg0).picUrl != null) {
+			// Log.d("tag",arg0+"caption--->"+adsNew.get(arg0).caption);
+			tvCaption.setText(ads.get(arg0).caption);
+			if (ads.get(arg0).caption == null
+					|| ads.get(arg0).caption.equals("")) {
+				llCaptionBg
+						.setBackgroundResource(R.drawable.listview_cachecolor);
+			} else {
+				llCaptionBg
+						.setBackgroundResource(R.drawable.background_caption);
+			}
+			// imgLoader.DisplayImage(adsNew.get(arg0).picUrl,(ImageView)viewPager.getChildAt(arg0),false);
+		}
+		
+	}
 	};
 	
 	

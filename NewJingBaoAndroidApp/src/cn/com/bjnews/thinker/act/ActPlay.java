@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
@@ -59,6 +60,7 @@ public class ActPlay extends BaseAct implements OnPageChangeListener, IRequestCa
 	
 	@Override
 	protected void onPause() {
+		Runtime.getRuntime().gc();
 		super.onPause();
 		MobclickAgent.onPause(this);
 	}
@@ -78,6 +80,8 @@ public class ActPlay extends BaseAct implements OnPageChangeListener, IRequestCa
 		initData();
 	}
 
+
+	
 	private void initView() {
 		viewPager = (ViewPager) findViewById(R.id.act_play_viewpager);
 		llViewPagerIcon = (LinearLayout) findViewById(R.id.act_play_viewpager_ll);
@@ -112,18 +116,23 @@ public class ActPlay extends BaseAct implements OnPageChangeListener, IRequestCa
 				imageView.setVisibility(View.GONE);
 			}else{//图片h
 				imageView.setBackgroundResource(R.drawable.default_img);
-				ScaleType scaleType = ScaleType.MATRIX;
-				imageView.setScaleType(scaleType);
+//				ScaleType scaleType = ScaleType.MATRIX;
+//				imageView.setScaleType(scaleType);
 				
 //				Log.d("tag","")
 //				imageLoader.setImgWidth(new ImageUtils(this).getWidth());
-				imageLoader.setIsBg(true);
+				imageLoader.setIsBg(false);
 				imageLoader.setMaxSreen(true);
 				imageLoader.setImgWidth(CommonUtil.getScreenWidth(this));
-				imageLoader.DisplayImage(medias.get(i).pic, imageView, false);
 				imageLoader.setScale(true);
+				imageLoader.DisplayImage(medias.get(i).pic, imageView, false);
+				
 				imageView.setmActivity(this);
 				imageView.setVisibility(View.VISIBLE);
+				
+				WindowManager manager = getWindowManager();
+				window_width = manager.getDefaultDisplay().getWidth();
+				window_height = manager.getDefaultDisplay().getHeight();
 				viewTreeObserver = imageView.getViewTreeObserver();
 				viewTreeObserver
 						.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {

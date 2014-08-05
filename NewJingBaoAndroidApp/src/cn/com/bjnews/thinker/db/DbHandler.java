@@ -118,6 +118,8 @@ public class DbHandler extends SQLiteOpenHelper implements IDbDao{
 
 	private static DbHandler dbHandler = null;
 	
+	private final static int version = 2;
+	
 	/**
 	 * 初始化构造函数
 	 * 
@@ -125,7 +127,7 @@ public class DbHandler extends SQLiteOpenHelper implements IDbDao{
 	 *            上下文容器
 	 */
 	private DbHandler(Context context) {
-		super(context, DB_NAME, null, 1);
+		super(context, DB_NAME, null, version);
 	}
 
 	private DbHandler(Context context, String name, CursorFactory factory,
@@ -193,9 +195,22 @@ public class DbHandler extends SQLiteOpenHelper implements IDbDao{
 
 	}
 
+	/**更新数据库*/
+	private String CREATE_BOOK = "create table book(bookId integer primarykey,bookName text);";
+	private String CREATE_TEMP_BOOK = "alter table book rename to _temp_book";
+	private String INSERT_DATA = "insert into book select *,'' from _temp_book";
+	private String DROP_BOOK = "drop table _temp_book";
+	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// TODO Auto-generated method stub
+		  switch (newVersion) {
+		  case 2:
+//		   db.execSQL(CREATE_TEMP_BOOK);
+//		   db.execSQL(CREATE_BOOK);
+//		   db.execSQL(INSERT_DATA);
+//		   db.execSQL(DROP_BOOK);
+		   break;
+		  }
 
 	}
 
@@ -318,7 +333,12 @@ public class DbHandler extends SQLiteOpenHelper implements IDbDao{
 				open();
 				ContentValues values = new ContentValues();
 				values.put(NEWS_STATE,hasRead);
-				int result = db.update(TABLE_NEWS, values, NEWS_ID+"=?", new String[]{""+NewsId});
+				try{
+					int result = db.update(TABLE_NEWS, values, NEWS_ID+"=?", new String[]{""+NewsId});
+				}catch(Exception e){
+					
+				}
+				
 				closeDb();
 			}
 			
@@ -673,7 +693,7 @@ public class DbHandler extends SQLiteOpenHelper implements IDbDao{
 		db.delete(TABLE_LIST, LIST_CHANNEL_ID+"=?", new String[] { String.valueOf(entity.getChannelId()) });
 		ContentValues values = new ContentValues();
 		values.put(LIST_CHANNEL_ID, entity.getChannelId());
-		values.put(LIST_PUBDATE, entity.getPubDate().toString());
+		values.put(LIST_PUBDATE, entity.getPubDate());
 		values.put(LIST_TITLE, entity.getTitle());
 		values.put(LIST_REQUEST_STATE, 1);
 		db.insert(TABLE_LIST, null, values);

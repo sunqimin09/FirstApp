@@ -55,8 +55,11 @@ public class NewsEntity implements Serializable {
 	public ArrayList<RelatedEntity> relateds = new ArrayList<RelatedEntity>();
 
 	public String toString(){
-		return "id:"+id+"title:"+title;
+		return "id:"+id+"title:"+title+"content:"+content;
 	}
 	
+	public int getSize(){
+		return toString().getBytes().length;
+	}
 	
 }

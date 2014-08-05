@@ -23,6 +23,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -144,7 +145,9 @@ public class ImageLoader {
 				int window_width = manager.getDefaultDisplay().getWidth();
 				int window_height = manager.getDefaultDisplay().getHeight();
 //				dragImageView.setImageBitmap(bmp);
-				((DragImageView)imageView).setImageBitmap(BitmapUtil.getBitmap(bitmap, window_width, window_height));
+				Bitmap b = BitmapUtil.getBitmap(bitmap, window_width, window_height);
+				((DragImageView)imageView).setImageBitmap(b);
+				
 			}else{
 				imageView.setImageBitmap(bitmap);
 			}
@@ -229,7 +232,7 @@ public class ImageLoader {
 			Log.d("tag","scale-->"+scale);
 			// decode with inSampleSize
 			BitmapFactory.Options o2 = new BitmapFactory.Options();
-			
+			o2.inPreferredConfig = Bitmap.Config.RGB_565;
 			o2.inSampleSize = scale;
 			return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
 		} catch (FileNotFoundException e) {
@@ -382,11 +385,17 @@ public class ImageLoader {
 
 		@Override
 		public void run() {
+			
 			Log.d("tag","图片下载:1");
 			if (imageViewReused(photoToLoad))
 				return;
 			Log.d("tag","图片下载:2"+photoToLoad.url);
-			Bitmap bmp = getBitmap(photoToLoad.url);
+			Bitmap bmp = null;
+			try{
+				bmp = getBitmap(photoToLoad.url);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 			memoryCache.put(photoToLoad.url, bmp);
 			if (imageViewReused(photoToLoad))
 				return;
@@ -429,7 +438,7 @@ public class ImageLoader {
 						+ "Height:>" + bitmap.getHeight());
 
 				// photoToLoad.imageView.setImageBitmap(resizeBitmap(bitmap));
-				ViewGroup.LayoutParams params = photoToLoad.imageView
+				ViewGroup.LayoutParams params =  photoToLoad.imageView
 						.getLayoutParams();
 				if (photoToLoad.setWidth&&params!=null) {
 					Log.d("tag","params>"+bitmap.getHeight());
@@ -445,23 +454,37 @@ public class ImageLoader {
 						params.height = bitmap.getHeight() * aimWidth
 								/ bitmap.getWidth();
 					}
-
+//					photoToLoad.imageView.setLayoutParams(new LayoutParams(params.width, params.height));
 					photoToLoad.imageView.setLayoutParams(params);
 					Log.d("tag",params.height+"ImageWidth--Height3:"+photoToLoad.imageView.getHeight());
 				}
 				Log.d("tag","showimage-imagewith-result_width>"+photoToLoad.url);
 				if(isBg)
 					photoToLoad.imageView.setBackground(new BitmapDrawable(bitmap));
-				else{
+				else  if(isScale){
+					/** 获取可見区域高度 **/
+					WindowManager manager = ((Activity) photoToLoad.imageView.getContext()).getWindowManager();
+					int window_width = manager.getDefaultDisplay().getWidth();
+					int window_height = manager.getDefaultDisplay().getHeight();
+//					dragImageView.setImageBitmap(bmp);
+					Bitmap b = BitmapUtil.getBitmap(bitmap, window_width, window_height);
+					if(b!=null)
+						((DragImageView) photoToLoad.imageView).setImageBitmap(b);
+					b=null;
+//					Log.d("tag","resize--imageView--bb>"+b.getWidth()+"<>"+b.getHeight());
+//				Log.d("tag","resize--imageView--->"+photoToLoad.imageView.getWidth()+"<>"+photoToLoad.imageView.getHeight());
+				}else{
 					Log.d("tag","shwoimage-url"+photoToLoad.url+bitmap);
 					photoToLoad.imageView.setImageBitmap(bitmap);
 				}
 					
 //					
 //				}
-				Log.d("tag","ImageWidth--Height2:"+photoToLoad.imageView.getHeight());
-				if(photoToLoad.imageView.getParent()!=null)
-				Log.d("tag","showimage-parent>"+photoToLoad.imageView.getParent());
+//				bitmap = null;
+				Runtime.getRuntime().gc();
+//				Log.d("tag","ImageWidth--Height2:"+photoToLoad.imageView.getHeight());
+//				if(photoToLoad.imageView.getParent()!=null)
+//				Log.d("tag","showimage-parent>"+photoToLoad.imageView.getParent());
 //				
 			}
 		}
@@ -488,4 +511,7 @@ public class ImageLoader {
 			Log.e("", "CopyStream catch Exception...");
 		}
 	}
+
+	
+	
 }

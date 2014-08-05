@@ -32,8 +32,9 @@ public class MyDebug {
 		Log.d("tag","Time:"+tempTime);
 	}
 	
-	public static void getTime(int i){
-		Log.d("tag",i+"--SpendTime:"+(System.currentTimeMillis()-tempTime));
+	public static void getTime(int i,int currentPage){
+		Log.d("tag",i+"Page"+currentPage+"--SpendTime:"+(System.currentTimeMillis()-tempTime));
+		tempTime= System.currentTimeMillis();
 	}
 	
 	
