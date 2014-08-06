@@ -102,6 +102,7 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 		} else if (!MainActivity.isRefreshing(Mconstant.currentPageIndex) ) {// 当前显示的页，没有进行加载，需要不显示title
 			postRefresh();
 		} 
+		debug.getTime(0, currentPagerIndex);
 		Log.i("tag","skip--oncreateView-end");
 		return view;
 	}
@@ -157,9 +158,9 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 	 * 读取本地数据
 	 */
 	private void readLocalData(int channelId) {
-		debug.getTime(1, currentPagerIndex);
+//		debug.getTime(1, currentPagerIndex);
 		dbHandler.readNewsList(this, channelId);
-		debug.getTime(2, currentPagerIndex);
+//		debug.getTime(2, currentPagerIndex);
 	}
 
 
@@ -167,7 +168,8 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 		loadingBars.setVisibility(View.INVISIBLE);
 		loadingBarIndeterminate.setVisibility(View.GONE);
 		loadingBarIndeterminate.setIndeterminate(false);
-		((MainActivity) getActivity()).hideLoading();// (R.string.loading)
+		if(getActivity()!=null)
+			((MainActivity) getActivity()).hideLoading();// (R.string.loading)
 		isRefreshStarted = false;
 		requestInterupted = false;
 		isRefreshingTest = false;
@@ -267,12 +269,13 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 							listview.setHeadData((List<AdIntroEntity>) params[1],
 									Fragment_First.this);
 							headEntity = (NewsEntity) params[2];
-							
+							postRefresh();
 						}
 
 						@Override
 						public void noUpdate() {
 							// TODO Auto-generated method stub
+							postRefresh();
 						}
 
 					});
@@ -288,21 +291,19 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 					listview.setHeadData((List<AdIntroEntity>) params[1],
 							Fragment_First.this);
 					headEntity = (NewsEntity) params[2];
-					
+					postRefresh();
 				}
 
 				@Override
 				public void noUpdate() {
 					// TODO Auto-generated method stub
+					postRefresh();
 					
 				}
 			});
 		}
 		
-		if (getActivity() != null) {
-			 postRefresh();
-			 
-		}
+		
 
 			doPush();
 			
@@ -339,7 +340,7 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 //				Toast.makeText(getActivity(), "开始请求数据", Toast.LENGTH_SHORT).show();
 			}
 		}
-			
+		debug.getTime(1, currentPagerIndex);
 		super.onResume();
 	}
 
@@ -396,7 +397,7 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 	 */
 	@Override
 	public void ReadSuccess(NewsListEntity entity) {
-		debug.getTime(3, currentPagerIndex);
+//		debug.getTime(3, currentPagerIndex);
 		Log.i("tag","skip--readsuccess");
 		if (MainActivity.localSettingEntity.channelList.get(currentPagerIndex).id != entity.channelId)
 			return;
@@ -416,7 +417,7 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 						listview.setHeadData((List<AdIntroEntity>) params[1],
 								Fragment_First.this);
 						headEntity = (NewsEntity) params[2];
-						debug.getTime(4, currentPagerIndex);
+//						debug.getTime(4, currentPagerIndex);
 			}
 
 			@Override

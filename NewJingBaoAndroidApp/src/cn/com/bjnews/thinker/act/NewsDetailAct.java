@@ -42,17 +42,17 @@ import cn.com.bjnews.thinker.utils.Utils;
 import cn.com.bjnews.thinker.view.MViewPager;
 import cn.com.bjnews.thinker.view.ViewPagerImageView;
 
-import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.bean.CustomPlatform;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;
-import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.controller.listener.SocializeListeners.SnsPostListener;
+import com.umeng.socialize.media.SinaShareContent;
 import com.umeng.socialize.media.UMImage;
-import com.umeng.socialize.media.UMVideo;
-import com.umeng.socialize.media.UMWebPage;
-import com.umeng.socialize.media.UMusic;
 import com.umeng.socialize.sso.EmailHandler;
+import com.umeng.socialize.sso.SinaSsoHandler;
 import com.umeng.socialize.sso.SmsHandler;
+import com.umeng.socialize.sso.UMSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 import com.umeng.socialize.weixin.media.CircleShareContent;
 import com.umeng.socialize.weixin.media.WeiXinShareContent;
@@ -134,6 +134,7 @@ public class NewsDetailAct extends BaseAct implements OnClickListener,
 	protected void onPause() {
 		Runtime.getRuntime().gc();
 		super.onPause();
+		MobclickAgent.onPause(this);
 	}
 
 	private void initView() {
@@ -481,8 +482,6 @@ public class NewsDetailAct extends BaseAct implements OnClickListener,
 
 	private void addWinXin(NewsEntity entity) {
 		// 微信
-
-		// wx967daebe835fbeac是你在微信开发平台注册应用的AppID, 这里需要替换成你注册的AppID
 		String appId = "wx7113cca33fd10b9e";
 		// 添加微信平台
 		UMWXHandler wxHandler = new UMWXHandler(this, appId);
@@ -514,8 +513,64 @@ public class NewsDetailAct extends BaseAct implements OnClickListener,
 		// 添加email
 		EmailHandler emailHandler = new EmailHandler();
 		emailHandler.addToSocialSDK();
-		
+	}
+	
+	private void addWinXinTest(){
+		String appId = "wx7113cca33fd10b9e";
+		//微信
+		UMWXHandler wxHandler = new UMWXHandler(this, appId);
 
+		wxHandler.addToSocialSDK();
+		
+		WeiXinShareContent weixinContent = new WeiXinShareContent();
+		weixinContent.setShareContent(newsEntity.description+ newsEntity.weburl);
+		weixinContent.setTitle(newsEntity.title);
+		weixinContent.setTargetUrl(newsEntity.weburl);
+		if (newsEntity.medias.size() > 0){
+			UMImage umImage = new UMImage(this, newsEntity.medias
+					.get(0).pic);
+			weixinContent.setShareImage(umImage);
+		}
+		mController.setShareMedia(weixinContent);
+		//朋友圈
+		UMWXHandler wxCircleHandler = new UMWXHandler(this, appId);
+		wxCircleHandler.setToCircle(true);
+		wxCircleHandler.addToSocialSDK();
+		CircleShareContent circleMedia = new CircleShareContent();
+		circleMedia.setShareContent(newsEntity.description+ newsEntity.weburl);
+		circleMedia.setTitle(newsEntity.title);
+		circleMedia.setTargetUrl(newsEntity.weburl);
+		if (newsEntity.medias.size() > 0){
+			UMImage umImage = new UMImage(this, newsEntity.medias
+					.get(0).pic);
+			circleMedia.setShareImage(umImage);
+		}
+		
+		Log.d("tag","friend==>"+circleMedia.getMediaType());
+		mController.setShareMedia(circleMedia);
+		//短信
+		SmsHandler smsHandler = new SmsHandler();
+		smsHandler.addToSocialSDK();
+		// 添加email
+		EmailHandler emailHandler = new EmailHandler();
+		emailHandler.addToSocialSDK();
+		//
+		//设置新浪SSO handler
+		
+		SinaShareContent sinaContent = new SinaShareContent();
+		sinaContent.setShareContent(newsEntity.description+ newsEntity.weburl);
+		sinaContent.setTitle(newsEntity.title);
+		sinaContent.setTargetUrl(newsEntity.weburl);
+		if (newsEntity.medias.size() > 0){
+			UMImage umImage = new UMImage(this, newsEntity.medias
+					.get(0).pic);
+			sinaContent.setShareImage(umImage);
+		}
+		SinaSsoHandler sinaSsoHandler = new SinaSsoHandler();
+		sinaSsoHandler.addToSocialSDK();
+		Log.d("tag","sina==api"+sinaSsoHandler.APPKEY);
+		mController.setShareMedia(sinaContent);
+		
 	}
 
 	
@@ -525,7 +580,8 @@ public class NewsDetailAct extends BaseAct implements OnClickListener,
 	private void shareTestInit() {
 
 		// 首先在您的Activity中添加如下成员变量
-		addWinXin(newsEntity);
+//		addWinXin(newsEntity);
+		addWinXinTest();
 		mController.getConfig().removePlatform(SHARE_MEDIA.RENREN,
 				SHARE_MEDIA.DOUBAN, SHARE_MEDIA.TENCENT);
 		// 设置分享内容
@@ -539,23 +595,32 @@ public class NewsDetailAct extends BaseAct implements OnClickListener,
 			umImage.setTargetUrl(newsEntity.weburl);
 			umImage.setTitle(newsEntity.title + newsEntity.weburl);
 			mController.setShareMedia(umImage);
-		}else{
-			
 		}
-		
 		
 		mController.openShare(this, new SnsPostListener() {
 
 			@Override
 			public void onStart() {
-
 			}
 
 			@Override
 			public void onComplete(SHARE_MEDIA platform, int eCode,
 					SocializeEntity entity) {
-				Toast.makeText(NewsDetailAct.this, "分享成功", 1)
-						.show();
+				switch(eCode){
+				case 40000://cancel
+//					Toast.makeText(NewsDetailAct.this, "Cancel", Toast.LENGTH_SHORT)
+//					.show();
+					break;
+				case 200:
+					Toast.makeText(NewsDetailAct.this, "分享成功", Toast.LENGTH_SHORT)
+					.show();
+					break;
+				default:
+					Toast.makeText(NewsDetailAct.this, "分享失败", Toast.LENGTH_SHORT)
+					.show();
+					break;
+				}
+				
 			}
 		});
 	}
@@ -723,4 +788,22 @@ public class NewsDetailAct extends BaseAct implements OnClickListener,
 		return super.onKeyDown(keyCode, event);
 	}
 
+	@Override 
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    super.onActivityResult(requestCode, resultCode, data);
+	    /**使用SSO授权必须添加如下代码 */
+	    UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode) ;
+	    if(ssoHandler != null){
+	       ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+	    }
+	}
+	
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		MobclickAgent.onResume(this);
+	}
+	
+	
 }
