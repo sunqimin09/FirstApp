@@ -1,10 +1,14 @@
 package cn.com.bjnews.thinker.act;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.R.fraction;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -36,30 +40,31 @@ import cn.com.bjnews.thinker.entity.RelatedEntity;
 import cn.com.bjnews.thinker.img.CommonUtil;
 import cn.com.bjnews.thinker.img.FileCache;
 import cn.com.bjnews.thinker.img.ImageLoader;
+import cn.com.bjnews.thinker.share.SinaShare;
+import cn.com.bjnews.thinker.share.WinxinShare;
 import cn.com.bjnews.thinker.utils.FileDown;
 import cn.com.bjnews.thinker.utils.Mconstant;
 import cn.com.bjnews.thinker.utils.Utils;
 import cn.com.bjnews.thinker.view.MViewPager;
 import cn.com.bjnews.thinker.view.ViewPagerImageView;
 
+import com.sina.weibo.sdk.api.share.BaseResponse;
+import com.sina.weibo.sdk.api.share.IWeiboHandler.Response;
+import com.sina.weibo.sdk.api.share.IWeiboShareAPI;
+import com.sina.weibo.sdk.api.share.WeiboShareSDK;
+import com.sina.weibo.sdk.constant.WBConstants;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.umeng.analytics.MobclickAgent;
-import com.umeng.socialize.bean.CustomPlatform;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.controller.listener.SocializeListeners.SnsPostListener;
-import com.umeng.socialize.media.SinaShareContent;
 import com.umeng.socialize.media.UMImage;
-import com.umeng.socialize.sso.EmailHandler;
-import com.umeng.socialize.sso.SinaSsoHandler;
-import com.umeng.socialize.sso.SmsHandler;
 import com.umeng.socialize.sso.UMSsoHandler;
-import com.umeng.socialize.weixin.controller.UMWXHandler;
-import com.umeng.socialize.weixin.media.CircleShareContent;
-import com.umeng.socialize.weixin.media.WeiXinShareContent;
 
 @SuppressLint("NewApi")
 public class NewsDetailAct extends BaseAct implements OnClickListener,
-		OnPageChangeListener {
+		OnPageChangeListener, Response {
 
 	private LinearLayout llImages, llRelateds;
 
@@ -114,6 +119,10 @@ public class NewsDetailAct extends BaseAct implements OnClickListener,
 	/***/
 	private boolean IsPush = false;
 
+	IWXAPI api;
+
+	IWeiboShareAPI mWeiboShareAPI;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -121,13 +130,10 @@ public class NewsDetailAct extends BaseAct implements OnClickListener,
 		setActionBarLayout(R.layout.act_detail_title);
 		initView();
 		initData();
-		// Log.d("tag",
-		// "getcalling->"+(getCallingActivity()==null)+getIntent().getAction());
-		// if(getCallingActivity()==null){
-		// IsPush = true;
-		// }else{
-		// IsPush = false;
-		// }
+		api = WXAPIFactory.createWXAPI(this, WinxinShare.APP_KEY, true);
+		api.registerApp(WinxinShare.APP_KEY);
+		mWeiboShareAPI = WeiboShareSDK.createWeiboAPI(this, SinaShare.APP_KEY);
+		mWeiboShareAPI.registerApp();
 	}
 
 	@Override
@@ -366,13 +372,6 @@ public class NewsDetailAct extends BaseAct implements OnClickListener,
 	}
 
 	public void onClick(View view) {
-		// Log.d("tag","click-->1"+view.getId());
-		// if(!Mconstant.isClickAble){
-		// return;
-		// }
-		// Toast.makeText(this, "onclick", Toast.LENGTH_SHORT).show();
-		// Log.d("tag","click-->2"+Mconstant.isClickAble);
-		// new Utils().setViewUnable();
 		switch (view.getId()) {
 		case R.id.back:
 			//
@@ -403,10 +402,69 @@ public class NewsDetailAct extends BaseAct implements OnClickListener,
 			break;
 
 		case R.id.share:
-			// share();
-			shareTestInit();
-			// shareBoardInit();
+			Log.d("tag", "api==>" + api);
+//			new SinaShare().share(this, mWeiboShareAPI, newsEntity.title,
+//					newsEntity.description, newsEntity.medias.get(0).pic,
+//					newsEntity.weburl);
+			// try {
+			
+//			 share();
+//			shareTestInit();
+			 shareBoardInit();
 			break;
+		case R.id.share_board_Friends:
+			new WinxinShare().share(this, api, newsEntity.medias
+					.get(0).pic, newsEntity.title, newsEntity.description, newsEntity.weburl,true);
+			break;
+		case R.id.share_board_Winxin://微信分享
+			
+			 new WinxinShare().share(this, api, newsEntity.medias
+			.get(0).pic, newsEntity.title, newsEntity.description, newsEntity.weburl,false);
+			break;
+		case R.id.share_board_Sina:
+			new SinaShare().share(this, mWeiboShareAPI, newsEntity.title,
+					newsEntity.description, newsEntity.medias.get(0).pic,
+					newsEntity.weburl);
+			break;
+		case R.id.share_board_Message:
+			Uri smsToUri = Uri.parse( "smsto:" );  
+		    Intent sendIntent =  new  Intent(Intent.ACTION_VIEW, smsToUri);  
+		    sendIntent.putExtra( "sms_body" ,  newsEntity.title+newsEntity.weburl );  
+		    sendIntent.setType( "vnd.android-dir/*" );  
+		    if(newsEntity.medias.size()>0){
+				FileCache fileCache = new FileCache(this);
+				;
+				sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(fileCache.getFile(newsEntity.medias.get(0).pic)));
+			}
+		   
+		    startActivityForResult(sendIntent, 1002 );  
+			break;
+		case R.id.share_board_Email:
+			Intent email = new Intent(android.content.Intent.ACTION_SEND_MULTIPLE);
+			
+			if (newsEntity.medias.size() > 0) {
+				email.setType("*/*");
+				FileCache fileCache = new FileCache(this);
+				ArrayList<Uri> picturesUriArrayList = new ArrayList<Uri>();
+					picturesUriArrayList.add(Uri.fromFile(fileCache
+							.getFile(newsEntity.medias.get(0).pic)));
+					email.putParcelableArrayListExtra(Intent.EXTRA_STREAM,
+						picturesUriArrayList);
+				
+			}else{
+				email.setType("plain/text");
+			}
+			// 设置邮件默认地址
+			// email.putExtra(android.content.Intent.EXTRA_EMAIL, emailReciver);
+			// 设置邮件默认标题
+			email.putExtra(android.content.Intent.EXTRA_SUBJECT, newsEntity.title);
+			// 设置要默认发送的内容
+			email.putExtra(android.content.Intent.EXTRA_TEXT, newsEntity.description);
+			// 调用系统的邮件系统
+			startActivityForResult(Intent.createChooser(email, "请选择邮件发送软件"),
+					1001);
+			break;
+			
 		case R.id.act_detail_pic_tv:
 			startActivity(new Intent(NewsDetailAct.this, ActPlay.class));
 			break;
@@ -480,123 +538,29 @@ public class NewsDetailAct extends BaseAct implements OnClickListener,
 
 	}
 
-	private void addWinXin(NewsEntity entity) {
-		// 微信
-		String appId = "wx7113cca33fd10b9e";
-		// 添加微信平台
-		UMWXHandler wxHandler = new UMWXHandler(this, appId);
-
-		wxHandler.addToSocialSDK();
-		
-		WeiXinShareContent weixinContent = new WeiXinShareContent();
-		weixinContent.setShareContent(newsEntity.description+ newsEntity.weburl);
-		weixinContent.setTitle(newsEntity.title);
-		weixinContent.setTargetUrl("http://www.baidu.com");
-		mController.setShareMedia(weixinContent);
-		
-		Log.d("tag", "winxin=url" + weixinContent.getTargetUrl());
-
-//		// 支持微信朋友圈
-		UMWXHandler wxCircleHandler = new UMWXHandler(this, appId);
-		wxCircleHandler.setToCircle(true);
-		wxCircleHandler.addToSocialSDK();
-		CircleShareContent circleMedia = new CircleShareContent();
-		circleMedia.setShareContent(newsEntity.description+ newsEntity.weburl);
-		circleMedia.setTitle(newsEntity.title);
-		circleMedia.setTargetUrl("http://www.baidu.com");
-		Log.d("tag","friend==>"+circleMedia.getMediaType());
-		
-		mController.setShareMedia(circleMedia);
-
-		SmsHandler smsHandler = new SmsHandler();
-		smsHandler.addToSocialSDK();
-		// 添加email
-		EmailHandler emailHandler = new EmailHandler();
-		emailHandler.addToSocialSDK();
-	}
-	
-	private void addWinXinTest(){
-		String appId = "wx7113cca33fd10b9e";
-		//微信
-		UMWXHandler wxHandler = new UMWXHandler(this, appId);
-
-		wxHandler.addToSocialSDK();
-		
-		WeiXinShareContent weixinContent = new WeiXinShareContent();
-		weixinContent.setShareContent(newsEntity.description+ newsEntity.weburl);
-		weixinContent.setTitle(newsEntity.title);
-		weixinContent.setTargetUrl(newsEntity.weburl);
-		if (newsEntity.medias.size() > 0){
-			UMImage umImage = new UMImage(this, newsEntity.medias
-					.get(0).pic);
-			weixinContent.setShareImage(umImage);
-		}
-		mController.setShareMedia(weixinContent);
-		//朋友圈
-		UMWXHandler wxCircleHandler = new UMWXHandler(this, appId);
-		wxCircleHandler.setToCircle(true);
-		wxCircleHandler.addToSocialSDK();
-		CircleShareContent circleMedia = new CircleShareContent();
-		circleMedia.setShareContent(newsEntity.description+ newsEntity.weburl);
-		circleMedia.setTitle(newsEntity.title);
-		circleMedia.setTargetUrl(newsEntity.weburl);
-		if (newsEntity.medias.size() > 0){
-			UMImage umImage = new UMImage(this, newsEntity.medias
-					.get(0).pic);
-			circleMedia.setShareImage(umImage);
-		}
-		
-		Log.d("tag","friend==>"+circleMedia.getMediaType());
-		mController.setShareMedia(circleMedia);
-		//短信
-		SmsHandler smsHandler = new SmsHandler();
-		smsHandler.addToSocialSDK();
-		// 添加email
-		EmailHandler emailHandler = new EmailHandler();
-		emailHandler.addToSocialSDK();
-		//
-		//设置新浪SSO handler
-		
-		SinaShareContent sinaContent = new SinaShareContent();
-		sinaContent.setShareContent(newsEntity.description+ newsEntity.weburl);
-		sinaContent.setTitle(newsEntity.title);
-		sinaContent.setTargetUrl(newsEntity.weburl);
-		if (newsEntity.medias.size() > 0){
-			UMImage umImage = new UMImage(this, newsEntity.medias
-					.get(0).pic);
-			sinaContent.setShareImage(umImage);
-		}
-		SinaSsoHandler sinaSsoHandler = new SinaSsoHandler();
-		sinaSsoHandler.addToSocialSDK();
-		Log.d("tag","sina==api"+sinaSsoHandler.APPKEY);
-		mController.setShareMedia(sinaContent);
-		
-	}
-
 	
 	private final com.umeng.socialize.controller.UMSocialService mController = com.umeng.socialize.controller.UMServiceFactory
 			.getUMSocialService("com.umeng.share");
-	
+
 	private void shareTestInit() {
 
 		// 首先在您的Activity中添加如下成员变量
-//		addWinXin(newsEntity);
-		addWinXinTest();
+		// addWinXin(newsEntity);
+		// addWinXinTest();
 		mController.getConfig().removePlatform(SHARE_MEDIA.RENREN,
 				SHARE_MEDIA.DOUBAN, SHARE_MEDIA.TENCENT);
 		// 设置分享内容
 		(mController).setShareContent(newsEntity.title + newsEntity.weburl);
-		
-//		// 设置分享图片, 参数2为图片的url地址
-		
-		if (newsEntity.medias.size() > 0){
-			UMImage umImage = new UMImage(this, newsEntity.medias
-					.get(0).pic);
+
+		// // 设置分享图片, 参数2为图片的url地址
+
+		if (newsEntity.medias.size() > 0) {
+			UMImage umImage = new UMImage(this, newsEntity.medias.get(0).pic);
 			umImage.setTargetUrl(newsEntity.weburl);
 			umImage.setTitle(newsEntity.title + newsEntity.weburl);
 			mController.setShareMedia(umImage);
 		}
-		
+
 		mController.openShare(this, new SnsPostListener() {
 
 			@Override
@@ -606,72 +570,125 @@ public class NewsDetailAct extends BaseAct implements OnClickListener,
 			@Override
 			public void onComplete(SHARE_MEDIA platform, int eCode,
 					SocializeEntity entity) {
-				switch(eCode){
-				case 40000://cancel
-//					Toast.makeText(NewsDetailAct.this, "Cancel", Toast.LENGTH_SHORT)
-//					.show();
+				switch (eCode) {
+				case 40000:// cancel
+					// Toast.makeText(NewsDetailAct.this, "Cancel",
+					// Toast.LENGTH_SHORT)
+					// .show();
 					break;
 				case 200:
-					Toast.makeText(NewsDetailAct.this, "分享成功", Toast.LENGTH_SHORT)
-					.show();
+					Toast.makeText(NewsDetailAct.this, "分享成功",
+							Toast.LENGTH_SHORT).show();
 					break;
 				default:
-					Toast.makeText(NewsDetailAct.this, "分享失败", Toast.LENGTH_SHORT)
-					.show();
+					Toast.makeText(NewsDetailAct.this, "分享失败",
+							Toast.LENGTH_SHORT).show();
 					break;
 				}
-				
+
 			}
 		});
 	}
 
-	/**
-	 * 底层 自助 分享面板
-	 * 
-	 * @param mController
-	 */
-	// private void shareSina(
-	// com.umeng.socialize.controller.UMSocialService mController) {
-	// // 参数1为Context类型对象， 参数2为要分享到的目标平台， 参数3为分享操作的回调接口
-	// mController.postShare(this, SHARE_MEDIA.QQ, new SnsPostListener() {
-	// @Override
-	// public void onStart() {
-	// Toast.makeText(NewsDetailAct.this, "开始分享.", Toast.LENGTH_SHORT)
-	// .show();
-	// }
-	//
-	// @Override
-	// public void onComplete(SHARE_MEDIA platform, int eCode,
-	// SocializeEntity entity) {
-	// if (eCode == 200) {
-	// Toast.makeText(NewsDetailAct.this, "分享成功.",
-	// Toast.LENGTH_SHORT).show();
-	// } else {
-	// String eMsg = "";
-	// if (eCode == -101) {
-	// eMsg = "没有授权";
-	// }
-	// Toast.makeText(NewsDetailAct.this,
-	// "分享失败[" + eCode + "] " + eMsg, Toast.LENGTH_SHORT)
-	// .show();
-	// }
-	// }
-	// });
-	// }
+	
 
 	private void shareBoardInit() {
-		View item = View.inflate(this,
-				R.layout.umeng_socialize_shareboard_item, null);
-		ImageView itemImg = (ImageView) item
-				.findViewById(R.id.umeng_socialize_shareboard_image);
-		TextView itemTv = (TextView) item
-				.findViewById(R.id.umeng_socialize_shareboard_pltform_name);
+		View item = View.inflate(this, R.layout.share_board, null);
+		initDialog(item);
 		LinearLayout ll = new LinearLayout(this);
 		ll.addView(item);
 		Dialog d = new Dialog(this);
+		d.setTitle("分享到");
 		d.setContentView(ll);
+		d.getCurrentFocus();
 		d.show();
 
+	}
+
+	private void initDialog(View view) {
+		View FriendsView = view.findViewById(R.id.share_board_Friends);
+		FriendsView.setOnClickListener(this);
+		ImageView imgFriends = (ImageView) FriendsView
+				.findViewById(R.id.umeng_socialize_shareboard_image);
+		TextView tvFriends = (TextView) FriendsView
+				.findViewById(R.id.umeng_socialize_shareboard_pltform_name);
+		tvFriends.setText("朋友圈");
+		imgFriends.setImageResource(R.drawable.selelctor_friends);
+
+		View WinxinView = view.findViewById(R.id.share_board_Winxin);
+		WinxinView.setOnClickListener(this);
+		ImageView imgWinXin = (ImageView) WinxinView
+				.findViewById(R.id.umeng_socialize_shareboard_image);
+		TextView tvWinXin = (TextView) WinxinView
+				.findViewById(R.id.umeng_socialize_shareboard_pltform_name);
+		tvWinXin.setText("微信");
+		imgWinXin.setImageResource(R.drawable.umeng_socialize_wechat);
+
+		View SianView = view.findViewById(R.id.share_board_Sina);
+		SianView.setOnClickListener(this);
+		ImageView imgSina = (ImageView) SianView
+				.findViewById(R.id.umeng_socialize_shareboard_image);
+		TextView tvSina = (TextView) SianView
+				.findViewById(R.id.umeng_socialize_shareboard_pltform_name);
+		tvSina.setText("新浪");
+		imgSina.setImageResource(R.drawable.umeng_socialize_sina_on);
+
+		View MessageView = view.findViewById(R.id.share_board_Message);
+		MessageView.setOnClickListener(this);
+		ImageView imgMessage = (ImageView) MessageView
+				.findViewById(R.id.umeng_socialize_shareboard_image);
+		TextView tvMessage = (TextView) MessageView
+				.findViewById(R.id.umeng_socialize_shareboard_pltform_name);
+		tvMessage.setText("短信");
+		imgMessage.setImageResource(R.drawable.umeng_socialize_sms_on);
+
+		View EmailView = view.findViewById(R.id.share_board_Email);
+		EmailView.setOnClickListener(this);
+		ImageView imgEmail = (ImageView) EmailView
+				.findViewById(R.id.umeng_socialize_shareboard_image);
+		TextView tvEmail = (TextView) EmailView
+				.findViewById(R.id.umeng_socialize_shareboard_pltform_name);
+		tvEmail.setText("邮件");
+		imgEmail.setImageResource(R.drawable.umeng_socialize_gmail_on);
+
+	}
+
+	/**
+	 * @see {@link Activity#onNewIntent}
+	 */
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+
+		// 从当前应用唤起微博并进行分享后，返回到当前应用时，需要在此处调用该函数
+		// 来接收微博客户端返回的数据；执行成功，返回 true，并调用
+		// {@link IWeiboHandler.Response#onResponse}；失败返回 false，不调用上述回调
+		mWeiboShareAPI.handleWeiboResponse(intent, this);
+		Toast.makeText(this, "分享成功", Toast.LENGTH_LONG).show();
+	}
+
+	/**
+	 * 接收微客户端博请求的数据。 当微博客户端唤起当前应用并进行分享时，该方法被调用。
+	 * 
+	 * @param baseRequest
+	 *            微博请求数据对象
+	 * @see {@link IWeiboShareAPI#handleWeiboRequest}
+	 */
+	@Override
+	public void onResponse(BaseResponse baseResp) {
+		switch (baseResp.errCode) {
+		case WBConstants.ErrorCode.ERR_OK:
+			Toast.makeText(this, "success", Toast.LENGTH_LONG).show();
+			break;
+		case WBConstants.ErrorCode.ERR_CANCEL:
+			Toast.makeText(this, "cancel", Toast.LENGTH_LONG).show();
+			break;
+		case WBConstants.ErrorCode.ERR_FAIL:
+			Toast.makeText(this,
+					"failed" + "Error Message: " + baseResp.errMsg,
+					Toast.LENGTH_LONG).show();
+			break;
+		}
 	}
 
 	public boolean hasApplication(Intent intent) {
@@ -788,22 +805,21 @@ public class NewsDetailAct extends BaseAct implements OnClickListener,
 		return super.onKeyDown(keyCode, event);
 	}
 
-	@Override 
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    super.onActivityResult(requestCode, resultCode, data);
-	    /**使用SSO授权必须添加如下代码 */
-	    UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode) ;
-	    if(ssoHandler != null){
-	       ssoHandler.authorizeCallBack(requestCode, resultCode, data);
-	    }
+		super.onActivityResult(requestCode, resultCode, data);
+		/** 使用SSO授权必须添加如下代码 */
+		UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(
+				requestCode);
+		if (ssoHandler != null) {
+			ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+		}
 	}
-	
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
 		MobclickAgent.onResume(this);
 	}
-	
-	
+
 }

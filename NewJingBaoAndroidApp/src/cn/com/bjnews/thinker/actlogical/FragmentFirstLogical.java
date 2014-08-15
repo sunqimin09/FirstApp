@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import u.aly.V;
-
 import android.content.Context;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import cn.com.bjnews.thinker.db.DbHandler;
 import cn.com.bjnews.thinker.entity.AdIntroEntity;
 import cn.com.bjnews.thinker.entity.NewsEntity;
@@ -40,7 +38,7 @@ public class FragmentFirstLogical {
 			case 0:
 				HashMap m= (HashMap) msg.obj;
 				((IFragmentFirst) m.get("interface")).showData( m.get("news"),
-						 m.get("ads"),m.get("headEntity"));
+						 m.get("ads"),m.get("headEntity"),m.get("localListEntity"));
 				break;
 			}
 			
@@ -85,6 +83,7 @@ public class FragmentFirstLogical {
 				map.put("news", getNews(locaListEntity));
 				map.put("ads", getAds(locaListEntity));
 				map.put("headEntity", getHeadEntity(locaListEntity));
+				map.put("localListEntity", locaListEntity);
 				map.put("interface", iFragmentFirst);
 				msg.obj = map;
 				handler.sendMessage(msg);
@@ -158,6 +157,9 @@ public class FragmentFirstLogical {
 					}
 				}
 			}
+		}
+		for(int i = 0;i<newsList.newsList.size();i++){
+			Log.d("tag","news===state==>"+newsList.newsList.get(i).state);
 		}
 		return newsList;
 	}

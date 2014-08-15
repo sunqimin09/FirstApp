@@ -139,7 +139,7 @@ public class MainActivity extends BaseAct implements IRequestCallBack,
 		 PushConstants.LOGIN_TYPE_API_KEY,
 		 Utils.getMetaValue(MainActivity.this, "api_key"));
 		 List<String> list = new ArrayList<String>();
-		 list.add("sun");//目前都是test 系列
+		 list.add("bjnews212");//目前都是test 系列
 		 PushManager.setTags(this, list);
 		 
 	}

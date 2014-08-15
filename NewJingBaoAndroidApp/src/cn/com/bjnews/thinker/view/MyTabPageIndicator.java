@@ -22,6 +22,8 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -34,6 +36,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import cn.com.bjnews.thinker.R;
+import cn.com.bjnews.thinker.debug.MyDebug;
 
 import com.viewpagerindicator.IconPagerAdapter;
 import com.viewpagerindicator.PageIndicator;
@@ -64,14 +67,39 @@ public class MyTabPageIndicator extends HorizontalScrollView implements PageIndi
 
     private final OnClickListener mTabClickListener = new OnClickListener() {
         public void onClick(View view) {
+        	MyDebug debug = new MyDebug();
+        	MyDebug.setCurrentTime();
+        	Log.d("tag","tab--onclick");
             TabView tabView = (TabView)view;
             final int oldSelected = mViewPager.getCurrentItem();
             final int newSelected = tabView.getIndex();
-            mViewPager.setCurrentItem(newSelected);
+            debug.getTime(1, 100);
+//            mViewPager.setCurrentItem(newSelected);
+            debug.getTime(2, 100);
             if (oldSelected == newSelected && mTabReselectedListener != null) {
                 mTabReselectedListener.onTabReselected(newSelected);
             }
+            
+            Log.d("tag","tab--onclick--end");
+            new Thread(){
+
+				@Override
+				public void run() {
+					handler.sendEmptyMessage(newSelected);
+				}
+            	
+            }.start();
+            debug.getTime(3, 100);
         }
+    };
+    
+    Handler handler = new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			 mViewPager.setCurrentItem(msg.what);
+		}
+    	
     };
 
     private final IcsLinearLayout mTabLayout;

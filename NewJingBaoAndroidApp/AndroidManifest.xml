@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="211" android:versionName="2.1.1" package="cn.com.bjnews.thinker">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:versionCode="212" 
+    android:versionName="2.1.2" package="cn.com.bjnews.thinker">
 
     <uses-sdk android:minSdkVersion="11" android:targetSdkVersion="20"/>
 	<supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:resizeable="true" android:smallScreens="true" android:xlargeScreens="true"/>
@@ -19,7 +21,8 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.GET_TASKS"/>  
     
-    <application android:allowBackup="true" android:hardwareAccelerated="false" android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:name="cn.com.bjnews.thinker.act.DemoApplication" android:theme="@style/AppTheme">
+    <application
+         android:allowBackup="true" android:hardwareAccelerated="false" android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:name="cn.com.bjnews.thinker.act.DemoApplication" android:theme="@style/AppTheme">
         <activity android:name="cn.com.bjnews.thinker.act.WelcomeAct" android:screenOrientation="portrait" android:theme="@style/ContentOverlay">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -29,7 +32,14 @@
         </activity>
         <activity android:label="@string/app_name" android:launchMode="singleTask" android:name="cn.com.bjnews.thinker.act.MainActivity" android:screenOrientation="portrait">
         </activity>
-        <activity android:name="cn.com.bjnews.thinker.act.NewsDetailAct" android:screenOrientation="portrait" android:theme="@android:style/Theme.Holo.Light">
+        <activity android:name="cn.com.bjnews.thinker.act.NewsDetailAct" 
+            android:screenOrientation="portrait" 
+            android:theme="@android:style/Theme.Holo.Light">
+             <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
         <activity android:configChanges="orientation|keyboardHidden|navigation" android:name="cn.com.bjnews.thinker.act.ActPlay">
         </activity>
@@ -39,6 +49,11 @@
         
         <!-- 所有的父类 -->
         <activity android:name="cn.com.bjnews.thinker.act.BaseAct" android:theme="@android:style/Theme.Holo.Light"/>
+        
+         <!-- Test -->
+        <activity android:name="cn.com.bjnews.thinker.act.test.TestMainAct"
+            android:theme="@android:style/Theme.Holo.Light"
+            ></activity>
         
         
         <activity android:name="cn.com.bjnews.thinker.push.BaiduPushTestAct" android:theme="@android:style/Theme.Holo.Light"/>
@@ -106,7 +121,18 @@
 
         <activity android:name="com.umeng.update.UpdateDialogActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
-<!-- -->
+        <!-- 新浪分享 
+        
+         <activity
+            android:name="com.sina.weibo.sdk.demo.WBShareActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait" >
+           
+        </activity>
+        -->
+       
+        <!--  -->
+
         <!-- 在百度开发者中心查询应用的API Key SdeUzbFBGSRWONDy9EXlbDMm  h2E03gOedAXK4eL9bLYha4ZHgge7SzyQ -->
         
         <meta-data android:name="api_key" android:value="SdeUzbFBGSRWONDy9EXlbDMm"/>

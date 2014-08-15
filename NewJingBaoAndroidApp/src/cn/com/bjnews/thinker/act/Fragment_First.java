@@ -5,6 +5,8 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -95,17 +97,41 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 		Log.d("tag", pageIndex + "new==pageIndex->"
 				+ Mconstant.currentPageIndex);
 		View view = View.inflate(getActivity(), R.layout.firstfragment, null);
-		initView(view);
-		initData();
-		if (MainActivity.isRefreshing(currentPagerIndex)) {
-			Refresh();
-		} else if (!MainActivity.isRefreshing(Mconstant.currentPageIndex) ) {// 当前显示的页，没有进行加载，需要不显示title
-			postRefresh();
-		} 
+		TestThread(view);
 		debug.getTime(0, currentPagerIndex);
 		Log.i("tag","skip--oncreateView-end");
 		return view;
 	}
+	
+	private void TestThread(final View view){
+		
+		new Thread(){
+
+			@Override
+			public void run() {
+				Message msg = handler.obtainMessage();
+				msg.obj = view;
+				handler.sendMessage(msg);
+			}
+			
+		}.start();
+	}
+	
+	Handler handler =new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			View view = (View) msg.obj;
+			initView(view);
+			initData();
+			if (MainActivity.isRefreshing(currentPagerIndex)) {
+				Refresh();
+			} else if (!MainActivity.isRefreshing(Mconstant.currentPageIndex) ) {// 当前显示的页，没有进行加载，需要不显示title
+				postRefresh();
+			} 
+		}
+		
+	};
 
 	@SuppressLint("ServiceCast")
 	private void initView(View view) {
@@ -204,15 +230,14 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 		int newsId = ((MainActivity) getActivity()).getArticalId();
 		NewsEntity entity = null;
 		Log.d("tag","doPush-->"+newsId);
-		for(int i=0;i<locaListEntity.newsList.size();i++){
-			if(newsId==locaListEntity.newsList.get(i).id){//获得该
-				entity = locaListEntity.newsList.get(i);
+		for(int i=0;i<adapter.getData().size();i++){
+			if(newsId==adapter.getData().get(i).id){//获得该
+				entity = adapter.getData().get(i);
 			}
 		}//获取到
 		skipToDetail(entity);
 		if(newsId>-1){//请求该id 数据,请求后跳转
 //			Toast.makeText(getActivity(), "跳转"+entity, Toast.LENGTH_SHORT).show();
-			
 			//该推送已经处理
 			if(entity!=null)
 				((MainActivity) getActivity()).setArticalId(-2);
@@ -236,15 +261,21 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 		((MainActivity) getActivity()).getService().update(entity.id, 1);
 	}
 
+	private boolean test = true;
+	
 	@Override
 	public void request(int timeOut) {
 		RequestEntity requestEntity = new RequestEntity(
 				MainActivity.localSettingEntity.channelList
 						.get(currentPagerIndex).url);
-		if(((MainActivity)getActivity()).getService()!=null){
+		if(((MainActivity)getActivity()).getService()!=null&&test){
+			debug.getTime(5, currentPagerIndex);
 			((MainActivity)getActivity()).getService().request(getActivity(),requestEntity,this,timeOut);
+			test = false;
 		}else{
+			debug.getTime(10, currentPagerIndex);
 			new InternetHelper(getActivity()).requestThread(requestEntity, this,timeOut);
+			test = true;
 		}
 		
 		// requestEntity.setUrl("http://app.bjnews.com.cn/m/json/worldcup_test.html");
@@ -255,6 +286,8 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 
 	@Override
 	public void requestSuccess(ResponseResult responseResult) {
+		debug.getTime(15, currentPagerIndex);
+		
 		if (getActivity() != null
 				&& ((MainActivity) getActivity()).getService() != null) {
 
@@ -269,7 +302,9 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 							listview.setHeadData((List<AdIntroEntity>) params[1],
 									Fragment_First.this);
 							headEntity = (NewsEntity) params[2];
+							locaListEntity = (NewsListEntity) params[3];
 							postRefresh();
+							
 						}
 
 						@Override
@@ -291,6 +326,7 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 					listview.setHeadData((List<AdIntroEntity>) params[1],
 							Fragment_First.this);
 					headEntity = (NewsEntity) params[2];
+					locaListEntity = (NewsListEntity) params[3];
 					postRefresh();
 				}
 
@@ -305,7 +341,7 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 		
 		
 
-			doPush();
+			
 			
 	}
 
@@ -347,13 +383,16 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		adapter.notifyDataSetChanged();
+		if(adapter!=null)
+			adapter.notifyDataSetChanged();
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		skipToDetail(adapter.getEntity(arg3));
 		adapter.getData().get((int) arg3).state = 1;
+		locaListEntity.getNewsList().get((int) arg3+1).state = 1;
+		
 	}
 
 
@@ -417,6 +456,7 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 						listview.setHeadData((List<AdIntroEntity>) params[1],
 								Fragment_First.this);
 						headEntity = (NewsEntity) params[2];
+						locaListEntity = (NewsListEntity) params[3];
 //						debug.getTime(4, currentPagerIndex);
 			}
 
@@ -469,6 +509,8 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 	@Override
 	public void postRefresh() {//刷新结束
 		postRefreshTest();
+		//请求结束。。处理推送内容
+		doPush();
 	}
 
 	

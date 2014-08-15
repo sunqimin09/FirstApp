@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.com.bjnews.thinker.R;
+import cn.com.bjnews.thinker.debug.MyDebug;
 import cn.com.bjnews.thinker.entity.NewsEntity;
 import cn.com.bjnews.thinker.img.ImageLoader;
 
@@ -127,30 +128,23 @@ public class FragmentFirstAdapter extends BaseAdapter {
 			holder = (ViewHolder) v.getTag();
 			holder.image.setImageResource(R.drawable.default_img_small);
 		}
-		holder.tv_title.setText(list.get(position).title);
-		holder.tv_description.setText(list.get(position).description);
+		NewsEntity entity = list.get(position);
+		holder.tv_title.setText(entity.title);
+		holder.tv_description.setText(entity.description);
 //		Log.d("tag", position+"<adapter--title-->" + list.get(position).title+"bitmap-->"+holder.image.getBackground().toString());
 		if (list.get(position).state == 1) {
-			
 			holder.tv_title.setTextColor(selectedcolor);
 		} else {
 			holder.tv_title.setTextColor(defaultcolor);
 		}
-//		Log.d("tag",
-//				"state-->" + list.get(position).state + "id->"
-//						+ list.get(position).id);
-//		
-//		Log.d("tag", holder.image.getBackground().toString()+"adapter--url-->" + position);
-//		holder.image.setBackgroundResource(R.drawable.default_img_small);
-//		if (!busy){
-//			Log.d("tag","setBitmap--->"+position);
-			mImageLoader.DisplayImage(list.get(position).thumbnail,
+		mImageLoader.DisplayImage(entity.thumbnail,
 					holder.image, false);
 //		}
 			
 		return v;
 	}
 
+	
 	static class ViewHolder {
 		TextView tv_title;
 		TextView tv_description;

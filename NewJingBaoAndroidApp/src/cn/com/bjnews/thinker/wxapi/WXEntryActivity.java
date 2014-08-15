@@ -1,31 +1,34 @@
 
 package cn.com.bjnews.thinker.wxapi;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.util.Log;
 
+import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
-import com.umeng.socialize.weixin.view.WXCallbackActivity;
 
-public class WXEntryActivity extends WXCallbackActivity  implements IWXAPIEventHandler{
+public class WXEntryActivity extends Activity implements IWXAPIEventHandler{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		Log.d("tag","share-WX===oncreate");
 	}
 
+	
 	@Override
-	public void onResp(BaseResp resp) {
-		switch(resp.errCode){
-		case BaseResp.ErrCode.ERR_OK:
-			break;
-		case BaseResp.ErrCode.ERR_USER_CANCEL:
-			Toast.makeText(this, "Cancel", Toast.LENGTH_SHORT).show();
-			break;
-		}
-		super.onResp(resp);
+	public void onReq(BaseReq req) {
+		Log.d("tag","share-WX===onReq"+req.openId);
+	}
+
+
+	@Override
+	public void onResp(BaseResp arg0) {
+		// TODO Auto-generated method stub
+		Log.d("tag","share-WX===onResp"+arg0.errCode);
 	}
 	
 	

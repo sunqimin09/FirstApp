@@ -28,7 +28,15 @@ public class NewsEntity implements Serializable {
 	public int id;
 	//	
 	public String title;
-//	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	//	
 	/**信息来源*/
 	public String source ;
 	

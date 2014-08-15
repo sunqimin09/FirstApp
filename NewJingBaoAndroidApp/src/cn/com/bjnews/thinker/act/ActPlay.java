@@ -133,6 +133,7 @@ public class ActPlay extends BaseAct implements OnPageChangeListener, IRequestCa
 				WindowManager manager = getWindowManager();
 				window_width = manager.getDefaultDisplay().getWidth();
 				window_height = manager.getDefaultDisplay().getHeight();
+				imageView.setScreen_W(window_width);
 				viewTreeObserver = imageView.getViewTreeObserver();
 				viewTreeObserver
 						.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {

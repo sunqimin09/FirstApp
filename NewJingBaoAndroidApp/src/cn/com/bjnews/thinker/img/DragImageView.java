@@ -119,20 +119,30 @@ public class DragImageView extends ImageView {
 	@Override
 	protected void onLayout(boolean changed, int left, int top, int right,
 			int bottom) {
-		
+		Log.d("tag","MyAsyncTask--onlayout-->" +changed+"left:"+left+
+				"top" +top+"right:"+right+"bottom"
+				+bottom);
 		super.onLayout(changed, left, top, right, bottom);
 		if (start_Top == -1) {
-			Log.d("tag","MyAsyncTask--onlayout-->" +
-					"1" +
-					""+top+bottom);
+			start_Top = top;
+			start_Left = left;
+			start_Bottom = bottom;
+			start_Right = right;
+		}else if(changed){
 			start_Top = top;
 			start_Left = left;
 			start_Bottom = bottom;
 			start_Right = right;
 		}
+		
+		
+		Log.d("tag","MyAsyncTask--onlayout--get>" +"left:"+start_Left+
+				"top" +start_Top+"right:"+start_Bottom+"bottom"
+				+start_Right);
 
 	}
 
+	
 	/***
 	 * touch ÊÂ¼þ
 	 */
@@ -410,8 +420,14 @@ public class DragImageView extends ImageView {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-//			Log.d("tag","doINBack-->"+start_Top+"start>>"+start_Bottom);
+			Log.d("tag","MyAsyncTask--start--->=current_Width"+current_Width+"screen_W:"+screen_W);
 			while (current_Width <= screen_W) {
+				Log.d("tag","MyAsyncTask--doBack-->"+"left:"+left+
+						"top" +top+"right:"+right+"bottom"
+						+bottom);
+				Log.d("tag","MyAsyncTask--start--->" +"left:"+start_Left+
+						"top" +start_Top+"right:"+start_Right+"bottom"
+						+start_Bottom);
 				Log.d("tag","MyAsyncTask-while-->"+scale_WH);
 				left -= step_H;
 				top -= step_V;

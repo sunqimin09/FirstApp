@@ -14,6 +14,8 @@ import java.util.WeakHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import cn.com.bjnews.thinker.debug.MyDebug;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActionBar.LayoutParams;
@@ -41,6 +43,8 @@ public class ImageLoader {
 			.synchronizedMap(new WeakHashMap<ImageView, String>());
 	// �̳߳�
 	private ExecutorService executorService;
+	
+	private ExecutorService displayService;
 
 //	private Bitmap defaultBitmap;
 	
@@ -63,9 +67,10 @@ public class ImageLoader {
 		memoryCache =MemoryCache.getInstance();
 		fileCache = new FileCache(context);
 		executorService = Executors.newFixedThreadPool(5);
+		displayService = Executors.newFixedThreadPool(5);
+		
 		//???
 		Bitmap b = ImgUtils.getBitmap(context, drawable);
-//		Bitmap b = BitmapFactory.decodeResource(context.getResources(), drawable);
 		defaultWidth = b.getWidth();
 		defaultHeight = b.getHeight();
 		b.recycle();
@@ -103,64 +108,55 @@ public class ImageLoader {
 		this.maxScreen = maxScreen;
 	}
 	
-	// ����Ҫ�ķ���
+	MyDebug debug = new MyDebug();
+	
+	// 
 	public void DisplayImage(String url, ImageView imageView,
 			boolean isLoadOnlyFromCache) {
+		debug.setCurrentTime();
 		if(imageView == null){
 			return;
 		}
-//		imageView.setImageResource(defaultDrawable);//ImageBitmap(BitmapFactory.decodeResource(context.getResources(), defaultDrawable));
 		imageViews.put(imageView, url);
 		Bitmap bitmap = memoryCache.get(url);
 		Log.d("tag",url+"First--image->--download->"+bitmap);
+		debug.getTime(0, 40);
 		if (bitmap != null) {
-//			Log.d("tag", "showimage==imageWidth-bitmap>" + bitmap.getWidth()
-//					+ "height:" + bitmap.getHeight());
-			// imageView.destroyDrawingCache();
-			ViewGroup.LayoutParams params = imageView.getLayoutParams();
-			if (setWidth&&params!=null) {
-				
-				if (maxScreen
-						&& bitmap.getHeight() * aimWidth / bitmap.getWidth() > CommonUtil
-								.getScreenHeight(context)) {// 大于屏幕高度
-					params.height = CommonUtil.getScreenHeight(context);
-					params.width = bitmap.getWidth()
-							* CommonUtil.getScreenHeight(context)
-							/ bitmap.getHeight();
-				} else {
-					params.width = aimWidth;
-					params.height = bitmap.getHeight() * aimWidth
-							/ bitmap.getWidth();
-					Log.d("tag","ImageHeight-->"+params.height);
-				}
-				imageView.setLayoutParams(params);
-			}
+			disPlay(bitmap,new PhotoToLoad(url, imageView));
 			
-			Log.d("tag","showimage==imageWidth->"+imageView.getWidth()+"height:"+imageView.getHeight());
-			if(isBg)
-				imageView.setBackground(new BitmapDrawable(bitmap));
-			else if(isScale){
-				/** 获取可見区域高度 **/
-				WindowManager manager = ((Activity) imageView.getContext()).getWindowManager();
-				int window_width = manager.getDefaultDisplay().getWidth();
-				int window_height = manager.getDefaultDisplay().getHeight();
-//				dragImageView.setImageBitmap(bmp);
-				Bitmap b = BitmapUtil.getBitmap(bitmap, window_width, window_height);
-				((DragImageView)imageView).setImageBitmap(b);
-				
-			}else{
-				imageView.setImageBitmap(bitmap);
-			}
-				
-			Log.d("tag","ImageWidth--Height1:"+imageView.getHeight());
-//			imageView.setImageBitmap(bitmap);
-			Log.d("tag","showimage--put2>"+Runtime.getRuntime().totalMemory());
+//			
 		}else if (!isLoadOnlyFromCache) {
 			// ��û�еĻ��������̼߳���ͼƬ
 			queuePhoto(url, imageView,setWidth);
+			debug.getTime(5, 40);
 //			imageView.setBackgroundResource(defaultDrawable);
 		}
+		debug.getTime(6, 40);
 	}
+	
+	private void disPlay(Bitmap bmp,PhotoToLoad photoToLoad){
+		debug.getTime(1, 40);
+		displayService.submit(new PhotosDisplay(bmp, photoToLoad));
+		debug.getTime(2, 40);
+	}
+	
+	class PhotosDisplay implements Runnable {
+		PhotoToLoad photoToLoad;
+		Bitmap bmp;
+		PhotosDisplay(Bitmap bmp,PhotoToLoad photoToLoad) {
+			this.photoToLoad = photoToLoad;
+			this.bmp = bmp;
+		}
+
+		@Override
+		public void run() {
+			BitmapDisplayer bd = new BitmapDisplayer(bmp, photoToLoad);
+			Activity a = (Activity) photoToLoad.imageView.getContext();
+			a.runOnUiThread(bd);
+			
+		}
+	}
+	
 
 	
 	private void queuePhoto(String url, ImageView imageView,boolean setWidth) {
@@ -455,6 +451,7 @@ public class ImageLoader {
 								/ bitmap.getWidth();
 					}
 //					photoToLoad.imageView.setLayoutParams(new LayoutParams(params.width, params.height));
+//					photoToLoad.imageView.
 					photoToLoad.imageView.setLayoutParams(params);
 					Log.d("tag",params.height+"ImageWidth--Height3:"+photoToLoad.imageView.getHeight());
 				}
@@ -468,11 +465,16 @@ public class ImageLoader {
 					int window_height = manager.getDefaultDisplay().getHeight();
 //					dragImageView.setImageBitmap(bmp);
 					Bitmap b = BitmapUtil.getBitmap(bitmap, window_width, window_height);
+					((DragImageView) photoToLoad.imageView).setBackground(null);
 					if(b!=null)
 						((DragImageView) photoToLoad.imageView).setImageBitmap(b);
-					b=null;
-//					Log.d("tag","resize--imageView--bb>"+b.getWidth()+"<>"+b.getHeight());
-//				Log.d("tag","resize--imageView--->"+photoToLoad.imageView.getWidth()+"<>"+photoToLoad.imageView.getHeight());
+					((DragImageView) photoToLoad.imageView).setAdjustViewBounds(true);
+					Log.d("tag", "resize--imageView--bb>" + b.getWidth() + "<>"
+							+ b.getHeight());
+					Log.d("tag", "resize--imageView--->"
+							+ photoToLoad.imageView.getWidth() + "<>"
+							+ photoToLoad.imageView.getHeight());
+					b = null;
 				}else{
 					Log.d("tag","shwoimage-url"+photoToLoad.url+bitmap);
 					photoToLoad.imageView.setImageBitmap(bitmap);
