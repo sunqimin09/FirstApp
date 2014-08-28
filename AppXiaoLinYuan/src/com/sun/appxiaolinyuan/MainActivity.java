@@ -26,7 +26,14 @@ import com.baidu.mobads.appoffers.PointsChangeListener;
 @SuppressLint("NewApi")
 public class MainActivity extends Activity implements OnClickListener {
 
-	private String url = "http://www.xiaolinyuan.com";
+	private String url = "http://m.baidu.com/pu=sz%401321_1001/s?word=%E7%AC%91%E6%9E%97%E9%99%A2&sa=ib&ts=0";//"http://www.xiaolinyuan.com";
+	
+	//
+
+	private String url1 = "http://m.xiaolinyuan.com/";
+	//
+
+
 
 	private WebView webView;
 	/** show no Internet */
@@ -57,6 +64,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		tvInternet.setOnClickListener(this);
 
 		webView.loadUrl(url);
+//		webView.loadUrl(url1);
 		if (isNetworkConnected(this)) {
 			tvInternet.setVisibility(View.GONE);
 			webView.setVisibility(View.VISIBLE);
@@ -64,7 +72,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			tvInternet.setVisibility(View.VISIBLE);
 			webView.setVisibility(View.GONE);
 		}
-
+		
 		// webView.getSettings().setJavaScriptEnabled(true);
 		// webView.getSettings().setDisplayZoomControls(true);
 		webView.setWebViewClient(new WebViewClient() {
@@ -77,6 +85,8 @@ public class MainActivity extends Activity implements OnClickListener {
 					tvInternet.setVisibility(View.VISIBLE);
 					view.setVisibility(View.GONE);
 				}
+				Log.d("tag","url--->"+url);
+				Log.d("tag","url222--->"+System.currentTimeMillis());
 				view.loadUrl(url);
 				return false;
 

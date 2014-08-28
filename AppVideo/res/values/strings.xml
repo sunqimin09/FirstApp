@@ -1,0 +1,7 @@
+<resources>
+
+    <string name="app_name">秦时明月-空山鸟语</string>
+
+    <color name="translucent_gray">#99000000</color>
+    <color name="half_transparent">#77000000</color>
+</resources>
