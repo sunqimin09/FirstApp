@@ -1,11 +1,8 @@
 package cn.com.bjnews.thinker.act;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.R.fraction;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -417,14 +414,15 @@ public class NewsDetailAct extends BaseAct implements OnClickListener,
 					.get(0).pic, newsEntity.title, newsEntity.description, newsEntity.weburl,true);
 			break;
 		case R.id.share_board_Winxin://微信分享
-			
 			 new WinxinShare().share(this, api, newsEntity.medias
 			.get(0).pic, newsEntity.title, newsEntity.description, newsEntity.weburl,false);
+			 
 			break;
 		case R.id.share_board_Sina:
 			new SinaShare().share(this, mWeiboShareAPI, newsEntity.title,
 					newsEntity.description, newsEntity.medias.get(0).pic,
 					newsEntity.weburl);
+			
 			break;
 		case R.id.share_board_Message:
 			Uri smsToUri = Uri.parse( "smsto:" );  
