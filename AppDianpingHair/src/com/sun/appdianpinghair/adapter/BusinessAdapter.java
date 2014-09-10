@@ -82,6 +82,7 @@ public class BusinessAdapter extends BaseAdapter{
 		Utils.showPrice(holder.tv_price,list.get(position).avg_price);
 		
 		holder.tv_distance.setText(Utils.distanceFormat(list.get(position).distance));
+		
 		imgLoader.DisPlay(holder.image, list.get(position).s_photo_url);
 //		if (!busy){
 //			mImageLoader.DisplayImage(list.get(position).thumbnail,

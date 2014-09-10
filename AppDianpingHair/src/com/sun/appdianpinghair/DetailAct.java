@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -67,6 +68,7 @@ public class DetailAct extends BaseAct implements OnItemClickListener{
 		setContentView(R.layout.detail_act);
 		initView();
 		initData();
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 
@@ -87,6 +89,7 @@ public class DetailAct extends BaseAct implements OnItemClickListener{
 		tvDescription.setText("test");
 		entity = (BusinessEntity) getIntent().getSerializableExtra("business");
 		initTab();
+		
 	}
 	
 	private void initTab(){
@@ -150,6 +153,16 @@ public class DetailAct extends BaseAct implements OnItemClickListener{
 		}
 		
 	};
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			finish();
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 	
 	public void onClick(View view){
 		switch(view.getId()){

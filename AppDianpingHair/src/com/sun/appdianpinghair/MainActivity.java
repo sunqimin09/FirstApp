@@ -8,6 +8,7 @@ import java.util.Map;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -39,6 +40,8 @@ import com.sun.appdianpinghair.entity.JsonBaseInterface;
 import com.sun.appdianpinghair.entity.JsonBusinessEntity;
 import com.sun.appdianpinghair.internet.IRequestCallback;
 import com.sun.appdianpinghair.internet.RequestUtils;
+import com.sun.appdianpinghair.location.LocationSvc;
+import com.sun.appdianpinghair.service.MainActService;
 import com.sun.appdianpinghair.utils.LocationTools;
 import com.sun.appdianpinghair.utils.LocationUtils;
 import com.sun.appdianpinghair.utils.Mconstant;
@@ -62,6 +65,8 @@ public class MainActivity extends BaseAct implements OnItemClickListener, IReque
 	
 	private List<BusinessEntity> list;
 	
+	private MainActService service1;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -69,6 +74,10 @@ public class MainActivity extends BaseAct implements OnItemClickListener, IReque
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         initView();
+     // 启动服务  
+        Intent intent = new Intent();  
+        intent.setClass(this, LocationSvc.class);  
+        startService(intent); 
 	}
 	
 
@@ -84,7 +93,8 @@ public class MainActivity extends BaseAct implements OnItemClickListener, IReque
 		adapter = new BusinessAdapter(this.getApplicationContext(), list);
 		listview.setAdapter(adapter);
 		request();
-		getLocation();
+//		getLocation();
+		service1 = new MainActService();
 		
 	}
 	private void getLocation() {
@@ -152,61 +162,66 @@ public class MainActivity extends BaseAct implements OnItemClickListener, IReque
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case R.id.menu_comment:
+			list = service1.sortByComment(list);
 			break;
 		case R.id.menu_distance:
+			list = service1.sortByDistance(list);
 			break;
 		case R.id.menu_price_l:
+			list = service1.sortByMoneyCheap(list);
 			break;
 		case R.id.menu_price_h:
+			list = service1.sortByMoneyExpensice(list);
 			break;
 		}
-		Toast("menu");
+		adapter.setData(list);
+		Toast("menu"+item.getItemId());
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void onClick(View view) {
-		switch(view.getId()){
-		case R.id.main_order:
-			Toast("order");
-			showPop();
-			break;
-		}
-	}
-	
-	private void initPop(){
-		pop = new PopupWindow(300,500);
-		ListView listView = new ListView(this);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, orders);
-		listView.setAdapter(adapter);
-		pop.setContentView(listView);
-		pop.setOutsideTouchable(true);
-		pop.setFocusable(true);
-		pop.setBackgroundDrawable(new BitmapDrawable());
-		pop.showAsDropDown(tvOrder);
-		listView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				pop.dismiss();
-				tvOrder.setText(orders[arg2]);
-				
-			}
-		});
-	}
-	
-	private PopupWindow pop = null;
-	
-	private void showPop() {
-		if(pop==null){
-			initPop();
-		}else if(!pop.isShowing()){
-			pop.showAsDropDown(tvOrder);
-		}
-	}
-	
-	
+//	public void onClick(View view) {
+//		switch(view.getId()){
+//		case R.id.main_order:
+//			Toast("order");
+//			showPop();
+//			break;
+//		}
+//	}
+//	
+//	private void initPop(){
+//		pop = new PopupWindow(300,500);
+//		ListView listView = new ListView(this);
+//		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+//				android.R.layout.simple_list_item_1, orders);
+//		listView.setAdapter(adapter);
+//		pop.setContentView(listView);
+//		pop.setOutsideTouchable(true);
+//		pop.setFocusable(true);
+//		pop.setBackgroundDrawable(new BitmapDrawable());
+//		pop.showAsDropDown(tvOrder);
+//		listView.setOnItemClickListener(new OnItemClickListener() {
+//
+//			@Override
+//			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+//					long arg3) {
+//				pop.dismiss();
+//				tvOrder.setText(orders[arg2]);
+//				
+//			}
+//		});
+//	}
+//	
+//	private PopupWindow pop = null;
+//	
+//	private void showPop() {
+//		if(pop==null){
+//			initPop();
+//		}else if(!pop.isShowing()){
+//			pop.showAsDropDown(tvOrder);
+//		}
+//	}
+//	
+//	
 	
 	static class RequestAPILickListener implements OnClickListener {
 
@@ -226,7 +241,6 @@ public class MainActivity extends BaseAct implements OnItemClickListener, IReque
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-//		
 		Intent i = new Intent(MainActivity.this,DetailAct.class);
 		i.putExtra("business", list.get((int)arg3));
 		startActivity(i);
@@ -279,4 +293,16 @@ public class MainActivity extends BaseAct implements OnItemClickListener, IReque
 		Log.d("tag","requestSuccess-->"+((JsonBusinessEntity) result).list.size());
 	}
 
+	private class LocationBroadcastReceiver extends BroadcastReceiver {  
+		  
+        @Override  
+        public void onReceive(Context context, Intent intent) {  
+            if (!intent.getAction().equals("LOCATION_ACTION")) return;  
+//            String locationInfo = intent.getStringExtra(Common.LOCATION);  
+//            text.setText(locationInfo);  
+//            dialog.dismiss();  
+            MainActivity.this.unregisterReceiver(this);// 不需要时注销  
+        }  
+    }  
+	
 }

@@ -13,7 +13,7 @@ public class Utils {
 	public static String distanceFormat(int distance){
 		
 		if(distance==-1){//没有输入坐标
-			return "";
+			return "0 m";
 		}
 		if(distance<1000){
 			return String.valueOf(distance)+"m";
@@ -24,7 +24,8 @@ public class Utils {
 	
 	public static void showPrice(TextView tv,int price){
 		if(price==0){//没有输入坐标
-			tv.setVisibility(View.GONE);
+			tv.setVisibility(View.VISIBLE);
+			tv.setText("￥"+String.valueOf(price)+"元");
 		}else{
 			tv.setVisibility(View.VISIBLE);
 			tv.setText("￥"+String.valueOf(price)+"元");

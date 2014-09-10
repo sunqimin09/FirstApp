@@ -17,6 +17,7 @@ import com.sun.appdianpinghair.entity.JsonBusinessEntity;
 public class JsonBusiness {
 	
 	public static JsonBusinessEntity parse(String content){
+		Log.d("tag","result---->:"+content);
 		JsonBusinessEntity businessEntity = new JsonBusinessEntity();
 		try {
 			JSONObject object = new JSONObject(content);

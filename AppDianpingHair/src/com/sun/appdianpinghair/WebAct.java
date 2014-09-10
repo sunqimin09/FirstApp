@@ -3,6 +3,7 @@ package com.sun.appdianpinghair;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.webkit.WebChromeClient;
@@ -19,7 +20,7 @@ public class WebAct extends BaseAct{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_web);
 		initView();
-		
+//		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	private void initView() {
@@ -39,6 +40,16 @@ public class WebAct extends BaseAct{
 			webView.loadUrl(url);
 		else
 			Toast("无详情");
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			finish();
+			break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 	
 	class webViewClient extends WebViewClient{ 

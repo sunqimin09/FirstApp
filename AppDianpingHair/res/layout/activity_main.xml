@@ -2,10 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
@@ -14,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:visibility="gone"
          >
          <TextView 
              android:id="@+id/main_position"
@@ -23,6 +20,8 @@
              android:gravity="center"
              android:clickable="true"
              android:onClick="onClick"
+             android:paddingTop="5dp"
+        	 android:paddingBottom="5dp"
              android:text="positoin"
              />
          
@@ -36,6 +35,8 @@
              android:drawableRight="@android:drawable/arrow_down_float"
              android:gravity="center"
              android:text="order"
+             android:paddingTop="5dp"
+        	 android:paddingBottom="5dp"
              android:background="@drawable/selector_order"
              />
     </LinearLayout>

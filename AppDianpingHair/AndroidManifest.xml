@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="11"
         android:targetSdkVersion="17" />
     <uses-permission android:name="android.permission.INTERNET"/>
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -14,10 +14,11 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@android:style/Theme.Holo.Light" >
         <activity
             android:name="com.sun.appdianpinghair.MainActivity"
             android:label="@string/app_name" >
@@ -33,9 +34,26 @@
         <!-- 加载网页 -->
         <activity android:name="com.sun.appdianpinghair.WebAct"></activity>
         
+        <service android:name=".location.LocationSvc"></service>
+        
         <!-- 大众点评 -->
         <meta-data android:name="appKey" android:value="4073748977"/>
         <meta-data android:name="Secret" android:value= "a6b49517c78446c59d0302fd7551d118"/>
+        
+          <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" >
+            <intent-filter>
+                <action android:name="com.baidu.location.service_v2.2" >
+                </action>
+            </intent-filter>
+        </service>
+
+        <!-- meta-data需要写在application中 -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="请输入申请的key" />
     </application>
 
 </manifest>
