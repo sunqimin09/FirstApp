@@ -41,6 +41,15 @@ public class JsonBusiness {
 		
 	}
 	
+//	09-19 23:49:08.846: D/tag(2384): result---->:{"status":"OK","count":3,"reviews":[{"review_id":68206975,"user_nickname":
+//	"小米饭兜兜","created_time":"2014-09-16 18:54","text_excerpt":"找阿明老师剪的头发，剪的非常细致，" +
+//			"我很喜欢理发师细致认真，尽管只是剪头发，阿明老师依旧耐心仔细，之前...","review_rating":5.0,"rating_img_url":"http://i3.dpfile.com/s/i/app/api/32_5star.png","rating_s_img_url":"http://i1.dpfile.com/s/i/app/api/16_5star.png","product_rating":0,"decoration_rating":4,"service_rating":4,"review_url":"http://dpurl.cn/p/iCl5R6zE5A"},{"review_id":68132170,"user_nickname":"读心者的莉莲娜","created_time":"2014-09-16 11:36","text_excerpt":"阿明老师剪发很细致，也不会推荐各种套餐和产品之类的。头发很久没有修剪，之前烫过长长之后各种乱翘，他给...","review_rating":5.0,"rating_img_url":"http://i3.dpfile.com/s/i/app/api/32_5star.png","rating_s_img_url":"http://i2.dpfile.com/s/i/app/api/16_5star.png","product_rating":0,"decoration_rating":4,"service_rating":4,"review_url":"http://dpurl.cn/p/O9aDkI5k-t"},{"review_id":68073213,"user_nickname":"turancao90","created_time":"2014-09-15 21:24","text_excerpt":"造型师阿明给做的头发，挺好的，染了一个，拉了一个，挺好的，药水一点都不刺鼻，环境也挺好的，服务周到，...","review_rating":5.0,"rating_img_url":"http://i1.dpfile.com/s/i/app/api/32_5star.png","rating_s_img_url":"http://i2.dpfile.com/s/i/app/api/16_5star.png","product_rating":0,"decoration_rating":4,"service_rating":4,"review_url":"http://dpurl.cn/p/piquF0BRfT"}],"additional_info":{"more_reviews_url":"http://dpurl.cn/p/7NR3Q0WKmz"}}
+//	
+	
+	
+	
+
+	
 	private static List<BusinessEntity> parseBusiness(JSONArray businessArray) throws JSONException{
 		MyDebug.Log("array-->"+businessArray);
 		List<BusinessEntity> list = new ArrayList<BusinessEntity>();

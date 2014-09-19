@@ -126,7 +126,10 @@ public class MainActivity extends BaseAct implements OnItemClickListener, IReque
 		paramMap.put("city", "北京");
 		paramMap.put("category", "美发");
 		paramMap.put("format", "json");
+		paramMap.put("platform", "2");
 		
+		//category=美食&city=上海&latitude=31.18268013000488&longitude=121.42769622802734&sort=1&limit=20
+//		&offset_type=1&out_offset_type=1&platform=2
 		if(service==null){
 			RequestUtils.requestAct(Mconstant.URL_BUSINESS, paramMap, handler);
 		}else{
