@@ -110,7 +110,7 @@ public class DemoApiTool
 	public static String requestApi(String apiUrl, String appKey, String secret, Map<String, String> paramMap)
     {
         String queryString = getQueryString(appKey, secret, paramMap);
-
+        Log.d("tag","quewry--string"+queryString);
         StringBuffer response = new StringBuffer();
         HttpClientParams httpConnectionParams = new HttpClientParams();
         httpConnectionParams.setConnectionManagerTimeout(1000);

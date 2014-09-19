@@ -10,44 +10,56 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:visibility="gone"
-         >
-         <TextView 
-             android:id="@+id/main_position"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_weight="1"
-             android:gravity="center"
-             android:clickable="true"
-             android:onClick="onClick"
-             android:paddingTop="5dp"
-        	 android:paddingBottom="5dp"
-             android:text="positoin"
-             />
-         
-         <TextView 
-             android:id="@+id/main_order"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_weight="1"
-             android:clickable="true"
-             android:onClick="onClick"
-             android:drawableRight="@android:drawable/arrow_down_float"
-             android:gravity="center"
-             android:text="order"
-             android:paddingTop="5dp"
-        	 android:paddingBottom="5dp"
-             android:background="@drawable/selector_order"
-             />
-    </LinearLayout>
-    
-    <ListView
-        android:id="@+id/main_listview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-         >
-    </ListView>
+        android:visibility="gone" >
 
-    
+        <TextView
+            android:id="@+id/main_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="positoin" />
+
+        <TextView
+            android:id="@+id/main_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_order"
+            android:clickable="true"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="order" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ListView
+            android:id="@+id/main_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </ListView>
+
+         <TextView
+             android:id="@+id/textView1"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentBottom="true"
+             android:layout_alignParentRight="true"
+             android:background="#cccccc"
+             android:text="以上数据皆来自大众点评" />
+
+    </RelativeLayout>
+
+   
 
 </LinearLayout>

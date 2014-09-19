@@ -29,6 +29,7 @@ public class BusinessAdapter extends BaseAdapter{
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.list = list;
 		imgLoader = new ImageLoader(context);
+		
 	}
 	
 	public void setData(List<BusinessEntity> list){

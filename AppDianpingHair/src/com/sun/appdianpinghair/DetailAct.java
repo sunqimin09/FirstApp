@@ -66,6 +66,7 @@ public class DetailAct extends BaseAct implements OnItemClickListener{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.detail_act);
+		setTitle("商家详细");
 		initView();
 		initData();
 		getActionBar().setDisplayHomeAsUpEnabled(true);

@@ -274,5 +274,14 @@
         android:paddingRight="20dp"
         android:text="@string/buy_right_now"
         android:textColor="#ffffff" />
+    
+    <TextView
+             android:id="@+id/textView1"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentBottom="true"
+             android:layout_alignParentRight="true"
+             android:background="#cccccc"
+             android:text="以上数据皆来\n自大众点评" />
 
 </RelativeLayout>

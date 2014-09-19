@@ -50,7 +50,7 @@ import com.sun.appdianpinghair.utils.Mconstant;
 @SuppressLint("NewApi")
 public class MainActivity extends BaseAct implements OnItemClickListener, IRequestCallback {
 
-	private TextView tvPosition;
+	private TextView  tvPosition;
 	
 	private TextView tvOrder;
 	
@@ -73,6 +73,7 @@ public class MainActivity extends BaseAct implements OnItemClickListener, IReque
 		setContentView(R.layout.activity_main);
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        setTitle("附近商家");
         initView();
      // 启动服务  
         Intent intent = new Intent();  
@@ -123,7 +124,9 @@ public class MainActivity extends BaseAct implements OnItemClickListener, IReque
 	private void request(){
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("city", "北京");
+		paramMap.put("category", "美发");
 		paramMap.put("format", "json");
+		
 		if(service==null){
 			RequestUtils.requestAct(Mconstant.URL_BUSINESS, paramMap, handler);
 		}else{
@@ -175,53 +178,10 @@ public class MainActivity extends BaseAct implements OnItemClickListener, IReque
 			break;
 		}
 		adapter.setData(list);
-		Toast("menu"+item.getItemId());
+//		Toast("menu"+item.getItemId());
 		return super.onOptionsItemSelected(item);
 	}
 
-//	public void onClick(View view) {
-//		switch(view.getId()){
-//		case R.id.main_order:
-//			Toast("order");
-//			showPop();
-//			break;
-//		}
-//	}
-//	
-//	private void initPop(){
-//		pop = new PopupWindow(300,500);
-//		ListView listView = new ListView(this);
-//		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-//				android.R.layout.simple_list_item_1, orders);
-//		listView.setAdapter(adapter);
-//		pop.setContentView(listView);
-//		pop.setOutsideTouchable(true);
-//		pop.setFocusable(true);
-//		pop.setBackgroundDrawable(new BitmapDrawable());
-//		pop.showAsDropDown(tvOrder);
-//		listView.setOnItemClickListener(new OnItemClickListener() {
-//
-//			@Override
-//			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-//					long arg3) {
-//				pop.dismiss();
-//				tvOrder.setText(orders[arg2]);
-//				
-//			}
-//		});
-//	}
-//	
-//	private PopupWindow pop = null;
-//	
-//	private void showPop() {
-//		if(pop==null){
-//			initPop();
-//		}else if(!pop.isShowing()){
-//			pop.showAsDropDown(tvOrder);
-//		}
-//	}
-//	
-//	
 	
 	static class RequestAPILickListener implements OnClickListener {
 
