@@ -1,9 +1,0 @@
-<resources>
-
-    <color name="grey">#6D5F68</color>
-	<color name="white">#ffffff</color>
-	<!-- 银色 -->
-    <color name="silver">#CCCC99</color>
-    <!-- 橘黄色 -->
-    <color name="orange">#FF8000</color>
-</resources>
