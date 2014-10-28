@@ -3,6 +3,8 @@ package com.sun.appqinshimingyue.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.appqinshimingyue.entity.InforEntity;
+
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white" >
+
+    <Button
+        android:id="@+id/btn_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:visibility="gone"
+        android:text="左边" />
+
+    <Button
+        android:id="@+id/btn_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:visibility="gone"
+        android:text="右边" />
+    
+     <RelativeLayout
+         android:id="@+id/frag_content_rl"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:paddingTop="3dp"
+         android:paddingBottom="3dp"
+         android:layout_alignParentLeft="true"
+         android:layout_alignParentTop="true"
+         android:background="#292421"
+          >
+
+         <ImageView
+             android:id="@+id/imageView2"
+             android:layout_width="30dp"
+             android:layout_height="30dp"
+             android:layout_alignParentLeft="true"
+             android:layout_centerVertical="true"
+             android:layout_marginLeft="17dp"
+             android:src="@drawable/ic_launcher" />
+
+         <TextView
+             android:id="@+id/frag_content_address"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_centerVertical="true"
+             android:layout_toRightOf="@+id/imageView2"
+             android:layout_marginLeft="10dp"
+             android:onClick="onClick"
+             android:clickable="true"
+             android:text="北京-大兴区"
+             android:textColor="#ffffff"
+             android:textAppearance="?android:attr/textAppearanceMediumInverse"
+              />
+
+         <ImageView
+             android:id="@+id/frag_content_order"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentRight="true"
+             android:onClick="onClick"
+             android:clickable="true"
+             android:layout_centerVertical="true"
+             android:src="@android:drawable/ic_menu_sort_by_size" />
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/content_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/frag_content_rl" >
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="以上数据来自大众点评" />
+
+    
+
+</RelativeLayout>

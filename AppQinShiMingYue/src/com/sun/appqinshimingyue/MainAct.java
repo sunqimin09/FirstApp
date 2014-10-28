@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
 import net.tsz.afinal.utils.Utils;
+import net.youmi.android.AdManager;
 
 import org.json.JSONException;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:paddingLeft="5dp"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/business_item_icon"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:scaleType="fitXY"
+        android:background="@drawable/small" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/business_item_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:maxLines="2"
+            android:textColor="#000000"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/business_item_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="TextView" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+             >
+
+            <TextView
+                android:id="@+id/business_item_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="价格:0元"
+                android:layout_alignParentBottom="true"
+                android:textColor="@drawable/orange" />
+
+            <TextView
+                android:id="@+id/business_item_sale_count_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:text="TextView" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
