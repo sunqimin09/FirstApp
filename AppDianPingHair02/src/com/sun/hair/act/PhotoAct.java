@@ -47,10 +47,18 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 	
 	private List<CommentEntity> comments = new ArrayList<CommentEntity>();
 	
-	
+	@Override
+	public void initTitle() {
+		setContentView(R.layout.act_photo);
+		View view = findViewById(R.id.act_title);
+		TextView tv = (TextView) findViewById(R.id.act_title_center);
+		tv.setText("ª∞Ã‚");
+		view.setBackgroundResource(R.drawable.bg_top);
+	}
+
 	
 	public void initView() {
-		setContentView(R.layout.act_photo);
+		
 		imgIcon = (ImageView) findViewById(R.id.act_photo_icon);
 		tvNickName = (TextView) findViewById(R.id.act_photo_nickname);
 		tvTime = (TextView) findViewById(R.id.act_photo_time);
@@ -134,12 +142,7 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 		
 	}
 
-	@Override
-	public void initTitle() {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	
 	
 	

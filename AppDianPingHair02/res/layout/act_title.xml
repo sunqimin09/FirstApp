@@ -10,9 +10,10 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:onClick="onClick"
+        android:textColor="@drawable/order_bg"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:text="TextView" />
+        android:text="" />
 
     <TextView
         android:id="@+id/act_title_center"
@@ -20,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="Medium Text"
+        android:textColor="@drawable/order_bg"
         android:textAppearance="?android:attr/textAppearanceMedium" />
      <TextView
         android:id="@+id/act_title_right_tv"
@@ -27,10 +29,10 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:clickable="true"
-        
+        android:textColor="@drawable/order_bg"
         android:onClick="onClick"
         
         android:layout_alignParentRight="true"
-        android:text="TextView" />
+        android:text="" />
 
 </RelativeLayout>
