@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import cn.com.bjnews.thinker.R;
+import cn.com.bjnews.newsroom.R;
 import cn.com.bjnews.thinker.act.Fragment_First;
 import cn.com.bjnews.thinker.entity.ChannelEntity;
 import cn.com.bjnews.thinker.entity.MainSettingEntity;

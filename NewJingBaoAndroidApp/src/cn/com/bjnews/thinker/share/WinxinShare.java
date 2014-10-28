@@ -10,7 +10,7 @@ import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import cn.com.bjnews.thinker.R;
+import cn.com.bjnews.newsroom.R;
 import cn.com.bjnews.thinker.img.FileCache;
 
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;

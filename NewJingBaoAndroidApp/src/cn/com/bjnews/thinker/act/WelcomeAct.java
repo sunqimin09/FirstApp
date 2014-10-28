@@ -14,7 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.widget.ImageView;
-import cn.com.bjnews.thinker.R;
+import cn.com.bjnews.newsroom.R;
 import cn.com.bjnews.thinker.act.test.TestMainAct;
 import cn.com.bjnews.thinker.db.DbHandler;
 import cn.com.bjnews.thinker.internet.InternetHelper;
@@ -44,6 +44,7 @@ public class WelcomeAct extends Activity implements OnClickListener{
 			MobclickAgent.updateOnlineConfig( this );
 			skip();
 		}
+		Utils.deleteData(this);
 	}
 	
 	/**

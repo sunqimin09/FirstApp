@@ -1,6 +1,6 @@
 package cn.com.bjnews.thinker.act;
 
-import cn.com.bjnews.thinker.R;
+import cn.com.bjnews.newsroom.R;
 import cn.com.bjnews.thinker.entity.NewsEntity;
 import android.app.AlertDialog;
 import android.app.Dialog;

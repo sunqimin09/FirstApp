@@ -16,6 +16,8 @@ import java.util.Locale;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -26,7 +28,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import cn.com.bjnews.thinker.R;
+import cn.com.bjnews.newsroom.R;
 
 public class Utils {
 
@@ -282,5 +284,52 @@ public class Utils {
 		Log.d("tag",log+"total:"+Runtime.getRuntime().totalMemory());
 		
 	}
+	
+	public static void deleteData(Context context){
+		//如果是第一次使用，删除数据库
+		try {
+			Log.d("tag","version-->"+getVersionCode(context));
+			if(getVersionCode(context)<213){//
+				SharedPreferences sp = context.getSharedPreferences("bjnews", Context.MODE_PRIVATE);
+				if(sp.getBoolean("isFirst", true)){// 
+					Editor et = sp.edit();
+					et.putBoolean("isFirst", false);
+					et.commit();
+					delete();
+					Log.d("tag","delete");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static void delete(){
+		File path = new File("data/data/cn.com.bjnews.thinker/databases");
+		File f = new File("data/data/cn.com.bjnews.thinker/databases/bjnews.db");
+		if(path.exists()&&f.exists()){
+			f.deleteOnExit();
+		}
+	}
+	/**
+	 * 获取version code
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public static int getVersionCode(Context context)//获取版本号(内部识别号)
+	{
+		try {
+			PackageInfo pi=context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+			return pi.versionCode;
+		} catch (NameNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	
 
 }

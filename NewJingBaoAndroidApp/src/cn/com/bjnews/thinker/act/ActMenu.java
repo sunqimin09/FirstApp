@@ -17,7 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import cn.com.bjnews.thinker.R;
+import cn.com.bjnews.newsroom.R;
 import cn.com.bjnews.thinker.adapter.MenuAdapter;
 import cn.com.bjnews.thinker.entity.MainSettingEntity;
 import cn.com.bjnews.thinker.entity.MenuEntity;

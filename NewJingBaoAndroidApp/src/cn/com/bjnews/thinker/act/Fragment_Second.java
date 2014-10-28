@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.AdapterView.OnItemClickListener;
-import cn.com.bjnews.thinker.R;
+import cn.com.bjnews.newsroom.R;
 import cn.com.bjnews.thinker.adapter.FragmentFirstAdapter;
 import cn.com.bjnews.thinker.db.DbHandler;
 import cn.com.bjnews.thinker.db.IDbCallBack;

@@ -29,7 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import cn.com.bjnews.thinker.R;
+import cn.com.bjnews.newsroom.R;
 import cn.com.bjnews.thinker.adapter.ViewPagerAdapterMedia;
 import cn.com.bjnews.thinker.entity.MediaEntity;
 import cn.com.bjnews.thinker.entity.NewsEntity;

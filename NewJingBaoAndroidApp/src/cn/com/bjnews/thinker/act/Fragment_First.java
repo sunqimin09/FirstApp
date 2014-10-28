@@ -18,7 +18,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import cn.com.bjnews.thinker.R;
+import cn.com.bjnews.newsroom.R;
 import cn.com.bjnews.thinker.actlogical.FragmentFirstLogical;
 import cn.com.bjnews.thinker.actlogical.IFragmentFirst;
 import cn.com.bjnews.thinker.adapter.FragmentFirstAdapter;
@@ -265,6 +265,7 @@ public class Fragment_First extends Fragment implements IRequestCallBack,
 	
 	@Override
 	public void request(int timeOut) {
+//		Toast.makeText(getActivity(), "requesting---", Toast.LENGTH_SHORT).show();
 		RequestEntity requestEntity = new RequestEntity(
 				MainActivity.localSettingEntity.channelList
 						.get(currentPagerIndex).url);

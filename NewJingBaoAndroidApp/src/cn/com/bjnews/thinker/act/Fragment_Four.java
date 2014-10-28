@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import cn.com.bjnews.thinker.R;
+import cn.com.bjnews.newsroom.R;
 
 public class Fragment_Four extends Fragment{
 

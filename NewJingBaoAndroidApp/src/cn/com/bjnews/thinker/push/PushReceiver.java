@@ -19,7 +19,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.util.Log;
 import android.widget.Toast;
-import cn.com.bjnews.thinker.R;
+import cn.com.bjnews.newsroom.R;
 import cn.com.bjnews.thinker.act.MainActivity;
 import cn.com.bjnews.thinker.act.NewsDetailAct;
 import cn.com.bjnews.thinker.db.DbHandler;

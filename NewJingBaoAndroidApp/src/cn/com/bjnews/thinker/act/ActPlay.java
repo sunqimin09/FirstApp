@@ -23,7 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
-import cn.com.bjnews.thinker.R;
+import cn.com.bjnews.newsroom.R;
 import cn.com.bjnews.thinker.entity.MediaEntity;
 import cn.com.bjnews.thinker.entity.ResponseResult;
 import cn.com.bjnews.thinker.img.CommonUtil;

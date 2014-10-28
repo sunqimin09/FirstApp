@@ -8,7 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import cn.com.bjnews.thinker.R;
+import cn.com.bjnews.newsroom.R;
 import cn.com.bjnews.thinker.entity.AdIntroEntity;
 import cn.com.bjnews.thinker.img.ImageLoader;
 

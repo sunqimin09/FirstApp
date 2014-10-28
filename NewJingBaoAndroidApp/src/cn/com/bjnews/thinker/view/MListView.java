@@ -23,7 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import cn.com.bjnews.thinker.R;
+import cn.com.bjnews.newsroom.R;
 import cn.com.bjnews.thinker.act.Fragment_First;
 import cn.com.bjnews.thinker.adapter.FragmentFirstViewPagerAdapter;
 import cn.com.bjnews.thinker.entity.AdIntroEntity;

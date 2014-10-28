@@ -17,7 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import cn.com.bjnews.thinker.R;
+import cn.com.bjnews.newsroom.R;
 import cn.com.bjnews.thinker.debug.MyDebug;
 import cn.com.bjnews.thinker.entity.NewsEntity;
 import cn.com.bjnews.thinker.img.ImageLoader;

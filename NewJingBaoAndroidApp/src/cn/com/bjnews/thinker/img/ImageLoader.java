@@ -469,11 +469,11 @@ public class ImageLoader {
 					if(b!=null)
 						((DragImageView) photoToLoad.imageView).setImageBitmap(b);
 					((DragImageView) photoToLoad.imageView).setAdjustViewBounds(true);
-					Log.d("tag", "resize--imageView--bb>" + b.getWidth() + "<>"
-							+ b.getHeight());
-					Log.d("tag", "resize--imageView--->"
-							+ photoToLoad.imageView.getWidth() + "<>"
-							+ photoToLoad.imageView.getHeight());
+//					Log.d("tag", "resize--imageView--bb>" + b.getWidth() + "<>"
+//							+ b.getHeight());
+//					Log.d("tag", "resize--imageView--->"
+//							+ photoToLoad.imageView.getWidth() + "<>"
+//							+ photoToLoad.imageView.getHeight());
 					b = null;
 				}else{
 					Log.d("tag","shwoimage-url"+photoToLoad.url+bitmap);

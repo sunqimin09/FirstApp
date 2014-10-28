@@ -35,7 +35,7 @@ import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import cn.com.bjnews.thinker.R;
+import cn.com.bjnews.newsroom.R;
 import cn.com.bjnews.thinker.debug.MyDebug;
 
 import com.viewpagerindicator.IconPagerAdapter;
@@ -127,9 +127,9 @@ public class MyTabPageIndicator extends HorizontalScrollView implements PageIndi
        super(context, attrs);
        setHorizontalScrollBarEnabled(false);
        Resources resource = (Resources) context.getResources();  
-       selectedColor = (ColorStateList) resource.getColorStateList(cn.com.bjnews.thinker.R.color.tab_selected);
-       rightMargin = (int) resource.getDimension(cn.com.bjnews.thinker.R.dimen.main_tab_margin_right);
-       leftMargin = (int) resource.getDimension(cn.com.bjnews.thinker.R.dimen.main_tab_margin_left);
+       selectedColor = (ColorStateList) resource.getColorStateList(cn.com.bjnews.newsroom.R.color.tab_selected);
+       rightMargin = (int) resource.getDimension(cn.com.bjnews.newsroom.R.dimen.main_tab_margin_right);
+       leftMargin = (int) resource.getDimension(cn.com.bjnews.newsroom.R.dimen.main_tab_margin_left);
        mTabLayout = new IcsLinearLayout(context, R.attr.vpiTabPageIndicatorStyle);
        addView(mTabLayout, new ViewGroup.LayoutParams(WRAP_CONTENT, MATCH_PARENT));
     }
@@ -138,9 +138,9 @@ public class MyTabPageIndicator extends HorizontalScrollView implements PageIndi
         super(context, attrs,def);
        setHorizontalScrollBarEnabled(false);
        Resources resource = (Resources) context.getResources();  
-       selectedColor = (ColorStateList) resource.getColorStateList(cn.com.bjnews.thinker.R.color.tab_selected);
-       rightMargin = (int) resource.getDimension(cn.com.bjnews.thinker.R.dimen.main_tab_margin_right);
-       leftMargin = (int) resource.getDimension(cn.com.bjnews.thinker.R.dimen.main_tab_margin_left);
+       selectedColor = (ColorStateList) resource.getColorStateList(cn.com.bjnews.newsroom.R.color.tab_selected);
+       rightMargin = (int) resource.getDimension(cn.com.bjnews.newsroom.R.dimen.main_tab_margin_right);
+       leftMargin = (int) resource.getDimension(cn.com.bjnews.newsroom.R.dimen.main_tab_margin_left);
        mTabLayout = new IcsLinearLayout(context, R.attr.vpiTabPageIndicatorStyle);
        addView(mTabLayout, new ViewGroup.LayoutParams(WRAP_CONTENT, MATCH_PARENT));
     }
@@ -224,8 +224,8 @@ public class MyTabPageIndicator extends HorizontalScrollView implements PageIndi
         tabView.setGravity(Gravity.CENTER_VERTICAL);
 //        tabView.setTextSize(TypedValue.COMPLEX_UNIT_PX,27);
         tabView.setTextColor(Color.WHITE);
-        tabView.setBackgroundResource(cn.com.bjnews.thinker.R.drawable.selector_indicator);
-        tabView.setTextAppearance(getContext(), cn.com.bjnews.thinker.R.style.MediumText27);
+        tabView.setBackgroundResource(cn.com.bjnews.newsroom.R.drawable.selector_indicator);
+        tabView.setTextAppearance(getContext(), cn.com.bjnews.newsroom.R.style.MediumText27);
        
         Log.d("tag","tabIndicator-->"+tabView.getTextSize());
         if (iconResId != 0) {

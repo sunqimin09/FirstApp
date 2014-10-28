@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" 
     android:versionCode="212" 
-    android:versionName="2.1.2" package="cn.com.bjnews.thinker">
+    android:versionName="2.1.2" package="cn.com.bjnews.newsroom">
 
     <uses-sdk android:minSdkVersion="11" android:targetSdkVersion="20"/>
 	<supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:resizeable="true" android:smallScreens="true" android:xlargeScreens="true"/>
@@ -146,9 +146,9 @@
         
         <meta-data android:name="UMENG_APPKEY" android:value="4e8022bf5270157201000014">
         </meta-data>
-        <meta-data android:name="UMENG_CHANNEL" android:value="Umeng">
+        <meta-data android:name="UMENG_CHANNEL" android:value="腾讯应用宝">
         </meta-data>
-    <activity android:configChanges="keyboardHidden|orientation|screenSize" android:exported="true" android:name=".wxapi.WXEntryActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+    <activity android:configChanges="keyboardHidden|orientation|screenSize" android:exported="true" android:name="cn.com.bjnews.thinker.wxapi.WXEntryActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 </application>
 
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>

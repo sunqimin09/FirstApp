@@ -118,7 +118,7 @@ public class DbHandler extends SQLiteOpenHelper implements IDbDao{
 
 	private static DbHandler dbHandler = null;
 	
-	private final static int version = 2;
+	private final static int version = 3;
 	
 	/**
 	 * 初始化构造函数
@@ -199,16 +199,21 @@ public class DbHandler extends SQLiteOpenHelper implements IDbDao{
 	private String CREATE_BOOK = "create table book(bookId integer primarykey,bookName text);";
 	private String CREATE_TEMP_BOOK = "alter table book rename to _temp_book";
 	private String INSERT_DATA = "insert into book select *,'' from _temp_book";
-	private String DROP_BOOK = "drop table _temp_book";
+	private String DROP_TABLE = "drop table _temp_book";
 	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		  switch (newVersion) {
-		  case 2:
-//		   db.execSQL(CREATE_TEMP_BOOK);
-//		   db.execSQL(CREATE_BOOK);
-//		   db.execSQL(INSERT_DATA);
-//		   db.execSQL(DROP_BOOK);
+//		  case 1:
+		  case version:
+			  String sql =" ALTER TABLE "+TABLE_LIST+" ADD COLUMN "+LIST_REQUEST_STATE+" integer";
+//			  String listSql = "update table " + TABLE_LIST + " ( " + LIST_CHANNEL_ID
+//				+ " integer primary key," + LIST_TITLE + " TEXT, "
+//				+ LIST_REQUEST_STATE+ " integer,"
+//				+ LIST_PUBDATE + "  TEXT " + " )";
+//			  open();
+			  db.execSQL(sql);
+//			  close();
 		   break;
 		  }
 

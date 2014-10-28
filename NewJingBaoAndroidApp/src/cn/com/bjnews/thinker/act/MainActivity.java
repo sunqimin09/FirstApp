@@ -22,7 +22,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import cn.com.bjnews.thinker.R;
+import cn.com.bjnews.newsroom.R;
 import cn.com.bjnews.thinker.act.MainService.LocalBinder;
 import cn.com.bjnews.thinker.adapter.TestAdapter;
 import cn.com.bjnews.thinker.db.DbHandler;
