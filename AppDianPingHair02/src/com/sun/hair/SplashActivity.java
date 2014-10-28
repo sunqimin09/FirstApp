@@ -58,7 +58,7 @@ public class SplashActivity extends Activity {
             private void jump() {
                 handler.removeCallbacks(runnable);
 
-                Intent intent = new Intent(getApplicationContext(), HomeAct.class);
+                Intent intent = new Intent(getApplicationContext(), TestAct.class);//HomeAct
                 SplashActivity.this.startActivity(intent);
                 SplashActivity.this.finish();
             }

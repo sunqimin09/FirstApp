@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.tsz.afinal.http.AjaxParams;
-import android.app.Activity;
-import android.os.Bundle;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sun.hair.BaseAct;
 import com.sun.hair.R;
 import com.sun.hair.adapter.CommentsAdapter;
 import com.sun.hair.entity.CommentEntity;
@@ -21,7 +21,7 @@ import com.sun.hair.service.CommentsService;
 import com.sun.hair.service.IRequestCallBack;
 import com.sun.hair.utils.MConstant;
 
-public class PhotoAct extends Activity implements IRequestCallBack{
+public class PhotoAct extends BaseAct implements IRequestCallBack{
 	/**楼主头像*/
 	private ImageView imgIcon;
 	
@@ -48,15 +48,9 @@ public class PhotoAct extends Activity implements IRequestCallBack{
 	private List<CommentEntity> comments = new ArrayList<CommentEntity>();
 	
 	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.act_photo);
-		initView();
-		initData();
-	}
 	
-	private void initView() {
+	public void initView() {
+		setContentView(R.layout.act_photo);
 		imgIcon = (ImageView) findViewById(R.id.act_photo_icon);
 		tvNickName = (TextView) findViewById(R.id.act_photo_nickname);
 		tvTime = (TextView) findViewById(R.id.act_photo_time);
@@ -69,6 +63,7 @@ public class PhotoAct extends Activity implements IRequestCallBack{
 		img4 = (ImageView) findViewById(R.id.act_photo_img4);
 		tvNumber = (TextView) findViewById(R.id.act_photo_ok_number);
 		listView = (ListView) findViewById(R.id.act_photo_listview);
+		initData();
 	}
 	
 	private void initData() {
@@ -101,6 +96,7 @@ public class PhotoAct extends Activity implements IRequestCallBack{
 		case R.id.act_photo_ok://赞
 			break;
 		case R.id.act_photo_add://新增评论
+			startActivity(new Intent(PhotoAct.this,AddCommentAct.class));
 			break;
 		case R.id.act_photo_share://分享
 			break;
@@ -134,6 +130,12 @@ public class PhotoAct extends Activity implements IRequestCallBack{
 
 	@Override
 	public void onFailed(String msg) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void initTitle() {
 		// TODO Auto-generated method stub
 		
 	}

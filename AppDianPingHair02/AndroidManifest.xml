@@ -70,6 +70,10 @@
         
         <activity android:name=".act.PhotoAct"></activity>
 
+        <activity android:name=".BaseAct"></activity>
+        
+        <activity android:name=".TestAct"></activity>
+        
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="1UtRwybZzPE4BpwUERTmgfRe" />
