@@ -71,7 +71,10 @@
         <activity android:name=".act.PhotoAct"></activity>
 
         <activity android:name=".BaseAct"></activity>
-        
+        <!-- 登录 -->
+        <activity android:name=".act.LoginAct"></activity>
+         <!-- 注册 -->
+        <activity android:name=".act.RegistAct"></activity>
         <activity android:name=".TestAct"></activity>
         
         <meta-data
