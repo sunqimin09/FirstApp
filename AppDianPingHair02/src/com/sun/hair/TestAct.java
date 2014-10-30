@@ -6,8 +6,10 @@ import com.sun.hair.act.PhotoAct;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
 public class TestAct extends Activity{
 
@@ -27,8 +29,20 @@ public class TestAct extends Activity{
 		case R.id.button2:
 			i.setClass(TestAct.this, AddCommentAct.class);
 			break;
+		case R.id.button3:
+			showToast();
+			return;
 		}
 		startActivity(i);
+	}
+	
+	private void showToast(){
+		Toast t = new Toast(this);
+		View view = View.inflate(this, R.layout.toast, null);
+		t.setView(view);
+		t.setGravity(Gravity.BOTTOM|Gravity.LEFT, 0, 100);
+		t.show();
+		
 	}
 	
 }

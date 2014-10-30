@@ -28,6 +28,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:text="Nick name"
+                android:textColor="@drawable/text_blue"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
@@ -35,6 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:textColor="@drawable/text_grey"
                 android:text="14 楼"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -45,6 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Small Text"
+            android:textColor="@drawable/text_grey"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView

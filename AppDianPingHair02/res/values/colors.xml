@@ -6,5 +6,10 @@
     <drawable name="order_bg_selected">#C0C0C0</drawable>
     <drawable name="orange">#FF8000</drawable>
     <drawable name="grey">#dcdcdc</drawable>
+    <drawable name="grey230">#e6e6e6</drawable>
+    <drawable name="grey245">#f5f5f5</drawable>
+    <drawable name="grey199">#c7c7c7</drawable>
     
+    <drawable name="text_blue">#324d82</drawable>
+    <drawable name="text_grey">#a6a6a6</drawable>
 </resources>

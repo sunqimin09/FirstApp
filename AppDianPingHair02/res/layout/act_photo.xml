@@ -14,7 +14,7 @@
         android:layout_above="@+id/ll_bottom"
         android:orientation="vertical" >
 
-        "
+        
         
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,6 +38,7 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="2dp"
                     android:text="Nick name"
+                    android:textColor="@drawable/text_blue"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <TextView
@@ -46,6 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="10.10"
+                    android:textColor="@drawable/text_grey"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
             </LinearLayout>
         </LinearLayout>
@@ -64,7 +66,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:src="@drawable/small" />
-
+		
+        <include layout="@layout/line_grey230"/>
+        
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -113,9 +117,12 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:text="等2013人赞过"
+                android:textColor="@drawable/text_grey"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </RelativeLayout>
 
+         <include layout="@layout/line_grey230"/>
+        
         <TextView
             android:id="@+id/act_photo_no_comment_tv"
             android:layout_width="wrap_content"
@@ -130,12 +137,17 @@
         </ListView>
     </LinearLayout>
 
+    <include android:id="@+id/in" layout="@layout/line_grey199"
+        android:layout_width="match_parent"
+    	android:layout_height="1px"
+        android:layout_above="@+id/ll_bottom"
+        ></include>
     <LinearLayout
         android:id="@+id/ll_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        
         android:layout_alignParentBottom="true"
+        android:background="@drawable/shape_change"
          >
 
         <TextView
@@ -148,7 +160,9 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="赞"
+            android:textColor="@drawable/text_blue"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+        <include layout="@layout/line_vertical_199"/>
         <TextView
             android:id="@+id/act_photo_add"
             android:layout_width="wrap_content"
@@ -159,8 +173,9 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="写评论"
+            android:textColor="@drawable/text_blue"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
+	<include layout="@layout/line_vertical_199"/>
         <TextView
             android:id="@+id/act_photo_share"
             android:layout_width="wrap_content"
@@ -170,6 +185,7 @@
             android:clickable="true"
             android:onClick="onClick"
             android:gravity="center"
+            android:textColor="@drawable/text_blue"
             android:text="分享"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
