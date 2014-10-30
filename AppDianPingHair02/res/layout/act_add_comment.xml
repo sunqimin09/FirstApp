@@ -13,7 +13,10 @@
         android:gravity="top"
         android:ems="10"
         android:lines="6"
-        android:inputType="textMultiLine" />
+        android:hint="好漂亮有木有"
+        android:inputType="textMultiLine" >
+        
+        </EditText>
 
    
 

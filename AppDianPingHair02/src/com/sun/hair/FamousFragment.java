@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -40,8 +41,16 @@ public class FamousFragment extends Fragment implements IRequestCallBack, OnItem
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.frag_famouse, null);
+		initTitle(view);
 		initView(view);
 		return view;
+	}
+
+	private void initTitle(View view) {
+		TextView tvTitle = (TextView) view.findViewById(R.id.act_title);
+		view.setBackgroundResource(R.drawable.bg_top);
+		tvTitle.setText("");
+		
 	}
 
 	private void initView(View view) {

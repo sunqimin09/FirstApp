@@ -30,8 +30,12 @@ public class TestAct extends Activity{
 			i.setClass(TestAct.this, AddCommentAct.class);
 			break;
 		case R.id.button3:
+			
 			showToast();
 			return;
+		case R.id.button4:
+			i.setClass(TestAct.this, HomeAct.class);
+			break;
 		}
 		startActivity(i);
 	}

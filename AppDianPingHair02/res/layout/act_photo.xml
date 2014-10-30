@@ -24,7 +24,7 @@
                 android:id="@+id/act_photo_icon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/small" />
+                android:src="@drawable/icon_default_small" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -65,7 +65,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:src="@drawable/small" />
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/a2" />
 		
         <include layout="@layout/line_grey230"/>
         
@@ -73,6 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="2dp"
              >
 
             <LinearLayout
@@ -84,30 +86,30 @@
 
                 <ImageView
                     android:id="@+id/act_photo_img1"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginRight="5dp"
-                    android:src="@drawable/small" />
+                    android:src="@drawable/icon_default_small" />
 
                 <ImageView
                     android:id="@+id/act_photo_img2"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginRight="5dp"
-                    android:src="@drawable/small" />
+                    android:src="@drawable/icon_default_small" />
 
                 <ImageView
                     android:id="@+id/act_photo_img3"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginRight="5dp"
-                    android:src="@drawable/small" />
+                    android:src="@drawable/icon_default_small" />
 
                 <ImageView
                     android:id="@+id/act_photo_img4"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/small" />
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/icon_default_small" />
             </LinearLayout>
 
             <TextView
@@ -125,8 +127,11 @@
         
         <TextView
             android:id="@+id/act_photo_no_comment_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onClick"
             android:text=""
             android:textAppearance="?android:attr/textAppearanceMedium" />
 		

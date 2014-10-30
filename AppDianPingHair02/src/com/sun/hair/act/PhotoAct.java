@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.tsz.afinal.http.AjaxParams;
+import android.R.color;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -71,6 +74,7 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 		img4 = (ImageView) findViewById(R.id.act_photo_img4);
 		tvNumber = (TextView) findViewById(R.id.act_photo_ok_number);
 		listView = (ListView) findViewById(R.id.act_photo_listview);
+		tvNoComment.setText("快来抢沙发吧!");
 		initData();
 	}
 	
@@ -102,7 +106,14 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 	public void onClick(View view){
 		switch(view.getId()){
 		case R.id.act_photo_ok://赞
+			try{
+				showZan();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			
 			break;
+		case R.id.act_photo_no_comment_tv://
 		case R.id.act_photo_add://新增评论
 			startActivity(new Intent(PhotoAct.this,AddCommentAct.class));
 			break;
@@ -122,6 +133,16 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 		params.put("id",String.valueOf(entity.id));
 		new CommentsService().request(this, MConstant.URL_COMMENTS, params, this);
 	}
+	
+	private void showZan(){
+		Toast t = new Toast(this);
+		TextView tv = new TextView(this);
+		tv.setText("+1");
+		tv.setTextColor(Color.RED);
+		t.setView(tv);
+		t.setGravity(Gravity.BOTTOM|Gravity.LEFT, 90, 100);
+		t.show();
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -131,6 +152,8 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 			adapter.setData(comments);
 			if(comments.size()==0){
 				tvNoComment.setText("快来抢沙发吧!");
+			}else{
+				tvNoComment.setText("");
 			}
 		}
 		
@@ -139,7 +162,7 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 	@Override
 	public void onFailed(String msg) {
 		// TODO Auto-generated method stub
-		
+		tvNoComment.setText("快来抢沙发吧!");
 	}
 
 	

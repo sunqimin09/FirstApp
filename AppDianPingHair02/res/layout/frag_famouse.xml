@@ -6,6 +6,8 @@
     android:orientation="vertical"
     tools:context="${relativePackage}.${activityClass}"
      >
+     <include android:id="@+id/act_title" layout="@layout/act_title"></include>
+    
      <com.handmark.pulltorefresh.library.PullToRefreshGridView 
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/frag_famous_grid"
