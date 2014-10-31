@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    
+    android:background="@drawable/shape_product_square"
     android:orientation="vertical" >
 
     <ImageView
@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        android:src="@drawable/a2"
+        android:src="@drawable/bg_grid_item"
         />
     
     <RelativeLayout
@@ -28,8 +28,9 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:textColor="@drawable/text_grey"
+            android:drawableLeft="@drawable/icon_scan"
             android:textSize="12sp"
-            android:text="浏览:120" />
+            android:text=" 120" />
 
         <TextView
             android:id="@+id/item_food_ok"
@@ -40,7 +41,8 @@
             android:layout_toRightOf="@+id/item_food_look"
             android:textSize="12sp"
             android:textColor="@drawable/text_grey"
-            android:text="赞:120" />
+            android:drawableLeft="@drawable/icon_parise"
+            android:text=" 120" />
 
         <TextView
             android:id="@+id/item_food_price"

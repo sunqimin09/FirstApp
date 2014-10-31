@@ -1,25 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="${relativePackage}.${activityClass}"
-     >
-     <include android:id="@+id/act_title" layout="@layout/act_title"></include>
-    
-     <com.handmark.pulltorefresh.library.PullToRefreshGridView 
-        xmlns:ptr="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/frag_famous_grid"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:horizontalSpacing="2dp"
-        android:verticalSpacing="2dp"
-        android:stretchMode="columnWidth"  
-        
-        android:numColumns="2" >
-    </com.handmark.pulltorefresh.library.PullToRefreshGridView  >
-    
+    tools:context="${relativePackage}.${activityClass}" >
 
-    
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/in"
+        android:layout_alignParentTop="true"
+        android:gravity="top"
+        android:orientation="vertical" >
+
+        <include
+            android:id="@+id/act_title"
+            layout="@layout/act_title" >
+        </include>
+
+        <com.handmark.pulltorefresh.library.PullToRefreshGridView
+            xmlns:ptr="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/frag_famous_grid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:horizontalSpacing="2dp"
+            android:numColumns="2"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="2dp" >
+        </com.handmark.pulltorefresh.library.PullToRefreshGridView>
+    </LinearLayout>
+
+    <include
+        android:id="@+id/in"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_above="@+id/ll_bottom"
+        layout="@layout/line_grey199" >
+    </include>
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/shape_change" >
+
+        <TextView
+            android:id="@+id/frag_famous_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:padding="5dp"
+            android:text="立即晒图"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@drawable/text_blue" />
+
+        <include layout="@layout/line_vertical_199" />
+
+        <TextView
+            android:id="@+id/frag_famous_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:padding="5dp"
+            android:text="告诉朋友"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@drawable/text_blue" />
+    </LinearLayout>
+
+</RelativeLayout>

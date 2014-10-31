@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -31,7 +32,7 @@ import com.sun.hair.utils.MConstant;
  * @author sunqm
  *
  */
-public class FamousFragment extends Fragment implements IRequestCallBack, OnItemClickListener{
+public class FamousFragment extends Fragment implements IRequestCallBack, OnItemClickListener, OnClickListener{
 
 	private PullToRefreshGridView grid;
 	
@@ -55,6 +56,9 @@ public class FamousFragment extends Fragment implements IRequestCallBack, OnItem
 
 	private void initView(View view) {
 		grid = (PullToRefreshGridView) view.findViewById(R.id.frag_famous_grid);
+		view.findViewById(R.id.frag_famous_add).setOnClickListener(this);
+		view.findViewById(R.id.frag_famous_share).setOnClickListener(this);
+		
 		adapter = new FamousAdapter(getActivity());
 		grid.setAdapter(adapter);
 		grid.setMode(Mode.PULL_UP_TO_REFRESH);
@@ -110,6 +114,17 @@ public class FamousFragment extends Fragment implements IRequestCallBack, OnItem
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		startActivity(new Intent(getActivity(),PhotoAct.class).putExtra("photo", entity.list.get(arg2)));
+		
+	}
+
+	@Override
+	public void onClick(View arg0) {
+		switch(arg0.getId()){
+		case R.id.frag_famous_add:
+			break;
+		case R.id.frag_famous_share:
+			break;
+		}
 		
 	}
 	
