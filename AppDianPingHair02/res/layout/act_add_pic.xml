@@ -3,11 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+    <include android:id="@+id/act_title" layout="@layout/act_title"/>
 
-     <ListView
-        android:id="@+id/tab3_lv_deals"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-    </ListView>
-    
 </LinearLayout>
