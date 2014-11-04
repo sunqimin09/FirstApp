@@ -27,8 +27,8 @@ public class CommentsService extends BaseService{
 			entity = new CommentEntity();
 			entity.id = item.getString("id");
 			entity.nickName = item.getString("nickname");
-			entity.imgUrl = item.getString("imgurl");
-			entity.time = item.getString("tiem");
+//			entity.imgUrl = item.getString("imgurl");
+			entity.time = item.getString("time");
 			entity.content = item.getString("content");
 			comments.add(entity);
 		}

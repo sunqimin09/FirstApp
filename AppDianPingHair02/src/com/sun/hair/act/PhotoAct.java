@@ -85,19 +85,18 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 			e.printStackTrace();
 			Log.d("tag","log--init"+entity+e);
 		}
-		
-		
+		adapter  = new CommentsAdapter(this);
+		listView.setAdapter(adapter);
 		if(entity==null){
 			Toast.makeText(this, "数据错误", Toast.LENGTH_SHORT).show();
+			request();
 			return;
 		}
-			
 		tvNickName.setText(entity.name);
 		tvTime.setText(entity.time);
 		tvConent.setText(entity.introduce);
 		tvNumber.setText("等"+entity.ok_num+"人赞过");
-		adapter  = new CommentsAdapter(this);
-		listView.setAdapter(adapter);
+		
 		if(entity!=null){
 			request();
 		}
@@ -124,7 +123,10 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 	
 	private void request(){
 		AjaxParams params = new AjaxParams();
-		params.put("id",String.valueOf(entity.id));
+		if(entity!=null)
+			params.put("id",String.valueOf(entity.id));
+		else
+			params.put("id",String.valueOf(0));
 		new CommentsService().request(this, MConstant.URL_COMMENTS, params, this);
 	}
 	

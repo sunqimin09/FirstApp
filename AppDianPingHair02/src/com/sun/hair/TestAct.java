@@ -1,7 +1,9 @@
 package com.sun.hair;
 
 import com.sun.hair.act.AddCommentAct;
+import com.sun.hair.act.LoginAct;
 import com.sun.hair.act.PhotoAct;
+import com.sun.hair.act.RegistAct;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -35,6 +37,12 @@ public class TestAct extends Activity{
 			return;
 		case R.id.button4:
 			i.setClass(TestAct.this, HomeAct.class);
+			break;
+		case R.id.button5:
+			i.setClass(TestAct.this, LoginAct.class);
+			break;
+		case R.id.button6:
+			i.setClass(TestAct.this, RegistAct.class);
 			break;
 		}
 		startActivity(i);

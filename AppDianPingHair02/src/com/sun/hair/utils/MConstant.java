@@ -41,13 +41,16 @@ public class MConstant {
 	
 	
 	/**我的服务器地址*/
-	public static final String URL_HOME_MY = "http://192.168.0.109:8080/ChiHuoWeb/servlet/";
+	public static final String URL_HOME_MY = "http://192.168.0.107:8080/ChiHuoWeb/servlet/";
 	
 	/**名人--列表*/
 	public static final String URL_FAMOUSES = URL_HOME_MY + "FoodListServlet";
 	
 	/**评论--列表*/
 	public static final String URL_COMMENTS = URL_HOME_MY + "CommentsServlet";
+	
+	/**登录*/
+	public static final String URL_LOGIN = URL_HOME_MY + "LoginServlet";
 	
 //	
 	

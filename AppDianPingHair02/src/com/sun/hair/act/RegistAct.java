@@ -18,10 +18,11 @@ public class RegistAct extends BaseAct{
 	
 	@Override
 	public void initTitle() {
-		setContentView(R.layout.act_login);
+		setContentView(R.layout.act_regist);
 		setTitle_("注册");
-		TextView tv = (TextView) findViewById(R.id.act_title_left_tv);
-		tv.setText("取消");
+//		TextView tv = (TextView) findViewById(R.id.act_title_left_tv);
+//		tv.setText("取消");
+		findViewById(R.id.act_title).setBackgroundResource(R.drawable.bg_top);
 	}
 
 	

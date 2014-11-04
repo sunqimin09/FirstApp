@@ -55,6 +55,8 @@ public class BaseService {
 	public void request(Context context,String url,AjaxParams params,final IRequestCallBack callBack){
 		showStartLoading(context);
 		Log.d("tag","onrequest-->"+url+params);
+		
+		finalHttp.configCharset("utf-8");
 		finalHttp.get(url, params, new AjaxCallBack<Object>() {
 
 			@Override
@@ -73,7 +75,7 @@ public class BaseService {
 					Log.d("tag","onsuccess--parse---end>"+t);
 				} catch (JSONException e) {
 					e.printStackTrace();
-					callBack.onFailed("数据错误");
+					callBack.onFailed("数据错误11");
 				}
 				
 			}

@@ -1,18 +1,24 @@
 package com.sun.hair.act;
 
+import java.io.UnsupportedEncodingException;
+
+import net.tsz.afinal.http.AjaxParams;
 import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 
 import com.sun.hair.BaseAct;
 import com.sun.hair.R;
+import com.sun.hair.service.CommentsService;
+import com.sun.hair.service.IRequestCallBack;
+import com.sun.hair.utils.MConstant;
 
 /**
  * µÇÂ¼Ò³Ãæ
  * @author sunqm
  *
  */
-public class LoginAct extends BaseAct{
+public class LoginAct extends BaseAct implements IRequestCallBack{
 
 	private EditText etName,etPwd;
 	
@@ -20,6 +26,7 @@ public class LoginAct extends BaseAct{
 	public void initTitle() {
 		setContentView(R.layout.act_login);
 		setTitle_("µÇÂ¼");
+		findViewById(R.id.act_title).setBackgroundResource(R.drawable.bg_top);
 	}
 
 	
@@ -29,7 +36,7 @@ public class LoginAct extends BaseAct{
 		etPwd = (EditText) findViewById(R.id.act_login_pwd);
 	}
 	
-	public void onClick(View view){
+	public void onClick(View view) throws UnsupportedEncodingException{
 		switch(view.getId()){
 		case R.id.act_login_login_btn://µÇÂ¼
 			if(checkInput()){
@@ -53,7 +60,23 @@ public class LoginAct extends BaseAct{
 		return false;
 	}
 	
-	private  void request(){
+	private  void request() throws UnsupportedEncodingException{
+		AjaxParams params = new AjaxParams();
+		
+		params.put("name",new String(etName.getText().toString().getBytes("gbk"),"utf-8"));
+		params.put("pwd",etPwd.getText().toString());
+		new CommentsService().request(this, MConstant.URL_LOGIN, params, this);
+	}
+
+
+	@Override
+	public void onSuccess(Object o) {
+		
+	}
+
+
+	@Override
+	public void onFailed(String msg) {
 		
 	}
 
