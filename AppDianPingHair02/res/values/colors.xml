@@ -12,4 +12,9 @@
     
     <drawable name="text_blue">#324d82</drawable>
     <drawable name="text_grey">#a6a6a6</drawable>
+    
+    <drawable name="btn_red">#f34f6e</drawable>
+    
+    <drawable name="btn_red_pressed">#bb474f</drawable>
+    
 </resources>

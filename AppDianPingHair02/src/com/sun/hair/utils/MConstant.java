@@ -49,8 +49,17 @@ public class MConstant {
 	/**评论--列表*/
 	public static final String URL_COMMENTS = URL_HOME_MY + "CommentsServlet";
 	
+	/**评论--添加*/
+	public static final String URL_COMMENT_ADD = URL_HOME_MY + "AddCommentServlet";
+	
 	/**登录*/
 	public static final String URL_LOGIN = URL_HOME_MY + "LoginServlet";
+	
+	public static final String SHARE_TITLE = "来秀发型，寻找适合你的发型吧!";
+	
+	public static final String SHARE_CONTENT = "亲，我在秀发型上发现了好多妹妹的发型哦，快来和我一起挑选吧，好多美美的发型哦!";
+	
+	
 	
 //	
 	

@@ -1,5 +1,6 @@
 package com.sun.hair.act;
 
+import net.tsz.afinal.http.AjaxParams;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -10,12 +11,16 @@ import android.widget.Toast;
 
 import com.sun.hair.BaseAct;
 import com.sun.hair.R;
+import com.sun.hair.service.CommentsService;
+import com.sun.hair.service.IRequestCallBack;
+import com.sun.hair.utils.MConstant;
+import com.sun.hair.utils.SpUtils;
 /**
  * 新增评论
  * @author sunqm
  *
  */
-public class AddCommentAct extends BaseAct{
+public class AddCommentAct extends BaseAct implements IRequestCallBack{
 
 	private EditText etInput;
 	
@@ -76,7 +81,7 @@ public class AddCommentAct extends BaseAct{
 	
 	private boolean checkInput(){
 		if(etInput.getText()==null||etInput.getText().toString().equals("")){//为空的
-			Toast.makeText(this, "写点呗，亲", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "多写点呗，亲", Toast.LENGTH_SHORT).show();
 			return false;
 		}
 		return true;
@@ -86,6 +91,24 @@ public class AddCommentAct extends BaseAct{
 	 * 提交评论
 	 */
 	public void request(){
+		AjaxParams params = new AjaxParams();
+		
+		params.put("content",etInput.getText().toString());
+		params.put("id",new SpUtils(this).getId());
+		new CommentsService().request(this, MConstant.URL_COMMENT_ADD, params, this);
+	}
+
+
+	@Override
+	public void onSuccess(Object o) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onFailed(String msg) {
+		// TODO Auto-generated method stub
 		
 	}
 

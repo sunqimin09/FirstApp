@@ -43,16 +43,22 @@
                 android:id="@+id/act_login_login_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:onClick="onClick"
+                android:background="@drawable/selector_btn_red"
+            	android:textColor="@drawable/title_back"
                 android:text="登录" />
 
             <Button
                 android:id="@+id/act_login_regist_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:onClick="onClick"
                 android:layout_weight="1"
+                android:background="@drawable/selector_btn_red"
+            	android:textColor="@drawable/title_back"
                 android:text="注册" />
         </LinearLayout>
     </LinearLayout>
