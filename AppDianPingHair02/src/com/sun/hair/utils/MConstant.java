@@ -8,14 +8,14 @@ public class MConstant {
 
 	public static double la= 0;
 	
-	/**³É¹¦*/
+	/**ï¿½É¹ï¿½*/
 	public final static int CODE_SUCCESS = 0;
-	/**Ê§°Ü*/
+	/**Ê§ï¿½ï¿½*/
 	public final static int CODE_FAILED = 1;
 	
-	/**´óÖÚµãÆÀkey*/
+	/**ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½key*/
 	public static final String KEY = "4073748977";
-	/**´óÖÚµãÆÀ*/
+	/**ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½*/
 	public static final String SECRET = "a6b49517c78446c59d0302fd7551d118";
 	
 	public static final String YOUMI_KEY = "85ddcc09249cd722";
@@ -24,40 +24,42 @@ public class MConstant {
 	
 	private static final String URL_HOME = "http://api.dianping.com/v1/";
 	
-	/**ÉÌ»§*/
+	/**ï¿½Ì»ï¿½*/
 	public static final String URL_BUSINESS = URL_HOME +"business/find_businesses";
 	
-	/**ÖÖÀà*/
+	/**ï¿½ï¿½ï¿½ï¿½*/
 	public static final String URL_TYPES = URL_HOME + "metadata/get_categories_with_businesses";
 	
-	/**ÉÌ¼ÒÏêÇé*/
+	/**ï¿½Ì¼ï¿½ï¿½ï¿½ï¿½ï¿½*/
 	public static final String URL_BUSINESS_DETAIL = URL_HOME + "business/get_single_business";
-	/**ÆÀÂÛ*/
+	/**ï¿½ï¿½ï¿½ï¿½*/
 	public static final String URL_BUSINESS_REVIEW = URL_HOME + "review/get_recent_reviews";
-	/**ÇøÓò*/
+	/**ï¿½ï¿½ï¿½ï¿½*/
 	public static final String URL_REGION = URL_HOME + "metadata/get_regions_with_businesses";
-	/**³ÇÊÐ*/
+	/**ï¿½ï¿½ï¿½ï¿½*/
 	public static final String URL_CITYS = URL_HOME + "metadata/get_cities_with_businesses";
 	
 	
-	/**ÎÒµÄ·þÎñÆ÷µØÖ·*/
+	/**ï¿½ÒµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·*/
 	public static final String URL_HOME_MY = "http://192.168.0.107:8080/ChiHuoWeb/servlet/";
 	
-	/**ÃûÈË--ÁÐ±í*/
+	/**ï¿½ï¿½ï¿½ï¿½--ï¿½Ð±ï¿½*/
 	public static final String URL_FAMOUSES = URL_HOME_MY + "FoodListServlet";
 	
-	/**ÆÀÂÛ--ÁÐ±í*/
+	/**ï¿½ï¿½ï¿½ï¿½--ï¿½Ð±ï¿½*/
 	public static final String URL_COMMENTS = URL_HOME_MY + "CommentsServlet";
 	
-	/**ÆÀÂÛ--Ìí¼Ó*/
+	/**ï¿½ï¿½ï¿½ï¿½--ï¿½ï¿½ï¿½*/
 	public static final String URL_COMMENT_ADD = URL_HOME_MY + "AddCommentServlet";
 	
-	/**µÇÂ¼*/
+	/**ï¿½ï¿½Â¼*/
 	public static final String URL_LOGIN = URL_HOME_MY + "LoginServlet";
 	
-	public static final String SHARE_TITLE = "À´Ðã·¢ÐÍ£¬Ñ°ÕÒÊÊºÏÄãµÄ·¢ÐÍ°É!";
+	public static final String URL_REGIST = URL_HOME_MY + "RegistServlet";
 	
-	public static final String SHARE_CONTENT = "Ç×£¬ÎÒÔÚÐã·¢ÐÍÉÏ·¢ÏÖÁËºÃ¶àÃÃÃÃµÄ·¢ÐÍÅ¶£¬¿ìÀ´ºÍÎÒÒ»ÆðÌôÑ¡°É£¬ºÃ¶àÃÀÃÀµÄ·¢ÐÍÅ¶!";
+	public static final String SHARE_TITLE = "ï¿½ï¿½ï¿½ã·¢ï¿½Í£ï¿½Ñ°ï¿½ï¿½ï¿½Êºï¿½ï¿½ï¿½Ä·ï¿½ï¿½Í°ï¿½!";
+	
+	public static final String SHARE_CONTENT = "ï¿½×£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã·¢ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ËºÃ¶ï¿½ï¿½ï¿½ï¿½ÃµÄ·ï¿½ï¿½ï¿½Å¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½É£ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½Å¶!";
 	
 	
 	

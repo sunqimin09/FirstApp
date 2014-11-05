@@ -14,7 +14,7 @@ import com.sun.hair.service.IRequestCallBack;
 import com.sun.hair.utils.MConstant;
 
 /**
- * µÇÂ¼Ò³Ãæ
+ * ï¿½ï¿½Â¼Ò³ï¿½ï¿½
  * @author sunqm
  *
  */
@@ -25,7 +25,7 @@ public class LoginAct extends BaseAct implements IRequestCallBack{
 	@Override
 	public void initTitle() {
 		setContentView(R.layout.act_login);
-		setTitle_("µÇÂ¼");
+		setTitle_("ç™»å½•");
 		findViewById(R.id.act_title).setBackgroundResource(R.drawable.bg_top);
 	}
 
@@ -38,12 +38,12 @@ public class LoginAct extends BaseAct implements IRequestCallBack{
 	
 	public void onClick(View view) throws UnsupportedEncodingException{
 		switch(view.getId()){
-		case R.id.act_login_login_btn://µÇÂ¼
+		case R.id.act_login_login_btn://ï¿½ï¿½Â¼
 			if(checkInput()){
 				request();
 			}
 			break;
-		case R.id.act_login_regist_btn://Ìø×ª×¢²áÒ³Ãæ
+		case R.id.act_login_regist_btn://ï¿½ï¿½×ª×¢ï¿½ï¿½Ò³ï¿½ï¿½
 			startActivity(new Intent(LoginAct.this,RegistAct.class));
 			break;
 		}
@@ -51,9 +51,9 @@ public class LoginAct extends BaseAct implements IRequestCallBack{
 	
 	private boolean checkInput(){
 		if(etName.getText().toString().equals("")){
-			Toast("ÇëÊäÈëÓÃ»§Ãû");
+			Toast("ç”¨æˆ·åä¸èƒ½ä¸ºç©º");
 		}else if(etPwd.getText().toString().equals("")){
-			Toast("ÇëÊäÈëÃÜÂë");
+			Toast("å¯†ç ä¸èƒ½ä¸ºç©º");
 		}else{
 			return true;
 		}
@@ -63,7 +63,7 @@ public class LoginAct extends BaseAct implements IRequestCallBack{
 	private  void request() throws UnsupportedEncodingException{
 		AjaxParams params = new AjaxParams();
 		
-		params.put("name",new String(etName.getText().toString().getBytes("gbk"),"utf-8"));
+		params.put("name",etName.getText().toString());
 		params.put("pwd",etPwd.getText().toString());
 		new CommentsService().request(this, MConstant.URL_LOGIN, params, this);
 	}
@@ -77,7 +77,7 @@ public class LoginAct extends BaseAct implements IRequestCallBack{
 
 	@Override
 	public void onFailed(String msg) {
-		
+		Toast(msg);
 	}
 
 	

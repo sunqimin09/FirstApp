@@ -1,27 +1,32 @@
 package com.sun.hair.act;
 
+import net.tsz.afinal.http.AjaxParams;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.sun.hair.BaseAct;
 import com.sun.hair.R;
+import com.sun.hair.service.CommentsService;
+import com.sun.hair.service.IRequestCallBack;
+import com.sun.hair.service.RequestCheckService;
+import com.sun.hair.utils.MConstant;
 
 /**
- * ×¢²á
+ * ×¢ï¿½ï¿½
  * @author sunqm
  *
  */
-public class RegistAct extends BaseAct{
+public class RegistAct extends BaseAct implements IRequestCallBack{
 
 	private EditText etName,etPwd,etPwd2;
 	
 	@Override
 	public void initTitle() {
 		setContentView(R.layout.act_regist);
-		setTitle_("×¢²á");
+		setTitle_("æ³¨å†Œ");
 //		TextView tv = (TextView) findViewById(R.id.act_title_left_tv);
-//		tv.setText("È¡Ïû");
+//		tv.setText("È¡ï¿½ï¿½");
 		findViewById(R.id.act_title).setBackgroundResource(R.drawable.bg_top);
 	}
 
@@ -35,7 +40,7 @@ public class RegistAct extends BaseAct{
 	
 	public void onClick(View view){
 		switch(view.getId()){
-		case R.id.act_regist_btn://µÇÂ¼
+		case R.id.act_regist_btn://ï¿½ï¿½Â¼
 			if(checkInput()){
 				request();
 			}
@@ -46,13 +51,13 @@ public class RegistAct extends BaseAct{
 	
 	private boolean checkInput(){
 		if(etName.getText().toString().equals("")){
-			Toast("ÇëÊäÈëÓÃ»§Ãû");
+			Toast("ç”¨æˆ·åä¸èƒ½ä¸ºç©º");
 		}else if(etPwd.getText().toString().equals("")){
-			Toast("ÇëÊäÈëÃÜÂë");
+			Toast("å¯†ç ä¸èƒ½ä¸ºç©º");
 		}else if(etPwd2.getText().toString().equals("")){
-			Toast("ÇëÔÙ´ÎÊäÈëÃÜÂë");
+			Toast("è¯·å†æ¬¡è¾“å…¥å¯†ç ");
 		}else if(!etPwd.getText().toString().equals(etPwd2.getText().toString())){
-			Toast("Á½´ÎÃÜÂë²»Ò»ÖÂ");
+			Toast("ä¸¤æ¬¡å¯†ç ä¸ä¸€è‡´");
 		}else{
 			return true;
 		}
@@ -60,6 +65,23 @@ public class RegistAct extends BaseAct{
 	}
 	
 	private  void request(){
+		AjaxParams params = new AjaxParams();
+		params.put("name",etName.getText().toString());
+		params.put("pwd",etPwd.getText().toString());
+		new RequestCheckService().request(this, MConstant.URL_REGIST, params, this);
+	}
+
+
+	@Override
+	public void onSuccess(Object o) {
+		// TODO Auto-generated method stub
+		Toast("æ³¨å†ŒæˆåŠŸ");
+	}
+
+
+	@Override
+	public void onFailed(String msg) {
+		Toast(msg);
 		
 	}
 

@@ -28,7 +28,7 @@ import com.sun.hair.service.IRequestCallBack;
 import com.sun.hair.utils.MConstant;
 
 /**
- * ÃûÈËÁÐ±í
+ * ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
  * @author sunqm
  *
  */
@@ -82,13 +82,13 @@ public class FamousFragment extends Fragment implements IRequestCallBack, OnItem
 	
 	private void request(){
 		
-		if((Integer.parseInt(currentPageIndex2)+1)*20<Integer.parseInt(entity.total)){//Ð¡ÓÚ £¬£¬ÇëÇóÊý¾Ý
+		if((Integer.parseInt(currentPageIndex2)+1)*20<Integer.parseInt(entity.total)){//Ð¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			AjaxParams params = new AjaxParams();
 			params.put("pageIndex",( Integer.parseInt(currentPageIndex2)+1)+"");
 			new FoodService().request(getActivity(), MConstant.URL_FAMOUSES, params, this);
 			getActivity().setProgressBarIndeterminateVisibility(true);
 		}else{
-			Toast.makeText(getActivity(), "Ç×£¬Ã»ÓÐ¸ü¶àÊý¾ÝÁË", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getActivity(), "æ²¡æœ‰æ›´å¤šæ•°æ®äº†", Toast.LENGTH_SHORT).show();
 		}
 	}
 

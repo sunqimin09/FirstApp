@@ -55,10 +55,38 @@ public class BaseService {
 	public void request(Context context,String url,AjaxParams params,final IRequestCallBack callBack){
 		showStartLoading(context);
 		Log.d("tag","onrequest-->"+url+params);
+		post(url,params,"",callBack);
+//		finalHttp.configCharset("utf-8");
+//		
+//		finalHttp.get(url, params, new AjaxCallBack<Object>() {
+//
+//			@Override
+//			public void onFailure(Throwable t, int errorNo, String strMsg) {
+//				callBack.onFailed(strMsg);
+//				hideLoading();
+//			}
+//
+//			@Override
+//			public void onSuccess(Object t) {
+//				Log.d("tag","onsuccess-->"+t);
+//				try {
+//					hideLoading();
+//					parseBase(t,callBack);
+//					
+//					Log.d("tag","onsuccess--parse---end>"+t);
+//				} catch (JSONException e) {
+//					e.printStackTrace();
+//					callBack.onFailed("ï¿½ï¿½İ´ï¿½ï¿½ï¿½11");
+//				}
+//				
+//			}
+//			
+//		});
 		
-		finalHttp.configCharset("utf-8");
-		finalHttp.get(url, params, new AjaxCallBack<Object>() {
-
+	}
+	
+	private void post(String url,AjaxParams params,String contentType,final IRequestCallBack callBack){
+		finalHttp.post(url,  params,  new AjaxCallBack<Object>() {
 			@Override
 			public void onFailure(Throwable t, int errorNo, String strMsg) {
 				callBack.onFailed(strMsg);
@@ -75,13 +103,13 @@ public class BaseService {
 					Log.d("tag","onsuccess--parse---end>"+t);
 				} catch (JSONException e) {
 					e.printStackTrace();
-					callBack.onFailed("Êı¾İ´íÎó11");
+					callBack.onFailed("æ•°æ®é”™è¯¯");
 				}
 				
 			}
 			
+			
 		});
-		
 	}
 	
 	public Object parse(String result) throws JSONException{
@@ -118,7 +146,7 @@ public class BaseService {
 ProgressBar dialog = null;
 	
 	/**
-	 * ¿ªÊ¼¼ÓÔØ
+	 * ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
 	 */
 	public void showStartLoading(Context context){
 //		dialog = new ProgressBar(context);
@@ -142,7 +170,7 @@ ProgressBar dialog = null;
 			JSONObject result = object.getJSONObject("result");
 			callBack.onSuccess(parseDetail(result));
 		}else{
-			callBack.onFailed(code+"");
+			callBack.onFailed(object.getString("msg"));
 		}
 		
 	}
