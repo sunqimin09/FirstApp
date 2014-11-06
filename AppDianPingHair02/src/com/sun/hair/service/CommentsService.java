@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import com.sun.hair.entity.CommentEntity;
 
 /**
- * ÆÀÂÛ½âÎö
+ * ï¿½ï¿½ï¿½Û½ï¿½ï¿½ï¿½
  * @author sunqm
  *
  */
@@ -28,7 +28,7 @@ public class CommentsService extends BaseService{
 			entity.id = item.getString("id");
 			entity.nickName = item.getString("nickname");
 //			entity.imgUrl = item.getString("imgurl");
-			entity.time = item.getString("time");
+//			entity.time = item.getString("time");
 			entity.content = item.getString("content");
 			comments.add(entity);
 		}

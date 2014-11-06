@@ -18,7 +18,7 @@ import com.sun.hair.entity.CommentEntity;
 import com.sun.hair.utils.AfinalBitmapTools;
 
 /**
- * ͼƬ��ϸ
+ * ͼƬ��ϸ
  * @author sunqm
  */
 
@@ -77,11 +77,11 @@ public class CommentsAdapter extends BaseAdapter{
 		} else {
 			holder = (ViewHolder) v.getTag();
 		}
-		holder.tv_name.setText(comments.get(position).nickName);
-		holder.tv_lou.setText(position+"¥");
+//		holder.tv_name.setText(comments.get(position).nickName);
+		holder.tv_lou.setText(position+"楼");
 		fb.display(holder.img_icon, comments.get(position).imgUrl);
 //		holder.img_icon.setText(list.get(position).name+"name=====");
-		holder.tv_time.setText(comments.get(position).time);
+//		holder.tv_time.setText(comments.get(position).time);
 		holder.tv_content.setText(comments.get(position).content);
 		return v;
 	}

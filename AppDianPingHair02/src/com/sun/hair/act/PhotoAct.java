@@ -22,6 +22,7 @@ import com.sun.hair.entity.CommentEntity;
 import com.sun.hair.entity.FamousEntity;
 import com.sun.hair.service.CommentsService;
 import com.sun.hair.service.IRequestCallBack;
+import com.sun.hair.service.RequestCheckService;
 import com.sun.hair.utils.MConstant;
 
 public class PhotoAct extends BaseAct implements IRequestCallBack{
@@ -114,7 +115,7 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 			break;
 		case R.id.act_photo_no_comment_tv://
 		case R.id.act_photo_add://��������
-			startActivity(new Intent(PhotoAct.this,AddCommentAct.class));
+			startActivity(new Intent(PhotoAct.this,AddCommentAct.class).putExtra("id", entity.id));
 			break;
 		case R.id.act_photo_share://����
 			break;
@@ -133,7 +134,7 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 	private void requestZan(){
 		AjaxParams params = new AjaxParams();
 		params.put("id",String.valueOf(entity.id));
-		new CommentsService().request(this, MConstant.URL_COMMENTS, params, this);
+		new RequestCheckService().request(this, MConstant.URL_COMMENTS, params, this);
 	}
 	
 	private void showZan(){
@@ -152,6 +153,7 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 		
 		if(o instanceof List<?>){
 			comments = (List<CommentEntity>) o;
+			Toast("onsuccess"+comments.size());
 			adapter.setData(comments);
 			if(comments.size()==0){
 				tvNoComment.setText("快来抢沙发吧!");

@@ -9,8 +9,8 @@ import android.widget.EditText;
 
 import com.sun.hair.BaseAct;
 import com.sun.hair.R;
-import com.sun.hair.service.CommentsService;
 import com.sun.hair.service.IRequestCallBack;
+import com.sun.hair.service.LoginService;
 import com.sun.hair.utils.MConstant;
 
 /**
@@ -65,13 +65,15 @@ public class LoginAct extends BaseAct implements IRequestCallBack{
 		
 		params.put("name",etName.getText().toString());
 		params.put("pwd",etPwd.getText().toString());
-		new CommentsService().request(this, MConstant.URL_LOGIN, params, this);
+		new LoginService().request(this, MConstant.URL_LOGIN, params, this);
 	}
 
 
 	@Override
 	public void onSuccess(Object o) {
-		
+		if(o instanceof Integer){
+			Toast("登录成功"+o);
+		}
 	}
 
 
