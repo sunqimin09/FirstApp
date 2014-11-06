@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:text="技术支持：\n1210337999"
+        android:text="如有商务合作，运营团队合作，请联系:\n1210337999\n技术支持来自：\n1210337999\n"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </LinearLayout>

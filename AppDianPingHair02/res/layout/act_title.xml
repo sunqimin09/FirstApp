@@ -34,5 +34,15 @@
         
         android:layout_alignParentRight="true"
         android:text="" />
+      <ImageView
+        android:id="@+id/act_title_right_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:clickable="true"
+        android:textColor="@drawable/order_bg"
+        android:onClick="onClick"
+        android:layout_alignParentRight="true"
+        />
 
 </RelativeLayout>

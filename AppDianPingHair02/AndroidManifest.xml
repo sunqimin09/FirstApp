@@ -75,6 +75,9 @@
         <activity android:name=".act.LoginAct"></activity>
          <!-- 注册 -->
         <activity android:name=".act.RegistAct"></activity>
+        <!-- 个人信息编辑 -->
+        <activity android:name=".act.MyInforEditAct"></activity>
+        
         <activity android:name=".TestAct"></activity>
         
         <meta-data

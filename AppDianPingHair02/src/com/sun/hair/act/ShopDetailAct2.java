@@ -84,19 +84,19 @@ public class ShopDetailAct2 extends Activity implements InterfaceCallback, OnCli
 		Utils.showPrice(tvPrice, entity.avg_price);
 		tvAddress.setText("" + entity.address);
 		tvPhone.setText(entity.telephone);
-		tvPrice.setText("ÈË¾ù:" + entity.avg_price + "Ôª");
+		tvPrice.setText("ä»·æ ¼:" + entity.avg_price + "Ôª");
 		request();
 		initAd();
 	}
 
 	private void initAd() {
-		// ÊµÀı»¯¹ã¸æÌõ
+		// Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		AdView adView = new AdView(this, AdSize.FIT_SCREEN);
 
-		// »ñÈ¡ÒªÇ¶Èë¹ã¸æÌõµÄ²¼¾Ö
+		// ï¿½ï¿½È¡ÒªÇ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½
 		LinearLayout adLayout = (LinearLayout) findViewById(R.id.adLayout);
 
-		// ½«¹ã¸æÌõ¼ÓÈëµ½²¼¾ÖÖĞ
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ëµ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		adLayout.addView(adView);
 		SpotManager.getInstance(this).loadSpotAds();
 		if (SpotManager.getInstance(this).checkLoadComplete()) {
@@ -115,28 +115,28 @@ public class ShopDetailAct2 extends Activity implements InterfaceCallback, OnCli
 		Log.d("tag","onclick"+ entity.deals);
 //		Toast.makeText(this, "skip--onclick", Toast.LENGTH_SHORT).show();
 		switch(view.getId()){
-		case R.id.act_detail_ll_map://´ò¿ªµØÍ¼Ó¦ÓÃ
+		case R.id.act_detail_ll_map://ï¿½ò¿ªµï¿½Í¼Ó¦ï¿½ï¿½
 			Uri uri = Uri.parse("geo:38.899533,-77.036476");
 			 
 			Intent it = new Intent(Intent.ACTION_VIEW,uri);
 			 
 			startActivity(it);
 			break;
-		case R.id.act_detail_buy_btn://Ö§¸¶Ò³Ãæ
+		case R.id.act_detail_buy_btn://Ö§ï¿½ï¿½Ò³ï¿½ï¿½
 			Intent i = new Intent(ShopDetailAct2.this,WebAct.class);
 //			
 			i.putExtra("url", entity.deals.get(0).url);
 			startActivity(i);
 			break;
-		case R.id.act_detail_rl_phone://²¦´òµç»°
+		case R.id.act_detail_rl_phone://ï¿½ï¿½ï¿½ï¿½ç»°
 			Intent intent = new Intent(Intent.ACTION_DIAL,Uri.parse("tel:"+entity.telephone));
 			startActivity(intent);
 			break;
-		case R.id.act_detail_tuangou://ÍÅ¹º
+		case R.id.act_detail_tuangou://ï¿½Å¹ï¿½
 			startActivity(new Intent(ShopDetailAct2.this,WebAct.class).putExtra("url", entity.coupon_url));
 			
 			break;
-		case R.id.act_detail_dianping://µãÆÀ
+		case R.id.act_detail_dianping://ï¿½ï¿½ï¿½ï¿½
 			startActivity(new Intent(ShopDetailAct2.this,ReViewAct.class).putExtra("businessId", entity.id));
 			break;
 		}
@@ -153,7 +153,7 @@ public class ShopDetailAct2 extends Activity implements InterfaceCallback, OnCli
 	}
 
 	/**
-	 * ÇëÇóÏêÇé
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	private void request(){
 		Log.d("tag","buinessid-->"+entity.id);
@@ -165,9 +165,9 @@ public class ShopDetailAct2 extends Activity implements InterfaceCallback, OnCli
 
 	@Override
 	public void onSuccess(Object o) {
-//		Toast.makeText(this, getClass()+"ÇëÇó³É¹¦"+o, Toast.LENGTH_SHORT).show();
+//		Toast.makeText(this, getClass()+"ï¿½ï¿½ï¿½ï¿½É¹ï¿½"+o, Toast.LENGTH_SHORT).show();
 		if(o instanceof BusinessEntity){
-//			Toast.makeText(this, "ÇëÇó³É¹¦", Toast.LENGTH_SHORT).show();
+//			Toast.makeText(this, "ï¿½ï¿½ï¿½ï¿½É¹ï¿½", Toast.LENGTH_SHORT).show();
 			entity = (BusinessEntity) o;
 			fb.display(imgRating, entity.rating_img_url);
 			if(entity.has_coupon!=0){
@@ -176,9 +176,9 @@ public class ShopDetailAct2 extends Activity implements InterfaceCallback, OnCli
 				rlTuanGou.setVisibility(View.GONE);
 			}
 				
-			if(entity.has_deal==0){//²»ÄÜ¹ºÂò
+			if(entity.has_deal==0){//ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½
 				btnBuy.setEnabled(false);
-				btnBuy.setText("ÉĞÎ´¿ªÍ¨ÔÚÏß¹ºÂò·şÎñ");
+				btnBuy.setText("ç«‹å³è´­ä¹°");
 			}else{
 				btnBuy.setEnabled(true);
 			}

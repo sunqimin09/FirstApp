@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources >
     <drawable name="title_back">#ffffffff</drawable>
+    <drawable name="white">#ffffff</drawable>
     <!-- 象牙白 -->
     <drawable name="order_bg">#FAFFF0</drawable>
     <drawable name="order_bg_selected">#C0C0C0</drawable>

@@ -41,10 +41,10 @@ public class HomeAct extends FragmentActivity {
 
 		// configure the SlidingMenu
 		menu = new SlidingMenu(this);
-//		menu.setMode(SlidingMenu.RIGHT);// ÍùÓÒ»¬
-		// menu.setMode(SlidingMenu.LEFT);//Íù×ó»¬
+//		menu.setMode(SlidingMenu.RIGHT);// ï¿½ï¿½ï¿½Ò»ï¿½
+		// menu.setMode(SlidingMenu.LEFT);//ï¿½ï¿½ï¿½ï¿½
 
-		 menu.setMode(SlidingMenu.LEFT_RIGHT);// Íù×óÓÒ»¬
+		 menu.setMode(SlidingMenu.LEFT_RIGHT);// ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½
 
 		menu.setOnOpenedListener(new OnOpenedListener() {
 
@@ -88,7 +88,7 @@ public class HomeAct extends FragmentActivity {
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.menu_frame, new LeftListFragment()).commit();
 
-		// ×óÓÒ¶¼¿ÉÒÔ»¬¶¯Ê±Òª´Ë¶Î
+		// ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½Ô»ï¿½ï¿½ï¿½Ê±Òªï¿½Ë¶ï¿½
 		menu.setSecondaryMenu(R.layout.menu_frame_two);
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.menu_frame_two, new SampleListFragment())
@@ -139,7 +139,7 @@ public class HomeAct extends FragmentActivity {
 	private void showExitDialog(){
 		final Dialog d = new Dialog(this);
 		View layout = View.inflate(this, R.layout.dialog_exit, null);
-		// »ñÈ¡ÒªÇ¶Èë¹ã¸æÌõµÄ²¼¾Ö
+		// ï¿½ï¿½È¡ÒªÇ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½
 		LinearLayout adLayout = (LinearLayout) layout.findViewById(R.id.adLayout);
 		AdView adView = new AdView(this, AdSize.FIT_SCREEN);
 		layout.findViewById(R.id.ok).setOnClickListener(new OnClickListener() {
@@ -157,10 +157,10 @@ public class HomeAct extends FragmentActivity {
 			}
 		});
 		
-		// ½«¹ã¸æÌõ¼ÓÈëµ½²¼¾ÖÖĞ
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ëµ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		adLayout.addView(adView);
 		d.setContentView(layout);
-		d.setTitle("È·¶¨ÍË³öÂğ?");
+		d.setTitle("ç¡®å®šè¦é€€å‡ºå—?");
 		
 		d.show();
 	}
@@ -188,5 +188,5 @@ public class HomeAct extends FragmentActivity {
 	}
 
 	private Fragment[] fragments = { new ContentFragment(),
-			new AboutUsFragment() ,new FamousFragment()};
+			new AboutUsFragment() ,new FamousFragment(),new FragmentMyInfor()};
 }

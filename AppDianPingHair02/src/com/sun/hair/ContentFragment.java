@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -67,7 +68,7 @@ public class ContentFragment extends Fragment implements OnClickListener, Interf
 	
 	private MArrayAdapter cityAdapter;
 	
-	private String currentCity = "±±¾©";
+	private String currentCity = "åŒ—äº¬";
 	private String region = null,neighbur = null;
 	
 	private LocationClient mLocationClient;
@@ -105,7 +106,7 @@ public class ContentFragment extends Fragment implements OnClickListener, Interf
 		if(region!=null)
 			paramMap.put("region", region);
 		
-		paramMap.put("category", "ÃÀ·¢");
+		paramMap.put("category", "ç¾å‘");
 		paramMap.put("format", "json");
 		paramMap.put("platform", "2");
 		paramMap.put("sort", String.valueOf(sort));
@@ -142,7 +143,7 @@ public class ContentFragment extends Fragment implements OnClickListener, Interf
 	}
 	
 	/**
-	 * ÇëÇóµØÇøÃû×Ö
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	private void requestRegion(String cityName){
 		Map<String, String> paramMap = new HashMap<String, String>();
@@ -179,10 +180,11 @@ public class ContentFragment extends Fragment implements OnClickListener, Interf
 	@SuppressWarnings("unchecked")
 	@Override
 	public void onSuccess(Object o) {
-		// TODO Auto-generated method stub
+		Log.d("tag","onsuccess====-->"+o);
 		if(o instanceof JsonBusinessEntity){
 			entity =(JsonBusinessEntity) o;
 			adapter.setData(entity.list);
+			Log.d("tag","onsuccess====-111->"+o);
 		}else if(o instanceof List<?>){
 			districts = (List<DistrictsEntity>) o;
 			regionAdapter.setData(districts);
@@ -206,7 +208,7 @@ public class ContentFragment extends Fragment implements OnClickListener, Interf
 	}
 	
 	/**
-	 * ÅÅĞòÑ¡Ôñ
+	 * ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½
 	 * @param view
 	 * @param strs
 	 */
@@ -287,16 +289,16 @@ public class ContentFragment extends Fragment implements OnClickListener, Interf
 	 */
 	private void InitLocation(){
 		LocationClientOption option = new LocationClientOption();
-		option.setLocationMode(tempMode);//ÉèÖÃ¶¨Î»Ä£Ê½
-		option.setCoorType(tempcoor);//·µ»ØµÄ¶¨Î»½á¹ûÊÇ°Ù¶È¾­Î³¶È£¬Ä¬ÈÏÖµgcj02
+		option.setLocationMode(tempMode);//ï¿½ï¿½ï¿½Ã¶ï¿½Î»Ä£Ê½
+		option.setCoorType(tempcoor);//ï¿½ï¿½ï¿½ØµÄ¶ï¿½Î»ï¿½ï¿½ï¿½ï¿½Ç°Ù¶È¾ï¿½Î³ï¿½È£ï¿½Ä¬ï¿½ï¿½Öµgcj02
 		int span=5000;
-		option.setScanSpan(span);//ÉèÖÃ·¢Æğ¶¨Î»ÇëÇóµÄ¼ä¸ôÊ±¼äÎª5000ms
+		option.setScanSpan(span);//ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ê±ï¿½ï¿½Îª5000ms
 		option.setIsNeedAddress(true);
 		mLocationClient.setLocOption(option);
 	}
 	
 	/**
-	 * ÊµÏÖÊµÎ»»Øµ÷¼àÌı
+	 * Êµï¿½ï¿½ÊµÎ»ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	public class MyLocationListener implements BDLocationListener {
 
@@ -321,10 +323,10 @@ public class ContentFragment extends Fragment implements OnClickListener, Interf
 	
 	private DistrictsEntity  currentEntity = null;
 	
-	private String[] orders = {"¾àÀë½üµ½Ô¶","ÆÀ¼Û"};
+	private String[] orders = {"è·ç¦»è¿‘åˆ°è¿œ","è¯„ä»·"};
 	
 	private int[] sorts = {7,2};
 	
-	private String[] address = {"ÉÏº£","±±¾©"};
+	private String[] address = {"ä¸Šæµ·","åŒ—äº¬"};
 
 }

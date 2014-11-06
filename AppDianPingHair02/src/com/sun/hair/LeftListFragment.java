@@ -9,13 +9,17 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class LeftListFragment extends ListFragment implements
 		OnItemClickListener {
 
 	
-	private String[] contents = {"¾«Æ·ÉÌ¼Ò","¹ØÓÚÎÒÃÇ","Ã÷ĞÇ"};
+	private String[] contents = {"åº—é“º","å…³äº","ç§€åœº","ä¸ªäººä¿¡æ¯"};
+	
+	private int[] leftIcon = {R.drawable.icon_shop1,R.drawable.icon_about,
+			R.drawable.icon_pic3,R.drawable.icon_person};
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -25,9 +29,9 @@ public class LeftListFragment extends ListFragment implements
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		SampleAdapter adapter = new SampleAdapter(getActivity());
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < contents.length; i++) {
 			adapter.add(new SampleItem(contents[i],
-					android.R.drawable.ic_menu_search));
+					leftIcon[i]));
 		}
 		setListAdapter(adapter);
 		getListView().setOnItemClickListener(this);
@@ -54,9 +58,9 @@ public class LeftListFragment extends ListFragment implements
 				convertView = LayoutInflater.from(getContext()).inflate(
 						R.layout.row, null);
 			}
-//			ImageView icon = (ImageView) convertView
-//					.findViewById(R.id.row_icon);
-//			icon.setImageResource(getItem(position).iconRes);
+			ImageView icon = (ImageView) convertView
+					.findViewById(R.id.row_icon);
+			icon.setImageResource(getItem(position).iconRes);
 			TextView title = (TextView) convertView
 					.findViewById(R.id.row_title);
 			title.setText(getItem(position).tag);
@@ -65,18 +69,21 @@ public class LeftListFragment extends ListFragment implements
 	}
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		
+		((HomeAct) getActivity()).switchFragment(arg2);
 //		getActivity().startActivity(new Intent(getActivity(),AboutAct.class));
-		switch(arg2){
-		case 0://ÔÚÏßÔ¤¶©
-			 ((HomeAct) getActivity()).switchFragment(0);
-			break;
-		case 1://¹ØÓÚÎÒÃÇ
-			 ((HomeAct) getActivity()).switchFragment(1);
-			break;
-		case 2://ÓÅ»İÈ¯
-			 ((HomeAct) getActivity()).switchFragment(2);
-			break;
-		}
+//		switch(arg2){
+//		case 0://ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½
+//			 ((HomeAct) getActivity()).switchFragment(0);
+//			break;
+//		case 1://ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//			 ((HomeAct) getActivity()).switchFragment(1);
+//			break;
+//		case 2://ï¿½Å»ï¿½È¯
+//			 ((HomeAct) getActivity()).switchFragment(2);
+//			break;
+//		case 3:
+//			
+//			break;
+//		}
 	}
 }

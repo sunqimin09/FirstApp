@@ -3,8 +3,8 @@ package com.sun.hair.adapter;
 import java.util.List;
 
 import net.tsz.afinal.FinalBitmap;
-
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,23 +71,23 @@ public class BusinessAdapter extends BaseAdapter{
 					.findViewById(R.id.business_item_icon);
 			holder.tv_distance = (TextView) v
 					.findViewById(R.id.business_item_sale_count_distance);
-//			holder.image.setLayoutParams(params);
-//			holder.image.setBackgroundResource(R.drawable.default_img_small);
 			v.setTag(holder);
 		} else {
 			holder = (ViewHolder) v.getTag();
 		}
+		try{
+			
+		
 		holder.tv_title.setText(list.get(position).name+"|"+list.get(position).branch_name);
 		holder.tv_description.setText(showRegions(list.get(position).region));
 		
 		holder.tv_distance.setText(Utils.distanceFormat(list.get(position).distance));
 		Utils.showPrice(holder.tv_price, list.get(position).avg_price);
 		fb.display(holder.image, list.get(position).s_photo_url);
-//		if (!busy){
-//			mImageLoader.DisplayImage(list.get(position).thumbnail,
-//					holder.image, false);
-//		}
-			
+		}catch(Exception e){
+			Log.e("tag","error-->"+e);
+			e.printStackTrace();
+		}
 		return v;
 	}
 

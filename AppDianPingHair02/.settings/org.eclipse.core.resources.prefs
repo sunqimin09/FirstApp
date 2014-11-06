@@ -1,8 +1,12 @@
 eclipse.preferences.version=1
+encoding//src/com/sun/hair/FamousFragment.java=UTF-8
+encoding//src/com/sun/hair/act/LoginAct.java=UTF-8
+encoding//src/com/sun/hair/act/RegistAct.java=UTF-8
 encoding//src/com/sun/hair/act/WebAct.java=UTF-8
 encoding//src/com/sun/hair/adapter/FamousAdapter.java=UTF-8
 encoding//src/com/sun/hair/entity/BusinessEntity.java=UTF-8
 encoding//src/com/sun/hair/service/ShopService.java=UTF-8
 encoding//src/com/sun/hair/utils/DemoApiTool.java=UTF-8
+encoding//src/com/sun/hair/utils/MConstant.java=UTF-8
 encoding//src/com/sun/hair/utils/Utils.java=UTF-8
-encoding/<project>=gbk
+encoding/<project>=UTF-8

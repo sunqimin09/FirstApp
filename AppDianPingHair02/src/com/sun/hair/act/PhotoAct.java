@@ -25,7 +25,7 @@ import com.sun.hair.service.IRequestCallBack;
 import com.sun.hair.utils.MConstant;
 
 public class PhotoAct extends BaseAct implements IRequestCallBack{
-	/**Â¥Ö÷Í·Ïñ*/
+	/**Â¥ï¿½ï¿½Í·ï¿½ï¿½*/
 	private ImageView imgIcon;
 	
 	private TextView tvNickName;
@@ -55,7 +55,7 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 		setContentView(R.layout.act_photo);
 		View view = findViewById(R.id.act_title);
 		TextView tv = (TextView) findViewById(R.id.act_title_center);
-		tv.setText("»°Ìâ");
+		tv.setText("å¹¿åœº");
 		view.setBackgroundResource(R.drawable.bg_top);
 	}
 
@@ -74,7 +74,7 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 		img4 = (ImageView) findViewById(R.id.act_photo_img4);
 		tvNumber = (TextView) findViewById(R.id.act_photo_ok_number);
 		listView = (ListView) findViewById(R.id.act_photo_listview);
-		tvNoComment.setText("¿ìÀ´ÇÀÉ³·¢°É!");
+		tvNoComment.setText("å¿«æ¥æŠ¢æ²™å‘å§!");
 		initData();
 	}
 	
@@ -88,14 +88,14 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 		adapter  = new CommentsAdapter(this);
 		listView.setAdapter(adapter);
 		if(entity==null){
-			Toast.makeText(this, "Êı¾İ´íÎó", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "æš‚æ— æ•°æ®", Toast.LENGTH_SHORT).show();
 			request();
 			return;
 		}
 		tvNickName.setText(entity.name);
 		tvTime.setText(entity.time);
 		tvConent.setText(entity.introduce);
-		tvNumber.setText("µÈ"+entity.ok_num+"ÈËÔŞ¹ı");
+		tvNumber.setText("ç­‰"+entity.ok_num+"äººèµäº†");
 		
 		if(entity!=null){
 			request();
@@ -104,7 +104,7 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 	
 	public void onClick(View view){
 		switch(view.getId()){
-		case R.id.act_photo_ok://ÔŞ
+		case R.id.act_photo_ok://ï¿½ï¿½
 			try{
 				showZan();
 			}catch(Exception e){
@@ -113,10 +113,10 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 			
 			break;
 		case R.id.act_photo_no_comment_tv://
-		case R.id.act_photo_add://ĞÂÔöÆÀÂÛ
+		case R.id.act_photo_add://ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			startActivity(new Intent(PhotoAct.this,AddCommentAct.class));
 			break;
-		case R.id.act_photo_share://·ÖÏí
+		case R.id.act_photo_share://ï¿½ï¿½ï¿½ï¿½
 			break;
 		}
 	}
@@ -149,11 +149,12 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 	@SuppressWarnings("unchecked")
 	@Override
 	public void onSuccess(Object o) {
+		
 		if(o instanceof List<?>){
 			comments = (List<CommentEntity>) o;
 			adapter.setData(comments);
 			if(comments.size()==0){
-				tvNoComment.setText("¿ìÀ´ÇÀÉ³·¢°É!");
+				tvNoComment.setText("å¿«æ¥æŠ¢æ²™å‘å§!");
 			}else{
 				tvNoComment.setText("");
 			}
@@ -164,7 +165,7 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 	@Override
 	public void onFailed(String msg) {
 		// TODO Auto-generated method stub
-		tvNoComment.setText("¿ìÀ´ÇÀÉ³·¢°É!");
+		tvNoComment.setText("å¿«æ¥æŠ¢æ²™å‘å§!");
 	}
 
 	

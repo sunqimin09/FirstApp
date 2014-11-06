@@ -134,6 +134,7 @@ public class BaseService {
 			HashMap<String, Object> maps = ((HashMap<String,Object>)msg.obj);
 			switch(msg.what){
 			case 0:
+				Log.d("tag","handler-->"+maps.get("result"));
 				((InterfaceCallback)maps.get("interface")).onSuccess(maps.get("result"));
 				break;
 			case 1:

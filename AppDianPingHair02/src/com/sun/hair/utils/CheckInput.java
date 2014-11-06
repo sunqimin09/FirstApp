@@ -5,15 +5,15 @@ import android.widget.EditText;
 public class CheckInput {
 	
 	/**
-	 * ÊäÈë¿òÊÇ·ñÎª¿Õ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Îªï¿½ï¿½
 	 * @param et
 	 * @return
 	 */
-	private boolean isNull(EditText et){
+	public static boolean isNull(EditText et){
 		if(et!=null&&et.getText()!=null&&et.getText().toString().trim().equals("")){
-			return false;
+			return true;
 		}
-		return true;
+		return false;
 	}
 	
 	

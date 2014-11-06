@@ -13,7 +13,7 @@ import com.sun.hair.service.RequestCheckService;
 import com.sun.hair.utils.MConstant;
 
 /**
- * ע��
+ * 注锟斤拷
  * @author sunqm
  *
  */
@@ -26,7 +26,7 @@ public class RegistAct extends BaseAct implements IRequestCallBack{
 		setContentView(R.layout.act_regist);
 		setTitle_("注册");
 //		TextView tv = (TextView) findViewById(R.id.act_title_left_tv);
-//		tv.setText("ȡ��");
+//		tv.setText("取锟斤拷");
 		findViewById(R.id.act_title).setBackgroundResource(R.drawable.bg_top);
 	}
 
@@ -40,7 +40,7 @@ public class RegistAct extends BaseAct implements IRequestCallBack{
 	
 	public void onClick(View view){
 		switch(view.getId()){
-		case R.id.act_regist_btn://��¼
+		case R.id.act_regist_btn://锟斤拷录
 			if(checkInput()){
 				request();
 			}

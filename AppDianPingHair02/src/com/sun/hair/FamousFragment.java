@@ -28,7 +28,7 @@ import com.sun.hair.service.IRequestCallBack;
 import com.sun.hair.utils.MConstant;
 
 /**
- * �����б�
+ * 锟斤拷锟斤拷锟叫憋拷
  * @author sunqm
  *
  */
@@ -39,6 +39,13 @@ public class FamousFragment extends Fragment implements IRequestCallBack, OnItem
 	private FamousAdapter adapter;
 	
 	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		entity = new FamousListEntity();
+		request();
+	}
+
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.frag_famouse, null);
@@ -48,9 +55,9 @@ public class FamousFragment extends Fragment implements IRequestCallBack, OnItem
 	}
 
 	private void initTitle(View view) {
-		TextView tvTitle = (TextView) view.findViewById(R.id.act_title);
-		view.setBackgroundResource(R.drawable.bg_top);
-		tvTitle.setText("");
+		TextView tvTitle = (TextView) view.findViewById(R.id.act_title_center);
+		view.findViewById(R.id.act_title).setBackgroundResource(R.drawable.bg_top);
+		tvTitle.setText("秀场");
 		
 	}
 
@@ -73,22 +80,21 @@ public class FamousFragment extends Fragment implements IRequestCallBack, OnItem
 			}
 		});
 		grid.setOnItemClickListener(this);
-		entity = new FamousListEntity();
-		request();
+		
+		
 	}
 	String currentPageIndex2="-2";
 	
 	FamousListEntity entity = null;
 	
 	private void request(){
-		
-		if((Integer.parseInt(currentPageIndex2)+1)*20<Integer.parseInt(entity.total)){//С�� �����������
-			AjaxParams params = new AjaxParams();
+		AjaxParams params = new AjaxParams();
+		if((Integer.parseInt(currentPageIndex2)+1)*20<Integer.parseInt(entity.total)){//小锟斤拷 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�			AjaxParams params = new AjaxParams();
 			params.put("pageIndex",( Integer.parseInt(currentPageIndex2)+1)+"");
 			new FoodService().request(getActivity(), MConstant.URL_FAMOUSES, params, this);
 			getActivity().setProgressBarIndeterminateVisibility(true);
 		}else{
-			Toast.makeText(getActivity(), "没有更多数据了", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -98,7 +104,6 @@ public class FamousFragment extends Fragment implements IRequestCallBack, OnItem
 		Log.d("tag","onsuccess--show"+o);
 		if(o instanceof FamousListEntity){
 			entity = (FamousListEntity) o;
-			
 			adapter.setData(entity.list);
 //			Toast.makeText(getActivity(), "onsuccess"+entity.list.size(), Toast.LENGTH_SHORT).show();
 		}
@@ -107,7 +112,8 @@ public class FamousFragment extends Fragment implements IRequestCallBack, OnItem
 
 	@Override
 	public void onFailed(String msg) {
-		
+		Log.d("tag","onFailed--show"+msg);
+		Toast.makeText(getActivity(), "onFailed"+msg, Toast.LENGTH_SHORT).show();
 		
 	}
 

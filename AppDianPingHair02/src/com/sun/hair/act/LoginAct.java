@@ -14,7 +14,7 @@ import com.sun.hair.service.IRequestCallBack;
 import com.sun.hair.utils.MConstant;
 
 /**
- * ��¼ҳ��
+ * 锟斤拷录页锟斤拷
  * @author sunqm
  *
  */
@@ -38,12 +38,12 @@ public class LoginAct extends BaseAct implements IRequestCallBack{
 	
 	public void onClick(View view) throws UnsupportedEncodingException{
 		switch(view.getId()){
-		case R.id.act_login_login_btn://��¼
+		case R.id.act_login_login_btn://锟斤拷录
 			if(checkInput()){
 				request();
 			}
 			break;
-		case R.id.act_login_regist_btn://��תע��ҳ��
+		case R.id.act_login_regist_btn://锟斤拷转注锟斤拷页锟斤拷
 			startActivity(new Intent(LoginAct.this,RegistAct.class));
 			break;
 		}

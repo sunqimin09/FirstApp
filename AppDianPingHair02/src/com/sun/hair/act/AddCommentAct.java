@@ -16,7 +16,7 @@ import com.sun.hair.service.IRequestCallBack;
 import com.sun.hair.utils.MConstant;
 import com.sun.hair.utils.SpUtils;
 /**
- * ĞÂÔöÆÀÂÛ
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  * @author sunqm
  *
  */
@@ -33,9 +33,9 @@ public class AddCommentAct extends BaseAct implements IRequestCallBack{
 		TextView tvCenter = (TextView) findViewById(R.id.act_title_center);
 		tvSubmit = (TextView) findViewById(R.id.act_title_right_tv);
 		View ll = (View) findViewById(R.id.act_title);
-		tvLeft.setText("È¡Ïû");
-		tvSubmit.setText("Ìá½»");
-		tvCenter.setText("ÆÀÂÛ");
+		tvLeft.setText("è¿”å›");
+		tvSubmit.setText("æäº¤");
+		tvCenter.setText("æ·»åŠ è¯„è®º");
 		ll.setBackgroundResource(R.drawable.bg_top);
 		
 	}
@@ -68,27 +68,27 @@ public class AddCommentAct extends BaseAct implements IRequestCallBack{
 
 	public void onClick(View view){
 		switch(view.getId()){
-		case R.id.act_title_right_tv://Ìá½»
+		case R.id.act_title_right_tv://ï¿½á½»
 			if(checkInput()){
 				request();
 			}
 			break;
-		case R.id.act_title_left_tv://È¡Ïû
+		case R.id.act_title_left_tv://È¡ï¿½ï¿½
 			finish();
 			break;
 		}
 	}
 	
 	private boolean checkInput(){
-		if(etInput.getText()==null||etInput.getText().toString().equals("")){//Îª¿ÕµÄ
-			Toast.makeText(this, "¶àĞ´µãßÂ£¬Ç×", Toast.LENGTH_SHORT).show();
+		if(etInput.getText()==null||etInput.getText().toString().equals("")){//Îªï¿½Õµï¿½
+			Toast.makeText(this, "äº²ï¼Œå†™ç‚¹å‘—", Toast.LENGTH_SHORT).show();
 			return false;
 		}
 		return true;
 	}
 	
 	/**
-	 * Ìá½»ÆÀÂÛ
+	 * ï¿½á½»ï¿½ï¿½ï¿½ï¿½
 	 */
 	public void request(){
 		AjaxParams params = new AjaxParams();
