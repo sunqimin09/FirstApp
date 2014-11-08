@@ -1,5 +1,7 @@
 package com.sun.hair.utils;
 
+import java.io.File;
+
 import net.tsz.afinal.FinalBitmap;
 import android.content.Context;
 import android.os.Environment;
@@ -13,7 +15,7 @@ public class AfinalBitmapTools {
 		if(fb!=null)
 			return fb;
 		fb=FinalBitmap.create(context);
-  	  // 获取应用程序最大可用内存  
+  	  // 锟斤拷取应锟矫筹拷锟斤拷锟斤拷锟斤拷锟斤拷锟节达拷  
       int maxMemory = (int) Runtime.getRuntime().maxMemory();  
       int cacheSize = (int) (maxMemory *0.75);
 //      fb.clearCache();
@@ -24,6 +26,19 @@ public class AfinalBitmapTools {
       Log.d("tag","path=====><"+imagePath);
       fb.configDiskCachePath(imagePath);
       return fb;
+	}
+	
+	/**
+	 * 鑾峰彇鍥剧墖瀛樻暟璺緞
+	 * @return
+	 */
+	public static String getImgPath(){
+		String path = Environment.getExternalStorageDirectory() + "/" + "appdianping";
+		File file = new File(path);
+		if(!file.exists())
+			file.mkdir();
+		return path;  
+	     
 	}
 	
 	

@@ -37,7 +37,7 @@ public class HomeAct extends FragmentActivity {
 		// set the Above View
 		setContentView(R.layout.content_frame);
 		getSupportFragmentManager().beginTransaction()
-				.replace(R.id.content_frame, new ContentFragment()).commit();
+				.replace(R.id.content_frame, new FamousFragment()).commit();
 
 		// configure the SlidingMenu
 		menu = new SlidingMenu(this);
@@ -187,6 +187,6 @@ public class HomeAct extends FragmentActivity {
 		onBackPressed();
 	}
 
-	private Fragment[] fragments = { new ContentFragment(),
-			new AboutUsFragment() ,new FamousFragment(),new FragmentMyInfor()};
+	private Fragment[] fragments = { new FamousFragment(),
+			new ContentFragment(),new FragmentMyInfor(),new AboutUsFragment() ,};//FamousFragment
 }

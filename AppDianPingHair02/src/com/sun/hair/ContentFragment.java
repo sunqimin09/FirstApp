@@ -42,6 +42,7 @@ import com.sun.hair.service.RegionsService;
 import com.sun.hair.service.ShopService;
 import com.sun.hair.utils.InterfaceCallback;
 import com.sun.hair.utils.MConstant;
+import com.sun.hair.utils.SpUtils;
 
 public class ContentFragment extends Fragment implements OnClickListener, InterfaceCallback, OnItemClickListener {
 
@@ -75,6 +76,8 @@ public class ContentFragment extends Fragment implements OnClickListener, Interf
 	private LocationMode tempMode = LocationMode.Hight_Accuracy;
 	private String tempcoor="gcj02";
 	
+	private boolean needLocation = true;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -93,14 +96,18 @@ public class ContentFragment extends Fragment implements OnClickListener, Interf
 		adapter = new BusinessAdapter(getActivity(), list);
 		listview.setAdapter(adapter);
 		listview.setOnItemClickListener(this);
-		request();
+		request(true);
 		mLocationClient = ((LocationApplication)getActivity().getApplication()).mLocationClient;
 		InitLocation();
 		mLocationClient.start();
 		mLocationClient.registerLocationListener(new MyLocationListener());
 	}
 	
-	private void request(){
+	/**
+	 * 
+	 * @param isLocation  是否需要地址
+	 */
+	private void request(boolean isLocation){
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("city", currentCity);
 		if(region!=null)
@@ -111,10 +118,10 @@ public class ContentFragment extends Fragment implements OnClickListener, Interf
 		paramMap.put("platform", "2");
 		paramMap.put("sort", String.valueOf(sort));
 		paramMap.put("limit", "40");
-		Log.d("tag","latitude;>"+MConstant.la+"Longitude:>"+MConstant.longi);
-		if(MConstant.la!=0){
-			paramMap.put("latitude", String.valueOf((float)MConstant.la));
-			paramMap.put("longitude", String.valueOf((float)MConstant.longi));
+//		Log.d("tag","latitude;>"+MConstant.la+"Longitude:>"+MConstant.longi);
+		if(isLocation){
+			paramMap.put("latitude",new SpUtils(getActivity()).get("la"));
+			paramMap.put("longitude", new SpUtils(getActivity()).get("lo"));
 //			Toast.makeText(getActivity(), "request->"+MConstant.la, Toast.LENGTH_SHORT).show();
 			
 			
@@ -231,7 +238,7 @@ public class ContentFragment extends Fragment implements OnClickListener, Interf
 				sort = sorts[arg2];
 				pop.dismiss();
 				
-				request();
+				request(true);
 			}
 		});
 	}
@@ -272,8 +279,8 @@ public class ContentFragment extends Fragment implements OnClickListener, Interf
 				pop.dismiss();
 				region= districts.get(arg2).name;
 				tvAddress.setText(currentCity+"-"+region);
-				MConstant.la=0.0;
-				request();
+				needLocation = false;
+				request(needLocation);
 			}
 		});
 	}
@@ -305,14 +312,18 @@ public class ContentFragment extends Fragment implements OnClickListener, Interf
 		@Override
 		public void onReceiveLocation(BDLocation location) {
 //			Toast.makeText(getActivity(), "location"+location.getLatitude(), Toast.LENGTH_SHORT).show();
-			Log.i("tag", "onReceiveLocation"+MConstant.la+(MConstant.la==0));
+//			Log.i("tag", "onReceiveLocation"+MConstant.la+(MConstant.la==0));
 //			if(MConstant.la==0){
-				MConstant.la = location.getLatitude();
-				MConstant.longi =location.getLongitude();
-				request();
+			SpUtils sp = new SpUtils(getActivity());
+				if(sp.get("la").equals(""+location.getLatitude())){//与之前的一样
+					
+				}else{
+					new SpUtils(getActivity()).put("la", location.getLatitude()+"");
+					new SpUtils(getActivity()).put("lo", location.getLongitude()+"");
+					request(needLocation);
+				}
+				
 //			}
-			
-			
 			Log.i("BaiduLocationApiDem", "BaiduLocationApiDem");
 			mLocationClient.stop();
 		}

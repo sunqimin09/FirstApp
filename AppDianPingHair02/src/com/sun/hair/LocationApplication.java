@@ -14,7 +14,7 @@ import com.sun.hair.utils.MConstant;
 import com.sun.jumi.JMPManager;
 
 /**
- * Ö÷Application
+ * ï¿½ï¿½Application
  */
 public class LocationApplication extends Application {
 	public LocationClient mLocationClient;
@@ -39,7 +39,7 @@ public class LocationApplication extends Application {
 		  jmInstance = JMPManager.getInstance(getApplicationContext(), "821305a1-824c-4b26-abf3-daac29f6f41f", 1);
 	        jmInstance.c(1, 4, false);
 	        jmInstance.o(true, false, 6, false, true, true);
-	        jmInstance.debug(2); // 2 ´òÓ¡ log£¬²¿·Ö¹¦ÄÜToastÌáÊ¾£¬ ·¢²¼²úÆ·Ê±ÇëÉèÖÃÎª0£¬Ä¬ÈÏÎª1
+	        jmInstance.debug(2); // 2 ï¿½ï¿½Ó¡ logï¿½ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½Toastï¿½ï¿½Ê¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½Ä¬ï¿½ï¿½Îª1
 	    }
 
 	    public static JMPManager getJmInstance() {
@@ -49,7 +49,7 @@ public class LocationApplication extends Application {
 
 	
 	/**
-	 * ÊµÏÖÊµÎ»»Øµ÷¼àÌý
+	 * Êµï¿½ï¿½ÊµÎ»ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	public class MyLocationListener implements BDLocationListener {
 
@@ -57,8 +57,8 @@ public class LocationApplication extends Application {
 		public void onReceiveLocation(BDLocation location) {
 //			Toast.makeText(getApplicationContext(), "location"+location.getLatitude(), Toast.LENGTH_SHORT).show();
 			Log.i("tag", "onReceiveLocation"+location.getLatitude());
-			MConstant.la = location.getLatitude();
-			MConstant.longi =location.getLongitude();
+//			MConstant.la = location.getLatitude();
+//			MConstant.longi =location.getLongitude();
 			//Receive Location 
 			StringBuffer sb = new StringBuffer(256);
 			sb.append("time : ");
@@ -83,7 +83,7 @@ public class LocationApplication extends Application {
 			} else if (location.getLocType() == BDLocation.TypeNetWorkLocation){
 				sb.append("\naddr : ");
 				sb.append(location.getAddrStr());
-				//ÔËÓªÉÌÐÅÏ¢
+				//ï¿½ï¿½Óªï¿½ï¿½ï¿½ï¿½Ï¢
 				sb.append("\noperationers : ");
 				sb.append(location.getOperators());
 			}
@@ -96,7 +96,7 @@ public class LocationApplication extends Application {
 	
 	
 	/**
-	 * ÏÔÊ¾ÇëÇó×Ö·û´®
+	 * ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½
 	 * @param str
 	 */
 	public void logMsg(String str) {

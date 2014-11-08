@@ -3,10 +3,10 @@ package com.sun.hair.utils;
 public class MConstant {
 	
 	
-	public static double longi = 0;
-	
-
-	public static double la= 0;
+//	public static double longi = 0;
+//	
+//
+//	public static double la= 0;
 	
 	/**锟缴癸拷*/
 	public final static int CODE_SUCCESS = 0;

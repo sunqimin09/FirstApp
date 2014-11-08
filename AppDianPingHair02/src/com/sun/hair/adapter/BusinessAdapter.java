@@ -79,13 +79,14 @@ public class BusinessAdapter extends BaseAdapter{
 			
 		
 		holder.tv_title.setText(list.get(position).name+"|"+list.get(position).branch_name);
-		holder.tv_description.setText(showRegions(list.get(position).region));
 		
 		holder.tv_distance.setText(Utils.distanceFormat(list.get(position).distance));
 		Utils.showPrice(holder.tv_price, list.get(position).avg_price);
 		fb.display(holder.image, list.get(position).s_photo_url);
+		holder.tv_description.setText((list.get(position).region).toString());
+		
 		}catch(Exception e){
-			Log.e("tag","error-->"+e);
+			Log.e("tag",list.get(position).region+"error-->"+e);
 			e.printStackTrace();
 		}
 		return v;
@@ -100,6 +101,9 @@ public class BusinessAdapter extends BaseAdapter{
 	}
 	
 	private String showRegions(List<String> list){
+		if(list==null){
+			return "暂无地区";
+		}
 		StringBuilder sb = new StringBuilder();
 		for(int i=1;i<list.size();i++){
 			sb.append(list.get(i)).append("|");

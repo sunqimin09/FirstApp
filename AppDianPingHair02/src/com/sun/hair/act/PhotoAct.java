@@ -5,6 +5,10 @@ import java.util.List;
 
 import net.tsz.afinal.http.AjaxParams;
 import android.R.color;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
@@ -24,6 +28,8 @@ import com.sun.hair.service.CommentsService;
 import com.sun.hair.service.IRequestCallBack;
 import com.sun.hair.service.RequestCheckService;
 import com.sun.hair.utils.MConstant;
+import com.sun.hair.utils.SpUtils;
+import com.sun.hair.utils.Utils;
 
 public class PhotoAct extends BaseAct implements IRequestCallBack{
 	/**¥��ͷ��*/
@@ -54,10 +60,9 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 	@Override
 	public void initTitle() {
 		setContentView(R.layout.act_photo);
-		View view = findViewById(R.id.act_title);
-		TextView tv = (TextView) findViewById(R.id.act_title_center);
-		tv.setText("广场");
-		view.setBackgroundResource(R.drawable.bg_top);
+		setLeftImg();
+		setTitle_("广场");
+		setTitleBack();
 	}
 
 	
@@ -105,19 +110,41 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 	
 	public void onClick(View view){
 		switch(view.getId()){
+		case R.id.act_title_left_img:
+			finish();
+			break;
 		case R.id.act_photo_ok://��
-			try{
-				showZan();
-			}catch(Exception e){
-				e.printStackTrace();
-			}
+			if(entity!=null){
+				if(new SpUtils(this).getId().equals("0")){//尚未登录
+					showLoginDialog();
+				}else{
+					showZan();
+					requestZan();
+				}
+			}else
+				Toast("数据丢失，请重新进入程序");
+			
 			
 			break;
 		case R.id.act_photo_no_comment_tv://
-		case R.id.act_photo_add://��������
-			startActivity(new Intent(PhotoAct.this,AddCommentAct.class).putExtra("id", entity.id));
+		case R.id.act_photo_add://
+			if(entity!=null)
+				startActivity(new Intent(PhotoAct.this,AddCommentAct.class).putExtra("id", entity.id));
+			else
+				Toast("数据丢失，请重新进入程序");
 			break;
 		case R.id.act_photo_share://����
+			Intent intent = new Intent(Intent.ACTION_SEND); // 启动分享发送的属性
+
+			intent.setType("text/plain"); // 分享发送的数据类型
+
+//			intent.setPackage(packAgeName);
+
+			intent.putExtra(Intent.EXTRA_SUBJECT, "分享"); // 分享的主题
+
+			intent.putExtra(Intent.EXTRA_TEXT, "我在秀发型中看到了一个好看的发型,你也来一起玩吧"); // 分享的内容
+
+			startActivity(Intent.createChooser(intent, "选择分享"));// 目标应用选择对话框的标题
 			break;
 		}
 	}
@@ -134,6 +161,8 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 	private void requestZan(){
 		AjaxParams params = new AjaxParams();
 		params.put("id",String.valueOf(entity.id));
+		params.put("userid", new SpUtils(this).getId());
+		params.put("imei", Utils.getImei(this));
 		new RequestCheckService().request(this, MConstant.URL_COMMENTS, params, this);
 	}
 	
@@ -145,6 +174,34 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 		t.setView(tv);
 		t.setGravity(Gravity.BOTTOM|Gravity.LEFT, 90, 100);
 		t.show();
+	}
+	
+	private void showLoginDialog(){
+		   final Dialog alertDialog = new AlertDialog.Builder(this). 
+	                setTitle("是否登录?"). 
+	                setPositiveButton("是", new OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface arg0, int arg1) {
+							startActivity(new Intent(PhotoAct.this,LoginAct.class));
+						}
+					}).
+					setNegativeButton("滚", new OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface arg0, int arg1) {
+							try{
+								arg0.dismiss();
+							}catch(Exception e){
+								e.printStackTrace();
+							}
+							showZan();
+							requestZan();
+						}
+					}).
+	                create(); 
+	        alertDialog.show(); 
+		
 	}
 
 	@SuppressWarnings("unchecked")

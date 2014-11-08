@@ -18,7 +18,7 @@
             layout="@layout/act_title" >
         </include>
 
-        <com.handmark.pulltorefresh.library.PullToRefreshGridView
+ <com.handmark.pulltorefresh.library.PullToRefreshGridView
             xmlns:ptr="http://schemas.android.com/apk/res-auto"
             android:id="@+id/frag_famous_grid"
             android:layout_width="match_parent"
@@ -28,6 +28,8 @@
             android:stretchMode="columnWidth"
             android:verticalSpacing="2dp" >
         </com.handmark.pulltorefresh.library.PullToRefreshGridView>
+
+       
     </LinearLayout>
 
     <include

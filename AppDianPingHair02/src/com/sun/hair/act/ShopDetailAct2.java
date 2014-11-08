@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -52,8 +53,11 @@ public class ShopDetailAct2 extends Activity implements InterfaceCallback, OnCli
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+//		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_detail);
+//		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.act_title);
+		
 		initView();
 		initData();
 	}

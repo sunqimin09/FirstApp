@@ -77,6 +77,8 @@
         <activity android:name=".act.RegistAct"></activity>
         <!-- 个人信息编辑 -->
         <activity android:name=".act.MyInforEditAct"></activity>
+        <!-- 发表图片话题 -->
+        <activity android:name=".act.AddPicAct"></activity>
         
         <activity android:name=".TestAct"></activity>
         

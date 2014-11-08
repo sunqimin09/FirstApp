@@ -20,6 +20,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnPullEventListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.State;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
+import com.sun.hair.act.AddPicAct;
 import com.sun.hair.act.PhotoAct;
 import com.sun.hair.adapter.FamousAdapter;
 import com.sun.hair.entity.FamousListEntity;
@@ -34,7 +35,7 @@ import com.sun.hair.utils.MConstant;
  */
 public class FamousFragment extends Fragment implements IRequestCallBack, OnItemClickListener, OnClickListener{
 
-	private PullToRefreshGridView grid;
+	private com.handmark.pulltorefresh.library.PullToRefreshGridView grid;
 	
 	private FamousAdapter adapter;
 	
@@ -48,7 +49,7 @@ public class FamousFragment extends Fragment implements IRequestCallBack, OnItem
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.frag_famouse, null);
+		View view = inflater.inflate(R.layout.frag_famouse, null);//
 		initTitle(view);
 		initView(view);
 		return view;
@@ -78,6 +79,8 @@ public class FamousFragment extends Fragment implements IRequestCallBack, OnItem
 					
 				}
 			}
+
+			
 		});
 		grid.setOnItemClickListener(this);
 		
@@ -127,6 +130,7 @@ public class FamousFragment extends Fragment implements IRequestCallBack, OnItem
 	public void onClick(View arg0) {
 		switch(arg0.getId()){
 		case R.id.frag_famous_add:
+			startActivity(new Intent(getActivity(),AddPicAct.class));
 			break;
 		case R.id.frag_famous_share:
 			break;

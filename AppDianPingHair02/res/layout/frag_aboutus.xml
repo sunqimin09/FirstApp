@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+<include layout="@layout/act_title" android:id="@+id/act_title"></include>
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"

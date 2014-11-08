@@ -16,10 +16,10 @@ public class LeftListFragment extends ListFragment implements
 		OnItemClickListener {
 
 	
-	private String[] contents = {"店铺","关于","秀场","个人信息"};
+	private String[] contents = {"秀场","店铺","个人信息","关于"};
 	
-	private int[] leftIcon = {R.drawable.icon_shop1,R.drawable.icon_about,
-			R.drawable.icon_pic3,R.drawable.icon_person};
+	private int[] leftIcon = {R.drawable.icon_shop1,
+			R.drawable.icon_pic3,R.drawable.icon_person,R.drawable.icon_about,};
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -70,20 +70,5 @@ public class LeftListFragment extends ListFragment implements
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		((HomeAct) getActivity()).switchFragment(arg2);
-//		getActivity().startActivity(new Intent(getActivity(),AboutAct.class));
-//		switch(arg2){
-//		case 0://����Ԥ��
-//			 ((HomeAct) getActivity()).switchFragment(0);
-//			break;
-//		case 1://��������
-//			 ((HomeAct) getActivity()).switchFragment(1);
-//			break;
-//		case 2://�Ż�ȯ
-//			 ((HomeAct) getActivity()).switchFragment(2);
-//			break;
-//		case 3:
-//			
-//			break;
-//		}
 	}
 }

@@ -6,11 +6,14 @@
     <include android:id="@+id/act_title" layout="@layout/act_title"/>
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/act_add_pic_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:lines="4"
+        android:lines="6"
+        android:padding="10dp"
+        android:gravity="top"
+        android:hint="看我的发型美不美"
         android:background="@null"
         android:inputType="textMultiLine" >
 
@@ -18,17 +21,19 @@
     </EditText>
 
     <LinearLayout
-        android:id="@+id/act_pic_ll"
+        android:id="@+id/act_add_pic_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@drawable/shape_top_bottom"
          >
 
         <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/act_add_pic_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/btn_submit_d" />
+            android:onClick="onClick"
+            android:src="@drawable/ic_add_pic" />
         
     </LinearLayout>
     

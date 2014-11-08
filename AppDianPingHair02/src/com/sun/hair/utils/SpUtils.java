@@ -24,7 +24,6 @@ public class SpUtils {
 	
 	public void put(String key,String value){
 		Editor edit = sp.edit();
-		
 		edit.putString(key, value);
 		edit.commit();
 	}
