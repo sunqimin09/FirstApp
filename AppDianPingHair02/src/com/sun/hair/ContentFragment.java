@@ -314,12 +314,14 @@ public class ContentFragment extends Fragment implements OnClickListener, Interf
 //			Toast.makeText(getActivity(), "location"+location.getLatitude(), Toast.LENGTH_SHORT).show();
 //			Log.i("tag", "onReceiveLocation"+MConstant.la+(MConstant.la==0));
 //			if(MConstant.la==0){
+			
 			SpUtils sp = new SpUtils(getActivity());
+			Log.d("tag","equal-->"+sp.get("la").equals(""+location.getLatitude()));
 				if(sp.get("la").equals(""+location.getLatitude())){//与之前的一样
 					
 				}else{
-					new SpUtils(getActivity()).put("la", location.getLatitude()+"");
-					new SpUtils(getActivity()).put("lo", location.getLongitude()+"");
+					sp.put("la", location.getLatitude()+"");
+					sp.put("lo", location.getLongitude()+"");
 					request(needLocation);
 				}
 				

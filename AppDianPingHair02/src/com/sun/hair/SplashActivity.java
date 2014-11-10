@@ -5,12 +5,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Window;
 
 import com.sun.hair.utils.MConstant;
 import com.sun.jumi.JMPManager;
 
 /**
- * 本程序仅限用作示�? */
+ * 本程序仅限用作示�? */
 public class SplashActivity extends Activity {
 
 	 
@@ -18,6 +19,7 @@ public class SplashActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
+    	requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         final Runnable runnable = new Runnable() {
 
@@ -58,7 +60,7 @@ public class SplashActivity extends Activity {
             private void jump() {
                 handler.removeCallbacks(runnable);
 
-                Intent intent = new Intent(getApplicationContext(), TestAct.class);//HomeAct
+                Intent intent = new Intent(getApplicationContext(), HomeAct.class);//TestAct
                 SplashActivity.this.startActivity(intent);
                 SplashActivity.this.finish();
             }

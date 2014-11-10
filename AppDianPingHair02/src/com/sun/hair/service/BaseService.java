@@ -112,6 +112,33 @@ public class BaseService {
 		});
 	}
 	
+	public void postImg(String url,AjaxParams params,String contentType,final IRequestCallBack callBack){
+		finalHttp.post(url,null , params,contentType,  new AjaxCallBack<Object>() {
+			@Override
+			public void onFailure(Throwable t, int errorNo, String strMsg) {
+				callBack.onFailed(strMsg);
+				hideLoading();
+			}
+
+			@Override
+			public void onSuccess(Object t) {
+				Log.d("tag","onsuccess-->"+t);
+				try {
+					hideLoading();
+					parseBase(t,callBack);
+					
+					Log.d("tag","onsuccess--parse---end>"+t);
+				} catch (JSONException e) {
+					e.printStackTrace();
+					callBack.onFailed("数据错误");
+				}
+				
+			}
+			
+			
+		});
+	}
+	
 	public Object parse(String result) throws JSONException{
 		
 		return result;

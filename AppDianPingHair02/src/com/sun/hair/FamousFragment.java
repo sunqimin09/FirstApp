@@ -43,7 +43,8 @@ public class FamousFragment extends Fragment implements IRequestCallBack, OnItem
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		entity = new FamousListEntity();
-		request();
+		adapter = new FamousAdapter(getActivity());
+		
 	}
 
 	@Override
@@ -59,15 +60,15 @@ public class FamousFragment extends Fragment implements IRequestCallBack, OnItem
 		TextView tvTitle = (TextView) view.findViewById(R.id.act_title_center);
 		view.findViewById(R.id.act_title).setBackgroundResource(R.drawable.bg_top);
 		tvTitle.setText("秀场");
-		
+		if(entity.list.size()==0){
+			request();
+		}
 	}
 
 	private void initView(View view) {
 		grid = (PullToRefreshGridView) view.findViewById(R.id.frag_famous_grid);
 		view.findViewById(R.id.frag_famous_add).setOnClickListener(this);
 		view.findViewById(R.id.frag_famous_share).setOnClickListener(this);
-		
-		adapter = new FamousAdapter(getActivity());
 		grid.setAdapter(adapter);
 		grid.setMode(Mode.PULL_UP_TO_REFRESH);
 		grid.setOnPullEventListener(new OnPullEventListener<GridView>() {
@@ -133,6 +134,17 @@ public class FamousFragment extends Fragment implements IRequestCallBack, OnItem
 			startActivity(new Intent(getActivity(),AddPicAct.class));
 			break;
 		case R.id.frag_famous_share:
+			Intent intent = new Intent(Intent.ACTION_SEND); // 启动分享发送的属性
+
+			intent.setType("text/plain"); // 分享发送的数据类型
+
+//			intent.setPackage(packAgeName);
+
+			intent.putExtra(Intent.EXTRA_SUBJECT, "分享"); // 分享的主题
+
+			intent.putExtra(Intent.EXTRA_TEXT, "我在秀发型中看到了一个好看的发型,你也来一起玩吧"); // 分享的内容
+
+			startActivity(Intent.createChooser(intent, "选择分享"));// 目标应用选择对话框的标题
 			break;
 		}
 		

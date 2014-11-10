@@ -1,6 +1,7 @@
 package com.sun.hair.act;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import net.tsz.afinal.http.AjaxParams;
@@ -31,7 +32,7 @@ import com.sun.hair.utils.PhotoUtils;
 import com.sun.hair.utils.SpUtils;
 import com.sun.hair.utils.Utils;
 /**
- * ���ͼƬ
+ * 发表话题
  * @author sunqm
  *
  */
@@ -64,11 +65,20 @@ public class AddPicAct extends BaseAct implements IRequestCallBack, OnClickListe
 	}
 	
 	public void onClick(View view){
+		
 		switch(view.getId()){
 		case R.id.act_title_left_img:
 			finish();
 			break;
-		case R.id.act_title_right_img://提交
+		case R.id.act_title_right_tv://提交
+			if(checkInput()){
+				try {
+					request();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			
 			break;
 		case R.id.act_add_pic_img://添加图片
@@ -91,6 +101,16 @@ public class AddPicAct extends BaseAct implements IRequestCallBack, OnClickListe
 	
 	
 
+	private boolean checkInput() {
+		if(et.getText().toString().equals("")){
+			Toast("写点呗，亲");
+			return false;
+		}
+		return true;
+	}
+
+
+
 	PopupWindow popIcon;
 	
 	/**
@@ -110,13 +130,17 @@ public class AddPicAct extends BaseAct implements IRequestCallBack, OnClickListe
 
 	/**
 	 * 提交
+	 * @throws FileNotFoundException 
 	 */
-	private void request(){
+	private void request() throws FileNotFoundException{
 		AjaxParams params = new AjaxParams();
-		
-		params.put("content",et.getText().toString());
+		params.put("name",et.getText().toString());
 		params.put("userid",new SpUtils(this).getId());
-		new RequestCheckService().request(this, MConstant.URL_LOGIN, params, this);
+		File f = new File(Environment.getExternalStorageDirectory()+"/camera.jpg");
+		Log.d("tag","file------->"+f.exists());
+		if(f.exists())
+		params.put("uploadFile", f);//
+		new RequestCheckService().postImg( MConstant.URL_ADD_PIC_TEST, params,"multipart/form-data; boundary=HHHH", this);
 	
 	}
 

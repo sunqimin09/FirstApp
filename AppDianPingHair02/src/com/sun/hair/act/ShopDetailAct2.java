@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sun.hair.BaseAct;
 import com.sun.hair.R;
 import com.sun.hair.entity.BusinessEntity;
 import com.sun.hair.service.ShopService2;
@@ -31,7 +32,7 @@ import com.sun.hair.utils.InterfaceCallback;
 import com.sun.hair.utils.MConstant;
 import com.sun.hair.utils.Utils;
 
-public class ShopDetailAct2 extends Activity implements InterfaceCallback, OnClickListener{
+public class ShopDetailAct2 extends BaseAct implements InterfaceCallback, OnClickListener{
 
 	private TextView tvName,tvPrice,tvNumber,tvAddress,tvPhone;
 	
@@ -53,16 +54,18 @@ public class ShopDetailAct2 extends Activity implements InterfaceCallback, OnCli
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-//		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_detail);
 //		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.act_title);
-		
-		initView();
+		setTitle_("店铺详情");
+		setTitleBack();
+		setLeftImg();
+		initView1();
 		initData();
 	}
 
-	private void initView() {
+	private void initView1() {
 		tvName = (TextView) findViewById(R.id.act_detail_name);
 		tvNumber = (TextView) findViewById(R.id.act_detail_number);
 		tvAddress = (TextView) findViewById(R.id.act_detail_location);
@@ -77,7 +80,7 @@ public class ShopDetailAct2 extends Activity implements InterfaceCallback, OnCli
 		rlDianPing = (RelativeLayout) findViewById(R.id.act_detail_dianping);
 		btnBuy.setEnabled(false);
 		btnBuy.setOnClickListener(this);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+//		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 	
 	private void initData() {
@@ -119,6 +122,9 @@ public class ShopDetailAct2 extends Activity implements InterfaceCallback, OnCli
 		Log.d("tag","onclick"+ entity.deals);
 //		Toast.makeText(this, "skip--onclick", Toast.LENGTH_SHORT).show();
 		switch(view.getId()){
+		case R.id.act_title_left_img://
+			finish();
+			break;
 		case R.id.act_detail_ll_map://�򿪵�ͼӦ��
 			Uri uri = Uri.parse("geo:38.899533,-77.036476");
 			 
@@ -193,6 +199,18 @@ public class ShopDetailAct2 extends Activity implements InterfaceCallback, OnCli
 
 	@Override
 	public void onFailed(String strMsg) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void initTitle() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void initView() {
 		// TODO Auto-generated method stub
 		
 	}

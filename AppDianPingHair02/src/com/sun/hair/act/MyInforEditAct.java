@@ -12,6 +12,7 @@ import com.sun.hair.service.IRequestCallBack;
 import com.sun.hair.service.RequestCheckService;
 import com.sun.hair.utils.CheckInput;
 import com.sun.hair.utils.MConstant;
+import com.sun.hair.utils.SpUtils;
 
 /**
  * 修改我的个人信息
@@ -21,6 +22,7 @@ import com.sun.hair.utils.MConstant;
 public class MyInforEditAct extends BaseAct implements IRequestCallBack{
 
 	private EditText etName,etSign;
+	SpUtils sp;
 	
 	@Override
 	public void initTitle() {
@@ -38,8 +40,9 @@ public class MyInforEditAct extends BaseAct implements IRequestCallBack{
 	public void initView() {
 		etSign = (EditText) findViewById(R.id.act_edit_myinfor_sign);
 		etName = (EditText) findViewById(R.id.act_edit_myinfor_name);
-		etName.setText(getIntent().getStringExtra("name"));
-		etSign.setText(getIntent().getStringExtra("sign"));
+		sp = new SpUtils(this);
+		etName.setText(sp.get("name"));
+		etSign.setText(sp.get("sign"));
 	}
 	
 	public void onClick(View view){
@@ -70,20 +73,23 @@ public class MyInforEditAct extends BaseAct implements IRequestCallBack{
 	private void request(){
 		AjaxParams params = new AjaxParams();
 		params.put("name",etName.getText().toString());
-		params.put("pwd",etSign.getText().toString());
+		params.put("sign",etSign.getText().toString());
+		params.put("userid", sp.getId());
 		new RequestCheckService().request(this, MConstant.URL_MYINFOR_EDIT, params, this);
 	}
 
 	@Override
 	public void onSuccess(Object o) {
-		
+		Toast("修改成功");
+		sp.put("name", etName.getText().toString());
+		sp.put("sign", etSign.getText().toString());
+		finish();
 		
 	}
 
 	@Override
 	public void onFailed(String msg) {
-		
-		
+		Toast(msg);
 	}
 	
 	

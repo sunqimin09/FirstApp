@@ -95,7 +95,7 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 		listView.setAdapter(adapter);
 		if(entity==null){
 			Toast.makeText(this, "暂无数据", Toast.LENGTH_SHORT).show();
-			request();
+//			request();
 			return;
 		}
 		tvNickName.setText(entity.name);
@@ -116,7 +116,7 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 		case R.id.act_photo_ok://��
 			if(entity!=null){
 				if(new SpUtils(this).getId().equals("0")){//尚未登录
-					showLoginDialog();
+					showLoginDialog(0);
 				}else{
 					showZan();
 					requestZan();
@@ -128,8 +128,14 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 			break;
 		case R.id.act_photo_no_comment_tv://
 		case R.id.act_photo_add://
-			if(entity!=null)
-				startActivity(new Intent(PhotoAct.this,AddCommentAct.class).putExtra("id", entity.id));
+			if(entity!=null){
+				if(new SpUtils(this).getId().equals("0")){//尚未登录
+					showLoginDialog(1);
+				}else{
+					startActivity(new Intent(PhotoAct.this,AddCommentAct.class).putExtra("id", entity.id));
+				}
+			}
+				
 			else
 				Toast("数据丢失，请重新进入程序");
 			break;
@@ -163,7 +169,7 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 		params.put("id",String.valueOf(entity.id));
 		params.put("userid", new SpUtils(this).getId());
 		params.put("imei", Utils.getImei(this));
-		new RequestCheckService().request(this, MConstant.URL_COMMENTS, params, this);
+		new RequestCheckService().request(this, MConstant.URL_OK, params, this);
 	}
 	
 	private void showZan(){
@@ -176,7 +182,7 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 		t.show();
 	}
 	
-	private void showLoginDialog(){
+	private void showLoginDialog(final int flag){
 		   final Dialog alertDialog = new AlertDialog.Builder(this). 
 	                setTitle("是否登录?"). 
 	                setPositiveButton("是", new OnClickListener() {
@@ -190,13 +196,14 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 						
 						@Override
 						public void onClick(DialogInterface arg0, int arg1) {
-							try{
 								arg0.dismiss();
-							}catch(Exception e){
-								e.printStackTrace();
+							if(flag==0){
+								showZan();
+								requestZan();
+							}else if(flag==1){
+								startActivity(new Intent(PhotoAct.this,AddCommentAct.class).putExtra("id", entity.id));
 							}
-							showZan();
-							requestZan();
+							
 						}
 					}).
 	                create(); 
@@ -207,10 +214,8 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 	@SuppressWarnings("unchecked")
 	@Override
 	public void onSuccess(Object o) {
-		
 		if(o instanceof List<?>){
 			comments = (List<CommentEntity>) o;
-			Toast("onsuccess"+comments.size());
 			adapter.setData(comments);
 			if(comments.size()==0){
 				tvNoComment.setText("快来抢沙发吧!");
@@ -218,17 +223,11 @@ public class PhotoAct extends BaseAct implements IRequestCallBack{
 				tvNoComment.setText("");
 			}
 		}
-		
 	}
 
 	@Override
 	public void onFailed(String msg) {
-		// TODO Auto-generated method stub
 		tvNoComment.setText("快来抢沙发吧!");
 	}
 
-	
-	
-	
-	
 }

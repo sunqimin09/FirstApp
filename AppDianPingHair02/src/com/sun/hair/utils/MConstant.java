@@ -48,11 +48,24 @@ public class MConstant {
 	
 	/**锟斤拷锟斤拷--锟叫憋拷*/
 	public static final String URL_COMMENTS = URL_HOME_MY + "CommentsServlet";
+	/**d点赞*/
+	public static final String URL_OK = URL_HOME_MY + "AddOkServlet";
+	
+	
+	
 	
 	/**锟斤拷锟斤拷--锟斤拷锟*/
 	public static final String URL_COMMENT_ADD = URL_HOME_MY + "AddCommentServlet";
 	
-	public static final String URL_MYINFOR_EDIT = URL_HOME_MY + "AddCommentServlet";
+	public static final String URL_MYINFOR_EDIT = URL_HOME_MY + "MyInforEditServlet";
+	
+	public static final String URL_ADD_PIC = URL_HOME_MY + "AddFoodServlet";
+	
+	public static final String URL_ADD_PIC_TEST = URL_HOME_MY + "UploadFileServlet";
+	
+	
+	
+	
 	
 	/**锟斤拷录*/
 	public static final String URL_LOGIN = URL_HOME_MY + "LoginServlet";

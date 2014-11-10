@@ -9,9 +9,11 @@ import android.widget.EditText;
 
 import com.sun.hair.BaseAct;
 import com.sun.hair.R;
+import com.sun.hair.entity.UserEntity;
 import com.sun.hair.service.IRequestCallBack;
 import com.sun.hair.service.LoginService;
 import com.sun.hair.utils.MConstant;
+import com.sun.hair.utils.SpUtils;
 
 /**
  * 锟斤拷录页锟斤拷
@@ -71,8 +73,15 @@ public class LoginAct extends BaseAct implements IRequestCallBack{
 
 	@Override
 	public void onSuccess(Object o) {
-		if(o instanceof Integer){
-			Toast("登录成功"+o);
+		if(o instanceof UserEntity){
+			SpUtils sp = new SpUtils(this);
+			UserEntity entity = ((UserEntity)o);
+			sp.putId(entity.getId()+"");
+			sp.put("sign", entity.getSign());
+			sp.put("img", entity.getImgIcon());
+			sp.put("name", etName.getText().toString());
+			Toast("登录成功");
+			finish();
 		}
 	}
 
